@@ -10,7 +10,7 @@ export const SCHEMA_NAME = 'vscode-expo-manifest';
 export async function registerGlobalSchema(schemaUri: vscode.Uri) {
   const config = vscode.workspace.getConfiguration();
   const schemas = config.inspect(SCHEMA_PROP);
-  const oldValue = schemas?.globalValue as any[];
+  const oldValue = (schemas?.globalValue || []) as any[];
   const newValue = oldValue.filter(schema => schema.name !== SCHEMA_NAME);
 
   newValue.push({
@@ -32,7 +32,7 @@ export async function registerGlobalSchema(schemaUri: vscode.Uri) {
 export async function unregisterGlobalSchema() {
   const config = vscode.workspace.getConfiguration();
   const schemas = config.inspect(SCHEMA_PROP);
-  const oldValue = schemas?.globalValue as any[];
+  const oldValue = (schemas?.globalValue || []) as any[];
   const newValue = oldValue.filter(schema => schema.name !== SCHEMA_NAME);
 
   await config.update('json.schemas', newValue, vscode.ConfigurationTarget.Global);
