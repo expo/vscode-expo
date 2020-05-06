@@ -1,65 +1,56 @@
-# vscode-expo README
-
-This is the README for your extension "vscode-expo". After writing up a brief description, we recommend including the following sections.
+<div align="center">
+    <h1>vscode-expo</h1>
+    <p>Complementary tools for <a href="https://github.com/expo/expo">Expo</a> in vscode</p>
+    <sup>
+        <a href="https://github.com/bycedric/vscode-expo#contributors">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+            <img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" alt="contributors" />
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+        </a>
+        <a href="https://github.com/bycedric/vscode-expo/actions">
+            <img src="https://img.shields.io/github/workflow/status/byCedric/vscode-expo/Packages/master.svg?style=flat-square" alt="builds" />
+        </a>
+        <a href="https://exp.host/@bycedric/vscode-expo">
+            <img src="https://img.shields.io/badge/vscode-extension-lightgrey.svg?style=flat-square" alt="demo" />
+        </a>
+    </sup>
+    <br />
+    <p align="center">
+        <a href="https://github.com/byCedric/vscode-expo#usage"><b>Usage</b></a>
+        &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+        <a href="https://github.com/byCedric/vscode-expo/blob/master/CHANGELOG.md"><b>Changelog</b></a>
+    </p>
+    <br />
+</div>
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Autocompletion and validation of your `app.json` or `app.config.json` manifest.
 
-For example if there is an image subfolder under your extension project workspace:
+## Usage
 
-\!\[feature X\]\(images/feature-x.png\)
+Download the `vscode-expo` extension from the marketplace.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Contributors
 
-## Requirements
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/byCedric/use-expo/commits?author=byCedric" title="Code">💻</a> <a href="https://github.com/byCedric/use-expo/commits?author=byCedric" title="Documentation">📖</a></td>
+  </tr>
+</table>
 
-## Extension Settings
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+<div align="center">
+    <br />
+    with :heart: <strong>byCedric</strong>
+    <br />
+</div>

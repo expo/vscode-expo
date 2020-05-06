@@ -1,42 +1,60 @@
 {
 	"name": "vscode-expo",
 	"displayName": "vscode-expo",
-	"description": "Expo tools for vscode",
 	"version": "0.0.1",
+	"description": "Expo tools for vscode",
+	"keywords": [
+		"expo",
+		"vscode"
+	],
+	"license": "MIT",
+	"author": {
+		"email": "me@bycedric.com",
+		"name": "Cedric van Putten",
+		"url": "https://bycedric.com"
+	},
+	"publisher": "byCedric",
+	"homepage": "https://github.com/bycedric/vscode-expo",
+	"bugs": {
+		"url": "https://github.com/bycedric/vscode-expo/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bycedric/vscode-expo"
+	},
+	"main": "./out/extension.js",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [
-        "onCommand:vscode-expo.helloWorld"
+	"extensionKind": [
+		"workspace"
 	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "vscode-expo.helloWorld",
-                "title": "Hello World"
-			}
-		]
-	},
+	"activationEvents": [
+		"*"
+	],
 	"scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
+		"vscode:prepublish": "yarn clean && yarn build",
+		"start": "tsc -watch -p ./",
+		"build": "tsc -p ./",
+		"clean": "git clean -xdf out",
 		"lint": "eslint src --ext ts",
-		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile && yarn run lint",
+		"pretest": "yarn build && yarn lint",
 		"test": "node ./out/test/runTest.js"
 	},
+	"dependencies": {
+		"@expo/xdl": "^57.9.2-alpha.0"
+	},
 	"devDependencies": {
-		"@types/vscode": "^1.44.0",
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.30.0",
+		"@types/vscode": "^1.44.0",
 		"@typescript-eslint/eslint-plugin": "^2.30.0",
+		"@typescript-eslint/parser": "^2.30.0",
+		"eslint": "^6.8.0",
 		"glob": "^7.1.6",
 		"mocha": "^7.1.2",
 		"typescript": "^3.8.3",
