@@ -23,7 +23,6 @@ export async function registerGlobalSchema(schemaUri: vscode.Uri) {
   });
 
   await config.update('json.schemas', newValue, vscode.ConfigurationTarget.Global);
-
 }
 
 /**

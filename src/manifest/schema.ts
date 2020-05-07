@@ -1,4 +1,4 @@
-import * as xdl from '@expo/xdl';
+import * as XdlExpSchema from '@expo/xdl/build/project/ExpSchema';
 
 export interface ManifestSchema {
   $schema: string,
@@ -15,7 +15,7 @@ export interface ManifestSchema {
  * Fetch the XDL schema for a specific Expo SDK version.
  */
 export async function getSchema(sdkVersion: string) {
-  const schema = await xdl.ExpSchema.getSchemaAsync(sdkVersion);
+  const schema = await XdlExpSchema.getSchemaAsync(sdkVersion);
   return createFromXdl(sdkVersion, schema);
 }
 

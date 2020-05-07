@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import * as xdl from '@expo/xdl';
+import * as XdlVersions from '@expo/xdl/build/Versions';
 import * as Config from './config';
 import * as Schema from './schema';
 import * as Storage from './storage';
@@ -9,7 +9,7 @@ import * as Storage from './storage';
  * This will not check if the cache has an existing one, because we always want to fetch the latest.
  */
 export async function activateGlobalSchema(context: vscode.ExtensionContext) {
-  const latestSdk = await xdl.Versions.newestReleasedSdkVersionAsync();
+  const latestSdk = await XdlVersions.newestReleasedSdkVersionAsync();
   const schemaFile = await Schema.getSchema(latestSdk.version);
   const schemaPath = await Storage.storeSchema(context, schemaFile);
   await Config.registerGlobalSchema(schemaPath);
