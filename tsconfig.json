@@ -12,6 +12,7 @@
 		"strict": true
 	},
 	"exclude": [
+		"out",
 		"node_modules",
 		".vscode-test"
 	]

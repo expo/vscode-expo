@@ -40,7 +40,7 @@
 		"start": "tsc -watch -p ./",
 		"build": "tsc -p ./",
 		"build:production": "webpack --mode production",
-		"clean": "git clean -xdf out",
+		"clean": "git clean -xdf out *tsbuildinfo",
 		"pretest": "yarn build && yarn lint",
 		"test": "node ./out/test/runTest.js",
 		"lint": "eslint src --ext ts"
