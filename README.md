@@ -8,7 +8,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     </a>
     <a href="https://github.com/expo-community/vscode-expo/actions">
-      <img src="https://img.shields.io/github/workflow/status/byCedric/vscode-expo/Packages/master.svg?style=flat-square" alt="builds" />
+      <img src="https://img.shields.io/github/workflow/status/expo-community/vscode-expo/Build/master.svg?style=flat-square" alt="builds" />
     </a>
     <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo">
       <img src="https://img.shields.io/badge/vscode-marketplace-lightgrey.svg?style=flat-square" alt="marketplace" />
