@@ -1,7 +1,10 @@
 <div align="center">
-  <h1>vscode-expo</h1>
+  <h1>vscode expo</h1>
   <p>Complementary tools for <a href="https://github.com/expo/expo">Expo</a> in vscode</p>
   <sup>
+    <a href="https://github.com/expo-community/vscode-expo/releases">
+      <img src="https://img.shields.io/github/package-json/v/expo-community/vscode-expo?style=flat-square" alt="releases" />
+    </a>
     <a href="https://github.com/expo-community/vscode-expo#contributors">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
       <img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" alt="contributors" />
