@@ -1,0 +1,23 @@
+---
+name: Test
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10, 12, 14]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: yarn
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
