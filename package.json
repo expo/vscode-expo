@@ -1,6 +1,6 @@
 {
 	"name": "vscode-expo",
-	"displayName": "vscode-expo",
+	"displayName": "Expo Tools",
 	"version": "0.0.2",
 	"description": "Expo tools for vscode",
 	"keywords": [
@@ -14,13 +14,13 @@
 		"url": "https://bycedric.com"
 	},
 	"publisher": "byCedric",
-	"homepage": "https://github.com/bycedric/vscode-expo",
+	"homepage": "https://github.com/expo-community/vscode-expo",
 	"bugs": {
-		"url": "https://github.com/bycedric/vscode-expo/issues"
+		"url": "https://github.com/expo-community/vscode-expo/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/bycedric/vscode-expo"
+		"url": "https://github.com/expo-community/vscode-expo"
 	},
 	"main": "./out/extension.js",
 	"engines": {
@@ -36,7 +36,7 @@
 		"*"
 	],
 	"scripts": {
-		"vscode:prepublish": "yarn clean && yarn build:webpack",
+		"vscode:prepublish": "yarn clean && yarn build:production",
 		"start": "tsc -watch -p ./",
 		"build": "tsc -p ./",
 		"build:production": "webpack --mode production",
