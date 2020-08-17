@@ -1,20 +1,19 @@
 ---
-name: Test
-on: [pull_request]
+name: Publish
+on:
+  release:
+    types: [published]
 jobs:
-  test:
-    name: Build and lint
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [10, 12, 14]
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14.x
       - name: Find Yarn cache
         id: yarn-cache-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -28,6 +27,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
       - name: Build project
-        run: yarn build
-      - name: Lint project
-        run: yarn lint
+        run: yarn build:production
+      - name: Publish version
+        run: yarn deploy
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
