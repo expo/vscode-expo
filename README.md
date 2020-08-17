@@ -7,7 +7,7 @@
     </a>
     <a href="https://github.com/expo-community/vscode-expo#contributors">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-      <img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" alt="contributors" />
+      <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square" alt="contributors" />
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     </a>
     <a href="https://github.com/expo-community/vscode-expo/actions">
