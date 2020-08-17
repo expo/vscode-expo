@@ -47,12 +47,10 @@
 		"lint": "eslint src --ext ts",
 		"deploy": "vsce publish --yarn"
 	},
-	"dependencies": {
-		"@expo/xdl": "^57.9.1"
-	},
 	"devDependencies": {
 		"@babel/core": "^7.9.6",
 		"@expo/babel-preset-cli": "^0.2.11",
+		"@expo/xdl": "^57.9.1",
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^13.11.0",

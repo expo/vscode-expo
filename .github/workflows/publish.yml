@@ -26,9 +26,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
-      - name: Build project
-        run: yarn build:production
-      - name: Publish version
+      - name: Publish to marketplace
         run: yarn deploy
         env:
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
