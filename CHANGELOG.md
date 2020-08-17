@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.0.5 (2020-08-17)
+
+#### Bug fixes
+
+* remove extraneous files when packaging ([#12](https://github.com/expo-community/vscode-expo/pull/12))
+
+
 ### 0.0.4 (2020-08-17)
 
 #### Documentation changes
