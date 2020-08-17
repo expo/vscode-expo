@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.0.4 (2020-08-17)
+
+#### Documentation changes
+
+* add link to marketplace in usage ([4440142](https://github.com/expo-community/vscode-expo/commit/44401424ada710f4c8a2fdd56eced62965e16213))
+* add contributors using all-contributors ([f7e3138](https://github.com/expo-community/vscode-expo/commit/f7e3138fdb61d350126c3412a048a178aa492b69), [5a84d63](https://github.com/expo-community/vscode-expo/commit/5a84d637f85d1a77897d1988b12bb4e55ff1ae63))
+
+#### Other chores
+
+* add expo icon ([#4](https://github.com/expo-community/vscode-expo/pull/4))
+* bump websocket-extensions from 0.1.3 to 0.1.4 ([#5](https://github.com/expo-community/vscode-expo/pull/5))
+* bump npm-registry-fetch from 8.0.2 to 8.1.1 ([#6](https://github.com/expo-community/vscode-expo/pull/6))
+* bump elliptic from 6.5.2 to 6.5.3 ([#8](https://github.com/expo-community/vscode-expo/pull/8))
+* deploy from ci and improve performance ([#9](https://github.com/expo-community/vscode-expo/pull/9))
+
+
 ### 0.0.3 (2020-05-13)
 
 #### Code changes
