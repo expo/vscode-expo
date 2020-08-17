@@ -32,7 +32,7 @@
 
 ## Usage
 
-Download the `vscode-expo` extension from the marketplace.
+Download the [`vscode-expo`](https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo) extension from the marketplace.
 
 ## Contributors
 
