@@ -20,6 +20,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ide",
+      "name": "James Ide",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/379606?v=4",
+      "profile": "https://jameside.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
