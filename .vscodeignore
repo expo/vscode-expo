@@ -4,6 +4,8 @@
 out/test/**
 src/**
 
+node_modules/**
+
 .editorconfig
 .gitignore
 .eslintrc.js
