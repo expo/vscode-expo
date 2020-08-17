@@ -7,7 +7,7 @@
     </a>
     <a href="https://github.com/expo-community/vscode-expo#contributors">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-      <img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" alt="contributors" />
+      <img src="https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square" alt="contributors" />
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     </a>
     <a href="https://github.com/expo-community/vscode-expo/actions">
@@ -43,14 +43,13 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo-community/use-expo/commits?author=byCedric" title="Code">💻</a> <a href="https://github.com/expo-community/use-expo/commits?author=byCedric" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=byCedric" title="Code">💻</a> <a href="https://github.com/expo-community/vscode-expo/commits?author=byCedric" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://jb1905.github.io/portfolio/"><img src="https://avatars2.githubusercontent.com/u/28870390?v=4" width="100px;" alt=""/><br /><sub><b>Jakub Biesiada</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=JB1905" title="Code">💻</a></td>
   </tr>
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
 
 <div align="center">
   <br />

@@ -1,0 +1,35 @@
+{
+  "badgeTemplate": "      <img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square\" alt=\"contributors\" />",
+  "commit": false,
+  "contributors": [
+    {
+      "login": "byCedric",
+      "name": "Cedric van Putten",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1203991?v=4",
+      "profile": "https://bycedric.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "JB1905",
+      "name": "Jakub Biesiada",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/28870390?v=4",
+      "profile": "https://jb1905.github.io/portfolio/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "projectName": "vscode-expo",
+  "projectOwner": "expo-community",
+  "repoHost": "https://github.com",
+  "repoType": "github",
+  "skipCi": true
+}
