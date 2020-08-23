@@ -4,8 +4,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "watch for development",
 			"type": "npm",
-			"script": "watch",
+			"script": "start",
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,
 			"presentation": {
@@ -15,6 +16,26 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"label": "build for development",
+			"dependsOn": "clean project",
+			"type": "npm",
+			"script": "build",
+			"problemMatcher": "$tsc",
+			"group": "build"
+		},
+		{
+			"label": "clean project",
+			"type": "npm",
+			"script": "clean",
+			"group": "build"
+		},
+		{
+			"label": "build for production",
+			"type": "npm",
+			"script": "build:production",
+			"group": "build"
 		}
 	]
 }
