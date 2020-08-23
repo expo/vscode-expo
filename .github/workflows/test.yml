@@ -1,8 +1,6 @@
 ---
 name: Test
-on:
-  pull_request:
-    types: [opened, synchronize]
+on: [pull_request]
 jobs:
   test:
     name: Build and lint
@@ -34,6 +32,6 @@ jobs:
       - name: Lint project
         run: yarn lint
       - name: Test project
-        uses: GabrielBB/xvfb-action
+        uses: GabrielBB/xvfb-action@v1.2
         with:
           run: yarn test
