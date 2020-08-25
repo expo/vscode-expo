@@ -1,4 +1,4 @@
-import * as XdlExpSchema from '@expo/xdl/build/project/ExpSchema';
+import * as xdl from '@expo/xdl/build/project/ExpSchema';
 
 export interface ManifestSchema {
   $schema: string,
@@ -15,15 +15,15 @@ export interface ManifestSchema {
  * Fetch the XDL schema for a specific Expo SDK version.
  */
 export async function getSchema(sdkVersion: string) {
-  const schema = await XdlExpSchema.getSchemaAsync(sdkVersion);
-  return createFromXdl(sdkVersion, schema);
+	const xdlSchema = await xdl.getSchemaAsync(sdkVersion);
+  return createFromXdl(sdkVersion, xdlSchema);
 }
 
 /**
  * Create a JSON schema object from XDL schema.
  * This will wrap the properties into `expo` validation.
  */
-function createFromXdl(sdkVersion: string, expSchema: object): ManifestSchema {
+export function createFromXdl(sdkVersion: string, xdlSchema: object): ManifestSchema {
   return {
     $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'object',
@@ -33,7 +33,7 @@ function createFromXdl(sdkVersion: string, expSchema: object): ManifestSchema {
       'expo',
     ],
     properties: {
-      expo: expSchema,
+      expo: xdlSchema,
     },
   };
 }

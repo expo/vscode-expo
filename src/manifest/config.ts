@@ -1,6 +1,13 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
+/**
+ * The configuration property the JSON schemas should be stored at.
+ */
 export const SCHEMA_PROP = 'json.schemas';
+
+/**
+ * The JSON schema name, used to identify schemas added by this plugin.
+ */
 export const SCHEMA_NAME = 'vscode-expo-manifest';
 
 /**

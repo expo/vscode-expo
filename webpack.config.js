@@ -4,7 +4,8 @@ module.exports = {
 	target: 'node',
 	entry: './src/extension.ts',
 	output: {
-		path: path.resolve(__dirname, 'out'),
+		// Dirty workaround to allow us also building the `test` folder
+		path: path.resolve(__dirname, 'out/src'),
 		filename: 'extension.js',
 		libraryTarget: 'commonjs2',
 		devtoolModuleFilenameTemplate: '../[resource-path]'

@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import * as Manifest from './manifest';
+import vscode from 'vscode';
+import * as manifest from './manifest';
 
 export async function activate(context: vscode.ExtensionContext) {
 	try {
-		await Manifest.activateGlobalSchema(context);
+		await manifest.activateGlobalSchema(context);
 	} catch (error) {
 		vscode.window.showErrorMessage(`Oops, looks like we couldn't activate the Expo manifest tools: ${error.message}`);
 	}
@@ -11,7 +11,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 export async function deactivate() {
 	try {
-		await Manifest.deactivateGlobalSchema();
+		await manifest.deactivateGlobalSchema();
 	} catch (error) {
 		vscode.window.showErrorMessage(`Oops, looks like we couldn't deactivate the Expo manifest tools: ${error.message}`);
 	}
