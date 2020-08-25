@@ -3,11 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### 0.0.5 (2020-08-17)
+### 0.1.0 (2020-08-25)
 
-#### Bug fixes
+#### New features
 
-* remove extraneous files when packaging ([#12](https://github.com/expo-community/vscode-expo/pull/12))
+* render schema description as markdown ([#13](https://github.com/expo-community/vscode-expo/pull/13))
+
+#### Other chores
+
+* add integrated vscode tests with jest ([#14](https://github.com/expo-community/vscode-expo/pull/14))
 
 
 ### 0.0.4 (2020-08-17)
@@ -49,7 +53,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### 0.0.1 (2020-05-06)
 
-#### Features
+#### New features
 
 * created first draft of vscode-expo ([420afa1](https://github.com/expo-community/vscode-expo/commit/420afa1b090b3a5fefa2a587f399a7db26473bbd))
 
