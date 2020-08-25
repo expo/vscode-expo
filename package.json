@@ -42,7 +42,7 @@
 		"build": "tsc -p ./",
 		"build:production": "webpack --mode production",
 		"clean": "git clean -xdf out *tsbuildinfo .vscode-test",
-		"test": "node ./out/test/jest-vscode-cli.js",
+		"test": "node ./out/test/jest/cli.js",
 		"lint": "eslint src --ext ts",
 		"deploy": "vsce publish --yarn"
 	},
@@ -58,6 +58,7 @@
 		"babel-loader": "^8.1.0",
 		"eslint": "^6.8.0",
 		"jest": "^26.4.2",
+		"jest-circus": "^26.4.2",
 		"jest-environment-node": "^26.3.0",
 		"shebang-loader": "^0.0.1",
 		"typescript": "^3.8.3",

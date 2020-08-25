@@ -14,7 +14,7 @@
 		"resolveJsonModule": true,
 		"declaration": false,
     "esModuleInterop": true,
-    "inlineSources": true,
+		"inlineSources": true
 	},
 	"exclude": [
 		"out",

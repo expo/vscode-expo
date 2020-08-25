@@ -10,5 +10,5 @@ export default class VsCodeEnvironment extends NodeEnvironment {
   public async teardown() {
     this.global.vscode = {};
     await super.teardown();
-  }
+	}
 }

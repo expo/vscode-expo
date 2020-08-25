@@ -18,18 +18,24 @@
 			}
 		},
 		{
-			"label": "build for development",
+			"label": "build for test",
 			"dependsOn": "clean project",
 			"type": "npm",
 			"script": "build",
 			"problemMatcher": "$tsc",
-			"group": "build"
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": "build",
 		},
 		{
 			"label": "clean project",
 			"type": "npm",
 			"script": "clean",
-			"group": "build"
+			"group": "build",
+			"presentation": {
+				"reveal": "never"
+			},
 		},
 		{
 			"label": "build for production",

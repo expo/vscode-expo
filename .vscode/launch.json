@@ -25,12 +25,13 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/jest-vscode-runner"
+				"--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+				"--disable-extensions",
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],
-			"preLaunchTask": "build for development"
+			"preLaunchTask": "build for test"
 		}
 	]
 }
