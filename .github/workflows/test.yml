@@ -36,6 +36,8 @@ jobs:
       - name: Lint project
         run: yarn lint
       - name: Test project
-        run: yarn test
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: yarn test
         env:
           VSCODE_VERSION: ${{ matrix.vscode }}
