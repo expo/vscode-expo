@@ -3,18 +3,22 @@ name: Test
 on: [pull_request]
 jobs:
   test:
-    name: Build and lint
-    runs-on: ubuntu-latest
+    name: Build, lint and test
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: [10, 12, 14]
+        vscode: ['1.44.0', 'stable', 'insiders']
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14.x
       - name: Find Yarn cache
         id: yarn-cache-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -35,3 +39,5 @@ jobs:
         uses: GabrielBB/xvfb-action@v1.2
         with:
           run: yarn test
+        env:
+          VSCODE_VERSION: ${{ matrix.vscode }}
