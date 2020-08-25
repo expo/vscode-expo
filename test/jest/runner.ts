@@ -7,7 +7,7 @@ export async function run() {
 	const logger = (line: string) => {
 		// note: process.std*.write doesn't add a newline,
 		// console.log does so lets remove it from the output.
-    console.log(line.trimRight());
+    console.log(line.replace(/^[\r\n]+|[\r\n]+$/g, ''));
     return true;
 	};
 

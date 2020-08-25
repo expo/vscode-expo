@@ -35,3 +35,31 @@ export const openFixtureFile = async (target: string) => (
 		),
 	)
 );
+
+/**
+ * Wait until the extension is activated.
+ * This is a hacky workaround for the missing lifecycle events in the VSCode API.
+ * It pings the extension's `isActive` property with a max duration of 5 seconds.
+ */
+export const waitForExtensionActivation = async (maxWait = 5 * 1000, delay = 1000) => (
+	new Promise(resolve => {
+		let maxTimer: NodeJS.Timeout;
+		let checkTimer: NodeJS.Timeout;
+
+		maxTimer = setTimeout(() => {
+			clearTimeout(checkTimer);
+			resolve();
+		}, maxWait);
+
+		function pingExtension() {
+			if (getExtension().isActive) {
+				clearTimeout(maxTimer);
+				resolve();
+			} else {
+				checkTimer = setTimeout(pingExtension, delay);
+			}
+		}
+
+		pingExtension();
+	})
+);

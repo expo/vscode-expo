@@ -2,8 +2,14 @@ import vscode from 'vscode';
 import * as tools from '../../test/tools';
 import { SCHEMA_PROP, SCHEMA_NAME } from '../manifest/config';
 
-// note: when starting these tests, vscode is already up and running
-it(`is activated on startup`, () => {
+// note: the delay for the extension activation might take 5 seconds
+jest.setTimeout(10 * 1000);
+
+beforeAll(async () => {
+	await tools.waitForExtensionActivation();
+});
+
+it(`is activated on startup`, async () => {
 	expect(tools.getExtension().isActive).toBeTruthy();
 });
 
