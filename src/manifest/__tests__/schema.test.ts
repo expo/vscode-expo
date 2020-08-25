@@ -14,11 +14,14 @@ describe('getSchema', () => {
 });
 
 describe('createFromXdl', () => {
-	it('created plugin schema from xdl schema', () => {
-		const xdlSchema = tools.getFixtureFile('schema-xdl-39.0.0.json');
-		const pluginSchema = tools.getFixtureFile('schema-plugin-39.0.0.json');
-		const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
+	const xdlSchema = tools.getFixtureFile('schema-xdl-39.0.0.json');
+	// const simpleSchema = tools.getFixtureFile('schema-plugin-39.0.0.json');
+	const enhancedSchema = tools.getFixtureFile('schema-enhanced-39.0.0.json');
 
-		expect(createdSchema).toMatchObject(pluginSchema);
+	it('creates enhanced plugin schema from xdl', () => {
+		const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
+		expect(createdSchema).toStrictEqual(expect.objectContaining(enhancedSchema));
 	});
+
+	// todo: add test to validate it falls back to original schema
 });
