@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {,
+module.exports = {
 	verbose: true,
 	restoreMocks: true,
   rootDir: path.resolve(__dirname),
