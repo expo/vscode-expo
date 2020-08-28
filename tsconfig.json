@@ -1,24 +1,18 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"target": "es2017",
-		"outDir": "out",
-		"lib": [
-			"es2017"
-		],
-		"sourceMap": true,
-		"rootDir": ".",
-		"strict": true,
-		"skipLibCheck": true,
-		"resolveJsonModule": true,
-		"declaration": false,
+	"exclude": ["out", "node_modules", ".vscode-test"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "outDir": "out",
+    "lib": ["es2017"],
+    "sourceMap": true,
+    "rootDir": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": false,
     "esModuleInterop": true,
-		"inlineSources": true
-	},
-	"exclude": [
-		"out",
-		"node_modules",
-		".vscode-test"
-	]
+    "inlineSources": true
+  }
 }

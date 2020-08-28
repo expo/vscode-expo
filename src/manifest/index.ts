@@ -1,5 +1,6 @@
-import vscode from 'vscode';
 import * as xdlVersions from '@expo/xdl/build/Versions';
+import vscode from 'vscode';
+
 import * as config from './config';
 import * as schema from './schema';
 import * as storage from './storage';

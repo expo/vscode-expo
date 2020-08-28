@@ -7,4 +7,3 @@
  * @see https://github.com/Unibeautify/vscode/blob/61897cd6cd0567db2c8688c3c0b835f9b5c5b446/test/jest-vscode-framework-setup.ts
  */
 jest.mock('vscode', () => (global as any).vscode, { virtual: true });
-

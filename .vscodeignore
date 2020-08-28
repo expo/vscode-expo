@@ -1,17 +1,21 @@
+# config
+.github
+.all-contributorsrc
+.gitignore
+.eslintrc.js
+jest.config.js
+.prettierrc.js
+tsconfig.json
+webpack.config.js
+
+# vscode
 .vscode/**
 .vscode-test/**
 
-out/test/**
-src/**
-
+# project
 node_modules/**
-
-.editorconfig
-.gitignore
-.eslintrc.js
-tsconfig.json
-tsconfig.tsbuildinfo
-webpack.config.js
-
+src/**
+test/**
+*.tsbuildinfo
 **/*.map
 **/*.ts
