@@ -1,5 +1,5 @@
-import vscode from 'vscode';
 import NodeEnvironment from 'jest-environment-node';
+import vscode from 'vscode';
 
 export default class VsCodeEnvironment extends NodeEnvironment {
   public async setup() {
@@ -10,5 +10,5 @@ export default class VsCodeEnvironment extends NodeEnvironment {
   public async teardown() {
     this.global.vscode = {};
     await super.teardown();
-	}
+  }
 }

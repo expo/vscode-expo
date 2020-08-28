@@ -1,14 +1,13 @@
-import vscode from 'vscode';
 import * as path from 'path';
+import vscode from 'vscode';
+
 import { ManifestSchema } from './schema';
 
 /**
  * Get the absolute path to a schema file from the global storage path.
  */
 export function schemaUri(context: vscode.ExtensionContext, version: string) {
-  return vscode.Uri.file(
-    path.join(context.globalStoragePath, `manifest-${version}.json`)
-  );
+  return vscode.Uri.file(path.join(context.globalStoragePath, `manifest-${version}.json`));
 }
 
 /**
