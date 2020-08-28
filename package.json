@@ -14,7 +14,7 @@
     "url": "https://bycedric.com"
   },
   "publisher": "byCedric",
-  "icon": "images/icon.png",
+  "icon": "images/logo-marketplace.png",
   "homepage": "https://github.com/expo-community/vscode-expo",
   "bugs": {
     "url": "https://github.com/expo-community/vscode-expo/issues"

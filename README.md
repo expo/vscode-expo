@@ -1,5 +1,8 @@
 <div align="center">
-  <h1>vscode expo</h1>
+  <br />
+  <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/refactor/branding/images/logo-repository.png" alt="logo" width="200">
+  <br />
+  <h1>Expo for VSCode</h1>
   <p>Complementary tools for <a href="https://github.com/expo/expo">Expo</a> in vscode</p>
   <sup>
     <a href="https://github.com/expo-community/vscode-expo/releases">
@@ -13,13 +16,10 @@
     <a href="https://github.com/expo-community/vscode-expo/actions">
       <img src="https://img.shields.io/github/workflow/status/expo-community/vscode-expo/Build/master.svg?style=flat-square" alt="builds" />
     </a>
-    <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo">
-      <img src="https://img.shields.io/badge/vscode-marketplace-lightgrey.svg?style=flat-square" alt="marketplace" />
-    </a>
   </sup>
   <br />
   <p align="center">
-    <a href="https://github.com/expo-community/vscode-expo#usage"><b>Usage</b></a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo"><b>Install</b></a>
     &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
     <a href="https://github.com/expo-community/vscode-expo/blob/master/CHANGELOG.md"><b>Changelog</b></a>
   </p>
@@ -48,13 +48,12 @@ This project follows the [all-contributors](https://github.com/all-contributors/
     <td align="center"><a href="https://jameside.com"><img src="https://avatars0.githubusercontent.com/u/379606?v=4" width="100px;" alt=""/><br /><sub><b>James Ide</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=ide" title="Code">💻</a></td>
   </tr>
 </table>
-
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <div align="center">
   <br />
-  with :heart: <strong>byCedric</strong>
+  with&nbsp;:heart:&nbsp;&nbsp;<strong>byCedric</strong>
   <br />
 </div>
