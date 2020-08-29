@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-  <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/refactor/branding/images/logo-repository.png" alt="logo" width="200">
+  <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/master/images/logo-repository.png" alt="vscode-expo" width="200">
   <br />
   <h1>Expo for VSCode</h1>
   <p>Complementary tools for <a href="https://github.com/expo/expo">Expo</a> in vscode</p>
