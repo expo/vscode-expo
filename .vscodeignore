@@ -19,3 +19,7 @@ test/**
 *.tsbuildinfo
 **/*.map
 **/*.ts
+
+# docs
+images/**
+!images/logo-marketplace.png
