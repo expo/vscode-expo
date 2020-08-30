@@ -24,15 +24,15 @@
     <a href="https://github.com/expo-community/vscode-expo/blob/master/CHANGELOG.md"><b>Changelog</b></a>
   </p>
   <br />
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/master/images/feature-autocomplete.gif" alt="vscode-expo overview">
+  </div>
+  <br />
 </div>
 
 ## Features
 
-- Autocompletion and validation of your `app.json` or `app.config.json` manifest.
-
-## Usage
-
-Download the [`vscode-expo`](https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo) extension from the marketplace.
+- Autocomplete and validation of your `app.json` or `app.config.json` manifest.
 
 ## Contributors
 
