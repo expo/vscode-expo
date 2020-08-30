@@ -323,6 +323,18 @@
       "description": "Adds a notification to your standalone app with refresh button and debug info.",
       "type": "boolean"
     },
+    "developmentClient": {
+      "description": "Settings that apply specifically to running this app in a development client",
+      "type": "object",
+      "properties": {
+        "silentLaunch": {
+          "description": "If true, the app will launch in a development client with no additional dialogs or progress indicators, just like in a standalone app.",
+          "type": "boolean",
+          "fallback": false
+        }
+      },
+      "additionalProperties": false
+    },
     "scheme": {
       "description": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.",
       "type": "string",
@@ -1506,6 +1518,9 @@
       "additionalProperties": false,
       "properties": {
         "postPublish": {
+          "type": "array"
+        },
+        "postExport": {
           "type": "array"
         }
       }

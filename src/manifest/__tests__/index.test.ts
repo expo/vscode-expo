@@ -14,7 +14,7 @@ describe('activateGlobalSchema', () => {
     const storagePath = vscode.Uri.file('path/to/file');
 
     jest.spyOn(xdlVersions, 'newestReleasedSdkVersionAsync').mockResolvedValue(versionData);
-    const schemaSpy = jest.spyOn(schema, 'getSchema').mockResolvedValue(schemaData);
+    const schemaSpy = jest.spyOn(schema, 'create').mockResolvedValue(schemaData);
     const storageSpy = jest.spyOn(storage, 'storeSchema').mockResolvedValue(storagePath);
     const configSpy = jest.spyOn(config, 'registerGlobalSchema').mockResolvedValue();
 

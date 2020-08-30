@@ -11,7 +11,7 @@ import * as storage from './storage';
  */
 export async function activateGlobalSchema(context: vscode.ExtensionContext) {
   const latestSdk = await xdlVersions.newestReleasedSdkVersionAsync();
-  const schemaFile = await schema.getSchema(latestSdk.version);
+  const schemaFile = await schema.create(latestSdk.version);
   const storagePath = await storage.storeSchema(context, schemaFile);
   await config.registerGlobalSchema(storagePath);
 }

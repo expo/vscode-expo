@@ -11,12 +11,12 @@
       "type": "object",
       "properties": {
         "name": {
-          "description": "The name of your app as it appears both within Expo client and on your home screen as a standalone app.",
+          "description": "The name of your app as it appears both within Expo client and on your home screen as a standalone app.\n\n**Bare workflow** - To change the name of your app, edit the 'Display Name' field in Xcode and the `app_name` string in `android/app/src/main/res/values/strings.xml`",
           "type": "string",
           "meta": {
             "bareWorkflow": "To change the name of your app, edit the 'Display Name' field in Xcode and the `app_name` string in `android/app/src/main/res/values/strings.xml`"
           },
-          "markdownDescription": "The name of your app as it appears both within Expo client and on your home screen as a standalone app."
+          "markdownDescription": "The name of your app as it appears both within Expo client and on your home screen as a standalone app.\n\n**Bare workflow** - To change the name of your app, edit the 'Display Name' field in Xcode and the `app_name` string in `android/app/src/main/res/values/strings.xml`"
         },
         "description": {
           "description": "A short description of what your app is and why it is great.",
@@ -59,12 +59,12 @@
           "markdownDescription": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for bare workflow projects. If provided, this must match the version set in Expo.plist or AndroidManifest.xml."
         },
         "version": {
-          "description": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](../../distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).",
+          "description": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](../../distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`",
           "type": "string",
           "meta": {
             "bareWorkflow": "To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`"
           },
-          "markdownDescription": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](../../distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring)."
+          "markdownDescription": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](../../distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`"
         },
         "platforms": {
           "description": "Platforms that your project explicitly supports. If not specified, it defaults to `[\"ios\", \"android\"]`.",
@@ -141,7 +141,7 @@
           "markdownDescription": "On Android, this will determine the color of your app in the multitasker. Currently this is not used on iOS, but it may be used for other purposes in the future."
         },
         "icon": {
-          "description": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.",
+          "description": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -150,7 +150,7 @@
             "square": true,
             "bareWorkflow": "To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
           },
-          "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app."
+          "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
         },
         "notification": {
           "description": "Configuration for remote (push) notifications.",
@@ -373,8 +373,22 @@
           "type": "boolean",
           "markdownDescription": "Adds a notification to your standalone app with refresh button and debug info."
         },
+        "developmentClient": {
+          "description": "Settings that apply specifically to running this app in a development client",
+          "type": "object",
+          "properties": {
+            "silentLaunch": {
+              "description": "If true, the app will launch in a development client with no additional dialogs or progress indicators, just like in a standalone app.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "If true, the app will launch in a development client with no additional dialogs or progress indicators, just like in a standalone app."
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "Settings that apply specifically to running this app in a development client"
+        },
         "scheme": {
-          "description": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.",
+          "description": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
           "type": "string",
           "pattern": "^[a-z][a-z0-9+.-]*$",
           "meta": {
@@ -382,7 +396,7 @@
             "standaloneOnly": true,
             "bareWorkflow": "To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
           },
-          "markdownDescription": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped."
+          "markdownDescription": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
         },
         "entryPoint": {
           "description": "The relative path to your main JavaScript file.",
@@ -447,14 +461,14 @@
           "markdownDescription": "Configuration for how and when the app should request OTA JavaScript updates"
         },
         "locales": {
-          "description": "Provide overrides by locale for System Dialog prompts like Permissions Boxes",
+          "description": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode.",
           "type": "object",
           "properties": {},
           "additionalProperties": true,
           "meta": {
             "bareWorkflow": "To add or change language and localization information in your iOS app, you need to use Xcode."
           },
-          "markdownDescription": "Provide overrides by locale for System Dialog prompts like Permissions Boxes"
+          "markdownDescription": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode."
         },
         "ios": {
           "description": "Configuration that is specific to the iOS platform.",
@@ -480,23 +494,23 @@
               "markdownDescription": "The bundle for the Android version of your app will be written to this path during publish."
             },
             "bundleIdentifier": {
-              "description": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).",
+              "description": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`",
               "type": "string",
               "pattern": "^[a-zA-Z][a-zA-Z0-9\\-\\.]+$",
               "meta": {
                 "bareWorkflow": "Set this value in `info.plist` under `CFBundleIdentifier`",
                 "regexHuman": "iOS bundle identifier notation unique name for your app. For example, `host.exp.expo`, where `exp.host` is our domain and `expo` is our app name."
               },
-              "markdownDescription": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project)."
+              "markdownDescription": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`"
             },
             "buildNumber": {
-              "description": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)",
+              "description": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`",
               "type": "string",
               "pattern": "^[A-Za-z0-9\\.]+$",
               "meta": {
                 "bareWorkflow": "Set this value in `info.plist` under `CFBundleIdentifier`"
               },
-              "markdownDescription": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)"
+              "markdownDescription": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`"
             },
             "backgroundColor": {
               "description": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.",
@@ -609,28 +623,28 @@
               "markdownDescription": "DEPRECATED: use `updates` key with `fallbackToCacheTimeout: 0` instead."
             },
             "supportsTablet": {
-              "description": "Whether your standalone iOS app supports tablet screen sizes. Defaults to `false`.",
+              "description": "Whether your standalone iOS app supports tablet screen sizes. Defaults to `false`.\n\n**Bare workflow** - Set this value in `info.plist` under `UISupportedInterfaceOrientations~ipad`",
               "type": "boolean",
               "meta": {
                 "bareWorkflow": "Set this value in `info.plist` under `UISupportedInterfaceOrientations~ipad`"
               },
-              "markdownDescription": "Whether your standalone iOS app supports tablet screen sizes. Defaults to `false`."
+              "markdownDescription": "Whether your standalone iOS app supports tablet screen sizes. Defaults to `false`.\n\n**Bare workflow** - Set this value in `info.plist` under `UISupportedInterfaceOrientations~ipad`"
             },
             "isTabletOnly": {
-              "description": "If true, indicates that your standalone iOS app does not support handsets, and only supports tablets.",
+              "description": "If true, indicates that your standalone iOS app does not support handsets, and only supports tablets.\n\n**Bare workflow** - Set this value in `info.plist` under `UISupportedInterfaceOrientations`",
               "type": "boolean",
               "meta": {
                 "bareWorkflow": "Set this value in `info.plist` under `UISupportedInterfaceOrientations`"
               },
-              "markdownDescription": "If true, indicates that your standalone iOS app does not support handsets, and only supports tablets."
+              "markdownDescription": "If true, indicates that your standalone iOS app does not support handsets, and only supports tablets.\n\n**Bare workflow** - Set this value in `info.plist` under `UISupportedInterfaceOrientations`"
             },
             "requireFullScreen": {
-              "description": "If true, indicates that your standalone iOS app does not support Slide Over and Split View on iPad. Defaults to `true` currently, but will change to `false` in a future SDK version.",
+              "description": "If true, indicates that your standalone iOS app does not support Slide Over and Split View on iPad. Defaults to `true` currently, but will change to `false` in a future SDK version.\n\n**Bare workflow** - Use Xcode to set `UIRequiresFullScreen`",
               "type": "boolean",
               "meta": {
                 "bareWorkflow": "Use Xcode to set `UIRequiresFullScreen`"
               },
-              "markdownDescription": "If true, indicates that your standalone iOS app does not support Slide Over and Split View on iPad. Defaults to `true` currently, but will change to `false` in a future SDK version."
+              "markdownDescription": "If true, indicates that your standalone iOS app does not support Slide Over and Split View on iPad. Defaults to `true` currently, but will change to `false` in a future SDK version.\n\n**Bare workflow** - Use Xcode to set `UIRequiresFullScreen`"
             },
             "userInterfaceStyle": {
               "description": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`.",
@@ -651,21 +665,21 @@
               "markdownDescription": "Dictionary of arbitrary configuration to add to your standalone app's native Info.plist. Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store."
             },
             "associatedDomains": {
-              "description": "An array that contains Associated Domains for the standalone app. See [Apple's docs for config](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links). ",
+              "description": "An array that contains Associated Domains for the standalone app. See [Apple's docs for config](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links). \n\n**Bare workflow** - Use Xcode to set this. See [Apple's documentation](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links) for details.",
               "type": "array",
               "meta": {
                 "regexHuman": "Entries must follow the format `applinks:<fully qualified domain>[:port number]`. See [Apple's docs for details](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_associated-domains)",
                 "bareWorkflow": "Use Xcode to set this. See [Apple's documentation](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links) for details."
               },
-              "markdownDescription": "An array that contains Associated Domains for the standalone app. See [Apple's docs for config](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links). "
+              "markdownDescription": "An array that contains Associated Domains for the standalone app. See [Apple's docs for config](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links). \n\n**Bare workflow** - Use Xcode to set this. See [Apple's documentation](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links) for details."
             },
             "usesIcloudStorage": {
-              "description": "A boolean indicating if the app uses iCloud Storage for `DocumentPicker`. See `DocumentPicker` docs for details.",
+              "description": "A boolean indicating if the app uses iCloud Storage for `DocumentPicker`. See `DocumentPicker` docs for details.\n\n**Bare workflow** - Use Xcode to set this.",
               "type": "boolean",
               "meta": {
                 "bareWorkflow": "Use Xcode to set this."
               },
-              "markdownDescription": "A boolean indicating if the app uses iCloud Storage for `DocumentPicker`. See `DocumentPicker` docs for details."
+              "markdownDescription": "A boolean indicating if the app uses iCloud Storage for `DocumentPicker`. See `DocumentPicker` docs for details.\n\n**Bare workflow** - Use Xcode to set this."
             },
             "usesAppleSignIn": {
               "description": "A boolean indicating if the app uses Apple Sign-In. See `AppleAuthentication` docs for details.",
@@ -785,32 +799,32 @@
               "markdownDescription": "The bundle for the Android version of your app will be written to this path during publish."
             },
             "package": {
-              "description": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention).",
+              "description": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention).\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places).",
               "type": "string",
               "pattern": "^[a-zA-Z][a-zA-Z0-9\\_]*(\\.[a-zA-Z][a-zA-Z0-9\\_]*)+$",
               "meta": {
                 "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, `com.example.App`, where `com.example` is our domain and `App` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
                 "bareWorkflow": "This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places)."
               },
-              "markdownDescription": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention)."
+              "markdownDescription": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention).\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places)."
             },
             "versionCode": {
-              "description": "Version number required by Google Play. Increment by one for each release. Must be an integer. [Learn more](https://developer.android.com/studio/publish/versioning.html)",
+              "description": "Version number required by Google Play. Increment by one for each release. Must be an integer. [Learn more](https://developer.android.com/studio/publish/versioning.html)\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `versionCode`",
               "type": "integer",
               "meta": {
                 "bareWorkflow": "This is set in `android/app/build.gradle` as `versionCode`"
               },
-              "markdownDescription": "Version number required by Google Play. Increment by one for each release. Must be an integer. [Learn more](https://developer.android.com/studio/publish/versioning.html)"
+              "markdownDescription": "Version number required by Google Play. Increment by one for each release. Must be an integer. [Learn more](https://developer.android.com/studio/publish/versioning.html)\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `versionCode`"
             },
             "backgroundColor": {
-              "description": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.",
+              "description": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.\n\n**Bare workflow** - This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`",
               "type": "string",
               "pattern": "^#|(&#x23;)\\d{6}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`",
                 "bareWorkflow": "This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`"
               },
-              "markdownDescription": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present."
+              "markdownDescription": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.\n\n**Bare workflow** - This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`"
             },
             "userInterfaceStyle": {
               "description": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`.",
@@ -1054,7 +1068,7 @@
               "markdownDescription": "Configuration for loading and splash screen for standalone Android apps."
             },
             "intentFilters": {
-              "description": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](developer.android.com/guide/components/intents-filters)",
+              "description": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](developer.android.com/guide/components/intents-filters)\n\n**Bare workflow** - This is set in `AndroidManifest.xml` directly. [Learn more.](developer.android.com/guide/components/intents-filters)",
               "example": [
                 {
                   "autoVerify": true,
@@ -1169,7 +1183,7 @@
               "meta": {
                 "bareWorkflow": "This is set in `AndroidManifest.xml` directly. [Learn more.](developer.android.com/guide/components/intents-filters)"
               },
-              "markdownDescription": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](developer.android.com/guide/components/intents-filters)"
+              "markdownDescription": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](developer.android.com/guide/components/intents-filters)\n\n**Bare workflow** - This is set in `AndroidManifest.xml` directly. [Learn more.](developer.android.com/guide/components/intents-filters)"
             },
             "allowBackup": {
               "description": "Allows your user's app data to be automatically backed up to their Google Drive. If this is set to false, no backup or restore of the application will ever be performed (this is useful if your app deals with sensitive information). Defaults to the Android default, which is `true`.",
@@ -1498,7 +1512,7 @@
               "markdownDescription": "Experimental features. These will break without deprecation notice."
             },
             "splash": {
-              "description": "Configuration for PWA splash screens.",
+              "description": "Configuration for PWA splash screens.\n\n**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/master/packages/expo-splash-screen#expo-splash-screen)",
               "type": "object",
               "properties": {
                 "backgroundColor": {
@@ -1540,7 +1554,7 @@
               "meta": {
                 "bareWorkflow": "Use [expo-splash-screen](https://github.com/expo/expo/tree/master/packages/expo-splash-screen#expo-splash-screen)"
               },
-              "markdownDescription": "Configuration for PWA splash screens."
+              "markdownDescription": "Configuration for PWA splash screens.\n\n**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/master/packages/expo-splash-screen#expo-splash-screen)"
             },
             "config": {
               "description": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
@@ -1582,13 +1596,13 @@
           "markdownDescription": "Configuration that is specific to the web platform."
         },
         "facebookAppId": {
-          "description": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com.",
+          "description": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "pattern": "^[0-9]+$",
           "meta": {
             "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
           },
-          "markdownDescription": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com."
+          "markdownDescription": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookAutoInitEnabled": {
           "description": "Whether the Facebook SDK should be initialized automatically. The default in Expo (Client and in standalone apps) is `false`.",
@@ -1596,37 +1610,37 @@
           "markdownDescription": "Whether the Facebook SDK should be initialized automatically. The default in Expo (Client and in standalone apps) is `false`."
         },
         "facebookAutoLogAppEventsEnabled": {
-          "description": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`",
+          "description": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "boolean",
           "meta": {
             "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
           },
-          "markdownDescription": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`"
+          "markdownDescription": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookAdvertiserIDCollectionEnabled": {
-          "description": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)",
+          "description": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "boolean",
           "meta": {
             "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
           },
-          "markdownDescription": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)"
+          "markdownDescription": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookDisplayName": {
-          "description": "Used for native Facebook login.",
+          "description": "Used for native Facebook login.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "meta": {
             "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
           },
-          "markdownDescription": "Used for native Facebook login."
+          "markdownDescription": "Used for native Facebook login.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookScheme": {
-          "description": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo clients).",
+          "description": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo clients).\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "pattern": "^fb[0-9]+[A-Za-z]*$",
           "meta": {
             "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
           },
-          "markdownDescription": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo clients)."
+          "markdownDescription": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo clients).\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "isDetached": {
           "description": "Is app detached",
@@ -1647,18 +1661,18 @@
           "markdownDescription": "Extra fields needed by detached apps"
         },
         "splash": {
-          "description": "Configuration for loading and splash screen for standalone apps.",
+          "description": "Configuration for loading and splash screen for standalone apps.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>` (Android Studio can [generate the appropriate image files for you](https://developer.android.com/studio/write/image-asset-studio)). Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each required size.",
           "type": "object",
           "properties": {
             "backgroundColor": {
-              "description": "Color to fill the loading screen background",
+              "description": "Color to fill the loading screen background\n\n**Bare workflow** - For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`",
               "type": "string",
               "pattern": "^#|(&#x23;)\\d{6}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`",
                 "bareWorkflow": "For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`"
               },
-              "markdownDescription": "Color to fill the loading screen background"
+              "markdownDescription": "Color to fill the loading screen background\n\n**Bare workflow** - For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`"
             },
             "resizeMode": {
               "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`.",
@@ -1690,7 +1704,7 @@
           "meta": {
             "bareWorkflow": "To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>` (Android Studio can [generate the appropriate image files for you](https://developer.android.com/studio/write/image-asset-studio)). Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each required size."
           },
-          "markdownDescription": "Configuration for loading and splash screen for standalone apps."
+          "markdownDescription": "Configuration for loading and splash screen for standalone apps.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>` (Android Studio can [generate the appropriate image files for you](https://developer.android.com/studio/write/image-asset-studio)). Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each required size."
         },
         "hooks": {
           "description": "Configuration for scripts to run to hook into the publish process",
@@ -1698,6 +1712,9 @@
           "additionalProperties": false,
           "properties": {
             "postPublish": {
+              "type": "array"
+            },
+            "postExport": {
               "type": "array"
             }
           },
