@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.1.1 (2020-08-30)
+
+#### Bug fixes
+
+* add missing bare workflow notes to schema ([#20](https://github.com/expo-community/vscode-expo/pull/20))
+
+#### Code changes
+
+* use expo universe eslint configuration ([#18](https://github.com/expo-community/vscode-expo/pull/18))
+* use custom branding with expo logo ([#19](https://github.com/expo-community/vscode-expo/pull/19))
+
+#### Documentation changes
+
+* add overview animation for the extension ([#21](https://github.com/expo-community/vscode-expo/pull/21))
+* update short description to match name ([539fe5f](https://github.com/expo-community/vscode-expo/commit/539fe5ff64b39c0cfb5b4e26761ae7a44210a092))
+* update logo path to default branch ([d3c1125](https://github.com/expo-community/vscode-expo/commit/d3c11257f48dbfea472acba6f4b6554dc466dd0a))
+
+#### Other chores
+
+* add missing test when failing to enhance schema ([#15](https://github.com/expo-community/vscode-expo/pull/13))
+
+
 ### 0.1.0 (2020-08-25)
 
 #### New features
