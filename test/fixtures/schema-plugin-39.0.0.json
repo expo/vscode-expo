@@ -6,6 +6,42 @@
   "required": [
     "expo"
   ],
+  "definitions": {
+    "AndroidIntentFiltersData": {
+      "type": "object",
+      "properties": {
+        "scheme": {
+          "description": "the scheme of the URL, e.g. `https`",
+          "type": "string"
+        },
+        "host": {
+          "description": "the hostname, e.g. `myapp.io`",
+          "type": "string"
+        },
+        "port": {
+          "description": "the port, e.g. `3000`",
+          "type": "string"
+        },
+        "path": {
+          "description": "an exact path for URLs that should be matched by the filter, e.g. `/records`",
+          "type": "string"
+        },
+        "pathPattern": {
+          "description": " a regex for paths that should be matched by the filter, e.g. `.*`",
+          "type": "string"
+        },
+        "pathPrefix": {
+          "description": "a prefix for paths that should be matched by the filter, e.g. `/records/` will match `/records/123`",
+          "type": "string"
+        },
+        "mimeType": {
+          "description": "a MIME type for URLs that should be matched by the filter",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "properties": {
     "expo": {
       "type": "object",
@@ -91,14 +127,7 @@
             "portrait",
             "landscape"
           ],
-          "type": [
-            "array",
-            "boolean",
-            "number",
-            "object",
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "userInterfaceStyle": {
           "description": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`.",
@@ -169,14 +198,7 @@
                 "default",
                 "collapse"
               ],
-              "type": [
-                "array",
-                "boolean",
-                "number",
-                "object",
-                "string",
-                "null"
-              ]
+              "type": "string"
             },
             "androidCollapsedTitle": {
               "description": "If `androidMode` is set to `collapse`, this title is used for the collapsed notification message. For example, `'#{unread_notifications} new interactions'`.",
@@ -186,7 +208,7 @@
           "additionalProperties": false
         },
         "loading": {
-          "description": "DEPRECATED: Use `splash` instead. Configuration for the loading screen that users see when opening your app, while fetching & caching bundle and assets.",
+          "description": "@deprecated Use `splash` instead. Configuration for the loading screen that users see when opening your app, while fetching & caching bundle and assets.",
           "type": "object",
           "properties": {
             "icon": {
@@ -204,14 +226,7 @@
                 "white",
                 "blue"
               ],
-              "type": [
-                "array",
-                "boolean",
-                "number",
-                "object",
-                "string",
-                "null"
-              ]
+              "type": "string"
             },
             "exponentIconGrayscale": {
               "description": "Similar to `exponentIconColor` but instead indicate if it should be grayscale (`1`) or not (`0`).",
@@ -241,7 +256,7 @@
               "type": "boolean"
             },
             "loadingIndicatorStyleExperimental": {
-              "description": "DEPRECATED: was used in the past for changing the style of the iOS loading indicator.",
+              "description": "@deprecated Previously used for changing the style of the iOS loading indicator.",
               "type": "string",
               "pattern": "^light$",
               "meta": {
@@ -259,7 +274,7 @@
           "type": "string"
         },
         "androidStatusBarColor": {
-          "description": "DEPRECATED. Use `androidStatusBar` instead.",
+          "description": "@deprecated Use `androidStatusBar` instead.",
           "type": "string",
           "pattern": "^#|(&#x23;)\\d{6}$",
           "meta": {
@@ -295,7 +310,8 @@
               "description": "Specifies whether the status bar should be translucent (whether it should be treated as a block element that will take up space on the device's screen and limit space available for the rest of your app to be rendered, or be treated as an element with `'position = absolute'` that is rendered above your app's content). Defaults to `true` (default iOS behavior, the iOS status bar cannot be set translucent by the system)",
               "type": "boolean"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "androidNavigationBar": {
           "description": "Configuration for the bottom navigation bar on Android.",
@@ -326,7 +342,8 @@
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               }
             }
-          }
+          },
+          "additionalProperties": false
         },
         "androidShowExponentNotificationInShellApp": {
           "description": "Adds a notification to your standalone app with refresh button and debug info.",
@@ -392,14 +409,7 @@
                 "ON_ERROR_RECOVERY",
                 "ON_LOAD"
               ],
-              "type": [
-                "array",
-                "boolean",
-                "number",
-                "object",
-                "string",
-                "null"
-              ]
+              "type": "string"
             },
             "fallbackToCacheTimeout": {
               "description": "How long (in ms) to allow for fetching OTA updates before falling back to a cached version of the app. Defaults to 30000 (30 sec). Must be between 0 and 300000 (5 minutes).",
@@ -414,9 +424,14 @@
           "description": "Provide overrides by locale for System Dialog prompts like Permissions Boxes",
           "type": "object",
           "properties": {},
-          "additionalProperties": true,
           "meta": {
             "bareWorkflow": "To add or change language and localization information in your iOS app, you need to use Xcode."
+          },
+          "additionalProperties": {
+            "type": [
+              "string",
+              "object"
+            ]
           }
         },
         "ios": {
@@ -427,14 +442,14 @@
           },
           "properties": {
             "publishManifestPath": {
-              "description": "The manifest for the Android version of your app will be written to this path during publish.",
+              "description": "The manifest for the iOS version of your app will be written to this path during publish.",
               "type": "string",
               "meta": {
                 "autogenerated": true
               }
             },
             "publishBundlePath": {
-              "description": "The bundle for the Android version of your app will be written to this path during publish.",
+              "description": "The bundle for the iOS version of your app will be written to this path during publish.",
               "type": "string",
               "meta": {
                 "autogenerated": true
@@ -524,7 +539,7 @@
                   "type": "object",
                   "properties": {
                     "reservedClientId": {
-                      "description": "The reserved client ID URL scheme. Can be found in `GoogeService-Info.plist`.",
+                      "description": "The reserved client ID URL scheme. Can be found in `GoogleService-Info.plist`.",
                       "type": "string"
                     }
                   },
@@ -534,7 +549,7 @@
               "additionalProperties": false
             },
             "isRemoteJSEnabled": {
-              "description": "DEPRECATED: use `updates.enabled` instead.",
+              "description": "@deprecated Use `updates.enabled` instead.",
               "type": "boolean",
               "meta": {
                 "deprecated": true
@@ -545,7 +560,7 @@
               "type": "string"
             },
             "loadJSInBackgroundExperimental": {
-              "description": "DEPRECATED: use `updates` key with `fallbackToCacheTimeout: 0` instead.",
+              "description": "@deprecated Use `updates` key with `fallbackToCacheTimeout: 0` instead.",
               "type": "boolean",
               "meta": {
                 "deprecated": true
@@ -591,6 +606,10 @@
             "associatedDomains": {
               "description": "An array that contains Associated Domains for the standalone app. See [Apple's docs for config](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links). ",
               "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              },
               "meta": {
                 "regexHuman": "Entries must follow the format `applinks:<fully qualified domain>[:port number]`. See [Apple's docs for details](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_associated-domains)",
                 "bareWorkflow": "Use Xcode to set this. See [Apple's documentation](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/enabling_universal_links) for details."
@@ -640,14 +659,7 @@
                     "cover",
                     "contain"
                   ],
-                  "type": [
-                    "array",
-                    "boolean",
-                    "number",
-                    "object",
-                    "string",
-                    "null"
-                  ]
+                  "type": "string"
                 },
                 "image": {
                   "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
@@ -712,7 +724,7 @@
               "type": "string",
               "pattern": "^[a-zA-Z][a-zA-Z0-9\\_]*(\\.[a-zA-Z][a-zA-Z0-9\\_]*)+$",
               "meta": {
-                "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, `com.example.App`, where `com.example` is our domain and `App` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
+                "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, `com.example.app`, where `com.example` is our domain and `app` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
                 "bareWorkflow": "This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places)."
               }
             },
@@ -853,7 +865,7 @@
                   "meta": {
                     "deprecated": true
                   },
-                  "description": "DEPRECATED: use `googleServicesFile` instead. [Google Sign-In Android SDK](https://developers.google.com/identity/sign-in/android/start-integrating) keys for your standalone app.",
+                  "description": "@deprecated Use `googleServicesFile` instead. [Google Sign-In Android SDK](https://developers.google.com/identity/sign-in/android/start-integrating) keys for your standalone app.",
                   "type": "object",
                   "properties": {
                     "apiKey": {
@@ -889,14 +901,7 @@
                     "contain",
                     "native"
                   ],
-                  "type": [
-                    "array",
-                    "boolean",
-                    "number",
-                    "object",
-                    "string",
-                    "null"
-                  ]
+                  "type": "string"
                 },
                 "mdpi": {
                   "description": "Local path or remote URL to an image to fill the background of the loading screen in \"cover\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Natural sized image (baseline)`",
@@ -946,7 +951,7 @@
               }
             },
             "intentFilters": {
-              "description": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](developer.android.com/guide/components/intents-filters)",
+              "description": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](https://developer.android.com/guide/components/intents-filters)",
               "example": [
                 {
                   "autoVerify": true,
@@ -975,73 +980,33 @@
                     "type": "string"
                   },
                   "data": {
-                    "type": [
-                      "array",
-                      "object"
-                    ],
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "scheme": {
-                          "description": "the scheme of the URL, e.g. `https`",
-                          "type": "string"
-                        },
-                        "host": {
-                          "description": "the host, e.g. `myapp.io`",
-                          "type": "string"
-                        },
-                        "port": {
-                          "description": "the port, e.g. `3000`",
-                          "type": "string"
-                        },
-                        "path": {
-                          "description": "an exact path for URLs that should be matched by the filter, e.g. `/records`",
-                          "type": "string"
-                        },
-                        "pathPattern": {
-                          "description": " a regex for paths that should be matched by the filter, e.g. `.*`",
-                          "type": "string"
-                        },
-                        "pathPrefix": {
-                          "description": "a prefix for paths that should be matched by the filter, e.g. `/records/` will match `/records/123`",
-                          "type": "string"
-                        },
-                        "mimeType": {
-                          "description": "a mime type for URLs that should be matched by the filter",
-                          "type": "string"
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/AndroidIntentFiltersData"
+                      },
+                      {
+                        "type": [
+                          "array"
+                        ],
+                        "items": {
+                          "$ref": "#/definitions/AndroidIntentFiltersData"
                         }
-                      },
-                      "additionalProperties": false
-                    },
-                    "properties": {
-                      "scheme": {
-                        "type": "string"
-                      },
-                      "host": {
-                        "type": "string"
-                      },
-                      "port": {
-                        "type": "string"
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "pathPattern": {
-                        "type": "string"
-                      },
-                      "pathPrefix": {
-                        "type": "string"
-                      },
-                      "mimeType": {
-                        "type": "string"
                       }
-                    },
-                    "additionalProperties": false
+                    ]
                   },
                   "category": {
-                    "type": [
-                      "array",
-                      "string"
+                    "anyOf": [
+                      {
+                        "type": [
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
                     ]
                   }
                 },
@@ -1082,80 +1047,83 @@
             },
             "name": {
               "description": "Defines the title of the document, defaults to the outer level name",
-              "PWA": "name",
-              "metatag": "title",
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "name"
+              }
             },
             "shortName": {
               "description": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to `short_name` in the PWA manifest.json. Defaults to the `name` property.",
-              "PWA": "short_name",
               "type": "string",
               "meta": {
+                "pwa": "short_name",
                 "regexHuman": "Maximum 12 characters long"
               }
             },
             "lang": {
               "description": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
-              "fallback": "'en'",
-              "PWA": "lang",
-              "type": "string"
+              "type": "string",
+              "fallback": "en",
+              "meta": {
+                "pwa": "lang"
+              }
             },
             "scope": {
               "description": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
-              "PWA": "scope",
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "scope"
+              }
             },
             "themeColor": {
               "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
-              "PWA": "theme_color",
-              "metatag": "theme-color",
-              "fallback": [
-                "expo.primaryColor",
-                "#4630EB"
-              ],
               "type": "string",
               "pattern": "^#|(&#x23;)\\d{6}$",
               "meta": {
+                "pwa": "theme_color",
+                "html": "theme-color",
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               }
             },
             "description": {
               "description": "Provides a general description of what the pinned website does.",
-              "metatag": "description",
-              "PWA": "description",
-              "fallback": [
-                "expo.description",
-                "'A Neat Expo App'"
-              ],
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "html": "description",
+                "pwa": "description"
+              }
             },
             "dir": {
               "description": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
-              "fallback": "auto",
-              "PWA": "dir",
               "enum": [
                 "auto",
                 "ltr",
                 "rtl"
               ],
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "dir"
+              }
             },
             "display": {
               "description": "Defines the developers’ preferred display mode for the website.",
-              "fallback": "standalone",
-              "PWA": "display",
               "enum": [
                 "fullscreen",
                 "standalone",
                 "minimal-ui",
                 "browser"
               ],
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "display"
+              }
             },
             "startUrl": {
               "description": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
-              "PWA": "start_url",
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "start_url"
+              }
             },
             "orientation": {
               "description": "Defines the default orientation for all the website's top level browsing contexts.",
@@ -1169,180 +1137,47 @@
                 "portrait-primary",
                 "portrait-secondary"
               ],
-              "type": "string"
+              "type": "string",
+              "meta": {
+                "pwa": "orientation"
+              }
             },
             "backgroundColor": {
               "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
-              "PWA": "background_color",
-              "fallback": [
-                "expo.splash.backgroundColor",
-                "#ffffff"
-              ],
               "type": "string",
               "pattern": "^#|(&#x23;)\\d{6}$",
               "meta": {
+                "pwa": "background_color",
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               }
             },
             "barStyle": {
               "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
-              "fallback": "default",
-              "metatag": "apple-mobile-web-app-status-bar-style",
               "enum": [
                 "default",
                 "black",
                 "black-translucent"
               ],
-              "type": "string"
+              "type": "string",
+              "fallback": "black-translucent",
+              "meta": {
+                "html": "apple-mobile-web-app-status-bar-style",
+                "pwa": "name"
+              }
             },
             "preferRelatedApplications": {
               "description": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
+              "type": "boolean",
               "fallback": true,
-              "type": "boolean"
-            },
-            "use": {
-              "description": "DEPRECATED: Use the dedicated adapters like Next.js, Gatsby, Electron, etc...",
-              "fallback": "default",
               "meta": {
-                "deprecated": true
-              },
-              "enum": [
-                "default",
-                "nextjs"
-              ],
-              "type": "string"
-            },
-            "build": {
-              "description": "Basic customization options for dangerously configuring the default webpack config. Please use `expo customize:web` to modify the versioned Webpack config directly instead.",
-              "type": "object",
-              "additionalProperties": true,
-              "meta": {
-                "deprecated": true
-              },
-              "properties": {
-                "rootId": {
-                  "description": "ID of the root DOM element in your index.html. By default this is \"root\".",
-                  "fallback": "root",
-                  "type": "string"
-                },
-                "devtool": {
-                  "description": "DEPRECATED: Modify the Webpack config directly. Choose a custom style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically.",
-                  "type": "string",
-                  "meta": {
-                    "deprecated": true
-                  }
-                },
-                "publicPath": {
-                  "description": "DEPRECATED: Modify the Webpack config directly. Allows you to specify the base path for all the assets within your application.",
-                  "type": "string",
-                  "meta": {
-                    "deprecated": true
-                  }
-                },
-                "minifyHTML": {
-                  "description": "DEPRECATED: Modify the Webpack config directly. Configuration for customizing webpack report. See `HtmlWebpackPlugin.Options` from `html-webpack-plugin`.",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {},
-                  "meta": {
-                    "deprecated": true
-                  }
-                },
-                "report": {
-                  "description": "DEPRECATED: Modify the Webpack config directly. Configuration for enabling webpack report and `stats.json`. See `BundleAnalyzerPlugin.Options` from `webpack-bundle-analyzer`.",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {},
-                  "meta": {
-                    "deprecated": true
-                  }
-                },
-                "serviceWorker": {
-                  "description": "DEPRECATED: Modify the Webpack config directly. Configuration for customizing the service worker. See `GenerateSWOptions` from `workbox-webpack-plugin`.",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {},
-                  "meta": {
-                    "deprecated": true
-                  }
-                }
-              }
-            },
-            "meta": {
-              "description": "DEPRECATED. Defines the meta tag elements that will be added to the head element of your index.html.",
-              "type": "object",
-              "additionalProperties": true,
-              "meta": {
-                "deprecated": true
-              },
-              "properties": {
-                "googleSiteVerification": {
-                  "description": "ID provided by the Google Site Verification API: https://developers.google.com/site-verification/",
-                  "type": "string"
-                },
-                "apple": {
-                  "description": "Apple PWA-specific meta elements. By default these values will be inferred from fields in the scope above, but you can override them here.",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {
-                    "mobileWebAppCapable": {
-                      "description": "Enables PWA functionality on iOS devices.",
-                      "metatag": "apple-mobile-web-app-capable",
-                      "fallback": "yes",
-                      "type": "string"
-                    },
-                    "barStyle": {
-                      "description": "If content is set to \"default\", the status bar appears normal. If set to \"black\", the status bar has a black background. If set to \"black-translucent\", the status bar is black and translucent. If set to \"default\" or \"black\", the web content is displayed below the status bar. If set to \"black-translucent\", the web content is displayed on the entire screen, partially obscured by the status bar.",
-                      "fallback": [
-                        "expo.web.barStyle",
-                        "default"
-                      ],
-                      "metatag": "apple-mobile-web-app-status-bar-style",
-                      "enum": [
-                        "default",
-                        "black",
-                        "black-translucent"
-                      ],
-                      "type": "string"
-                    }
-                  }
-                },
-                "twitter": {
-                  "description": "Twitter card protocol. [Learn more](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup.html)",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {}
-                },
-                "openGraph": {
-                  "description": "The Open Graph protocol: http://ogp.me/",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {}
-                },
-                "microsoft": {
-                  "description": "X-UA protocol",
-                  "type": "object",
-                  "additionalProperties": true,
-                  "properties": {}
-                }
+                "pwa": "prefer_related_applications"
               }
             },
             "dangerous": {
               "description": "Experimental features. These will break without deprecation notice.",
               "type": "object",
-              "additionalProperties": true,
-              "properties": {
-                "viewport": {
-                  "description": "Viewport meta tag for your index.html. By default this is optimized for mobile usage, disabling zooming, and resizing for iPhone X.",
-                  "fallback": "width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover",
-                  "type": "string"
-                },
-                "noJavaScriptMessage": {
-                  "description": "Message that is rendered when the browser using your page doesn't have JS enabled.",
-                  "fallback": "Oh no! It looks like JavaScript is not enabled in your browser.",
-                  "type": "string"
-                }
-              }
+              "properties": {},
+              "additionalProperties": true
             },
             "splash": {
               "description": "Configuration for PWA splash screens.",
@@ -1362,14 +1197,7 @@
                     "cover",
                     "contain"
                   ],
-                  "type": [
-                    "array",
-                    "boolean",
-                    "number",
-                    "object",
-                    "string",
-                    "null"
-                  ]
+                  "type": "string"
                 },
                 "image": {
                   "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
@@ -1498,14 +1326,7 @@
                 "cover",
                 "contain"
               ],
-              "type": [
-                "array",
-                "boolean",
-                "number",
-                "object",
-                "string",
-                "null"
-              ]
+              "type": "string"
             },
             "image": {
               "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
@@ -1527,25 +1348,56 @@
           "additionalProperties": false,
           "properties": {
             "postPublish": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "config": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {}
+                  }
+                }
+              }
             },
             "postExport": {
-              "type": "array"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "file": {
+                    "type": "string"
+                  },
+                  "config": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {}
+                  }
+                }
+              }
             }
           }
         },
         "assetBundlePatterns": {
           "description": "An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.io/versions/latest/guides/offline-support.html)",
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "experiments": {
           "description": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "redesignedLogBox": {
+            "turboModules": {
+              "description": "Enables Turbo Modules, which are a type of native modules that use a different way of communicating between JS and platform code. When installing a Turbo Module you will need to enable this experimental option (the library still needs to be a part of Expo SDK already, like react-native-reanimated v2). Turbo Modules do not support remote debugging and enabling this option will disable remote debugging.",
               "type": "boolean",
-              "description": "Use the unstable LogBox re-design available in React Native 0.62. This option is only available in SDK 38.",
               "fallback": false
             }
           }
