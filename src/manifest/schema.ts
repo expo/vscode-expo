@@ -11,6 +11,7 @@ export type ManifestSchema = {
   version: string;
   additionalProperties: true;
   required: string[];
+  definitions?: any;
   properties: {
     expo: any;
   };
@@ -48,12 +49,19 @@ export function createFromXdl(sdkVersion: string, xdlSchema: JsonSchema): Manife
     enhancedSchema = xdlSchema;
   }
 
+  // note: we need to move over definitions from the schema and put them into root
+  const { definitions } = enhancedSchema;
+  if (definitions) {
+    delete enhancedSchema.definitions;
+  }
+
   return {
     $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'object',
     version: sdkVersion,
     additionalProperties: true,
     required: ['expo'],
+    definitions,
     properties: {
       expo: enhancedSchema,
     },
