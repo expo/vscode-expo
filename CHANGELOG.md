@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.1.2 (2020-09-30)
+
+#### Bug fixes
+
+* handle definitions from xdl schema properly ([#25](https://github.com/expo/vscode-expo/pull/25))
+
 ### 0.1.1 (2020-08-30)
 
 #### Bug fixes

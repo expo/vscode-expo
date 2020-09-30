@@ -1,7 +1,7 @@
 {
   "name": "vscode-expo",
   "displayName": "Expo Tools",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Expo tools for vscode",
   "keywords": [
     "expo",
