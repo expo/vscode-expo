@@ -2,6 +2,7 @@ import * as xdlVersions from '@expo/xdl/build/Versions';
 import vscode from 'vscode';
 
 import * as config from './config';
+import { setupDefinition, setupPluginsValidation } from './configPlugins';
 import * as schema from './schema';
 import * as storage from './storage';
 
@@ -13,7 +14,10 @@ export async function activateGlobalSchema(context: vscode.ExtensionContext) {
   const latestSdk = await xdlVersions.newestReleasedSdkVersionAsync();
   const schemaFile = await schema.create(latestSdk.version);
   const storagePath = await storage.storeSchema(context, schemaFile);
+
   await config.registerGlobalSchema(storagePath);
+  setupPluginsValidation(context);
+  setupDefinition();
 }
 
 /**

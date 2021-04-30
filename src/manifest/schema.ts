@@ -43,6 +43,7 @@ export function createFromXdl(sdkVersion: string, xdlSchema: JsonSchema): Manife
     jsonSchemaTraverse(enhancedSchema, (nestedSchema: JsonSchema) => {
       mutateSchemaBareWorkflowDescription(nestedSchema);
       mutateSchemaMarkdownDescription(nestedSchema);
+      resolvePlugin(nestedSchema);
     });
   } catch (error) {
     // todo: add telemetry, fallback to original schema
@@ -79,6 +80,19 @@ export function mutateSchemaBareWorkflowDescription(schema: JsonSchema) {
     schema.description = `${description}\n\n**Bare workflow** - ${bareNotes}`.trim();
   }
 }
+
+export function resolvePlugin(schema: JsonSchema) {
+  if (schema.meta?.bareWorkflow) {
+    const description = schema.description || '';
+    const bareNotes = schema.meta.bareWorkflow;
+    schema.description = `${description}\n\n**Bare workflow** - ${bareNotes}`.trim();
+  }
+}
+
+// 1. Get plugins array
+// 2. Resolve plugin
+// 3. Show error info if plugin couldn't be resolved.
+// 4. Show description of hovered plugin with hyper link to jump to it
 
 /**
  * Copies the `description` property to `markdownDescription` for vscode markdown rendering.

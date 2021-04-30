@@ -70,5 +70,10 @@
     "vscode-test": "^1.4.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@expo/config": "^3.3.38",
+    "find-up": "^5.0.0",
+    "jsonc-parser": "^3.0.0"
   }
 }
