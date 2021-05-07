@@ -2,9 +2,6 @@ import {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
-import assert from 'assert';
-import findUp from 'find-up';
-import { Node, ParseError, parseTree } from 'jsonc-parser';
 import path from 'path';
 import vscode, {
   Diagnostic,
@@ -19,22 +16,19 @@ import vscode, {
   workspace,
 } from 'vscode';
 
-import { ThrottledDelayer } from './async';
+import { isConfigPluginValidationEnabled } from './settings';
+import { ThrottledDelayer } from './utils/async';
+import { getProjectRoot } from './utils/getProjectRoot';
+import {
+  iteratePluginNames,
+  JsonRange,
+  parseSourceRanges,
+  PluginRange,
+} from './utils/iteratePlugins';
+import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson';
 
 let diagnosticCollection: DiagnosticCollection | null = null;
 let delayer: ThrottledDelayer<void> | null = null;
-let expoJsonCache: Record<string, Node> = {};
-
-const appJsonPattern = {
-  scheme: 'file',
-  // Match against app.json and app.config.json
-  pattern: '**/*/app{,.config}.json',
-  language: 'json',
-};
-
-function isAppJson(document: TextDocument) {
-  return document && ['app.json', 'app.config.json'].includes(path.basename(document.fileName));
-}
 
 export function setupDefinition() {
   // Enables jumping to source
@@ -65,23 +59,12 @@ export function setupDefinition() {
   });
 }
 
-// Enable toggling in settings via expo.config.validate.enable
-function isValidationEnabled(document: TextDocument) {
-  const section = workspace.getConfiguration('expo', document.uri);
-  if (section) {
-    return section.get<boolean>('config.validate.enable', true);
-  }
-  return false;
-}
-
 export function setupPluginsValidation(context: vscode.ExtensionContext) {
   diagnosticCollection = languages.createDiagnosticCollection('expo-config');
 
   workspace.onDidSaveTextDocument(
     (document) => {
-      if (isValidationEnabled(document)) {
-        validateDocument(document);
-      }
+      validateDocument(document);
     },
     null,
     context.subscriptions
@@ -89,7 +72,7 @@ export function setupPluginsValidation(context: vscode.ExtensionContext) {
 
   window.onDidChangeActiveTextEditor(
     (editor) => {
-      if (editor && editor.document && isValidationEnabled(editor.document)) {
+      if (editor && editor.document) {
         validateDocument(editor.document);
       }
     },
@@ -114,14 +97,8 @@ function clearDiagnosticCollection() {
   }
 }
 
-function findUpPackageJson(root: string): string {
-  const packageJson = findUp.sync('package.json', { cwd: root });
-  assert(packageJson, `No package.json found for module "${root}"`);
-  return packageJson;
-}
-
 async function validateDocument(document: TextDocument) {
-  if (!isValidationEnabled(document)) {
+  if (!isConfigPluginValidationEnabled(document)) {
     clearDiagnosticCollection();
     return;
   }
@@ -134,10 +111,6 @@ async function validateDocument(document: TextDocument) {
     delayer = new ThrottledDelayer<void>(200);
   }
   delayer.trigger(() => doValidate(document));
-}
-
-function getProjectRoot(appJsonDocument: TextDocument): string {
-  return path.dirname(findUpPackageJson(appJsonDocument.fileName));
 }
 
 function getPluginRanges(document: TextDocument) {
@@ -156,7 +129,7 @@ function getPluginRanges(document: TextDocument) {
 
 async function doValidate(document: TextDocument) {
   const sourceRanges = getPluginRanges(document);
-  if (!sourceRanges?.plugins?.length) {
+  if (!sourceRanges?.length) {
     return;
   }
 
@@ -165,7 +138,7 @@ async function doValidate(document: TextDocument) {
   clearDiagnosticCollection();
 
   const diagnostics: Diagnostic[] = [];
-  for (const plugin of sourceRanges.plugins) {
+  for (const plugin of sourceRanges) {
     const diagnostic = getDiagnostic(projectRoot, document, plugin);
     if (diagnostic) {
       diagnostic.source = 'expo-config';
@@ -176,110 +149,6 @@ async function doValidate(document: TextDocument) {
   diagnosticCollection!.set(document.uri, diagnostics);
 }
 
-function parseExpoJson(text: string): { node: Node | undefined; errors: ParseError[] } {
-  if (text in expoJsonCache) {
-    return { node: expoJsonCache[text], errors: [] };
-  }
-  const errors: ParseError[] = [];
-  function findUpExpoObject(node: Node | undefined): Node | undefined {
-    if (node?.children) {
-      for (const child of node.children) {
-        if (
-          child.type === 'property' &&
-          child.children?.[0]?.value === 'expo' &&
-          child.children?.[1]?.type === 'object'
-        ) {
-          return findUpExpoObject(child.children[1]);
-        }
-      }
-    }
-    return node;
-  }
-  // Ensure we get the expo object if it exists.
-  const node = findUpExpoObject(parseTree(text, errors));
-  if (node) {
-    expoJsonCache = {
-      [text]: node,
-    };
-  }
-  return { node, errors };
-}
-
-function iteratePlugins(appJson: Node | undefined, iterator: (node: Node) => void) {
-  let pluginsNode: Node | undefined;
-  if (appJson?.children) {
-    for (const child of appJson.children) {
-      const children = child.children;
-      if (children) {
-        if (children && children.length === 2 && isPlugins(children[0].value)) {
-          pluginsNode = children[1];
-          break;
-        }
-      }
-    }
-  }
-
-  if (pluginsNode?.children) {
-    pluginsNode.children.forEach(iterator);
-  }
-}
-
-function iteratePluginNames(
-  appJson: Node | undefined,
-  iterator: (resolver: PluginRangeWithProps, node: Node) => void
-) {
-  iteratePlugins(appJson, (node) => {
-    let resolver = getPluginResolver(node);
-    if (resolver) {
-      iterator(resolver, node);
-    } else if (node.type === 'array' && node.children?.length) {
-      resolver = getPluginResolver(node.children[0]);
-      if (!resolver) return;
-
-      const props = node.children[1];
-
-      // Tested against objects as props
-      if (props) {
-        resolver.props = {
-          offset: props.offset,
-          length: props.length,
-        };
-      }
-
-      iterator(resolver, node);
-    }
-  });
-}
-
-function getPluginResolver(child?: Node): PluginRangeWithProps | null {
-  if (child?.type === 'string') {
-    return {
-      nameValue: child.value,
-      name: {
-        offset: child.offset,
-        length: child.length,
-      },
-    };
-  }
-  return null;
-}
-
-function parseSourceRanges(text: string): { plugins: PluginRangeWithProps[] } {
-  const definedPlugins: PluginRangeWithProps[] = [];
-  // Ensure we get the expo object if it exists.
-  const { node } = parseExpoJson(text);
-
-  iteratePluginNames(node, (resolver, node) => {
-    definedPlugins.push(resolver);
-  });
-
-  return { plugins: definedPlugins };
-}
-
-function isPlugins(value: string) {
-  return value === 'plugins';
-}
-
 function rangeForOffset(document: TextDocument, source: JsonRange) {
   return new Range(
     document.positionAt(source.offset),
@@ -287,24 +156,10 @@ function rangeForOffset(document: TextDocument, source: JsonRange) {
   );
 }
 
-interface JsonRange {
-  offset: number;
-  length: number;
-}
-
-interface PluginRange {
-  nameValue: string;
-  name: JsonRange;
-}
-
-interface PluginRangeWithProps extends PluginRange {
-  props?: JsonRange;
-}
-
 function getDiagnostic(
   projectRoot: string,
   document: TextDocument,
-  plugin: PluginRangeWithProps
+  plugin: PluginRange
 ): Diagnostic | null {
   try {
     resolveConfigPluginFunction(projectRoot, plugin.nameValue);
