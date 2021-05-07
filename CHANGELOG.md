@@ -3,11 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.2.0 (2021-05-07)
+
+#### New features
+
+* add support for config plugins ([#30](https://github.com/expo/vscode-expo/pull/25))
+
+#### Documentation changes
+
+* update the readme with new features and authors ([c76f328](https://github.com/expo/vscode-expo/commit/c76f3289dcf3980e355286db11fea998b9642061))
+
 ### 0.1.2 (2020-09-30)
 
 #### Bug fixes
 
 * handle definitions from xdl schema properly ([#25](https://github.com/expo/vscode-expo/pull/25))
+
+feature: add support for config plugins (#30)
 
 ### 0.1.1 (2020-08-30)
 
