@@ -33,6 +33,7 @@
 ## Features
 
 - Autocomplete and validation of your `app.json` or `app.config.json` manifest.
+- Automatic [config plugins](https://docs.expo.io/guides/config-plugins/) validation and IntelliSense.
 
 ## Contributors
 
@@ -46,6 +47,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
     <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=byCedric" title="Code">💻</a> <a href="https://github.com/expo-community/vscode-expo/commits?author=byCedric" title="Documentation">📖</a></td>
     <td align="center"><a href="https://jb1905.github.io/portfolio/"><img src="https://avatars2.githubusercontent.com/u/28870390?v=4" width="100px;" alt=""/><br /><sub><b>Jakub Biesiada</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=JB1905" title="Code">💻</a></td>
     <td align="center"><a href="https://jameside.com"><img src="https://avatars0.githubusercontent.com/u/379606?v=4" width="100px;" alt=""/><br /><sub><b>James Ide</b></sub></a><br /><a href="https://github.com/expo-community/vscode-expo/commits?author=ide" title="Code">💻</a></td>
+    <td align="center"><a href="https://evanbacon.dev/"><img src="https://avatars0.githubusercontent.com/u/9664363?v=4" width="100px;" alt=""/><br /><sub><b>James Ide</b></sub></a><br /><a href="https://github.com/expo/vscode-expo/commits?author=EvanBacon" title="Code">💻</a></td>
   </tr>
 </table>
 <!-- markdownlint-enable -->
