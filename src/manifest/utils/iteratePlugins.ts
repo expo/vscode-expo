@@ -9,7 +9,13 @@ export interface JsonRange {
 
 export interface PluginRange {
   nameValue: string;
+  /**
+   * If the plugin is using an array with a single item in it (i.e. no props), then the user should be warned.
+   * If the plugin has more than two items then it's invalid and the user should be warned in advance.
+   */
+  arrayLength?: number;
   name: JsonRange;
+  full?: JsonRange;
   props?: JsonRange;
 }
 
@@ -39,13 +45,15 @@ export function iteratePluginNames(
   iteratePlugins(appJson, (node) => {
     let resolver = getPluginResolver(node);
     if (resolver) {
+      resolver.full = node;
       iterator(resolver, node);
     } else if (node.type === 'array' && node.children?.length) {
       resolver = getPluginResolver(node.children[0]);
       if (!resolver) return;
-
+      resolver.full = node;
       const props = node.children[1];
 
+      resolver.arrayLength = node.children.length;
       // Tested against objects as props
       if (props) {
         resolver.props = {

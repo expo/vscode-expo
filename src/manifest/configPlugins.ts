@@ -163,7 +163,6 @@ function getDiagnostic(
 ): Diagnostic | null {
   try {
     resolveConfigPluginFunction(projectRoot, plugin.nameValue);
-    return null;
   } catch (error) {
     // If the plugin failed to load, surface the error info.
     const source = plugin.name;
@@ -172,4 +171,20 @@ function getDiagnostic(
     diagnostic.code = error.code;
     return diagnostic;
   }
+
+  // TODO: Doesn't currently support empty array.
+  // NOTE(EvanBacon): The JSON schema validates 3 or more items.
+  if (plugin.full && plugin.arrayLength != null && plugin.arrayLength < 2) {
+    // A plugin array should only be used to add props (i.e. two items).
+    const range = rangeForOffset(document, plugin.full);
+    // TODO: Link to a doc or FYI
+    const diagnostic = new Diagnostic(
+      range,
+      `Array has too few items. Expected exactly 2 items.`,
+      DiagnosticSeverity.Warning
+    );
+    return diagnostic;
+  }
+
+  return null;
 }
