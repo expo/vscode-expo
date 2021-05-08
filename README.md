@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-  <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/master/images/logo-repository.png" alt="vscode-expo" width="200">
+  <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/main/images/logo-repository.png" alt="vscode-expo" width="200">
   <br />
   <h1>Expo for VSCode</h1>
   <p>Complementary <a href="https://github.com/expo/expo">Expo</a> tools for vscode</p>
@@ -14,18 +14,18 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     </a>
     <a href="https://github.com/expo-community/vscode-expo/actions">
-      <img src="https://img.shields.io/github/workflow/status/expo-community/vscode-expo/Build/master.svg?style=flat-square" alt="builds" />
+      <img src="https://img.shields.io/github/workflow/status/expo-community/vscode-expo/Build/main.svg?style=flat-square" alt="builds" />
     </a>
   </sup>
   <br />
   <p align="center">
     <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo"><b>Install</b></a>
     &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-    <a href="https://github.com/expo-community/vscode-expo/blob/master/CHANGELOG.md"><b>Changelog</b></a>
+    <a href="https://github.com/expo-community/vscode-expo/blob/main/CHANGELOG.md"><b>Changelog</b></a>
   </p>
   <br />
   <div align="center">
-    <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/master/images/feature-autocomplete.gif" alt="vscode-expo overview">
+    <img src="https://raw.githubusercontent.com/expo-community/vscode-expo/main/images/feature-autocomplete.gif" alt="vscode-expo overview">
   </div>
   <br />
 </div>
