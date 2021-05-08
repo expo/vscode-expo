@@ -31,8 +31,10 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
-      - name: Build project
+      - name: Build tests
         run: yarn build
+      - name: Build extension
+        run: yarn build:production
       - name: Lint project
         run: yarn lint
       - name: Test project
