@@ -7,7 +7,7 @@ export async function run() {
   const logger = (line: string) => {
     // note: vscode has built-in electron logging, which clutters ours
     // let's filter them by using their markers.
-    if (line.includes('START_NATIVE_LOG') && line.includes('END_NATIVE_LOG')) {
+    if (line.includes('START_NATIVE_LOG') || line.includes('END_NATIVE_LOG')) {
       return false;
     }
 
@@ -17,7 +17,6 @@ export async function run() {
     return true;
   };
 
-  process.stdout.write = logger;
   process.stderr.write = logger;
 
   // fix: we always need to run in band for the internal vscode api
