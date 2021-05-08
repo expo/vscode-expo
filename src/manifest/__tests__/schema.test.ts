@@ -1,11 +1,11 @@
 import * as xdl from '@expo/xdl/build/project/ExpSchema';
-import traverse, { TraverseCallback } from 'json-schema-traverse';
+import traverse, { Callback } from 'json-schema-traverse';
 
 import * as tools from '../../../test/tools';
 import * as schema from '../schema';
 
 // note: this is the same value as `traverse`, but typed as mock
-const mockedTraverse = (traverse as unknown) as jest.Mock<[object, TraverseCallback]>;
+const mockedTraverse = (traverse as unknown) as jest.Mock<[object, Callback]>;
 
 describe('create', () => {
   it('fetches schema by expo sdk version', async () => {
