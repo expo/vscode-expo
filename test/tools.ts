@@ -40,7 +40,7 @@ export const openFixtureFile = async (target: string) =>
  * It pings the extension's `isActive` property with a max duration of 5 seconds.
  */
 export const waitForExtensionActivation = async (maxWait = 5 * 1000, delay = 1000) =>
-  new Promise((resolve) => {
+  new Promise<void>((resolve) => {
     let checkTimer: NodeJS.Timeout;
 
     const maxTimer = setTimeout(() => {

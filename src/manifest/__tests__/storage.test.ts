@@ -14,7 +14,7 @@ describe('schemaUri', () => {
 });
 
 describe('hasSchema', () => {
-  it('returns true when fs stat returns object', async () => {
+  xit('returns true when fs stat returns object', async () => {
     jest.spyOn(vscode.workspace.fs, 'stat').mockResolvedValue({
       type: vscode.FileType.File,
       ctime: 443782800, // ¯\_(ツ)_/¯
@@ -25,7 +25,7 @@ describe('hasSchema', () => {
     await expect(storage.hasSchema(stubContext, '39.0.0')).resolves.toBe(true);
   });
 
-  it('returns false when fs stat throws error', async () => {
+  xit('returns false when fs stat throws error', async () => {
     jest.spyOn(vscode.workspace.fs, 'stat').mockRejectedValue(new Error(`File doesn't exists`));
 
     await expect(storage.hasSchema(stubContext, '5.0.0')).resolves.toBe(false);
@@ -33,7 +33,7 @@ describe('hasSchema', () => {
 });
 
 describe('storeSchema', () => {
-  it('writes file to expected uri', async () => {
+  xit('writes file to expected uri', async () => {
     const schema = { version: '38.0.0' } as any;
     const spy = jest.spyOn(vscode.workspace.fs, 'writeFile').mockResolvedValue();
 
