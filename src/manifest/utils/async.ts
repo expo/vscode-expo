@@ -43,13 +43,13 @@ export class Throttler<T> {
       this.queuedPromiseFactory = promiseFactory;
 
       if (!this.queuedPromise) {
-        var onComplete = () => {
+        const onComplete = () => {
           this.queuedPromise = null;
 
           if (!this.queuedPromiseFactory)
             throw new Error('unexpected: this.queuedPromiseFactory is undefiend');
 
-          var result = this.queue(this.queuedPromiseFactory);
+          const result = this.queue(this.queuedPromiseFactory);
           this.queuedPromiseFactory = null;
 
           return result;
@@ -132,7 +132,7 @@ export class Delayer<T> {
         this.completionPromise = null;
         this.onResolve = null;
 
-        var result = this.task?.();
+        const result = this.task?.();
         this.task = null;
 
         return result;
