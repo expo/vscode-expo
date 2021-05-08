@@ -18,21 +18,42 @@ describe('create', () => {
 });
 
 describe('createFromXdl', () => {
-  const xdlSchema = tools.getFixtureFile('schema-xdl-39.0.0.json');
-  const simpleSchema = tools.getFixtureFile('schema-plugin-39.0.0.json');
-  const enhancedSchema = tools.getFixtureFile('schema-enhanced-39.0.0.json');
+  describe('sdk 39', () => {
+    const xdlSchema = tools.getFixtureFile('schema-xdl-39.0.0.json');
+    const simpleSchema = tools.getFixtureFile('schema-plugin-39.0.0.json');
+    const enhancedSchema = tools.getFixtureFile('schema-enhanced-39.0.0.json');
 
-  it('creates enhanced plugin schema from xdl', () => {
-    const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
-    expect(createdSchema).toStrictEqual(expect.objectContaining(enhancedSchema));
+    it('creates enhanced plugin schema from xdl', () => {
+      const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
+      expect(createdSchema).toStrictEqual(expect.objectContaining(enhancedSchema));
+    });
+
+    it('uses simple plugin schema when failing to enhance', () => {
+      mockedTraverse.mockImplementationOnce(() => {
+        throw new Error('Failed traversing schema');
+      });
+      const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
+      expect(createdSchema).toStrictEqual(expect.objectContaining(simpleSchema));
+    });
   });
 
-  it('uses simple plugin schema when failing to enhance', () => {
-    mockedTraverse.mockImplementationOnce(() => {
-      throw new Error('Failed traversing schema');
+  describe('sdk 41', () => {
+    const xdlSchema = tools.getFixtureFile('schema-xdl-41.0.0.json');
+    const simpleSchema = tools.getFixtureFile('schema-plugin-41.0.0.json');
+    const enhancedSchema = tools.getFixtureFile('schema-enhanced-41.0.0.json');
+
+    it('creates enhanced plugin schema from xdl', async () => {
+      const createdSchema = schema.createFromXdl('41.0.0', xdlSchema);
+      expect(createdSchema).toStrictEqual(expect.objectContaining(enhancedSchema));
     });
-    const createdSchema = schema.createFromXdl('39.0.0', xdlSchema);
-    expect(createdSchema).toStrictEqual(expect.objectContaining(simpleSchema));
+
+    it('uses simple plugin schema when failing to enhance', () => {
+      mockedTraverse.mockImplementationOnce(() => {
+        throw new Error('Failed traversing schema');
+      });
+      const createdSchema = schema.createFromXdl('41.0.0', xdlSchema);
+      expect(createdSchema).toStrictEqual(expect.objectContaining(simpleSchema));
+    });
   });
 });
 
