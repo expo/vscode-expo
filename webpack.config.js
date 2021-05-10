@@ -1,7 +1,7 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
+  target: 'node',
   entry: './src/extension.ts',
   output: {
     // Dirty workaround to allow us also building the `test` folder
@@ -14,7 +14,9 @@ module.exports = {
   externalsPresets: {
     node: true,
   },
-  externals: [nodeExternals(), { vscode: 'commonjs vscode' }],
+  externals: {
+    vscode: 'commonjs vscode',
+  },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
@@ -32,6 +34,7 @@ module.exports = {
       {
         test: /\.(ts|js)$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           presets: ['@expo/babel-preset-cli'],
         },
