@@ -11,6 +11,9 @@ module.exports = {
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
   devtool: 'source-map',
+  externalsPresets: {
+    node: true,
+  },
   externals: {
     vscode: 'commonjs vscode',
   },
@@ -31,6 +34,7 @@ module.exports = {
       {
         test: /\.(ts|js)$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           presets: ['@expo/babel-preset-cli'],
         },
