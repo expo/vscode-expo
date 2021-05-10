@@ -18,9 +18,15 @@ module.exports = {
     extensions: ['.ts', '.js', '.json'],
   },
   module: {
+    parser: {
+      javascript: {
+        commonjsMagicComments: true,
+      },
+    },
     rules: [
       {
-        loader: 'shebang-loader',
+        test: /\.md|LICENSE$/,
+        loader: 'raw-loader',
       },
       {
         test: /\.(ts|js)$/,
