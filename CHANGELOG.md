@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.2.2 (2021-05-10)
+
+#### Bug fixes
+
+* add webpack ignore patch to dynamic config plugins import ([#33](https://github.com/expo/vscode-expo/pull/33))
+* webpack memory issues on github actions ([#37](https://github.com/expo/vscode-expo/pull/37))
+
+#### Code changes
+
+* update all dependencies to latest versions ([#32](https://github.com/expo/vscode-expo/pull/32))
+* swap master for main branch ([de5685d](https://github.com/expo/vscode-expo/commit/de5685d2dcd3ff8048a3e6922d6d23b54ad24ce5))
+
+#### Other chores
+
+* bump hosted-git-info from 2.8.8 to 2.8.9 ([#34](https://github.com/expo/vscode-expo/pull/34))
+* bump url-parse from 1.4.7 to 1.5.1 ([#35](https://github.com/expo/vscode-expo/pull/35))
+* add manual trigger to production build test ([d816bf7](https://github.com/expo/vscode-expo/commit/d816bf7e175d79fea4996f3010714436f49dfb56))
+* add manual trigger to test workflow ([b3ad41c](https://github.com/expo/vscode-expo/commit/b3ad41cbe574fe29123ebc4d1e7b0d7e47851380))
+
+### 0.2.1 (2021-05-07)
+
+> This version is a rollback to `0.1.2` because of issues in `0.2.0`. No tag exist because it's the exact content of `0.1.2`.
+
 ### 0.2.0 (2021-05-07)
 
 #### New features
@@ -18,8 +41,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 #### Bug fixes
 
 * handle definitions from xdl schema properly ([#25](https://github.com/expo/vscode-expo/pull/25))
-
-feature: add support for config plugins (#30)
 
 ### 0.1.1 (2020-08-30)
 
