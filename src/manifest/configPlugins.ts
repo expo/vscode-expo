@@ -1,5 +1,6 @@
 import {
   resolveConfigPluginFunction,
+  resolvePluginForModule,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
 import path from 'path';
@@ -40,11 +41,8 @@ export function setupDefinition() {
       const projectRoot = getProjectRoot(document);
       iteratePluginNames(node, (resolver) => {
         try {
-          const { pluginFile } = resolveConfigPluginFunctionWithInfo(
-            projectRoot,
-            resolver.nameValue
-          );
-          const linkUri = Uri.parse(pluginFile);
+          const { filePath } = resolvePluginForModule(projectRoot, resolver.nameValue);
+          const linkUri = Uri.parse(filePath);
           const range = rangeForOffset(document, resolver.name);
           const link = new DocumentLink(range, linkUri);
           link.tooltip = 'Go to config plugin';
