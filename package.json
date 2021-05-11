@@ -67,6 +67,7 @@
     "jest-environment-node": "^26.6.2",
     "json-schema-traverse": "^1.0.0",
     "jsonc-parser": "^3.0.0",
+    "minimatch": "^3.0.4",
     "patch-package": "^6.4.7",
     "prettier": "^2.1.1",
     "raw-loader": "^4.0.2",

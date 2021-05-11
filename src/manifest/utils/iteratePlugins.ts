@@ -1,4 +1,5 @@
 import { Node } from 'jsonc-parser';
+import { Position, Range, TextDocument } from 'vscode';
 
 import { parseExpoJson } from './parseExpoJson';
 
@@ -19,19 +20,23 @@ export interface PluginRange {
   props?: JsonRange;
 }
 
-function iteratePlugins(appJson: Node | undefined, iterator: (node: Node) => void) {
-  let pluginsNode: Node | undefined;
+export function getPluginsArrayNode(appJson: Node | undefined) {
   if (appJson?.children) {
     for (const child of appJson.children) {
       const children = child.children;
       if (children) {
         if (children && children.length === 2 && isPlugins(children[0].value)) {
-          pluginsNode = children[1];
-          break;
+          return children[1];
         }
       }
     }
   }
+
+  return null;
+}
+
+function iteratePlugins(appJson: Node | undefined, iterator: (node: Node) => void) {
+  const pluginsNode = getPluginsArrayNode(appJson);
 
   if (pluginsNode?.children) {
     pluginsNode.children.forEach(iterator);
@@ -80,6 +85,13 @@ function getPluginResolver(child?: Node): PluginRange | null {
   return null;
 }
 
+export function rangeForOffset(document: TextDocument, source: JsonRange) {
+  return new Range(
+    document.positionAt(source.offset),
+    document.positionAt(source.offset + source.length)
+  );
+}
+
 export function parseSourceRanges(text: string): PluginRange[] {
   const definedPlugins: PluginRange[] = [];
   // Ensure we get the expo object if it exists.
@@ -90,6 +102,17 @@ export function parseSourceRanges(text: string): PluginRange[] {
   });
 
   return definedPlugins;
+}
+
+export function positionIsInPlugins(document: TextDocument, position: Position) {
+  const { node } = parseExpoJson(document.getText());
+  const pluginsNode = getPluginsArrayNode(node);
+  if (pluginsNode) {
+    const range = rangeForOffset(document, pluginsNode);
+    return range.contains(position);
+  }
+
+  return false;
 }
 
 function isPlugins(value: string) {

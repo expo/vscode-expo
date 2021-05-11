@@ -15,6 +15,7 @@ import vscode, {
   window,
   workspace,
 } from 'vscode';
+import { JavaScriptProvider } from './providers/pluginProvider';
 
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
@@ -24,11 +25,21 @@ import {
   JsonRange,
   parseSourceRanges,
   PluginRange,
+  rangeForOffset,
 } from './utils/iteratePlugins';
 import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson';
 
 let diagnosticCollection: DiagnosticCollection | null = null;
 let delayer: ThrottledDelayer<void> | null = null;
+
+export function setupCompletionItemProvider(context: vscode.ExtensionContext) {
+  const disposable = languages.registerCompletionItemProvider(
+    JavaScriptProvider.selector,
+    JavaScriptProvider.provider,
+    ...(JavaScriptProvider.triggerCharacters || [])
+  );
+  context.subscriptions.push(disposable);
+}
 
 export function setupDefinition() {
   // Enables jumping to source
@@ -147,13 +158,6 @@ async function doValidate(document: TextDocument) {
   }
 
   diagnosticCollection!.set(document.uri, diagnostics);
-}
-
-function rangeForOffset(document: TextDocument, source: JsonRange) {
-  return new Range(
-    document.positionAt(source.offset),
-    document.positionAt(source.offset + source.length)
-  );
 }
 
 function getDiagnostic(
