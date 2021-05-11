@@ -36,6 +36,14 @@
   "activationEvents": [
     "*"
   ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "expo.config.open.prebuild",
+        "title": "Preview prebuild"
+      }
+    ]
+  },
   "scripts": {
     "postinstall": "patch-package",
     "vscode:prepublish": "yarn clean && yarn build:production",

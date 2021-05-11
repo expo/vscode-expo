@@ -161,9 +161,10 @@ class CodeProvider implements vscode.TextDocumentContentProvider {
     // TODO use this.documentName instead of QuickType in uri
     this.uri = vscode.Uri.parse(`${this.scheme}:app.json`);
 
-    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) =>
-      this.textDidChange(ev)
-    );
+    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
+      console.log('did change');
+      this.textDidChange(ev);
+    });
     this._onDidChangeVisibleTextEditors = vscode.window.onDidChangeVisibleTextEditors((editors) =>
       this.visibleTextEditorsDidChange(editors)
     );
@@ -238,25 +239,28 @@ class CodeProvider implements vscode.TextDocumentContentProvider {
     try {
       const projectRoot = getProjectRoot(this._document);
 
-      let config: any;
-      if (this._type === 'manifest') {
-        config = getConfig(projectRoot, {
-          skipSDKVersionRequirement: true,
-          isPublicConfig: true,
-        }).exp;
-      } else if (this._type === 'prebuild') {
-        config = getConfig(projectRoot, {
-          skipSDKVersionRequirement: true,
-          isModdedConfig: true,
-        }).exp;
-        config;
-      } else {
-        config = getConfig(projectRoot, {
-          skipSDKVersionRequirement: true,
-        }).exp;
+      try {
+        let config: any;
+        if (this._type === 'manifest') {
+          config = getConfig(projectRoot, {
+            skipSDKVersionRequirement: true,
+            isPublicConfig: true,
+          }).exp;
+        } else if (this._type === 'prebuild') {
+          config = getConfig(projectRoot, {
+            skipSDKVersionRequirement: true,
+            isModdedConfig: true,
+          }).exp;
+          config;
+        } else {
+          config = getConfig(projectRoot, {
+            skipSDKVersionRequirement: true,
+          }).exp;
+        }
+        this._targetCode = JSON.stringify(config, null, 2);
+      } catch (error) {
+        this._targetCode = '';
       }
-
-      this._targetCode = JSON.stringify(config, null, 2);
       if (!this._isOpen) return;
       this._onDidChange.fire(this.uri);
     } catch (e) {}
