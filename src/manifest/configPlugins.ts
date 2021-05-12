@@ -9,20 +9,17 @@ import vscode, {
   DiagnosticSeverity,
   DocumentLink,
   languages,
-  Range,
   TextDocument,
   Uri,
   window,
   workspace,
 } from 'vscode';
-import { JavaScriptProvider } from './providers/pluginProvider';
 
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
 import { getProjectRoot } from './utils/getProjectRoot';
 import {
   iteratePluginNames,
-  JsonRange,
   parseSourceRanges,
   PluginRange,
   rangeForOffset,
@@ -31,15 +28,6 @@ import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson'
 
 let diagnosticCollection: DiagnosticCollection | null = null;
 let delayer: ThrottledDelayer<void> | null = null;
-
-export function setupCompletionItemProvider(context: vscode.ExtensionContext) {
-  const disposable = languages.registerCompletionItemProvider(
-    JavaScriptProvider.selector,
-    JavaScriptProvider.provider,
-    ...(JavaScriptProvider.triggerCharacters || [])
-  );
-  context.subscriptions.push(disposable);
-}
 
 export function setupDefinition() {
   // Enables jumping to source

@@ -5,27 +5,11 @@ import JsonFile from '@expo/json-file';
 import { createPathCompletionItem, createNodeModuleItem } from './createCompletionItem';
 import { getPathOfFolderToLookupFiles, getChildrenOfPath } from '../utils/fileUtils';
 
-import { CompletionItemProvider, DocumentSelector } from 'vscode';
-import { appJsonPattern } from '../utils/parseExpoJson';
 import { getConfiguration } from './configuration/getConfig';
 import * as path from 'path';
 import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
 
-export interface PathIntellisenseProvider {
-  selector: DocumentSelector;
-  provider: CompletionItemProvider;
-  triggerCharacters?: string[];
-}
-
-export const JavaScriptProvider: PathIntellisenseProvider = {
-  selector: appJsonPattern,
-  provider: {
-    provideCompletionItems,
-  },
-  triggerCharacters: [path.sep, '.', '"'],
-};
-
-async function provideCompletionItems(
+export async function provideCompletionItems(
   document: vscode.TextDocument,
   position: vscode.Position
 ): Promise<vscode.CompletionItem[]> {
@@ -47,12 +31,6 @@ async function provideCompletionItems(
  * @param config
  */
 function shouldProvide(context: Context, config: Config): boolean {
-  const { fromString } = context;
-
-  //   if (!fromString || fromString.length === 0) {
-  //     return false;
-  //   }
-
   return true;
 }
 

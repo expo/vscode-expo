@@ -1,12 +1,9 @@
 import * as xdlVersions from '@expo/xdl/build/Versions';
 import vscode from 'vscode';
 
+import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
 import * as config from './config';
-import {
-  setupCompletionItemProvider,
-  setupDefinition,
-  setupPluginsValidation,
-} from './configPlugins';
+import { setupDefinition, setupPluginsValidation } from './configPlugins';
 import * as schema from './schema';
 import * as storage from './storage';
 
