@@ -1,6 +1,6 @@
-import { Mapping } from '../configuration';
-
 import * as vscode from 'vscode';
+
+import { Mapping } from '../configuration';
 
 /**
  * From { "lib": "libraries", "other": "otherpath" }

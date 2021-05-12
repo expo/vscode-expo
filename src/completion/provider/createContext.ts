@@ -1,9 +1,10 @@
-import { sep } from 'path';
+import * as path from 'path';
 import * as vscode from 'vscode';
-import { findUpPackageJson } from '../utils/getProjectRoot';
-import { positionIsInPlugins } from '../utils/iteratePlugins';
 
-type ResolveType = 'plugin';
+import { findUpPackageJson } from '../../manifest/utils/getProjectRoot';
+import { positionIsInPlugins } from '../../manifest/utils/iteratePlugins';
+
+type ResolveType = 'plugin' | 'image';
 
 export interface Context {
   textFullLine: string;
@@ -19,8 +20,8 @@ export interface Context {
 export function createContext(document: vscode.TextDocument, position: vscode.Position): Context {
   const textFullLine = document.getText(document.lineAt(position).range);
   const fromString = getFromString(textFullLine, position.character);
-  const importRange = importStringRange(textFullLine, position);
-  const moduleImportRange = moduleImportStringRange(textFullLine, position);
+  const importRange = importStringRange(textFullLine, position, path.sep);
+  const moduleImportRange = importStringRange(textFullLine, position, `"`);
   const documentExtension = extractExtension(document);
 
   let packageJsonPath: string | undefined;
@@ -29,7 +30,10 @@ export function createContext(document: vscode.TextDocument, position: vscode.Po
   } catch {}
 
   let resolveType: ResolveType | undefined;
-  if (positionIsInPlugins(document, position)) {
+
+  if (textFullLine.trim().match(/^"(image|icon)":/)) {
+    resolveType = 'image';
+  } else if (positionIsInPlugins(document, position)) {
     resolveType = 'plugin';
   }
 
@@ -47,28 +51,19 @@ export function createContext(document: vscode.TextDocument, position: vscode.Po
 
 function getFromString(textFullLine: string, position: number) {
   const textToPosition = textFullLine.substring(0, position);
-  const quoatationPosition = Math.max(
-    textToPosition.lastIndexOf('"')
-    // textToPosition.lastIndexOf("'"),
-    // textToPosition.lastIndexOf('`')
-  );
-  return quoatationPosition !== -1
-    ? textToPosition.substring(quoatationPosition + 1, textToPosition.length)
+  const quoteIndex = textToPosition.lastIndexOf('"');
+  return quoteIndex !== -1
+    ? textToPosition.substring(quoteIndex + 1, textToPosition.length)
     : undefined;
 }
 
-function importStringRange(line: string, position: vscode.Position): vscode.Range {
+function importStringRange(
+  line: string,
+  position: vscode.Position,
+  targetCharacter: string
+): vscode.Range {
   const textToPosition = line.substring(0, position.character);
-  const slashPosition = textToPosition.lastIndexOf(sep);
-
-  const startPosition = new vscode.Position(position.line, slashPosition + 1);
-  const endPosition = position;
-
-  return new vscode.Range(startPosition, endPosition);
-}
-function moduleImportStringRange(line: string, position: vscode.Position): vscode.Range {
-  const textToPosition = line.substring(0, position.character);
-  const slashPosition = textToPosition.lastIndexOf(`"`);
+  const slashPosition = textToPosition.lastIndexOf(targetCharacter);
 
   const startPosition = new vscode.Position(position.line, slashPosition + 1);
   const endPosition = position;
@@ -81,7 +76,7 @@ export function extractExtension(document: vscode.TextDocument) {
     return undefined;
   }
 
-  const fragments = document.fileName.split('.');
+  const fragments = path.extname(document.fileName).slice(1);
   const extension = fragments[fragments.length - 1];
 
   if (!extension || extension.length > 3) {

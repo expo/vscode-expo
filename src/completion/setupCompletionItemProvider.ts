@@ -1,8 +1,8 @@
 import * as path from 'path';
 import vscode, { languages } from 'vscode';
 
-import { provideCompletionItems } from '../providers/pluginProvider';
-import { appJsonPattern } from '../utils/parseExpoJson';
+import { appJsonPattern } from '../manifest/utils/parseExpoJson';
+import { provideCompletionItems } from './provider/provideCompletionItems';
 
 export function setupCompletionItemProvider(context: vscode.ExtensionContext) {
   const triggerCharacters = [path.sep, '.', '"'];

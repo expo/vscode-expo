@@ -1,7 +1,6 @@
 import * as xdlVersions from '@expo/xdl/build/Versions';
 import vscode from 'vscode';
 
-import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
 import * as config from './config';
 import { setupDefinition, setupPluginsValidation } from './configPlugins';
 import * as schema from './schema';
@@ -19,7 +18,6 @@ export async function activateGlobalSchema(context: vscode.ExtensionContext) {
   await config.registerGlobalSchema(storagePath);
   setupPluginsValidation(context);
   setupDefinition();
-  setupCompletionItemProvider(context);
 }
 
 /**

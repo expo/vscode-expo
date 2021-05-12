@@ -1,13 +1,13 @@
-import * as vscode from 'vscode';
-import { Config } from './configuration';
-import { createContext, Context } from './createContext';
-import JsonFile from '@expo/json-file';
-import { createPathCompletionItem, createNodeModuleItem } from './createCompletionItem';
-import { getPathOfFolderToLookupFiles, getChildrenOfPath } from '../utils/fileUtils';
-
-import { getConfiguration } from './configuration/getConfig';
-import * as path from 'path';
 import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
+import JsonFile from '@expo/json-file';
+import * as path from 'path';
+import * as vscode from 'vscode';
+
+import { getChildrenOfPath, getPathOfFolderToLookupFiles } from './fileUtils';
+import { Config } from './configuration';
+import { getConfiguration } from './configuration/getConfig';
+import { createNodeModuleItem, createPathCompletionItem } from './createCompletionItem';
+import { Context, createContext } from './createContext';
 
 export async function provideCompletionItems(
   document: vscode.TextDocument,
@@ -76,6 +76,9 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
     config.mappings
   );
 
-  const childrenOfPath = await getChildrenOfPath(_path, config);
+  const childrenOfPath = (await getChildrenOfPath(_path, config)).filter((file) => {
+    // Only allow .js files
+    return !file.isFile || /\.js$/.test(file.file);
+  });
   return [...childrenOfPath.map((child) => createPathCompletionItem(child, config, context))];
 }

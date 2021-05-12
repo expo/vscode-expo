@@ -1,17 +1,16 @@
-import * as path from 'path';
-import { Mapping, Config } from '../providers/configuration';
-import minimatch from 'minimatch';
-import { join } from 'path';
 import { promises, statSync } from 'fs';
-import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
+import minimatch from 'minimatch';
+import * as path from 'path';
+
+import { Mapping, Config } from './configuration';
 
 export class FileInfo {
   file: string;
   isFile: boolean;
 
-  constructor(path: string, file: string) {
+  constructor(filePath: string, file: string) {
     this.file = file;
-    this.isFile = statSync(join(path, file)).isFile();
+    this.isFile = statSync(path.join(filePath, file)).isFile();
   }
 }
 
@@ -56,12 +55,7 @@ export async function getChildrenOfPath(path: string, config: Config) {
     const files: string[] = await promises.readdir(path);
     return files
       .filter((filename) => filterFile(filename, config))
-      .map((f) => new FileInfo(path, f))
-      .filter((file) => {
-        // Only allow .js files
-        return !file.isFile || /\.js$/.test(file.file);
-      });
-    // TODO: Maybe validate plugin
+      .map((f) => new FileInfo(path, f));
   } catch (error) {
     return [];
   }
