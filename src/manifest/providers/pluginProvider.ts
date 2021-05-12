@@ -1,14 +1,15 @@
 import * as vscode from 'vscode';
 import { Config } from './configuration';
 import { createContext, Context } from './createContext';
-
-import { createPathCompletionItem } from './createCompletionItem';
+import JsonFile from '@expo/json-file';
+import { createPathCompletionItem, createNodeModuleItem } from './createCompletionItem';
 import { getPathOfFolderToLookupFiles, getChildrenOfPath } from '../utils/fileUtils';
 
 import { CompletionItemProvider, DocumentSelector } from 'vscode';
 import { appJsonPattern } from '../utils/parseExpoJson';
 import { getConfiguration } from './configuration/getConfig';
-import { sep } from 'path';
+import * as path from 'path';
+import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
 
 export interface PathIntellisenseProvider {
   selector: DocumentSelector;
@@ -21,7 +22,7 @@ export const JavaScriptProvider: PathIntellisenseProvider = {
   provider: {
     provideCompletionItems,
   },
-  triggerCharacters: [sep, '.', '"'],
+  triggerCharacters: [path.sep, '.', '"'],
 };
 
 async function provideCompletionItems(
@@ -48,9 +49,9 @@ async function provideCompletionItems(
 function shouldProvide(context: Context, config: Config): boolean {
   const { fromString } = context;
 
-  if (!fromString || fromString.length === 0) {
-    return false;
-  }
+  //   if (!fromString || fromString.length === 0) {
+  //     return false;
+  //   }
 
   return true;
 }
@@ -63,13 +64,40 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
 
   const rootPath = config.absolutePathToWorkspace ? workspace?.uri.fsPath : undefined;
 
-  const path = getPathOfFolderToLookupFiles(
+  const { fromString } = context;
+  if (
+    (!fromString || !fromString.length || !fromString.match(/^(\/|\.)/)) &&
+    context.packageJsonPath
+  ) {
+    const projectRoot = path.dirname(context.packageJsonPath);
+
+    // is module...
+    const pkg = await JsonFile.readAsync(context.packageJsonPath);
+
+    const validPlugins: {
+      plugin: any;
+      pluginFile: string;
+      pluginReference: string;
+      isPluginFile: boolean;
+    }[] = [];
+    if (pkg.dependencies) {
+      for (const pkgName of Object.keys(pkg.dependencies)) {
+        try {
+          validPlugins.push({ ...resolveConfigPluginFunctionWithInfo(projectRoot, pkgName) });
+        } catch {}
+      }
+    }
+
+    return validPlugins.map((plugin) => createNodeModuleItem(plugin, context.moduleImportRange));
+  }
+
+  const _path = getPathOfFolderToLookupFiles(
     context.document.uri.fsPath,
     context.fromString,
     rootPath,
     config.mappings
   );
 
-  const childrenOfPath = await getChildrenOfPath(path, config);
+  const childrenOfPath = await getChildrenOfPath(_path, config);
   return [...childrenOfPath.map((child) => createPathCompletionItem(child, config, context))];
 }

@@ -14,6 +14,29 @@ export function createPathCompletionItem(
     : createFolderItem(fileInfo, config.autoSlash, context.importRange);
 }
 
+export function createNodeModuleItem(
+  pluginInfo: {
+    plugin: Function;
+    pluginFile: string;
+    pluginReference: string;
+    isPluginFile: boolean;
+  },
+  importRange: vscode.Range
+): vscode.CompletionItem {
+  const moduleName = pluginInfo.pluginReference;
+  //   const hasProps = pluginInfo.plugin.length > 1
+  return {
+    label: moduleName,
+    // additionalTextEdits:
+    // detail: `${pluginInfo.plugin.length} ${pluginInfo.pluginFile}`,
+    // documentation: ${},
+    kind: vscode.CompletionItemKind.Module,
+    textEdit: new vscode.TextEdit(importRange, moduleName),
+    // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
+    sortText: `a_${pluginInfo.isPluginFile ? 'a' : 'b'}_${moduleName}`,
+  };
+}
+
 function createFolderItem(
   fileInfo: FileInfo,
   autoSlash: boolean,
@@ -25,7 +48,7 @@ function createFolderItem(
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.Folder,
     textEdit: new vscode.TextEdit(importRange, newText),
-    sortText: `b_${fileInfo.file}`,
+    sortText: `c_${fileInfo.file}`,
   };
 }
 
@@ -39,7 +62,7 @@ function createFileItem(
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.File,
-    sortText: `a_${fileInfo.file}`,
+    sortText: `b_${fileInfo.file}`,
     textEdit,
   };
 }

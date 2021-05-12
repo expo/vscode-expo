@@ -1,5 +1,6 @@
 import { sep } from 'path';
 import * as vscode from 'vscode';
+import { findUpPackageJson } from '../utils/getProjectRoot';
 import { positionIsInPlugins } from '../utils/iteratePlugins';
 
 type ResolveType = 'plugin';
@@ -9,15 +10,23 @@ export interface Context {
   fromString?: string;
   document: vscode.TextDocument;
   importRange: vscode.Range;
+  moduleImportRange: vscode.Range;
   documentExtension: string | undefined;
   resolveType?: ResolveType;
+  packageJsonPath?: string;
 }
 
 export function createContext(document: vscode.TextDocument, position: vscode.Position): Context {
   const textFullLine = document.getText(document.lineAt(position).range);
   const fromString = getFromString(textFullLine, position.character);
   const importRange = importStringRange(textFullLine, position);
+  const moduleImportRange = moduleImportStringRange(textFullLine, position);
   const documentExtension = extractExtension(document);
+
+  let packageJsonPath: string | undefined;
+  try {
+    packageJsonPath = findUpPackageJson(document.fileName);
+  } catch {}
 
   let resolveType: ResolveType | undefined;
   if (positionIsInPlugins(document, position)) {
@@ -25,11 +34,13 @@ export function createContext(document: vscode.TextDocument, position: vscode.Po
   }
 
   return {
+    packageJsonPath,
     resolveType,
     textFullLine,
     fromString,
     document,
     importRange,
+    moduleImportRange,
     documentExtension,
   };
 }
@@ -49,6 +60,15 @@ function getFromString(textFullLine: string, position: number) {
 function importStringRange(line: string, position: vscode.Position): vscode.Range {
   const textToPosition = line.substring(0, position.character);
   const slashPosition = textToPosition.lastIndexOf(sep);
+
+  const startPosition = new vscode.Position(position.line, slashPosition + 1);
+  const endPosition = position;
+
+  return new vscode.Range(startPosition, endPosition);
+}
+function moduleImportStringRange(line: string, position: vscode.Position): vscode.Range {
+  const textToPosition = line.substring(0, position.character);
+  const slashPosition = textToPosition.lastIndexOf(`"`);
 
   const startPosition = new vscode.Position(position.line, slashPosition + 1);
   const endPosition = position;
