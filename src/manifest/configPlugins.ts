@@ -159,7 +159,7 @@ async function openForEditor(
 
   lastCodeProvider = codeProvider;
 
-  codeProvider.update();
+  await codeProvider.update();
   const doc = await vscode.workspace.openTextDocument(codeProvider.getURI());
   vscode.window.showTextDocument(doc, column, true);
 }

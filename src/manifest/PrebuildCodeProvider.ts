@@ -1,5 +1,6 @@
-import { getConfig, getPrebuildConfig } from '@expo/config';
+import { getPrebuildConfig } from '@expo/config';
 import { XML } from '@expo/config-plugins';
+import plist from '@expo/plist';
 import path from 'path';
 import vscode from 'vscode';
 
@@ -16,8 +17,6 @@ export type CodeProviderOptions = {
   convertLanguage?: CodeProviderLanguage;
   type: string;
 };
-import plist from '@expo/plist';
-
 export class CodeProvider implements vscode.TextDocumentContentProvider {
   readonly scheme: string = 'expo-config';
 
@@ -35,6 +34,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   getDefinedLanguage() {
     return this.options.convertLanguage || this.defaultLanguage;
   }
+
   getURI() {
     const { fileName, convertLanguage } = this.options;
     let outputFileName = fileName;
@@ -48,6 +48,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
     return vscode.Uri.parse(`${this.scheme}:${outputFileName}`);
   }
+
   constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
     this.scheme = `expo-config-${this.options.type}`;
     this.projectRoot = getProjectRoot(this._document);
@@ -79,7 +80,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
   sendDidChangeEvent() {
     if (!this._isOpen) return;
-    this._onDidChange.fire(this.uri);
+    this._onDidChange.fire(this.getURI());
   }
 
   dispose(): void {
@@ -241,6 +242,12 @@ export class PrebuildConfigCodeProvider extends CodeProvider {
 
   readonly defaultLanguage: CodeProviderLanguage = 'json';
 
+  getExpoConfig() {
+    return getPrebuildConfig(this.projectRoot, {
+      platforms: ['ios', 'android'],
+      // packageName: 'com.helloworld'
+    }).exp;
+  }
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
