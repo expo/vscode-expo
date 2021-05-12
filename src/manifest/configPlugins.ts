@@ -1,7 +1,6 @@
 import {
   resolveConfigPluginFunction,
   resolvePluginForModule,
-  resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
 import path from 'path';
 import vscode, {
