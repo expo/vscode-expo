@@ -43,6 +43,10 @@
         "title": "Expo: Preview modifier"
       },
       {
+        "command": "expo.config.open.prebuild.file.json",
+        "title": "Expo: Preview modifier as JSON"
+      },
+      {
         "command": "expo.config.open.prebuild.config",
         "title": "Expo: Preview prebuild config"
       }

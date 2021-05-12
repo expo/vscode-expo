@@ -70,9 +70,8 @@ export function setupDefinition() {
 
 enum Command {
   OpenExpoFilePrebuild = 'expo.config.open.prebuild.file',
+  OpenExpoFileJsonPrebuild = 'expo.config.open.prebuild.file.json',
   OpenExpoConfigPrebuild = 'expo.config.open.prebuild.config',
-  OpenExpoConfigManifest = 'expo.config.open.manifest',
-  OpenExpoConfigResolved = 'expo.config.open.resolved',
 }
 
 let extensionContext: vscode.ExtensionContext | null = null;
@@ -92,6 +91,16 @@ export function setupPreview(context: vscode.ExtensionContext) {
       if (option) {
         openForEditor(option, editor.document);
       }
+    }),
+    vscode.commands.registerTextEditorCommand(Command.OpenExpoFileJsonPrebuild, async (editor) => {
+      const option = await vscode.window.showQuickPick([
+        'android.manifest',
+        'ios.entitlements',
+        'ios.infoPlist',
+      ]);
+      if (option) {
+        openForEditor(option, editor.document, true);
+      }
     })
   );
 }
@@ -103,7 +112,11 @@ const CodeProviders: Record<string, any> = {
   'config.prebuild': PrebuildConfigCodeProvider,
 };
 
-async function openForEditor(type: string, document: vscode.TextDocument): Promise<void> {
+async function openForEditor(
+  type: string,
+  document: vscode.TextDocument,
+  isJSON?: boolean
+): Promise<void> {
   if (!(type in CodeProviders)) {
     throw new Error('invalid type: ' + type);
   }
@@ -111,7 +124,7 @@ async function openForEditor(type: string, document: vscode.TextDocument): Promi
   if (codeProvider === undefined) {
     const Provider = CodeProviders[type];
 
-    codeProvider = new Provider(document)!;
+    codeProvider = new Provider(document, { convertLanguage: isJSON ? 'json' : undefined })!;
 
     // codeProvider = new CodeProvider(type, document);
     // codeProvider = new InfoPlistCodeProvider(document);
@@ -123,6 +136,7 @@ async function openForEditor(type: string, document: vscode.TextDocument): Promi
       );
     }
   } else {
+    codeProvider.options.convertLanguage = isJSON ? 'json' : undefined;
     // codeProvider.setInputKind(inputKind);
     codeProvider.setDocument(document);
   }
@@ -146,7 +160,7 @@ async function openForEditor(type: string, document: vscode.TextDocument): Promi
   lastCodeProvider = codeProvider;
 
   codeProvider.update();
-  const doc = await vscode.workspace.openTextDocument(codeProvider.uri);
+  const doc = await vscode.workspace.openTextDocument(codeProvider.getURI());
   vscode.window.showTextDocument(doc, column, true);
 }
 let lastCodeProvider: CodeProvider | undefined = undefined;

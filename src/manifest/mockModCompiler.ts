@@ -75,21 +75,21 @@ export function clearMods(config: ExportedConfig, platform: 'ios' | 'android', m
 export async function compileManifestMockAsync(projectRoot: string, exp: ExportedConfig) {
   exp = withAndroidManifestBaseMod(exp);
   exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'android', 'manifest');
-  return XML.format(exp._internal!.modResults.android.manifest);
+  return exp._internal!.modResults.android.manifest;
 }
 
 export async function compileInfoPlistMockAsync(projectRoot: string, exp: ExportedConfig) {
   // @ts-ignore
   exp = BaseMods.withIOSInfoPlistBaseMod(exp, { noPersist: true, saveToInternal: true });
   exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'ios', 'infoPlist');
-  return plist.build(exp._internal!.modResults.ios.infoPlist);
+  return exp._internal!.modResults.ios.infoPlist;
 }
 
 export async function compileEntitlementsPlistMockAsync(projectRoot: string, exp: ExportedConfig) {
   // @ts-ignore
   exp = BaseMods.withIOSEntitlementsPlistBaseMod(exp, { noPersist: true, saveToInternal: true });
   exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'ios', 'entitlements');
-  return plist.build(exp._internal!.modResults.ios.entitlements);
+  return exp._internal!.modResults.ios.entitlements;
 }
 
 export async function evalSinglePlatformModsAsync(

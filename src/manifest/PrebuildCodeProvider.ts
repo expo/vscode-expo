@@ -1,4 +1,5 @@
 import { getConfig, getPrebuildConfig } from '@expo/config';
+import { XML } from '@expo/config-plugins';
 import path from 'path';
 import vscode from 'vscode';
 
@@ -9,9 +10,16 @@ import {
 } from './mockModCompiler';
 import { getProjectRoot } from './utils/getProjectRoot';
 
+type CodeProviderLanguage = 'json' | 'xml' | 'plist';
+export type CodeProviderOptions = {
+  fileName: string;
+  convertLanguage?: CodeProviderLanguage;
+  type: string;
+};
+import plist from '@expo/plist';
+
 export class CodeProvider implements vscode.TextDocumentContentProvider {
   readonly scheme: string = 'expo-config';
-  readonly uri: vscode.Uri;
 
   public _targetCode = '';
   public projectRoot: string;
@@ -24,15 +32,25 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   public _isOpen = false;
   private _timer: NodeJS.Timer | undefined = undefined;
 
-  constructor(
-    public _type: string,
-    public _document: vscode.TextDocument,
-    private fileName: string
-  ) {
-    this.scheme = `expo-config-${this._type}`;
-    this.projectRoot = getProjectRoot(this._document);
+  getDefinedLanguage() {
+    return this.options.convertLanguage || this.defaultLanguage;
+  }
+  getURI() {
+    const { fileName, convertLanguage } = this.options;
+    let outputFileName = fileName;
+    const extension = path.extname(fileName).slice(1);
+    if (extension !== this.defaultLanguage) {
+      throw new Error('defaultLanguage should match fileName extension');
+    }
+    if (convertLanguage && convertLanguage !== this.defaultLanguage) {
+      outputFileName += '.' + convertLanguage;
+    }
 
-    this.uri = vscode.Uri.parse(`${this.scheme}:${this.fileName}`);
+    return vscode.Uri.parse(`${this.scheme}:${outputFileName}`);
+  }
+  constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
+    this.scheme = `expo-config-${this.options.type}`;
+    this.projectRoot = getProjectRoot(this._document);
 
     this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
       this.textDidChange(ev);
@@ -43,6 +61,20 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     this._onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration((ev) =>
       this.configurationDidChange(ev)
     );
+  }
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  formatWithLanguage(results: any, language?: CodeProviderLanguage) {
+    language = language || this.options.convertLanguage || this.defaultLanguage;
+    if (language === 'json') {
+      return JSON.stringify(results, null, 2);
+    } else if (language === 'xml') {
+      return XML.format(results);
+    } else if (language === 'plist') {
+      return plist.build(results);
+    }
+    throw new Error('Unknown language: ' + language);
   }
 
   sendDidChangeEvent() {
@@ -103,53 +135,9 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     }, 300);
   }
 
-  async update(): Promise<void> {
-    try {
-      let config: any;
-      if (this._type === 'manifest') {
-        config = getConfig(this.projectRoot, {
-          skipSDKVersionRequirement: true,
-          isPublicConfig: true,
-        }).exp;
-      } else if (this._type === 'prebuild') {
-        config = getConfig(this.projectRoot, {
-          skipSDKVersionRequirement: true,
-          isModdedConfig: true,
-        }).exp;
-      } else {
-        config = getConfig(this.projectRoot, {
-          skipSDKVersionRequirement: true,
-        }).exp;
-      }
+  async update(): Promise<void> {}
 
-      this._targetCode = JSON.stringify(config, null, 2);
-    } catch (error) {
-      console.log('update: ', error);
-      this._targetCode = '';
-    }
-    this.sendDidChangeEvent();
-  }
-
-  getExpoConfig() {
-    if (this._type === 'manifest') {
-      return getConfig(this.projectRoot, {
-        skipSDKVersionRequirement: true,
-        isPublicConfig: true,
-      }).exp;
-    } else if (this._type === 'prebuild') {
-      // config = getConfig(projectRoot, {
-      //   skipSDKVersionRequirement: true,
-      //   isModdedConfig: true,
-      // }).exp;
-      return getPrebuildConfig(this.projectRoot, {
-        platforms: ['android', 'ios'],
-      }).exp;
-    } else {
-      return getConfig(this.projectRoot, {
-        skipSDKVersionRequirement: true,
-      }).exp;
-    }
-  }
+  getExpoConfig() {}
 
   provideTextDocumentContent(
     _uri: vscode.Uri,
@@ -162,9 +150,13 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 }
 
 export class AndroidManifestCodeProvider extends CodeProvider {
-  constructor(_document: vscode.TextDocument) {
-    super('prebuild', _document, 'AndroidManifest.xml');
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, { ...options, type: 'android.manifest', fileName: 'AndroidManifest.xml' });
   }
+  readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
   getExpoConfig() {
     return getPrebuildConfig(this.projectRoot, {
@@ -176,7 +168,8 @@ export class AndroidManifestCodeProvider extends CodeProvider {
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
-      this._targetCode = await compileManifestMockAsync(this.projectRoot, config);
+      const results = await compileManifestMockAsync(this.projectRoot, config);
+      this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
     }
@@ -185,10 +178,6 @@ export class AndroidManifestCodeProvider extends CodeProvider {
 }
 
 export class IOSCodeProvider extends CodeProvider {
-  constructor(_document: vscode.TextDocument, name: string) {
-    super('prebuild', _document, name);
-  }
-
   getExpoConfig() {
     return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios'],
@@ -198,14 +187,23 @@ export class IOSCodeProvider extends CodeProvider {
 }
 
 export class InfoPlistCodeProvider extends IOSCodeProvider {
-  constructor(_document: vscode.TextDocument) {
-    super(_document, 'Info.plist');
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, {
+      ...options,
+      type: 'ios.infoPlist',
+      fileName: `Info.plist`,
+    });
   }
+  readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
-      this._targetCode = await compileInfoPlistMockAsync(this.projectRoot, config);
+      const results = await compileInfoPlistMockAsync(this.projectRoot, config);
+      this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
     }
@@ -213,14 +211,19 @@ export class InfoPlistCodeProvider extends IOSCodeProvider {
   }
 }
 export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
-  constructor(_document: vscode.TextDocument) {
-    super(_document, 'entitlements.plist');
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, { ...options, type: 'ios.entitlements', fileName: 'entitlements.plist' });
   }
+  readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
-      this._targetCode = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
+      const results = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
+      this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
     }
@@ -229,15 +232,19 @@ export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
 }
 
 export class PrebuildConfigCodeProvider extends CodeProvider {
-  constructor(_document: vscode.TextDocument) {
-    super('prebuild', _document, 'app.config.json');
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, { ...options, type: 'prebuild', fileName: 'app.config.json' });
   }
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
 
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
-      this._targetCode = JSON.stringify(config, null, 2);
-      //   this._targetCode = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
+      this._targetCode = this.formatWithLanguage(config);
     } catch (error) {
       this._targetCode = '';
     }
