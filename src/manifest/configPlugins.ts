@@ -22,6 +22,7 @@ import {
   CodeProvider,
   EntitlementsPlistCodeProvider,
   InfoPlistCodeProvider,
+  PrebuildConfigCodeProvider,
 } from './PrebuildCodeProvider';
 
 import { isConfigPluginValidationEnabled } from './settings';
@@ -68,7 +69,8 @@ export function setupDefinition() {
 }
 
 enum Command {
-  OpenExpoConfigPrebuild = 'expo.config.open.prebuild',
+  OpenExpoFilePrebuild = 'expo.config.open.prebuild.file',
+  OpenExpoConfigPrebuild = 'expo.config.open.prebuild.config',
   OpenExpoConfigManifest = 'expo.config.open.manifest',
   OpenExpoConfigResolved = 'expo.config.open.resolved',
 }
@@ -78,35 +80,40 @@ let extensionContext: vscode.ExtensionContext | null = null;
 export function setupPreview(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, (editor) => {
-      openForEditor('prebuild', editor.document);
+    vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, async (editor) => {
+      openForEditor('config.prebuild', editor.document);
     }),
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigManifest, (editor) => {
-      openForEditor('manifest', editor.document);
-    }),
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigResolved, (editor) => {
-      openForEditor('resolved', editor.document);
+    vscode.commands.registerTextEditorCommand(Command.OpenExpoFilePrebuild, async (editor) => {
+      const option = await vscode.window.showQuickPick([
+        'android.manifest',
+        'ios.entitlements',
+        'ios.infoPlist',
+      ]);
+      if (option) {
+        openForEditor(option, editor.document);
+      }
     })
   );
 }
 
-async function openForEditor(
-  type: 'prebuild' | 'manifest' | 'resolved',
-  document: vscode.TextDocument
-): Promise<void> {
-  const projectRoot = getProjectRoot(document);
+const CodeProviders: Record<string, any> = {
+  'android.manifest': AndroidManifestCodeProvider,
+  'ios.entitlements': EntitlementsPlistCodeProvider,
+  'ios.infoPlist': InfoPlistCodeProvider,
+  'config.prebuild': PrebuildConfigCodeProvider,
+};
 
-  if (!isAppJson(document)) {
-    window.showErrorMessage(
-      `File "${path.relative(projectRoot, document.fileName)}" is not a valid Expo config`
-    );
-    return;
+async function openForEditor(type: string, document: vscode.TextDocument): Promise<void> {
+  if (!(type in CodeProviders)) {
+    throw new Error('invalid type: ' + type);
   }
-
   let codeProvider = codeProviders.get(type);
   if (codeProvider === undefined) {
+    const Provider = CodeProviders[type];
+
+    codeProvider = new Provider(document)!;
+
     // codeProvider = new CodeProvider(type, document);
-    codeProvider = new EntitlementsPlistCodeProvider(document);
     // codeProvider = new InfoPlistCodeProvider(document);
     // codeProvider = new AndroidManifestCodeProvider(document);
     codeProviders.set(type, codeProvider);

@@ -13,7 +13,6 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   readonly scheme: string = 'expo-config';
   readonly uri: vscode.Uri;
 
-  public _documentText: string = '';
   public _targetCode = '';
   public projectRoot: string;
 
@@ -44,6 +43,11 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     this._onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration((ev) =>
       this.configurationDidChange(ev)
     );
+  }
+
+  sendDidChangeEvent() {
+    if (!this._isOpen) return;
+    this._onDidChange.fire(this.uri);
   }
 
   dispose(): void {
@@ -100,36 +104,30 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   }
 
   async update(): Promise<void> {
-    this._documentText = this._document.getText();
     try {
-      const projectRoot = getProjectRoot(this._document);
-
-      try {
-        let config: any;
-        if (this._type === 'manifest') {
-          config = getConfig(projectRoot, {
-            skipSDKVersionRequirement: true,
-            isPublicConfig: true,
-          }).exp;
-        } else if (this._type === 'prebuild') {
-          config = getConfig(projectRoot, {
-            skipSDKVersionRequirement: true,
-            isModdedConfig: true,
-          }).exp;
-        } else {
-          config = getConfig(projectRoot, {
-            skipSDKVersionRequirement: true,
-          }).exp;
-        }
-
-        this._targetCode = JSON.stringify(config, null, 2);
-      } catch (error) {
-        console.log('update: ', error);
-        this._targetCode = '';
+      let config: any;
+      if (this._type === 'manifest') {
+        config = getConfig(this.projectRoot, {
+          skipSDKVersionRequirement: true,
+          isPublicConfig: true,
+        }).exp;
+      } else if (this._type === 'prebuild') {
+        config = getConfig(this.projectRoot, {
+          skipSDKVersionRequirement: true,
+          isModdedConfig: true,
+        }).exp;
+      } else {
+        config = getConfig(this.projectRoot, {
+          skipSDKVersionRequirement: true,
+        }).exp;
       }
-      if (!this._isOpen) return;
-      this._onDidChange.fire(this.uri);
-    } catch (e) {}
+
+      this._targetCode = JSON.stringify(config, null, 2);
+    } catch (error) {
+      console.log('update: ', error);
+      this._targetCode = '';
+    }
+    this.sendDidChangeEvent();
   }
 
   getExpoConfig() {
@@ -176,17 +174,13 @@ export class AndroidManifestCodeProvider extends CodeProvider {
   }
 
   async update(): Promise<void> {
-    this._documentText = this._document.getText();
     try {
-      try {
-        const config = this.getExpoConfig();
-        this._targetCode = await compileManifestMockAsync(this.projectRoot, config);
-      } catch (error) {
-        this._targetCode = '';
-      }
-      if (!this._isOpen) return;
-      this._onDidChange.fire(this.uri);
-    } catch (e) {}
+      const config = this.getExpoConfig();
+      this._targetCode = await compileManifestMockAsync(this.projectRoot, config);
+    } catch (error) {
+      this._targetCode = '';
+    }
+    this.sendDidChangeEvent();
   }
 }
 
@@ -209,17 +203,13 @@ export class InfoPlistCodeProvider extends IOSCodeProvider {
   }
 
   async update(): Promise<void> {
-    this._documentText = this._document.getText();
     try {
-      try {
-        const config = this.getExpoConfig();
-        this._targetCode = await compileInfoPlistMockAsync(this.projectRoot, config);
-      } catch (error) {
-        this._targetCode = '';
-      }
-      if (!this._isOpen) return;
-      this._onDidChange.fire(this.uri);
-    } catch (e) {}
+      const config = this.getExpoConfig();
+      this._targetCode = await compileInfoPlistMockAsync(this.projectRoot, config);
+    } catch (error) {
+      this._targetCode = '';
+    }
+    this.sendDidChangeEvent();
   }
 }
 export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
@@ -228,17 +218,30 @@ export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
   }
 
   async update(): Promise<void> {
-    this._documentText = this._document.getText();
     try {
-      try {
-        const config = this.getExpoConfig();
-        this._targetCode = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
-      } catch (error) {
-        this._targetCode = '';
-      }
-      if (!this._isOpen) return;
-      this._onDidChange.fire(this.uri);
-    } catch (e) {}
+      const config = this.getExpoConfig();
+      this._targetCode = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
+    } catch (error) {
+      this._targetCode = '';
+    }
+    this.sendDidChangeEvent();
+  }
+}
+
+export class PrebuildConfigCodeProvider extends CodeProvider {
+  constructor(_document: vscode.TextDocument) {
+    super('prebuild', _document, 'app.config.json');
+  }
+
+  async update(): Promise<void> {
+    try {
+      const config = this.getExpoConfig();
+      this._targetCode = JSON.stringify(config, null, 2);
+      //   this._targetCode = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
+    } catch (error) {
+      this._targetCode = '';
+    }
+    this.sendDidChangeEvent();
   }
 }
 

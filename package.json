@@ -39,8 +39,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "expo.config.open.prebuild",
-        "title": "Preview prebuild"
+        "command": "expo.config.open.prebuild.file",
+        "title": "Expo: Preview modifier"
+      },
+      {
+        "command": "expo.config.open.prebuild.config",
+        "title": "Expo: Preview prebuild config"
       }
     ]
   },
