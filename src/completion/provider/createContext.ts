@@ -4,48 +4,62 @@ import * as vscode from 'vscode';
 import { findUpPackageJson } from '../../manifest/utils/getProjectRoot';
 import { positionIsInPlugins } from '../../manifest/utils/iteratePlugins';
 
-type ResolveType = 'plugin' | 'image';
+export type ResolveType = 'plugin' | 'image';
 
 export interface Context {
   textFullLine: string;
   fromString?: string;
   document: vscode.TextDocument;
   importRange: vscode.Range;
+  isModule?: boolean;
   moduleImportRange: vscode.Range;
-  documentExtension: string | undefined;
   resolveType?: ResolveType;
   packageJsonPath?: string;
 }
 
-export function createContext(document: vscode.TextDocument, position: vscode.Position): Context {
+export function createContext(
+  document: vscode.TextDocument,
+  position: vscode.Position
+): Context | null {
   const textFullLine = document.getText(document.lineAt(position).range);
+  let resolveType: ResolveType | undefined;
+
+  if (
+    textFullLine
+      .trim()
+      .match(/^"((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)":/)
+  ) {
+    resolveType = 'image';
+    // return null;
+  } else if (positionIsInPlugins(document, position)) {
+    // Only support plugins for now
+    resolveType = 'plugin';
+  } else {
+    return null;
+  }
+
   const fromString = getFromString(textFullLine, position.character);
-  const importRange = importStringRange(textFullLine, position, path.sep);
-  const moduleImportRange = importStringRange(textFullLine, position, `"`);
-  const documentExtension = extractExtension(document);
+  const importRange = getImportStringRange(textFullLine, position, path.sep);
+  const moduleImportRange = getImportStringRange(textFullLine, position, `"`);
 
   let packageJsonPath: string | undefined;
   try {
     packageJsonPath = findUpPackageJson(document.fileName);
   } catch {}
 
-  let resolveType: ResolveType | undefined;
-
-  if (textFullLine.trim().match(/^"(image|icon)":/)) {
-    resolveType = 'image';
-  } else if (positionIsInPlugins(document, position)) {
-    resolveType = 'plugin';
-  }
+  // If the suggestion is for a blank line (triggered by a quote) then suggest a node module.
+  const isModule =
+    (!fromString || !fromString.length || !fromString.match(/^(\/|\.)/)) && !!packageJsonPath;
 
   return {
     packageJsonPath,
     resolveType,
+    isModule,
     textFullLine,
     fromString,
     document,
     importRange,
     moduleImportRange,
-    documentExtension,
   };
 }
 
@@ -57,7 +71,7 @@ function getFromString(textFullLine: string, position: number) {
     : undefined;
 }
 
-function importStringRange(
+function getImportStringRange(
   line: string,
   position: vscode.Position,
   targetCharacter: string
@@ -69,19 +83,4 @@ function importStringRange(
   const endPosition = position;
 
   return new vscode.Range(startPosition, endPosition);
-}
-
-export function extractExtension(document: vscode.TextDocument) {
-  if (document.isUntitled) {
-    return undefined;
-  }
-
-  const fragments = path.extname(document.fileName).slice(1);
-  const extension = fragments[fragments.length - 1];
-
-  if (!extension || extension.length > 3) {
-    return undefined;
-  }
-
-  return extension;
 }

@@ -3,11 +3,11 @@ import JsonFile from '@expo/json-file';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { getChildrenOfPath, getPathOfFolderToLookupFiles } from './fileUtils';
 import { Config } from './configuration';
 import { getConfiguration } from './configuration/getConfig';
 import { createNodeModuleItem, createPathCompletionItem } from './createCompletionItem';
 import { Context, createContext } from './createContext';
+import { getChildrenOfPath, getPathOfFolderToLookupFiles } from './fileUtils';
 
 export async function provideCompletionItems(
   document: vscode.TextDocument,
@@ -15,23 +15,30 @@ export async function provideCompletionItems(
 ): Promise<vscode.CompletionItem[]> {
   const context = createContext(document, position);
 
-  // Only support plugins for now
-  if (context.resolveType !== 'plugin') {
+  if (!context) {
     return [];
   }
 
   const config = await getConfiguration(document.uri);
 
-  return shouldProvide(context, config) ? provide(context, config) : [];
+  return provide(context, config);
 }
 
-/**
- * Checks if we should provide any CompletionItems
- * @param context
- * @param config
- */
-function shouldProvide(context: Context, config: Config): boolean {
-  return true;
+async function getValidNodeModules(packageJsonPath: string) {
+  const projectRoot = path.dirname(packageJsonPath);
+
+  const pkg = await JsonFile.readAsync(packageJsonPath);
+
+  if (pkg.dependencies) {
+    return Object.keys(pkg.dependencies)
+      .map((pkgName) => {
+        try {
+          return resolveConfigPluginFunctionWithInfo(projectRoot, pkgName);
+        } catch {}
+      })
+      .filter(Boolean);
+  }
+  return [];
 }
 
 /**
@@ -42,43 +49,26 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
 
   const rootPath = config.absolutePathToWorkspace ? workspace?.uri.fsPath : undefined;
 
-  const { fromString } = context;
-  if (
-    (!fromString || !fromString.length || !fromString.match(/^(\/|\.)/)) &&
-    context.packageJsonPath
-  ) {
-    const projectRoot = path.dirname(context.packageJsonPath);
-
-    // is module...
-    const pkg = await JsonFile.readAsync(context.packageJsonPath);
-
-    const validPlugins: {
-      plugin: any;
-      pluginFile: string;
-      pluginReference: string;
-      isPluginFile: boolean;
-    }[] = [];
-    if (pkg.dependencies) {
-      for (const pkgName of Object.keys(pkg.dependencies)) {
-        try {
-          validPlugins.push({ ...resolveConfigPluginFunctionWithInfo(projectRoot, pkgName) });
-        } catch {}
-      }
-    }
-
-    return validPlugins.map((plugin) => createNodeModuleItem(plugin, context.moduleImportRange));
+  const isPlugin = context.resolveType === 'plugin';
+  if (isPlugin && context.isModule && context.packageJsonPath) {
+    return (await getValidNodeModules(context.packageJsonPath)).map((plugin) =>
+      createNodeModuleItem(plugin!, context.moduleImportRange)
+    );
   }
 
-  const _path = getPathOfFolderToLookupFiles(
+  const folderPath = getPathOfFolderToLookupFiles(
     context.document.uri.fsPath,
     context.fromString,
     rootPath,
     config.mappings
   );
 
-  const childrenOfPath = (await getChildrenOfPath(_path, config)).filter((file) => {
-    // Only allow .js files
-    return !file.isFile || /\.js$/.test(file.file);
+  // Only allow .js files for plugins
+  // Only allow png and jpg for images, the schema prevents anything except png but this isn't technically correct.
+  const allowedExtensions = isPlugin ? /\.js$/ : /.(png|jpe?g)/;
+
+  const childrenOfPath = (await getChildrenOfPath(folderPath, config)).filter((file) => {
+    return !file.isFile || allowedExtensions.test(file.file);
   });
   return [...childrenOfPath.map((child) => createPathCompletionItem(child, config, context))];
 }

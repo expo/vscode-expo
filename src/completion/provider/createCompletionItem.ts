@@ -68,7 +68,9 @@ function createFileItem(
 }
 
 function createCompletionItemTextEdit(fileInfo: FileInfo, config: Config, context: Context) {
-  const index = fileInfo.file.lastIndexOf('.');
+  // Use entire file name for images
+  const index =
+    context.resolveType === 'plugin' ? fileInfo.file.lastIndexOf('.') : fileInfo.file.length;
   const newText = index !== -1 ? fileInfo.file.substring(0, index) : fileInfo.file;
   return new vscode.TextEdit(context.importRange, newText);
 }

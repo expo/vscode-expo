@@ -46,5 +46,5 @@ function replaceWorkspaceFolderWithRootPath(value: string, rootPath: string) {
 }
 
 function valueContainsWorkspaceFolder(value: string): boolean {
-  return value.indexOf('${workspaceRoot}') >= 0 || value.indexOf('${workspaceFolder}') >= 0;
+  return value.includes('${workspaceRoot}') || value.includes('${workspaceFolder}');
 }
