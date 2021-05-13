@@ -1,6 +1,6 @@
 import {
   resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
+  resolvePluginForModule,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
 import path from 'path';
 import vscode, {
@@ -40,14 +40,16 @@ export function setupDefinition() {
       const projectRoot = getProjectRoot(document);
       iteratePluginNames(node, (resolver) => {
         try {
-          const { pluginFile } = resolveConfigPluginFunctionWithInfo(
+          const { filePath, isPluginFile } = resolvePluginForModule(
             projectRoot,
             resolver.nameValue
           );
-          const linkUri = Uri.parse(pluginFile);
+          const linkUri = Uri.parse(filePath);
           const range = rangeForOffset(document, resolver.name);
           const link = new DocumentLink(range, linkUri);
-          link.tooltip = 'Go to config plugin';
+          link.tooltip = isPluginFile
+            ? `Go to ${resolver.nameValue}/app.plugin.js`
+            : 'Go to plugin';
           links.push(link);
         } catch {
           // Invalid plugin.
