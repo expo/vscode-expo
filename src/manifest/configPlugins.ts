@@ -33,10 +33,20 @@ export function setupDefinition() {
   // Enables jumping to source
   vscode.languages.registerDocumentLinkProvider(appJsonPattern, {
     provideDocumentLinks(document) {
+      const projectRoot = getProjectRoot(document);
+
+      // const matches = document.getText().matchAll(/"(\.\/.*)"/g);
+      // for (const [match] of matches) {
+      //   const linkUri = Uri.parse(path.join(projectRoot, match));
+      //   const range = rangeForOffset(document, resolver.name);
+      //   const link = new DocumentLink(range, linkUri);
+      //     link.tooltip = 'Go to config plugin';
+      //     links.push(link);
+      // }
+
       // Ensure we get the expo object if it exists.
       const { node } = parseExpoJson(document.getText());
       const links: vscode.DocumentLink[] = [];
-      const projectRoot = getProjectRoot(document);
       iteratePluginNames(node, (resolver) => {
         try {
           const { pluginFile } = resolveConfigPluginFunctionWithInfo(
