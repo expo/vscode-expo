@@ -1,3 +1,5 @@
+// Inspired by https://github.com/ChristianKohler/PathIntellisense/tree/master
+
 import * as path from 'path';
 import vscode, { languages } from 'vscode';
 
