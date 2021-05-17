@@ -2,6 +2,7 @@ import {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
+import fs from 'fs';
 import path from 'path';
 import vscode, {
   Diagnostic,
@@ -15,6 +16,7 @@ import vscode, {
   workspace,
 } from 'vscode';
 
+import { iterateFileReferences } from './fileReferences';
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
 import { getProjectRoot } from './utils/getProjectRoot';
@@ -22,7 +24,7 @@ import {
   iteratePluginNames,
   parseSourceRanges,
   PluginRange,
-  rangeForOffset,
+  rangeForQuotedOffset,
 } from './utils/iteratePlugins';
 import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson';
 
@@ -35,18 +37,11 @@ export function setupDefinition() {
     provideDocumentLinks(document) {
       const projectRoot = getProjectRoot(document);
 
-      // const matches = document.getText().matchAll(/"(\.\/.*)"/g);
-      // for (const [match] of matches) {
-      //   const linkUri = Uri.parse(path.join(projectRoot, match));
-      //   const range = rangeForOffset(document, resolver.name);
-      //   const link = new DocumentLink(range, linkUri);
-      //     link.tooltip = 'Go to config plugin';
-      //     links.push(link);
-      // }
+      const links: vscode.DocumentLink[] = [];
 
       // Ensure we get the expo object if it exists.
       const { node } = parseExpoJson(document.getText());
-      const links: vscode.DocumentLink[] = [];
+
       iteratePluginNames(node, (resolver) => {
         try {
           const { pluginFile } = resolveConfigPluginFunctionWithInfo(
@@ -54,7 +49,7 @@ export function setupDefinition() {
             resolver.nameValue
           );
           const linkUri = Uri.parse(pluginFile);
-          const range = rangeForOffset(document, resolver.name);
+          const range = rangeForQuotedOffset(document, resolver.name);
           const link = new DocumentLink(range, linkUri);
           link.tooltip = 'Go to config plugin';
           links.push(link);
@@ -63,6 +58,15 @@ export function setupDefinition() {
           // This should be formatted by validation
         }
       });
+
+      iterateFileReferences(document, node, ({ range, fileReference }) => {
+        const filePath = path.join(projectRoot, fileReference);
+        const linkUri = Uri.parse(filePath);
+        const link = new DocumentLink(range, linkUri);
+        link.tooltip = 'Go to asset';
+        links.push(link);
+      });
+
       return links;
     },
   });
@@ -137,8 +141,8 @@ function getPluginRanges(document: TextDocument) {
 }
 
 async function doValidate(document: TextDocument) {
-  const sourceRanges = getPluginRanges(document);
-  if (!sourceRanges?.length) {
+  const info = getPluginRanges(document);
+  if (!info?.plugins?.length) {
     return;
   }
 
@@ -147,13 +151,25 @@ async function doValidate(document: TextDocument) {
   clearDiagnosticCollection();
 
   const diagnostics: Diagnostic[] = [];
-  for (const plugin of sourceRanges) {
+  for (const plugin of info.plugins) {
     const diagnostic = getDiagnostic(projectRoot, document, plugin);
     if (diagnostic) {
       diagnostic.source = 'expo-config';
       diagnostics.push(diagnostic);
     }
   }
+
+  iterateFileReferences(document, info.appJson, ({ range, fileReference }) => {
+    const filePath = path.join(projectRoot, fileReference);
+
+    try {
+      fs.statSync(filePath);
+    } catch (error) {
+      const diagnostic = new Diagnostic(range, error.message, DiagnosticSeverity.Error);
+      diagnostic.code = error.code;
+      diagnostics.push(diagnostic);
+    }
+  });
 
   diagnosticCollection!.set(document.uri, diagnostics);
 }
@@ -168,7 +184,7 @@ function getDiagnostic(
   } catch (error) {
     // If the plugin failed to load, surface the error info.
     const source = plugin.name;
-    const range = rangeForOffset(document, source);
+    const range = rangeForQuotedOffset(document, source);
     const diagnostic = new Diagnostic(range, error.message, DiagnosticSeverity.Error);
     diagnostic.code = error.code;
     return diagnostic;
@@ -178,7 +194,7 @@ function getDiagnostic(
   // NOTE(EvanBacon): The JSON schema validates 3 or more items.
   if (plugin.full && plugin.arrayLength != null && plugin.arrayLength < 2) {
     // A plugin array should only be used to add props (i.e. two items).
-    const range = rangeForOffset(document, plugin.full);
+    const range = rangeForQuotedOffset(document, plugin.full);
     // TODO: Link to a doc or FYI
     const diagnostic = new Diagnostic(
       range,

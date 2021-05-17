@@ -3,9 +3,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es2017",
+    "target": "es2020",
     "outDir": "out",
-    "lib": ["es2017"],
+    "lib": ["es2020"],
     "sourceMap": true,
     "rootDir": ".",
     "strict": true,

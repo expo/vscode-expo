@@ -1,6 +1,7 @@
-import * as vscode from 'vscode';
-import * as JSON5 from 'json5';
 import { readFileSync } from 'fs';
+import * as JSON5 from 'json5';
+import * as vscode from 'vscode';
+
 import { Mapping } from '../configuration';
 
 export const getWorkfolderTsConfigConfiguration = memoize(async function (
@@ -41,19 +42,16 @@ function createMappingsFromWorkspaceConfig(tsconfig: {
   if (baseUrl) {
     mappings.push({
       key: baseUrl,
-      // value: `${workfolder.uri.path}/${baseUrl}`
       value: '${workspaceFolder}/' + baseUrl,
     });
   }
-
-  // Todo: paths property
 
   return mappings;
 }
 
 /** Caching */
 
-let cachedMappings = new Map<string, Mapping[]>();
+const cachedMappings = new Map<string, Mapping[]>();
 
 function memoize(fn: (workfolder: vscode.WorkspaceFolder) => Promise<Mapping[]>) {
   async function cachedFunction(workfolder?: vscode.WorkspaceFolder): Promise<Mapping[]> {
@@ -67,7 +65,7 @@ function memoize(fn: (workfolder: vscode.WorkspaceFolder) => Promise<Mapping[]>)
     if (cachedMapping) {
       return cachedMapping;
     } else {
-      let result = await fn(workfolder);
+      const result = await fn(workfolder);
       cachedMappings.set(key, result);
       return result;
     }

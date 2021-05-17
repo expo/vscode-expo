@@ -17,6 +17,12 @@ export interface Context {
   packageJsonPath?: string;
 }
 
+export function matchesImageProperty(line: string): boolean {
+  return /^"((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)":/.test(
+    line
+  );
+}
+
 export function createContext(
   document: vscode.TextDocument,
   position: vscode.Position
@@ -35,6 +41,7 @@ export function createContext(
     // Only support plugins for now
     resolveType = 'plugin';
   } else {
+    // As an optimization, bail out if we cannot determine the completion type.
     return null;
   }
 

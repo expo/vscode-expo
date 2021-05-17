@@ -27,9 +27,6 @@ export function createNodeModuleItem(
   //   const hasProps = pluginInfo.plugin.length > 1
   return {
     label: moduleName,
-    // additionalTextEdits:
-    // detail: `${pluginInfo.plugin.length} ${pluginInfo.pluginFile}`,
-    // documentation: ${},
     kind: vscode.CompletionItemKind.Module,
     textEdit: new vscode.TextEdit(importRange, moduleName),
     // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
@@ -48,7 +45,7 @@ function createFolderItem(
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.Folder,
     textEdit: new vscode.TextEdit(importRange, newText),
-    sortText: `c_${fileInfo.file}`,
+    sortText: `d_${fileInfo.file}`,
   };
 }
 
@@ -62,7 +59,7 @@ function createFileItem(
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.File,
-    sortText: `b_${fileInfo.file}`,
+    sortText: `c_${fileInfo.file}`,
     textEdit,
   };
 }

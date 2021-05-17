@@ -91,8 +91,15 @@ export function rangeForOffset(document: TextDocument, source: JsonRange) {
     document.positionAt(source.offset + source.length)
   );
 }
+export function rangeForQuotedOffset(document: TextDocument, source: JsonRange) {
+  // For nodes that have quotes
+  return new Range(
+    document.positionAt(source.offset + 1),
+    document.positionAt(source.offset + (source.length - 1))
+  );
+}
 
-export function parseSourceRanges(text: string): PluginRange[] {
+export function parseSourceRanges(text: string): { appJson?: Node; plugins: PluginRange[] } {
   const definedPlugins: PluginRange[] = [];
   // Ensure we get the expo object if it exists.
   const { node } = parseExpoJson(text);
@@ -101,7 +108,7 @@ export function parseSourceRanges(text: string): PluginRange[] {
     definedPlugins.push(resolver);
   });
 
-  return definedPlugins;
+  return { appJson: node, plugins: definedPlugins };
 }
 
 export function positionIsInPlugins(document: TextDocument, position: Position) {

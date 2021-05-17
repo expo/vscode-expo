@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 import { Config } from './configuration';
-import { getConfiguration } from './configuration/getConfig';
+import { getConfiguration } from './configuration/getConfiguration';
 import { createNodeModuleItem, createPathCompletionItem } from './createCompletionItem';
 import { Context, createContext } from './createContext';
 import { getChildrenOfPath, getPathOfFolderToLookupFiles } from './fileUtils';
@@ -50,6 +50,8 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
   const rootPath = config.absolutePathToWorkspace ? workspace?.uri.fsPath : undefined;
 
   const isPlugin = context.resolveType === 'plugin';
+  // Attempt to get node modules from the package.json that have a valid config plugin.
+  // This doesn't support monorepos when the package isn't found in the dependencies object.
   if (isPlugin && context.isModule && context.packageJsonPath) {
     return (await getValidNodeModules(context.packageJsonPath)).map((plugin) =>
       createNodeModuleItem(plugin!, context.moduleImportRange)
