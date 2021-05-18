@@ -1,18 +1,13 @@
 {
 	"exclude": ["out", "node_modules", ".vscode-test"],
+  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es2017",
-    "outDir": "out",
-    "lib": ["es2017"],
+    "outDir": "out",    
     "sourceMap": true,
     "rootDir": ".",
-    "strict": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
     "declaration": false,
-    "esModuleInterop": true,
     "inlineSources": true
   }
 }

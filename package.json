@@ -48,6 +48,7 @@
     "deploy": "vsce publish --yarn"
   },
   "devDependencies": {
+    "@tsconfig/node12": "^1.0.7",
     "@babel/core": "^7.14.0",
     "@expo/babel-preset-cli": "^0.2.20",
     "@expo/config-plugins": "~1.0.30",
