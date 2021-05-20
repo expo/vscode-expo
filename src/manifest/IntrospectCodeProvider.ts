@@ -1,8 +1,9 @@
 import { getPrebuildConfig } from '@expo/config';
-import { XML } from '@expo/config-plugins';
+import { compileModsAsync, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
+import clearModule from 'clear-module';
 import path from 'path';
-import vscode from 'vscode';
+import vscode, { window } from 'vscode';
 
 import {
   compileEntitlementsPlistMockAsync,
@@ -173,6 +174,44 @@ export class AndroidManifestCodeProvider extends CodeProvider {
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
+}
+
+export class AndroidStringsCodeProvider extends CodeProvider {
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, { ...options, type: 'android.strings', fileName: 'strings.xml' });
+  }
+  readonly defaultLanguage: CodeProviderLanguage = 'xml';
+
+  getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
+    return getPrebuildConfig(this.projectRoot, {
+      platforms: ['android'],
+    }).exp;
+  }
+
+  async update(): Promise<void> {
+    try {
+      let config = this.getExpoConfig();
+
+      config = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['android'],
+      });
+      const results = config._internal!.modResults.android.strings;
+
+      this._targetCode = this.formatWithLanguage(results);
+    } catch (error) {
+      this._targetCode = '';
+      window.showErrorMessage(error.message);
     }
     this.sendDidChangeEvent();
   }
@@ -180,6 +219,8 @@ export class AndroidManifestCodeProvider extends CodeProvider {
 
 export class IOSCodeProvider extends CodeProvider {
   getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
     return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios'],
       // packageName: 'com.helloworld'
@@ -207,6 +248,7 @@ export class InfoPlistCodeProvider extends IOSCodeProvider {
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
+      window.showErrorMessage(error.message);
     }
     this.sendDidChangeEvent();
   }
@@ -227,6 +269,7 @@ export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
+      window.showErrorMessage(error.message);
     }
     this.sendDidChangeEvent();
   }
@@ -243,6 +286,8 @@ export class PrebuildConfigCodeProvider extends CodeProvider {
   readonly defaultLanguage: CodeProviderLanguage = 'json';
 
   getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
     return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios', 'android'],
       // packageName: 'com.helloworld'
@@ -254,6 +299,7 @@ export class PrebuildConfigCodeProvider extends CodeProvider {
       this._targetCode = this.formatWithLanguage(config);
     } catch (error) {
       this._targetCode = '';
+      window.showErrorMessage(error.message);
     }
     this.sendDidChangeEvent();
   }

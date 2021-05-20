@@ -3,20 +3,19 @@ import {
   AndroidConfig,
   ConfigPlugin,
   ExportedConfigWithProps,
-  withInterceptedMod,
+  withBaseMod,
   ExportedConfig,
-  XML,
+  BaseMods,
   ModConfig,
   ModPlatform,
 } from '@expo/config-plugins';
-import * as BaseMods from '@expo/config-plugins/build/plugins/compiler-plugins';
-import { evalModsAsync } from '@expo/config-plugins/build/plugins/mod-compiler';
-import plist from '@expo/plist';
+import { getPrebuildConfig } from '@expo/config';
+import { compileModsAsync, evalModsAsync } from '@expo/config-plugins/build/plugins/mod-compiler';
 
 // Adding a function to a plugin is invalid
 export const withAndroidManifestBaseMod: ConfigPlugin = (config) => {
   // Append a rule to supply AndroidManifest.xml data to mods on `mods.android.manifest`
-  return withInterceptedMod<AndroidManifest>(config, {
+  return withBaseMod<AndroidManifest>(config, {
     platform: 'android',
     mod: 'manifest',
     skipEmptyMod: false,
@@ -73,22 +72,29 @@ export function clearMods(config: ExportedConfig, platform: 'ios' | 'android', m
 }
 
 export async function compileManifestMockAsync(projectRoot: string, exp: ExportedConfig) {
-  exp = withAndroidManifestBaseMod(exp);
-  exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'android', 'manifest');
+  exp = await compileModsAsync(exp, {
+    projectRoot,
+    introspect: true,
+    platforms: ['android'],
+  });
   return exp._internal!.modResults.android.manifest;
 }
 
 export async function compileInfoPlistMockAsync(projectRoot: string, exp: ExportedConfig) {
-  // @ts-ignore
-  exp = BaseMods.withIOSInfoPlistBaseMod(exp, { noPersist: true, saveToInternal: true });
-  exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'ios', 'infoPlist');
+  exp = await compileModsAsync(exp, {
+    projectRoot,
+    introspect: true,
+    platforms: ['ios'],
+  });
   return exp._internal!.modResults.ios.infoPlist;
 }
 
 export async function compileEntitlementsPlistMockAsync(projectRoot: string, exp: ExportedConfig) {
-  // @ts-ignore
-  exp = BaseMods.withIOSEntitlementsPlistBaseMod(exp, { noPersist: true, saveToInternal: true });
-  exp = await evalSinglePlatformModsAsync(projectRoot, exp, 'ios', 'entitlements');
+  exp = await compileModsAsync(exp, {
+    projectRoot,
+    introspect: true,
+    platforms: ['ios'],
+  });
   return exp._internal!.modResults.ios.entitlements;
 }
 

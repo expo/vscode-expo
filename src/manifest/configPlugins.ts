@@ -1,4 +1,3 @@
-import { getConfig, getPrebuildConfig } from '@expo/config';
 import {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
@@ -16,14 +15,14 @@ import vscode, {
   window,
   workspace,
 } from 'vscode';
-import { compileManifestMockAsync } from './mockModCompiler';
 import {
   AndroidManifestCodeProvider,
+  AndroidStringsCodeProvider,
   CodeProvider,
   EntitlementsPlistCodeProvider,
   InfoPlistCodeProvider,
   PrebuildConfigCodeProvider,
-} from './PrebuildCodeProvider';
+} from './IntrospectCodeProvider';
 
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
@@ -84,6 +83,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFilePrebuild, async (editor) => {
       const option = await vscode.window.showQuickPick([
+        'android.strings',
         'android.manifest',
         'ios.entitlements',
         'ios.infoPlist',
@@ -94,6 +94,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFileJsonPrebuild, async (editor) => {
       const option = await vscode.window.showQuickPick([
+        'android.strings',
         'android.manifest',
         'ios.entitlements',
         'ios.infoPlist',
@@ -106,6 +107,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
 }
 
 const CodeProviders: Record<string, any> = {
+  'android.strings': AndroidStringsCodeProvider,
   'android.manifest': AndroidManifestCodeProvider,
   'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.infoPlist': InfoPlistCodeProvider,
@@ -125,19 +127,14 @@ async function openForEditor(
     const Provider = CodeProviders[type];
 
     codeProvider = new Provider(document, { convertLanguage: isJSON ? 'json' : undefined })!;
-
-    // codeProvider = new CodeProvider(type, document);
-    // codeProvider = new InfoPlistCodeProvider(document);
-    // codeProvider = new AndroidManifestCodeProvider(document);
-    codeProviders.set(type, codeProvider);
+    codeProviders.set(type, codeProvider!);
     if (extensionContext != null) {
       extensionContext.subscriptions.push(
-        vscode.workspace.registerTextDocumentContentProvider(codeProvider.scheme, codeProvider)
+        vscode.workspace.registerTextDocumentContentProvider(codeProvider!.scheme, codeProvider!)
       );
     }
   } else {
     codeProvider.options.convertLanguage = isJSON ? 'json' : undefined;
-    // codeProvider.setInputKind(inputKind);
     codeProvider.setDocument(document);
   }
 
@@ -159,8 +156,8 @@ async function openForEditor(
 
   lastCodeProvider = codeProvider;
 
-  await codeProvider.update();
-  const doc = await vscode.workspace.openTextDocument(codeProvider.getURI());
+  await codeProvider!.update();
+  const doc = await vscode.workspace.openTextDocument(codeProvider!.getURI());
   vscode.window.showTextDocument(doc, column, true);
 }
 let lastCodeProvider: CodeProvider | undefined = undefined;

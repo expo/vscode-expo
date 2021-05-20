@@ -75,6 +75,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "babel-loader": "^8.2.2",
+    "clear-module": "^4.1.1",
     "eslint": "^7.26.0",
     "eslint-config-universe": "^7.0.1",
     "find-up": "^5.0.0",
