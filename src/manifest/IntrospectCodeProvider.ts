@@ -1,5 +1,5 @@
 import { getPrebuildConfig } from '@expo/config';
-import { compileModsAsync, XML } from '@expo/config-plugins';
+import { compileModsAsync, AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
 import clearModule from 'clear-module';
 import path from 'path';
@@ -12,7 +12,7 @@ import {
 } from './mockModCompiler';
 import { getProjectRoot } from './utils/getProjectRoot';
 
-type CodeProviderLanguage = 'json' | 'xml' | 'plist';
+type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties';
 export type CodeProviderOptions = {
   fileName: string;
   convertLanguage?: CodeProviderLanguage;
@@ -75,6 +75,8 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
       return XML.format(results);
     } else if (language === 'plist') {
       return plist.build(results);
+    } else if (language === 'properties') {
+      return AndroidConfig.Properties.propertiesListToString(results);
     }
     throw new Error('Unknown language: ' + language);
   }
@@ -150,8 +152,18 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     return this._targetCode;
   }
 }
+export class AndroidCodeProvider extends CodeProvider {
+  getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
+    return getPrebuildConfig(this.projectRoot, {
+      platforms: ['android'],
+      // packageName: 'com.helloworld'
+    }).exp;
+  }
+}
 
-export class AndroidManifestCodeProvider extends CodeProvider {
+export class AndroidManifestCodeProvider extends AndroidCodeProvider {
   constructor(
     document: vscode.TextDocument,
     options: Pick<CodeProviderOptions, 'convertLanguage'>
@@ -159,13 +171,6 @@ export class AndroidManifestCodeProvider extends CodeProvider {
     super(document, { ...options, type: 'android.manifest', fileName: 'AndroidManifest.xml' });
   }
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
-
-  getExpoConfig() {
-    return getPrebuildConfig(this.projectRoot, {
-      platforms: ['android'],
-      // packageName: 'com.helloworld'
-    }).exp;
-  }
 
   async update(): Promise<void> {
     try {
@@ -180,7 +185,39 @@ export class AndroidManifestCodeProvider extends CodeProvider {
   }
 }
 
-export class AndroidStringsCodeProvider extends CodeProvider {
+export class GradlePropertiesCodeProvider extends AndroidCodeProvider {
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, {
+      ...options,
+      type: 'android.gradleProperties',
+      fileName: 'gradle.properties',
+    });
+  }
+  readonly defaultLanguage: CodeProviderLanguage = 'properties';
+
+  async update(): Promise<void> {
+    try {
+      let config = this.getExpoConfig();
+
+      config = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['android'],
+      });
+      const results = config._internal!.modResults.android.gradleProperties;
+      this._targetCode = this.formatWithLanguage(results);
+    } catch (error) {
+      this._targetCode = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
+}
+
+export class AndroidStringsCodeProvider extends AndroidCodeProvider {
   constructor(
     document: vscode.TextDocument,
     options: Pick<CodeProviderOptions, 'convertLanguage'>
@@ -188,14 +225,6 @@ export class AndroidStringsCodeProvider extends CodeProvider {
     super(document, { ...options, type: 'android.strings', fileName: 'strings.xml' });
   }
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
-
-  getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
-    return getPrebuildConfig(this.projectRoot, {
-      platforms: ['android'],
-    }).exp;
-  }
 
   async update(): Promise<void> {
     try {
@@ -243,8 +272,14 @@ export class InfoPlistCodeProvider extends IOSCodeProvider {
 
   async update(): Promise<void> {
     try {
-      const config = this.getExpoConfig();
-      const results = await compileInfoPlistMockAsync(this.projectRoot, config);
+      let config = this.getExpoConfig();
+
+      config = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['ios'],
+      });
+      const results = config._internal!.modResults.ios.infoPlist;
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
@@ -288,14 +323,22 @@ export class PrebuildConfigCodeProvider extends CodeProvider {
   getExpoConfig() {
     // Reset all requires to ensure plugins update
     clearModule.all();
-    return getPrebuildConfig(this.projectRoot, {
+    let config = getPrebuildConfig(this.projectRoot, {
       platforms: ['ios', 'android'],
       // packageName: 'com.helloworld'
     }).exp;
+
+    return config;
   }
   async update(): Promise<void> {
     try {
-      const config = this.getExpoConfig();
+      let config = this.getExpoConfig();
+
+      config = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['android', 'ios'],
+      });
       this._targetCode = this.formatWithLanguage(config);
     } catch (error) {
       this._targetCode = '';

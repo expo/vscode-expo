@@ -20,6 +20,7 @@ import {
   AndroidStringsCodeProvider,
   CodeProvider,
   EntitlementsPlistCodeProvider,
+  GradlePropertiesCodeProvider,
   InfoPlistCodeProvider,
   PrebuildConfigCodeProvider,
 } from './IntrospectCodeProvider';
@@ -85,6 +86,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
       const option = await vscode.window.showQuickPick([
         'android.strings',
         'android.manifest',
+        'android.gradleProperties',
         'ios.entitlements',
         'ios.infoPlist',
       ]);
@@ -96,6 +98,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
       const option = await vscode.window.showQuickPick([
         'android.strings',
         'android.manifest',
+        'android.gradleProperties',
         'ios.entitlements',
         'ios.infoPlist',
       ]);
@@ -109,6 +112,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
 const CodeProviders: Record<string, any> = {
   'android.strings': AndroidStringsCodeProvider,
   'android.manifest': AndroidManifestCodeProvider,
+  'android.gradleProperties': GradlePropertiesCodeProvider,
   'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.infoPlist': InfoPlistCodeProvider,
   'config.prebuild': PrebuildConfigCodeProvider,
