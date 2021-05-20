@@ -5,14 +5,11 @@ import clearModule from 'clear-module';
 import path from 'path';
 import vscode, { window } from 'vscode';
 
-import {
-  compileEntitlementsPlistMockAsync,
-  compileInfoPlistMockAsync,
-  compileManifestMockAsync,
-} from './mockModCompiler';
+import { compileEntitlementsPlistMockAsync, compileManifestMockAsync } from './mockModCompiler';
 import { getProjectRoot } from './utils/getProjectRoot';
 
 type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties';
+
 export type CodeProviderOptions = {
   fileName: string;
   convertLanguage?: CodeProviderLanguage;

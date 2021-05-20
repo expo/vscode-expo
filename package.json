@@ -66,7 +66,8 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@expo/babel-preset-cli": "^0.2.20",
-    "@expo/config-plugins": "~1.0.29",
+    "@expo/config-plugins": "~1.0.32",
+    "@expo/config": "3.3.42",
     "@expo/xdl": "^59.1.0",
     "@types/jest": "^26.0.23",
     "@types/json-schema-traverse": "^0.4.0",

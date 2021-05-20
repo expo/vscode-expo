@@ -5,11 +5,9 @@ import {
   ExportedConfigWithProps,
   withBaseMod,
   ExportedConfig,
-  BaseMods,
   ModConfig,
   ModPlatform,
 } from '@expo/config-plugins';
-import { getPrebuildConfig } from '@expo/config';
 import { compileModsAsync, evalModsAsync } from '@expo/config-plugins/build/plugins/mod-compiler';
 
 // Adding a function to a plugin is invalid

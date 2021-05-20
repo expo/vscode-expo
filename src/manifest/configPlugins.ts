@@ -15,6 +15,7 @@ import vscode, {
   window,
   workspace,
 } from 'vscode';
+
 import {
   AndroidManifestCodeProvider,
   AndroidStringsCodeProvider,
@@ -24,7 +25,6 @@ import {
   InfoPlistCodeProvider,
   PrebuildConfigCodeProvider,
 } from './IntrospectCodeProvider';
-
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
 import { getProjectRoot } from './utils/getProjectRoot';
