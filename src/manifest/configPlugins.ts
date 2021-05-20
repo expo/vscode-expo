@@ -35,13 +35,18 @@ export function setupDefinition() {
   // Enables jumping to source
   vscode.languages.registerDocumentLinkProvider(appJsonPattern, {
     provideDocumentLinks(document) {
-      const projectRoot = getProjectRoot(document);
-
       const links: vscode.DocumentLink[] = [];
 
       // Ensure we get the expo object if it exists.
       const { node } = parseExpoJson(document.getText());
 
+      if (!node) {
+        return links;
+      }
+
+      const projectRoot = getProjectRoot(document);
+
+      // Add links for plugin module resolvers in the plugins array.
       iteratePluginNames(node, (resolver) => {
         try {
           const { pluginFile } = resolveConfigPluginFunctionWithInfo(
@@ -59,6 +64,7 @@ export function setupDefinition() {
         }
       });
 
+      // Add links for any random file references starting with `"./` that aren't inside of the `plugins` array.
       iterateFileReferences(document, node, ({ range, fileReference }) => {
         const filePath = path.join(projectRoot, fileReference);
         const linkUri = Uri.parse(filePath);
@@ -92,6 +98,8 @@ export function setupPluginsValidation(context: vscode.ExtensionContext) {
     null,
     context.subscriptions
   );
+
+  // TODO: Update on text change
 
   validateAllDocuments();
 }
@@ -142,23 +150,27 @@ function getPluginRanges(document: TextDocument) {
 
 async function doValidate(document: TextDocument) {
   const info = getPluginRanges(document);
-  if (!info?.plugins?.length) {
+
+  if (!info?.appJson) {
     return;
   }
 
   const projectRoot = getProjectRoot(document);
 
   clearDiagnosticCollection();
-
   const diagnostics: Diagnostic[] = [];
-  for (const plugin of info.plugins) {
-    const diagnostic = getDiagnostic(projectRoot, document, plugin);
-    if (diagnostic) {
-      diagnostic.source = 'expo-config';
-      diagnostics.push(diagnostic);
+
+  if (info.plugins?.length) {
+    for (const plugin of info.plugins) {
+      const diagnostic = getDiagnostic(projectRoot, document, plugin);
+      if (diagnostic) {
+        diagnostic.source = 'expo-config';
+        diagnostics.push(diagnostic);
+      }
     }
   }
 
+  // Add errors for missing file references starting with `"./` that are not inside in the plugins array.
   iterateFileReferences(document, info.appJson, ({ range, fileReference }) => {
     const filePath = path.join(projectRoot, fileReference);
 
