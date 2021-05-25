@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.3.0 (2021-05-20)
+
+#### New features
+
+* link to assets and file references ([#39](https://github.com/expo/vscode-expo/pull/39))
+
+#### Other chores
+
+* Bump to node 12 ([#40](https://github.com/expo/vscode-expo/pull/40))
+
 ### 0.2.2 (2021-05-10)
 
 #### Bug fixes
