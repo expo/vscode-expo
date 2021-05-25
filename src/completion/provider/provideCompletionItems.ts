@@ -3,10 +3,9 @@ import JsonFile from '@expo/json-file';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { Config } from './configuration';
-import { getConfiguration } from './configuration/getConfiguration';
+import { Config, getConfiguration } from './configuration/getConfiguration';
 import { createNodeModuleItem, createPathCompletionItem } from './createCompletionItem';
-import { Context, createContext } from './createContext';
+import { Context, createContext, ResolveType } from './createContext';
 import { getChildrenOfPath, getPathOfFolderToLookupFiles } from './fileUtils';
 
 export async function provideCompletionItems(
@@ -21,10 +20,16 @@ export async function provideCompletionItems(
 
   const config = await getConfiguration(document.uri);
 
-  return provide(context, config);
+  return provideAsync(context, config);
 }
 
-async function getValidNodeModules(packageJsonPath: string) {
+/**
+ * Read the package.json and get all of the dependencies that have a valid config plugin.
+ *
+ * @param packageJsonPath
+ * @returns
+ */
+async function getValidNodeModulesAsync(packageJsonPath: string) {
   const projectRoot = path.dirname(packageJsonPath);
 
   const pkg = await JsonFile.readAsync(packageJsonPath);
@@ -41,10 +46,23 @@ async function getValidNodeModules(packageJsonPath: string) {
   return [];
 }
 
+function getResolveTypeRegExp(resolveType?: ResolveType): RegExp {
+  switch (resolveType) {
+    case 'image':
+      // Only allow png and jpg for images, the schema prevents anything except png but this isn't technically correct.
+      return /.(png|jpe?g)/;
+    case 'plugin':
+    default:
+      // Only allow .js files for plugins
+      return /\.js$/;
+  }
+  // throw new Error(`unknown resolveType "${resolveType}"`);
+}
+
 /**
- * Provide Completion Items
+ * Provide completion items
  */
-async function provide(context: Context, config: Config): Promise<vscode.CompletionItem[]> {
+async function provideAsync(context: Context, config: Config): Promise<vscode.CompletionItem[]> {
   const workspace = vscode.workspace.getWorkspaceFolder(context.document.uri);
 
   const rootPath = config.absolutePathToWorkspace ? workspace?.uri.fsPath : undefined;
@@ -53,7 +71,7 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
   // Attempt to get node modules from the package.json that have a valid config plugin.
   // This doesn't support monorepos when the package isn't found in the dependencies object.
   if (isPlugin && context.isModule && context.packageJsonPath) {
-    return (await getValidNodeModules(context.packageJsonPath)).map((plugin) =>
+    return (await getValidNodeModulesAsync(context.packageJsonPath)).map((plugin) =>
       createNodeModuleItem(plugin!, context.moduleImportRange)
     );
   }
@@ -65,12 +83,10 @@ async function provide(context: Context, config: Config): Promise<vscode.Complet
     config.mappings
   );
 
-  // Only allow .js files for plugins
-  // Only allow png and jpg for images, the schema prevents anything except png but this isn't technically correct.
-  const allowedExtensions = isPlugin ? /\.js$/ : /.(png|jpe?g)/;
+  const allowedExtensions = getResolveTypeRegExp(context.resolveType);
 
-  const childrenOfPath = (await getChildrenOfPath(folderPath, config)).filter((file) => {
-    return !file.isFile || allowedExtensions.test(file.file);
-  });
+  const childrenOfPath = (await getChildrenOfPath(folderPath, config)).filter(
+    (file) => !file.isFile || allowedExtensions.test(file.file)
+  );
   return [...childrenOfPath.map((child) => createPathCompletionItem(child, config, context))];
 }

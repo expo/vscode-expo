@@ -1,10 +1,13 @@
 import * as vscode from 'vscode';
 
-import { Mapping } from '../configuration';
-
+export interface Mapping {
+  key: string;
+  value: string;
+}
 /**
- * From { "lib": "libraries", "other": "otherpath" }
- * To [ { key: "lib", value: "libraries" }, { key: "other", value: "otherpath" } ]
+ * From `{ "lib": "libraries", "other": "otherpath" }`
+ * To `[ { key: "lib", value: "libraries" }, { key: "other", value: "otherpath" } ]`
+ *
  * @param mappings { "lib": "libraries" }
  */
 export function parseMappings(mappings: { [key: string]: string }): Mapping[] {
@@ -13,6 +16,7 @@ export function parseMappings(mappings: { [key: string]: string }): Mapping[] {
 
 /**
  * Replace ${workspaceRoot} with workfolder.uri.path
+ *
  * @param mappings
  * @param workfolder
  */
@@ -23,21 +27,21 @@ export function replaceWorkspaceFolder(
   const rootPath = workfolder?.uri.path;
 
   if (rootPath) {
-    /** Replace placeholder with workspace folder */
+    // Replace placeholder with workspace folder
     return mappings.map(({ key, value }) => ({
       key,
       value: replaceWorkspaceFolderWithRootPath(value, rootPath),
     }));
-  } else {
-    /** Filter items out which contain a workspace root */
-    return mappings.filter(({ value }) => !valueContainsWorkspaceFolder(value));
   }
+  // Filter items out which contain a workspace root
+  return mappings.filter(({ value }) => !valueContainsWorkspaceFolder(value));
 }
 
 /**
  * Replaces both placeholders with the rootpath
  * - ${workspaceRoot}    // old way and only legacy support
  * - ${workspaceFolder}  // new way
+ *
  * @param value
  * @param rootPath
  */

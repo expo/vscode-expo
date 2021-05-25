@@ -30,13 +30,8 @@ export function createContext(
   const textFullLine = document.getText(document.lineAt(position).range);
   let resolveType: ResolveType | undefined;
 
-  if (
-    textFullLine
-      .trim()
-      .match(/^"((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)":/)
-  ) {
+  if (matchesImageProperty(textFullLine.trim())) {
     resolveType = 'image';
-    // return null;
   } else if (positionIsInPlugins(document, position)) {
     // Only support plugins for now
     resolveType = 'plugin';

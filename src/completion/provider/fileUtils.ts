@@ -2,14 +2,12 @@ import { promises, statSync } from 'fs';
 import minimatch from 'minimatch';
 import * as path from 'path';
 
-import { Mapping, Config } from './configuration';
+import { Config } from './configuration/getConfiguration';
+import { Mapping } from './configuration/getMapping';
 
 export class FileInfo {
-  file: string;
   isFile: boolean;
-
-  constructor(filePath: string, file: string) {
-    this.file = file;
+  constructor(public filePath: string, public file: string) {
     this.isFile = statSync(path.join(filePath, file)).isFile();
   }
 }
@@ -56,13 +54,12 @@ export async function getChildrenOfPath(path: string, config: Config) {
     return files
       .filter((filename) => filterFile(filename, config))
       .map((f) => new FileInfo(path, f));
-  } catch (error) {
+  } catch {
     return [];
   }
 }
 
 function filterFile(filename: string, config: Config) {
-  //   return true;
   if (config.showHiddenFiles) {
     return true;
   }

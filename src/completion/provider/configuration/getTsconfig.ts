@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import * as JSON5 from 'json5';
 import * as vscode from 'vscode';
 
-import { Mapping } from '../configuration';
+import { Mapping } from './getMapping';
 
 export const getWorkfolderTsConfigConfiguration = memoize(async function (
   workfolder: vscode.WorkspaceFolder

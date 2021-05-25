@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { Config } from './configuration';
+import { Config } from './configuration/getConfiguration';
 import { Context } from './createContext';
 import { FileInfo } from './fileUtils';
 

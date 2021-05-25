@@ -1,8 +1,16 @@
 import * as vscode from 'vscode';
 
-import { Config, Mapping } from '../configuration';
-import { parseMappings, replaceWorkspaceFolder } from './getMapping';
+import { parseMappings, replaceWorkspaceFolder, Mapping } from './getMapping';
 import { getWorkfolderTsConfigConfiguration } from './getTsconfig';
+
+export interface Config {
+  autoSlash: boolean;
+  mappings: Mapping[];
+  showHiddenFiles: boolean;
+  withExtension: boolean;
+  absolutePathToWorkspace: boolean;
+  filesExclude: Record<string, string>;
+}
 
 export async function getConfiguration(resource: vscode.Uri): Promise<Readonly<Config>> {
   const workspaceFolder = vscode.workspace.getWorkspaceFolder(resource);
@@ -28,7 +36,7 @@ async function getMappings(
   configuration: vscode.WorkspaceConfiguration,
   workfolder?: vscode.WorkspaceFolder
 ): Promise<Mapping[]> {
-  const mappings = parseMappings(configuration['mappings'] || {});
+  const mappings = parseMappings(configuration.mappings || {});
   const tsConfigMappings = await getWorkfolderTsConfigConfiguration(workfolder);
   const allMappings = [...mappings, ...tsConfigMappings];
   return replaceWorkspaceFolder(allMappings, workfolder);
