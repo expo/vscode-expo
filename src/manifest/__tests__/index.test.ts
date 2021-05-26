@@ -1,5 +1,5 @@
 import * as xdlVersions from '@expo/xdl/build/Versions';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 import * as manifest from '..';
 import * as config from '../config';

@@ -2,9 +2,10 @@ import {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
-import fs from 'fs';
-import path from 'path';
-import vscode, {
+import * as fs from 'fs';
+import * as path from 'path';
+import * as vscode from 'vscode';
+import {
   Diagnostic,
   DiagnosticCollection,
   DiagnosticSeverity,

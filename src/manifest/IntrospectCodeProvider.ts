@@ -1,11 +1,12 @@
 import { getPrebuildConfig } from '@expo/config';
 import { compileModsAsync, AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
-import clearModule from 'clear-module';
-import path from 'path';
-import vscode, { window } from 'vscode';
+import * as clearModule from 'clear-module';
+import * as path from 'path';
+import * as vscode from 'vscode';
+import { window } from 'vscode';
 
-import { compileEntitlementsPlistMockAsync, compileManifestMockAsync } from './mockModCompiler';
+import { compileEntitlementsPlistMockAsync } from './mockModCompiler';
 import { getProjectRoot } from './utils/getProjectRoot';
 
 type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties';
@@ -172,7 +173,12 @@ export class AndroidManifestCodeProvider extends AndroidCodeProvider {
   async update(): Promise<void> {
     try {
       const config = this.getExpoConfig();
-      const results = await compileManifestMockAsync(this.projectRoot, config);
+      const exp = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['android'],
+      });
+      const results = exp._internal!.modResults.android.manifest;
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
@@ -208,7 +214,7 @@ export class GradlePropertiesCodeProvider extends AndroidCodeProvider {
       this._targetCode = this.formatWithLanguage(results);
     } catch (error) {
       this._targetCode = '';
-      window.showErrorMessage(error.message);
+      window.showErrorMessage(error.message + '\n' + error.stack);
     }
     this.sendDidChangeEvent();
   }

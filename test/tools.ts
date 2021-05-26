@@ -1,5 +1,5 @@
 import path from 'path';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 const pkg = require('../../package');
 

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import vscode from 'vscode';
+import * as vscode from 'vscode';
 
 import { ManifestSchema } from './schema';
 
