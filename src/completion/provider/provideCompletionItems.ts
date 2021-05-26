@@ -25,9 +25,6 @@ export async function provideCompletionItems(
 
 /**
  * Read the package.json and get all of the dependencies that have a valid config plugin.
- *
- * @param packageJsonPath
- * @returns
  */
 async function getValidNodeModulesAsync(packageJsonPath: string) {
   const projectRoot = path.dirname(packageJsonPath);
@@ -56,7 +53,6 @@ function getResolveTypeRegExp(resolveType?: ResolveType): RegExp {
       // Only allow .js files for plugins
       return /\.js$/;
   }
-  // throw new Error(`unknown resolveType "${resolveType}"`);
 }
 
 /**
