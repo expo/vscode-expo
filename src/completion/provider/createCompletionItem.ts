@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 
 import { Config } from './configuration/getConfiguration';
 import { Context } from './createContext';
@@ -37,6 +38,9 @@ export function createNodeModuleItem(
     kind: vscode.CompletionItemKind.Module,
     range: importRange,
     insertText: new vscode.SnippetString(moduleName),
+    // Add a detail text on the right of the suggestion that shows the filename.
+    // This can be useful for packages like lodash which don't use `app.plugin.js`.
+    detail: path.basename(pluginInfo.pluginFile),
     // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
     sortText: `a_${pluginInfo.isPluginFile ? 'a' : 'b'}_${moduleName}`,
   };
