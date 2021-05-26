@@ -1,3 +1,4 @@
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const path = require('path');
 
 module.exports = {
@@ -10,7 +11,10 @@ module.exports = {
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
-  devtool: 'source-map',
+  optimization: {
+    splitChunks: false,
+    minimizer: [new ESBuildMinifyPlugin({ target: 'es2015' })],
+  },
   externalsPresets: {
     node: true,
   },
@@ -28,15 +32,16 @@ module.exports = {
     },
     rules: [
       {
+        // Workaround for files within libraries using dynamic require
         test: /\.md|LICENSE$/,
         loader: 'raw-loader',
       },
       {
         test: /\.(ts|js)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
+        loader: 'esbuild-loader',
+        include: path.resolve(__dirname, 'src'),
         options: {
-          presets: ['@expo/babel-preset-cli'],
+          loader: 'ts',
         },
       },
     ],
