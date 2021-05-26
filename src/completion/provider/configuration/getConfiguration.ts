@@ -4,7 +4,6 @@ import { parseMappings, replaceWorkspaceFolder, Mapping } from './getMapping';
 import { getWorkfolderTsConfigConfiguration } from './getTsconfig';
 
 export interface Config {
-  autoSlash: boolean;
   mappings: Mapping[];
   showHiddenFiles: boolean;
   withExtension: boolean;
@@ -23,7 +22,6 @@ export async function getConfiguration(resource: vscode.Uri): Promise<Readonly<C
   const mappings = await getMappings(cfgExtension, workspaceFolder);
 
   return {
-    autoSlash: cfgExtension['autoSlashAfterDirectory'],
     showHiddenFiles: cfgExtension['showHiddenFiles'],
     withExtension: cfgExtension['extensionOnImport'],
     absolutePathToWorkspace: cfgExtension['absolutePathToWorkspace'],

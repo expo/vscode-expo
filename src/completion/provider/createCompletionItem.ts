@@ -11,7 +11,14 @@ export function createPathCompletionItem(
 ): vscode.CompletionItem {
   return fileInfo.isFile
     ? createFileItem(fileInfo, config, context)
-    : createFolderItem(fileInfo, config.autoSlash, context.importRange);
+    : createFolderItem(
+        fileInfo,
+        // Currently just auto slash by default.
+        // One downside to this is using the shorthand `./folder/index.js` as `./folder` is a bit harder since it'll add `./folder/` by default.
+        // But `./folder/` is also a valid shorthand for `./folder/index.js` in our plugin so this is fine.
+        true,
+        context.importRange
+      );
 }
 
 export function createNodeModuleItem(
@@ -28,7 +35,8 @@ export function createNodeModuleItem(
   return {
     label: moduleName,
     kind: vscode.CompletionItemKind.Module,
-    textEdit: new vscode.TextEdit(importRange, moduleName),
+    range: importRange,
+    insertText: new vscode.SnippetString(moduleName),
     // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
     sortText: `a_${pluginInfo.isPluginFile ? 'a' : 'b'}_${moduleName}`,
   };
@@ -44,8 +52,16 @@ function createFolderItem(
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.Folder,
-    textEdit: new vscode.TextEdit(importRange, newText),
+    range: importRange,
+    insertText: new vscode.SnippetString(newText),
     sortText: `d_${fileInfo.file}`,
+    // If we auto slash, then trigger the next suggestion automatically.
+    command: autoSlash
+      ? {
+          title: '',
+          command: 'editor.action.triggerSuggest',
+        }
+      : undefined,
   };
 }
 
@@ -54,13 +70,14 @@ function createFileItem(
   config: Config,
   context: Context
 ): vscode.CompletionItem {
-  const textEdit = createCompletionItemTextEdit(fileInfo, config, context);
+  const insertText = createCompletionItemTextEdit(fileInfo, config, context);
 
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.File,
+    range: context.importRange,
+    insertText,
     sortText: `c_${fileInfo.file}`,
-    textEdit,
   };
 }
 
@@ -69,5 +86,5 @@ function createCompletionItemTextEdit(fileInfo: FileInfo, config: Config, contex
   const index =
     context.resolveType === 'plugin' ? fileInfo.file.lastIndexOf('.') : fileInfo.file.length;
   const newText = index !== -1 ? fileInfo.file.substring(0, index) : fileInfo.file;
-  return new vscode.TextEdit(context.importRange, newText);
+  return new vscode.SnippetString(newText);
 }
