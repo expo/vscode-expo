@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### 0.4.0 (2021-05-27)
+
+#### New features
+
+* auto-complete paths for plugins and assets ([#41](https://github.com/expo/vscode-expo/pull/41))
+
 ### 0.3.0 (2021-05-20)
 
 #### New features
