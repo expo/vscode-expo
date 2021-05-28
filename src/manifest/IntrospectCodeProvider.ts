@@ -7,20 +7,27 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { window } from 'vscode';
 
-import { compileEntitlementsPlistMockAsync } from './mockModCompiler';
 import { getProjectRoot } from './utils/getProjectRoot';
 
 type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties';
+
+export enum ExpoConfigType {
+  PREBUILD = 'prebuild',
+  INTROSPECT = 'introspect',
+  PUBLIC = 'public',
+}
 
 export type CodeProviderOptions = {
   fileName: string;
   convertLanguage?: CodeProviderLanguage;
   type: string;
 };
+const configurationSection = 'expo';
+
 export class CodeProvider implements vscode.TextDocumentContentProvider {
   readonly scheme: string = 'expo-config';
 
-  public _targetCode = '';
+  public fileContents = '';
   public projectRoot: string;
 
   public readonly _onDidChange = new vscode.EventEmitter<vscode.Uri>();
@@ -30,6 +37,23 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
   public _isOpen = false;
   private _timer: NodeJS.Timer | undefined = undefined;
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
+    this.scheme = `expo-config-${this.options.type}`;
+    this.projectRoot = getProjectRoot(this._document);
+
+    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
+      this.textDidChange(ev);
+    });
+    this._onDidChangeVisibleTextEditors = vscode.window.onDidChangeVisibleTextEditors((editors) =>
+      this.visibleTextEditorsDidChange(editors)
+    );
+    this._onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration((ev) =>
+      this.configurationDidChange(ev)
+    );
+  }
 
   getDefinedLanguage() {
     return this.options.convertLanguage || this.defaultLanguage;
@@ -48,23 +72,6 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
     return vscode.Uri.parse(`${this.scheme}:${outputFileName}`);
   }
-
-  constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
-    this.scheme = `expo-config-${this.options.type}`;
-    this.projectRoot = getProjectRoot(this._document);
-
-    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
-      this.textDidChange(ev);
-    });
-    this._onDidChangeVisibleTextEditors = vscode.window.onDidChangeVisibleTextEditors((editors) =>
-      this.visibleTextEditorsDidChange(editors)
-    );
-    this._onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration((ev) =>
-      this.configurationDidChange(ev)
-    );
-  }
-
-  readonly defaultLanguage: CodeProviderLanguage = 'json';
 
   formatWithLanguage(results: any, language?: CodeProviderLanguage) {
     language = language || this.options.convertLanguage || this.defaultLanguage;
@@ -138,7 +145,17 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     }, 300);
   }
 
-  async update(): Promise<void> {}
+  async update(): Promise<void> {
+    try {
+      // Reset all requires to ensure plugins update
+      clearModule.all();
+      this.fileContents = this.formatWithLanguage(await this.getFileContents());
+    } catch (error) {
+      this.fileContents = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
 
   getExpoConfig() {}
 
@@ -148,13 +165,15 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   ): vscode.ProviderResult<string> {
     this._isOpen = true;
 
-    return this._targetCode;
+    return this.fileContents;
+  }
+
+  async getFileContents(): Promise<any> {
+    return '';
   }
 }
 export class AndroidCodeProvider extends CodeProvider {
   getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
     return getPrebuildConfig(this.projectRoot, {
       platforms: ['android'],
       // packageName: 'com.helloworld'
@@ -163,97 +182,69 @@ export class AndroidCodeProvider extends CodeProvider {
 }
 
 export class AndroidManifestCodeProvider extends AndroidCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
-    super(document, { ...options, type: 'android.manifest', fileName: 'AndroidManifest.xml' });
-  }
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
-  async update(): Promise<void> {
-    try {
-      const config = this.getExpoConfig();
-      const exp = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['android'],
-      });
-      const results = exp._internal!.modResults.android.manifest;
-      this._targetCode = this.formatWithLanguage(results);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
+    super(document, { ...options, type: 'android.manifest', fileName: 'AndroidManifest.xml' });
+  }
+
+  async getFileContents() {
+    let config = this.getExpoConfig();
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['android'],
+    });
+    return config._internal!.modResults.android.manifest;
   }
 }
 
 export class GradlePropertiesCodeProvider extends AndroidCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
+  readonly defaultLanguage: CodeProviderLanguage = 'properties';
+
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
     super(document, {
       ...options,
       type: 'android.gradleProperties',
       fileName: 'gradle.properties',
     });
   }
-  readonly defaultLanguage: CodeProviderLanguage = 'properties';
 
-  async update(): Promise<void> {
-    try {
-      let config = this.getExpoConfig();
+  async getFileContents() {
+    let config = this.getExpoConfig();
 
-      config = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['android'],
-      });
-      const results = config._internal!.modResults.android.gradleProperties;
-      this._targetCode = this.formatWithLanguage(results);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message + '\n' + error.stack);
-    }
-    this.sendDidChangeEvent();
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['android'],
+    });
+    return config._internal!.modResults.android.gradleProperties;
   }
 }
 
 export class AndroidStringsCodeProvider extends AndroidCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
-    super(document, { ...options, type: 'android.strings', fileName: 'strings.xml' });
-  }
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
-  async update(): Promise<void> {
-    try {
-      let config = this.getExpoConfig();
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
+    super(document, { ...options, type: 'android.strings', fileName: 'strings.xml' });
+  }
 
-      config = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['android'],
-      });
-      const results = config._internal!.modResults.android.strings;
+  async getFileContents() {
+    let config = this.getExpoConfig();
 
-      this._targetCode = this.formatWithLanguage(results);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['android'],
+    });
+    const results = config._internal!.modResults.android.strings;
+
+    return results;
   }
 }
 
 export class IOSCodeProvider extends CodeProvider {
   getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
     return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios'],
       // packageName: 'com.helloworld'
@@ -262,69 +253,56 @@ export class IOSCodeProvider extends CodeProvider {
 }
 
 export class InfoPlistCodeProvider extends IOSCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
+  readonly defaultLanguage: CodeProviderLanguage = 'plist';
+
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
     super(document, {
       ...options,
       type: 'ios.infoPlist',
       fileName: `Info.plist`,
     });
   }
-  readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
-  async update(): Promise<void> {
-    try {
-      let config = this.getExpoConfig();
+  async getFileContents() {
+    let config = this.getExpoConfig();
 
-      config = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['ios'],
-      });
-      const results = config._internal!.modResults.ios.infoPlist;
-      this._targetCode = this.formatWithLanguage(results);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['ios'],
+    });
+    const results = config._internal!.modResults.ios.infoPlist;
+
+    return results;
   }
 }
 export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
-    super(document, { ...options, type: 'ios.entitlements', fileName: 'entitlements.plist' });
-  }
   readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
-  async update(): Promise<void> {
-    try {
-      const config = this.getExpoConfig();
-      const results = await compileEntitlementsPlistMockAsync(this.projectRoot, config);
-      this._targetCode = this.formatWithLanguage(results);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
+    super(document, { ...options, type: 'ios.entitlements', fileName: 'entitlements.plist' });
   }
-}
 
-export enum ExpoConfigType {
-  PREBUILD = 'prebuild',
-  INTROSPECT = 'introspect',
-  PUBLIC = 'public',
+  async getFileContents() {
+    let config = this.getExpoConfig();
+
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['ios'],
+    });
+
+    return config._internal!.modResults.ios.entitlements;
+  }
 }
 
 export class ExpoConfigCodeProvider extends CodeProvider {
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
   constructor(
     public configType: ExpoConfigType,
     document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
+    options: BasicCodeProviderOptions
   ) {
     super(document, {
       ...options,
@@ -334,135 +312,56 @@ export class ExpoConfigCodeProvider extends CodeProvider {
     });
   }
 
-  readonly defaultLanguage: CodeProviderLanguage = 'json';
-
-  getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
-    let config = getPrebuildConfig(this.projectRoot, {
-      platforms: ['ios', 'android'],
-      // packageName: 'com.helloworld'
-    }).exp;
-
-    return config;
-  }
-
-  async update(): Promise<void> {
-    try {
-      let config = this.getExpoConfig();
-
-      config = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['android', 'ios'],
-      });
-      this._targetCode = this.formatWithLanguage(config);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+  async getFileContents(): Promise<any> {
+    return this.getExpoConfig();
   }
 }
 
-const configurationSection = 'expo';
+type BasicCodeProviderOptions = Pick<CodeProviderOptions, 'convertLanguage'>;
 
 export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
     super(ExpoConfigType.INTROSPECT, document, options);
   }
 
-  readonly defaultLanguage: CodeProviderLanguage = 'json';
-
   getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
-    let config = getPrebuildConfig(this.projectRoot, {
+    return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios', 'android'],
-      // packageName: 'com.helloworld'
     }).exp;
-
-    return config;
   }
-  async update(): Promise<void> {
-    try {
-      let config = this.getExpoConfig();
 
-      config = await compileModsAsync(config, {
-        projectRoot: this.projectRoot,
-        introspect: true,
-        platforms: ['android', 'ios'],
-      });
-      this._targetCode = this.formatWithLanguage(config);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
+  async getFileContents() {
+    let config = this.getExpoConfig();
+
+    config = await compileModsAsync(config, {
+      projectRoot: this.projectRoot,
+      introspect: true,
+      platforms: ['android', 'ios'],
+    });
+    return config;
   }
 }
 export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
     super(ExpoConfigType.PUBLIC, document, options);
   }
 
-  readonly defaultLanguage: CodeProviderLanguage = 'json';
-
   getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
-    const config = getConfig(this.projectRoot, {
+    return getConfig(this.projectRoot, {
       isPublicConfig: true,
       skipSDKVersionRequirement: true,
     }).exp;
-    return config;
-  }
-  async update(): Promise<void> {
-    try {
-      const config = this.getExpoConfig();
-      this._targetCode = this.formatWithLanguage(config);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
   }
 }
 
 export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
-  constructor(
-    document: vscode.TextDocument,
-    options: Pick<CodeProviderOptions, 'convertLanguage'>
-  ) {
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
     super(ExpoConfigType.PREBUILD, document, options);
   }
 
-  readonly defaultLanguage: CodeProviderLanguage = 'json';
-
   getExpoConfig() {
-    // Reset all requires to ensure plugins update
-    clearModule.all();
-    let config = getPrebuildConfig(this.projectRoot, {
+    return getPrebuildConfig(this.projectRoot, {
       platforms: ['ios', 'android'],
-      // packageName: 'com.helloworld'
     }).exp;
-
-    return config;
-  }
-  async update(): Promise<void> {
-    try {
-      const config = this.getExpoConfig();
-      this._targetCode = this.formatWithLanguage(config);
-    } catch (error) {
-      this._targetCode = '';
-      window.showErrorMessage(error.message);
-    }
-    this.sendDidChangeEvent();
   }
 }

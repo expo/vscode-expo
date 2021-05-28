@@ -5,12 +5,24 @@ import {
   AndroidStringsCodeProvider,
   CodeProvider,
   EntitlementsPlistCodeProvider,
+  ExpoConfigType,
   GradlePropertiesCodeProvider,
   InfoPlistCodeProvider,
   IntrospectExpoConfigCodeProvider,
   PrebuildExpoConfigCodeProvider,
   PublicExpoConfigCodeProvider,
 } from './IntrospectCodeProvider';
+
+const CodeProviders: Record<string, typeof CodeProvider> = {
+  'android.strings': AndroidStringsCodeProvider,
+  'android.manifest': AndroidManifestCodeProvider,
+  'android.gradleProperties': GradlePropertiesCodeProvider,
+  'ios.entitlements': EntitlementsPlistCodeProvider,
+  'ios.infoPlist': InfoPlistCodeProvider,
+  'config.prebuild': PrebuildExpoConfigCodeProvider,
+  'config.introspect': IntrospectExpoConfigCodeProvider,
+  'config.public': PublicExpoConfigCodeProvider,
+};
 
 enum Command {
   OpenExpoFilePrebuild = 'expo.config.prebuild.preview',
@@ -19,12 +31,18 @@ enum Command {
 }
 
 let extensionContext: vscode.ExtensionContext | null = null;
+let lastCodeProvider: CodeProvider | undefined = undefined;
+const codeProviders: Map<string, CodeProvider> = new Map();
 
 export function setupPreview(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick(['public', 'prebuild', 'introspect']);
+      const option = await vscode.window.showQuickPick([
+        ExpoConfigType.PUBLIC,
+        ExpoConfigType.PREBUILD,
+        ExpoConfigType.INTROSPECT,
+      ]);
       if (option) {
         openForEditor(`config.${option}`, editor.document);
       }
@@ -56,30 +74,19 @@ export function setupPreview(context: vscode.ExtensionContext) {
   );
 }
 
-const CodeProviders: Record<string, any> = {
-  'android.strings': AndroidStringsCodeProvider,
-  'android.manifest': AndroidManifestCodeProvider,
-  'android.gradleProperties': GradlePropertiesCodeProvider,
-  'ios.entitlements': EntitlementsPlistCodeProvider,
-  'ios.infoPlist': InfoPlistCodeProvider,
-  'config.prebuild': PrebuildExpoConfigCodeProvider,
-  'config.introspect': IntrospectExpoConfigCodeProvider,
-  'config.public': PublicExpoConfigCodeProvider,
-};
-
 async function openForEditor(
   type: string,
   document: vscode.TextDocument,
   isJSON?: boolean
 ): Promise<void> {
   if (!(type in CodeProviders)) {
-    throw new Error('invalid type: ' + type);
+    throw new Error('invalid preview type: ' + type);
   }
   let codeProvider = codeProviders.get(type);
   if (codeProvider === undefined) {
     const Provider = CodeProviders[type];
 
-    codeProvider = new Provider(document, { convertLanguage: isJSON ? 'json' : undefined })!;
+    codeProvider = new Provider(document, { convertLanguage: isJSON ? 'json' : undefined } as any)!;
     codeProviders.set(type, codeProvider!);
     if (extensionContext != null) {
       extensionContext.subscriptions.push(
@@ -87,6 +94,7 @@ async function openForEditor(
       );
     }
   } else {
+    // Update settings
     codeProvider.options.convertLanguage = isJSON ? 'json' : undefined;
     codeProvider.setDocument(document);
   }
@@ -113,5 +121,3 @@ async function openForEditor(
   const doc = await vscode.workspace.openTextDocument(codeProvider!.getURI());
   vscode.window.showTextDocument(doc, column, true);
 }
-let lastCodeProvider: CodeProvider | undefined = undefined;
-const codeProviders: Map<string, CodeProvider> = new Map();
