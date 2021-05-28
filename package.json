@@ -1,7 +1,7 @@
 {
   "name": "vscode-expo",
   "displayName": "Expo Tools",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Expo tools for vscode",
   "keywords": [
     "expo",
@@ -67,11 +67,9 @@
     "@expo/configure-splash-screen": "0.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@expo/babel-preset-cli": "^0.2.20",
-    "@expo/config": "4.0.0",
     "@expo/config-plugins": "2.0.0",
     "@expo/prebuild-config": "^1.0.1",
+    "@expo/json-file": "^8.2.30",
     "@expo/xdl": "^59.1.0",
     "@tsconfig/node12": "^1.0.7",
     "@types/jest": "^26.0.23",
@@ -80,7 +78,7 @@
     "@types/vscode": "^1.44.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
-    "babel-loader": "^8.2.2",
+    "esbuild-loader": "^2.13.1",
     "clear-module": "^4.1.1",
     "eslint": "^7.26.0",
     "eslint-config-universe": "^7.0.1",
@@ -90,6 +88,8 @@
     "jest-environment-node": "^26.6.2",
     "json-schema-traverse": "^1.0.0",
     "jsonc-parser": "^3.0.0",
+    "json5": "^2.2.0",
+    "minimatch": "^3.0.4",
     "patch-package": "^6.4.7",
     "prettier": "^2.1.1",
     "raw-loader": "^4.0.2",
