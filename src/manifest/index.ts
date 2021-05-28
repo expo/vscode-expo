@@ -2,8 +2,9 @@ import * as xdlVersions from '@expo/xdl/build/Versions';
 import * as vscode from 'vscode';
 
 import * as config from './config';
-import { setupDefinition, setupPluginsValidation, setupPreview } from './configPlugins';
+import { setupDefinition, setupPluginsValidation } from './configPlugins';
 import * as schema from './schema';
+import { setupPreview } from './setupPreview';
 import * as storage from './storage';
 
 /**

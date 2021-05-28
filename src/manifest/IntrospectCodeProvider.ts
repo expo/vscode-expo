@@ -1,4 +1,5 @@
 import { getPrebuildConfig } from '@expo/prebuild-config';
+import { getConfig } from '@expo/config';
 import { compileModsAsync, AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
 import * as clearModule from 'clear-module';
@@ -313,12 +314,65 @@ export class EntitlementsPlistCodeProvider extends IOSCodeProvider {
   }
 }
 
-export class PrebuildConfigCodeProvider extends CodeProvider {
+export enum ExpoConfigType {
+  PREBUILD = 'prebuild',
+  INTROSPECT = 'introspect',
+  PUBLIC = 'public',
+}
+
+export class ExpoConfigCodeProvider extends CodeProvider {
+  constructor(
+    public configType: ExpoConfigType,
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(document, {
+      ...options,
+      type: configType,
+      // TODO: Maybe manifest.json is better?
+      fileName: configType === ExpoConfigType.PUBLIC ? 'exp.json' : 'app.config.json',
+    });
+  }
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
+    let config = getPrebuildConfig(this.projectRoot, {
+      platforms: ['ios', 'android'],
+      // packageName: 'com.helloworld'
+    }).exp;
+
+    return config;
+  }
+
+  async update(): Promise<void> {
+    try {
+      let config = this.getExpoConfig();
+
+      config = await compileModsAsync(config, {
+        projectRoot: this.projectRoot,
+        introspect: true,
+        platforms: ['android', 'ios'],
+      });
+      this._targetCode = this.formatWithLanguage(config);
+    } catch (error) {
+      this._targetCode = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
+}
+
+const configurationSection = 'expo';
+
+export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   constructor(
     document: vscode.TextDocument,
     options: Pick<CodeProviderOptions, 'convertLanguage'>
   ) {
-    super(document, { ...options, type: 'prebuild', fileName: 'app.config.json' });
+    super(ExpoConfigType.INTROSPECT, document, options);
   }
 
   readonly defaultLanguage: CodeProviderLanguage = 'json';
@@ -350,5 +404,65 @@ export class PrebuildConfigCodeProvider extends CodeProvider {
     this.sendDidChangeEvent();
   }
 }
+export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(ExpoConfigType.PUBLIC, document, options);
+  }
 
-const configurationSection = 'expo';
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
+    const config = getConfig(this.projectRoot, {
+      isPublicConfig: true,
+      skipSDKVersionRequirement: true,
+    }).exp;
+    return config;
+  }
+  async update(): Promise<void> {
+    try {
+      const config = this.getExpoConfig();
+      this._targetCode = this.formatWithLanguage(config);
+    } catch (error) {
+      this._targetCode = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
+}
+
+export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
+  constructor(
+    document: vscode.TextDocument,
+    options: Pick<CodeProviderOptions, 'convertLanguage'>
+  ) {
+    super(ExpoConfigType.PREBUILD, document, options);
+  }
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  getExpoConfig() {
+    // Reset all requires to ensure plugins update
+    clearModule.all();
+    let config = getPrebuildConfig(this.projectRoot, {
+      platforms: ['ios', 'android'],
+      // packageName: 'com.helloworld'
+    }).exp;
+
+    return config;
+  }
+  async update(): Promise<void> {
+    try {
+      const config = this.getExpoConfig();
+      this._targetCode = this.formatWithLanguage(config);
+    } catch (error) {
+      this._targetCode = '';
+      window.showErrorMessage(error.message);
+    }
+    this.sendDidChangeEvent();
+  }
+}
