@@ -15,13 +15,13 @@
   },
   "publisher": "byCedric",
   "icon": "images/logo-marketplace.png",
-  "homepage": "https://github.com/expo-community/vscode-expo",
+  "homepage": "https://github.com/expo/vscode-expo",
   "bugs": {
-    "url": "https://github.com/expo-community/vscode-expo/issues"
+    "url": "https://github.com/expo/vscode-expo/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/expo-community/vscode-expo"
+    "url": "https://github.com/expo/vscode-expo"
   },
   "main": "./out/src/extension.js",
   "engines": {
@@ -51,6 +51,8 @@
     "@expo/config-plugins": "~1.0.30",
     "@expo/json-file": "^8.2.30",
     "@expo/xdl": "^59.1.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@tsconfig/node12": "^1.0.7",
     "@types/jest": "^26.0.23",
     "@types/json-schema-traverse": "^0.4.0",
@@ -58,6 +60,7 @@
     "@types/vscode": "^1.44.0",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "conventional-changelog-conventionalcommits": "^4.6.0",
     "esbuild-loader": "^2.13.1",
     "eslint": "^7.26.0",
     "eslint-config-universe": "^7.0.1",
@@ -66,12 +69,13 @@
     "jest-circus": "^26.6.3",
     "jest-environment-node": "^26.6.2",
     "json-schema-traverse": "^1.0.0",
-    "jsonc-parser": "^3.0.0",
     "json5": "^2.2.0",
+    "jsonc-parser": "^3.0.0",
     "minimatch": "^3.0.4",
     "patch-package": "^6.4.7",
     "prettier": "^2.1.1",
     "raw-loader": "^4.0.2",
+    "semantic-release": "^17.4.3",
     "typescript": "^4.2.4",
     "vsce": "^1.88.0",
     "vscode-test": "^1.5.2",
