@@ -1,4 +1,4 @@
-import { getPrebuildConfig } from '@expo/config';
+import { getPrebuildConfig } from '@expo/prebuild-config';
 import { compileModsAsync, AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
 import * as clearModule from 'clear-module';

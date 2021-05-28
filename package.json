@@ -67,12 +67,13 @@
     "@expo/configure-splash-screen": "0.4.0"
   },
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.7",
     "@babel/core": "^7.14.0",
     "@expo/babel-preset-cli": "^0.2.20",
-    "@expo/config-plugins": "1.0.33",
-    "@expo/config": "3.3.43",
+    "@expo/config": "4.0.0",
+    "@expo/config-plugins": "2.0.0",
+    "@expo/prebuild-config": "^1.0.1",
     "@expo/xdl": "^59.1.0",
+    "@tsconfig/node12": "^1.0.7",
     "@types/jest": "^26.0.23",
     "@types/json-schema-traverse": "^0.4.0",
     "@types/node": "^14.6.0",
