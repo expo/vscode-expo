@@ -1,6 +1,11 @@
 ---
 name: Release
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'type "deploy" to confirm deploy to production (main branch only)'
+        required: false
 jobs:
   release:
     name: Release verison
@@ -24,7 +29,13 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
-      - name: Release new version
+      - name: Test-run release
+        if: success() && github.event.inputs.deploy != 'deploy'
+        run: yarn semantic-release --dry-run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        if: success() && github.ref == 'refs/heads/main' && github.event.inputs.deploy == 'deploy'
         run: yarn semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
