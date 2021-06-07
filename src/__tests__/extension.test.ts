@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import * as extension from '../extension';
 import * as manifest from '../manifest';

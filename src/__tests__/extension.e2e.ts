@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import * as tools from '../../test/tools';
 import { SCHEMA_PROP, SCHEMA_NAME } from '../manifest/config';

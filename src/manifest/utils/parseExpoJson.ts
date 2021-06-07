@@ -1,5 +1,5 @@
 import { Node, ParseError, parseTree } from 'jsonc-parser';
-import * as path from 'path';
+import path from 'path';
 import { TextDocument } from 'vscode';
 
 let expoJsonCache: Record<string, Node> = {};

@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 /**
  * The configuration property the JSON schemas should be stored at.

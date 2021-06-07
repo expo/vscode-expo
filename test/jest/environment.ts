@@ -1,5 +1,5 @@
 import NodeEnvironment from 'jest-environment-node';
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 export default class VsCodeEnvironment extends NodeEnvironment {
   public async setup() {

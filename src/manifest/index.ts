@@ -1,5 +1,5 @@
 import * as xdlVersions from '@expo/xdl/build/Versions';
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import * as config from './config';
 import { setupDefinition, setupPluginsValidation } from './configPlugins';
