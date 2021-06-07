@@ -44,9 +44,9 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     this.scheme = `expo-config-${this.options.type}`;
     this.projectRoot = getProjectRoot(this._document);
 
-    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
-      this.textDidChange(ev);
-    });
+    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) =>
+      this.textDidChange(ev)
+    );
     this._onDidChangeVisibleTextEditors = vscode.window.onDidChangeVisibleTextEditors((editors) =>
       this.visibleTextEditorsDidChange(editors)
     );
