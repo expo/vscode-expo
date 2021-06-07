@@ -1,13 +1,13 @@
-import { getPrebuildConfig } from '@expo/prebuild-config';
 import { getConfig } from '@expo/config';
 import { compileModsAsync, AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
+import { getPrebuildConfig } from '@expo/prebuild-config';
 import * as clearModule from 'clear-module';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { window } from 'vscode';
 
-import { getProjectRoot } from './utils/getProjectRoot';
+import { getProjectRoot } from '../utils/getProjectRoot';
 
 type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties';
 

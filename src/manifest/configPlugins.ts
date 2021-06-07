@@ -17,10 +17,10 @@ import {
   workspace,
 } from 'vscode';
 
+import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
-import { getProjectRoot } from './utils/getProjectRoot';
 import {
   iteratePluginNames,
   parseSourceRanges,
