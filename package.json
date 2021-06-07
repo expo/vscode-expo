@@ -67,8 +67,8 @@
     "@expo/configure-splash-screen": "0.4.0"
   },
   "devDependencies": {
-    "@expo/config-plugins": "2.0.0",
-    "@expo/prebuild-config": "^1.0.1",
+    "@expo/config-plugins": "2.0.2",
+    "@expo/prebuild-config": "^1.0.3",
     "@expo/json-file": "^8.2.30",
     "@expo/xdl": "^59.1.0",
     "@semantic-release/changelog": "^5.0.1",

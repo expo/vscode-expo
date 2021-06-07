@@ -1,24 +1,36 @@
 import * as vscode from 'vscode';
 
+import { CodeProvider } from './CodeProvider';
 import {
-  AndroidManifestCodeProvider,
-  AndroidStringsCodeProvider,
-  CodeProvider,
-  EntitlementsPlistCodeProvider,
   ExpoConfigType,
-  GradlePropertiesCodeProvider,
-  InfoPlistCodeProvider,
   IntrospectExpoConfigCodeProvider,
   PrebuildExpoConfigCodeProvider,
   PublicExpoConfigCodeProvider,
+} from './ExpoConfigCodeProvider';
+import {
+  AndroidColorsCodeProvider,
+  AndroidManifestCodeProvider,
+  AndroidStringsCodeProvider,
+  AndroidStylesCodeProvider,
+  EntitlementsPlistCodeProvider,
+  ExpoPlistCodeProvider,
+  GradlePropertiesCodeProvider,
+  InfoPlistCodeProvider,
 } from './IntrospectCodeProvider';
 
-const CodeProviders: Record<string, typeof CodeProvider> = {
-  'android.strings': AndroidStringsCodeProvider,
-  'android.manifest': AndroidManifestCodeProvider,
-  'android.gradleProperties': GradlePropertiesCodeProvider,
+const ModProviders: Record<string, typeof CodeProvider> = {
   'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.infoPlist': InfoPlistCodeProvider,
+  'ios.expoPlist': ExpoPlistCodeProvider,
+  'android.strings': AndroidStringsCodeProvider,
+  'android.colors': AndroidColorsCodeProvider,
+  'android.styles': AndroidStylesCodeProvider,
+  'android.manifest': AndroidManifestCodeProvider,
+  'android.gradleProperties': GradlePropertiesCodeProvider,
+};
+
+const CodeProviders: Record<string, typeof CodeProvider> = {
+  ...ModProviders,
   'config.prebuild': PrebuildExpoConfigCodeProvider,
   'config.introspect': IntrospectExpoConfigCodeProvider,
   'config.public': PublicExpoConfigCodeProvider,
@@ -38,35 +50,24 @@ export function setupPreview(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick([
-        ExpoConfigType.PUBLIC,
-        ExpoConfigType.PREBUILD,
-        ExpoConfigType.INTROSPECT,
+      let option = await vscode.window.showQuickPick([
+        ExpoConfigType.PREBUILD + ' | Resolved plugins and added mods object for post-prebuild',
+        ExpoConfigType.INTROSPECT + ' | Evaluated results for static modifiers',
+        ExpoConfigType.PUBLIC + ' | Hosted manifest for OTA updates',
       ]);
       if (option) {
+        option = option.split(' | ')[0]!;
         openForEditor(`config.${option}`, editor.document);
       }
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFilePrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick([
-        'android.strings',
-        'android.manifest',
-        'android.gradleProperties',
-        'ios.entitlements',
-        'ios.infoPlist',
-      ]);
+      const option = await vscode.window.showQuickPick(Object.keys(ModProviders));
       if (option) {
         openForEditor(option, editor.document);
       }
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFileJsonPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick([
-        'android.strings',
-        'android.manifest',
-        'android.gradleProperties',
-        'ios.entitlements',
-        'ios.infoPlist',
-      ]);
+      const option = await vscode.window.showQuickPick(Object.keys(ModProviders));
       if (option) {
         openForEditor(option, editor.document, true);
       }
@@ -80,7 +81,7 @@ async function openForEditor(
   isJSON?: boolean
 ): Promise<void> {
   if (!(type in CodeProviders)) {
-    throw new Error('invalid preview type: ' + type);
+    throw new Error('Invalid preview type: ' + type);
   }
   let codeProvider = codeProviders.get(type);
   if (codeProvider === undefined) {

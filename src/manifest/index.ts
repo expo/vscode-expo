@@ -4,7 +4,6 @@ import * as vscode from 'vscode';
 import * as config from './config';
 import { setupDefinition, setupPluginsValidation } from './configPlugins';
 import * as schema from './schema';
-import { setupPreview } from './setupPreview';
 import * as storage from './storage';
 
 /**
@@ -19,7 +18,6 @@ export async function activateGlobalSchema(context: vscode.ExtensionContext) {
   await config.registerGlobalSchema(storagePath);
   setupPluginsValidation(context);
   setupDefinition();
-  setupPreview(context);
 }
 
 /**
