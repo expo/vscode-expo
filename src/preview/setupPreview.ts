@@ -51,26 +51,44 @@ export function setupPreview(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, async (editor) => {
-      let option = await vscode.window.showQuickPick([
-        ExpoConfigType.PREBUILD + ' | Resolved plugins and added mods object for post-prebuild',
-        ExpoConfigType.INTROSPECT + ' | Evaluated results for static modifiers',
-        ExpoConfigType.PUBLIC + ' | Hosted manifest for OTA updates',
+      const option = await vscode.window.showQuickPick([
+        {
+          label: ExpoConfigType.PREBUILD,
+          description: 'Resolved plugins and added mods object for post-prebuild',
+        },
+        {
+          label: ExpoConfigType.INTROSPECT,
+          description: 'Evaluated results for static modifiers',
+        },
+        {
+          label: ExpoConfigType.PUBLIC,
+          description: 'Hosted manifest for OTA updates',
+        },
       ]);
       if (option) {
-        option = option.split(' | ')[0]!;
-        openForEditor(`config.${option}`, editor.document);
+        openForEditor(`config.${option.label}`, editor.document);
       }
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFilePrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick(Object.keys(ModProviders));
+      const option = await vscode.window.showQuickPick(
+        Object.keys(ModProviders).map((key) => ({
+          label: key,
+          detail: (ModProviders[key] as any).fileDescription,
+        }))
+      );
       if (option) {
-        openForEditor(option, editor.document);
+        openForEditor(option.label, editor.document);
       }
     }),
     vscode.commands.registerTextEditorCommand(Command.OpenExpoFileJsonPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick(Object.keys(ModProviders));
+      const option = await vscode.window.showQuickPick(
+        Object.keys(ModProviders).map((key) => ({
+          label: key,
+          detail: (ModProviders[key] as any).fileDescription,
+        }))
+      );
       if (option) {
-        openForEditor(option, editor.document, true);
+        openForEditor(option.label, editor.document, true);
       }
     })
   );

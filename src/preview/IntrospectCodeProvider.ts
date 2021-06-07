@@ -41,6 +41,7 @@ class IntrospectCodeProvider extends CodeProvider {
 }
 
 export class AndroidManifestCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'android/app/src/main/AndroidManifest.xml';
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -53,6 +54,7 @@ export class AndroidManifestCodeProvider extends IntrospectCodeProvider {
 }
 
 export class GradlePropertiesCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'android/gradle.properties';
   readonly defaultLanguage: CodeProviderLanguage = 'properties';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -80,6 +82,7 @@ class AndroidResourceCodeProvider extends IntrospectCodeProvider {
 }
 
 export class AndroidStringsCodeProvider extends AndroidResourceCodeProvider {
+  static fileDescription = 'android/app/src/main/res/values/strings.xml';
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -92,6 +95,7 @@ export class AndroidStringsCodeProvider extends AndroidResourceCodeProvider {
 }
 
 export class AndroidColorsCodeProvider extends AndroidResourceCodeProvider {
+  static fileDescription = 'android/app/src/main/res/values/colors.xml';
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -104,6 +108,7 @@ export class AndroidColorsCodeProvider extends AndroidResourceCodeProvider {
 }
 
 export class AndroidStylesCodeProvider extends AndroidResourceCodeProvider {
+  static fileDescription = 'android/app/src/main/res/values/styles.xml';
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -116,6 +121,7 @@ export class AndroidStylesCodeProvider extends AndroidResourceCodeProvider {
 }
 
 export class InfoPlistCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'ios/[name]/Info.plist';
   readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -140,6 +146,8 @@ export class InfoPlistCodeProvider extends IntrospectCodeProvider {
 }
 
 export class EntitlementsPlistCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'ios/[name]/[name].entitlements';
+
   readonly defaultLanguage: CodeProviderLanguage = 'entitlements';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
@@ -162,6 +170,8 @@ export class EntitlementsPlistCodeProvider extends IntrospectCodeProvider {
 }
 
 export class ExpoPlistCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'ios/[name]/Supporting/Expo.plist';
+
   readonly defaultLanguage: CodeProviderLanguage = 'plist';
 
   constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
