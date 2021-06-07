@@ -109,9 +109,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   }
 
   get documentName(): string {
-    const basename = path.basename(this.document.fileName);
-    const extIndex = basename.lastIndexOf('.');
-    return extIndex === -1 ? basename : basename.substring(0, extIndex);
+    return this.getFileName();
   }
 
   setDocument(document: vscode.TextDocument): void {
