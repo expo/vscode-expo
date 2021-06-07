@@ -39,16 +39,16 @@
   "contributes": {
     "commands": [
       {
+        "command": "expo.config.preview",
+        "title": "Expo: Preview config"
+      },
+      {
         "command": "expo.config.prebuild.preview",
         "title": "Expo: Preview modifier"
       },
       {
         "command": "expo.config.prebuild.preview.json",
         "title": "Expo: Preview modifier as JSON"
-      },
-      {
-        "command": "expo.config.preview",
-        "title": "Expo: Preview config"
       }
     ]
   },
