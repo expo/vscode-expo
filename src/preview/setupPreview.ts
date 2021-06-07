@@ -8,10 +8,10 @@ import {
   PublicExpoConfigCodeProvider,
 } from './ExpoConfigCodeProvider';
 import {
-  AndroidColorsCodeProvider,
+  // AndroidColorsCodeProvider,
   AndroidManifestCodeProvider,
   AndroidStringsCodeProvider,
-  AndroidStylesCodeProvider,
+  // AndroidStylesCodeProvider,
   EntitlementsPlistCodeProvider,
   ExpoPlistCodeProvider,
   GradlePropertiesCodeProvider,
@@ -23,8 +23,9 @@ const ModProviders: Record<string, typeof CodeProvider> = {
   'ios.infoPlist': InfoPlistCodeProvider,
   'ios.expoPlist': ExpoPlistCodeProvider,
   'android.strings': AndroidStringsCodeProvider,
-  'android.colors': AndroidColorsCodeProvider,
-  'android.styles': AndroidStylesCodeProvider,
+  // TODO: Update expo/config-plugins
+  // 'android.colors': AndroidColorsCodeProvider,
+  // 'android.styles': AndroidStylesCodeProvider,
   'android.manifest': AndroidManifestCodeProvider,
   'android.gradleProperties': GradlePropertiesCodeProvider,
 };
