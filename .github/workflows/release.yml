@@ -1,0 +1,41 @@
+---
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'type "deploy" to confirm deploy to production (main branch only)'
+        required: false
+jobs:
+  release:
+    name: Release verison
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Find Yarn cache
+        id: yarn-cache-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Yarn
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --check-files
+      - name: Test-run release
+        if: success() && github.event.inputs.deploy != 'deploy'
+        run: yarn semantic-release --dry-run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        if: success() && github.ref == 'refs/heads/main' && github.event.inputs.deploy == 'deploy'
+        run: yarn semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
