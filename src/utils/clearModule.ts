@@ -44,12 +44,8 @@ const clear = (moduleId: string) => {
 };
 
 export function clearProjectModules(projectRoot: string) {
-  const directory = path.dirname(parentModule(__filename)!);
-
-  //   for (const moduleId of Object.keys(require.cache)) {
-  //     console.log(resolveFrom(directory, moduleId));
-  //   }
-
+  const directory = path.dirname(parentModule(__filename) || __filename);
+  
   for (const moduleId of Object.keys(require.cache)) {
     if (
       // Module is inside of project root
@@ -57,7 +53,6 @@ export function clearProjectModules(projectRoot: string) {
       // Ignore modules inside of node_modules
       !/node_modules/.test(moduleId)
     ) {
-      console.log(resolveFrom(directory, moduleId));
       clear(moduleId);
     }
   }
