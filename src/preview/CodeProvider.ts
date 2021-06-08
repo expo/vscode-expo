@@ -1,6 +1,6 @@
 import { AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
-import * as clearModule from 'clear-module';
+import { clearProjectModules } from '../utils/clearModule';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { window } from 'vscode';
@@ -151,7 +151,8 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   async update(): Promise<void> {
     try {
       // Reset all requires to ensure plugins update
-      clearModule.all();
+      clearProjectModules(this.projectRoot);
+
       this.fileContents = this.formatWithLanguage(await this.getFileContents());
     } catch (error) {
       this.fileContents = '';
