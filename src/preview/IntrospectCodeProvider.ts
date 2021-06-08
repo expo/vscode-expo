@@ -36,9 +36,35 @@ class IntrospectCodeProvider extends CodeProvider {
       platforms: [this.getModPlatform()],
     });
 
-    return config._internal!.modResults[this.getModPlatform()][this.getModName()];
+    const results = config._internal!.modResults[this.getModPlatform()][this.getModName()];
+    return this.sortObject(results);
+  }
+
+  sortObject(obj: Record<string, any>): Record<string, any> {
+    return sortObjectKeys(obj);
   }
 }
+
+function sortObjectKeys(
+  obj: Record<string, any>,
+  compareFn?: (a: string, b: string) => number
+): Record<string, any> {
+  return Object.keys(obj)
+    .sort(compareFn)
+    .reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: obj[key],
+      }),
+      {}
+    );
+}
+
+const reverseSort = (a: string, b: string) => {
+  if (a < b) return 1;
+  if (a > b) return -1;
+  return 0;
+};
 
 export class AndroidManifestCodeProvider extends IntrospectCodeProvider {
   static fileDescription = 'android/app/src/main/AndroidManifest.xml';
@@ -50,6 +76,21 @@ export class AndroidManifestCodeProvider extends IntrospectCodeProvider {
 
   getFileName(): string {
     return 'android/app/src/main/AndroidManifest.xml';
+  }
+
+  sortObject(obj: Record<string, any>): Record<string, any> {
+    if (obj.manifest) {
+      // Reverse sort so application is last and permissions are first
+      obj.manifest = sortObjectKeys(obj.manifest, reverseSort);
+
+      if (Array.isArray(obj.manifest.application)) {
+        // reverse sort applications so activity is towards the end and meta-data is towards the front.
+        obj.manifest.application = obj.manifest.application.map((application: any) =>
+          sortObjectKeys(application, reverseSort)
+        );
+      }
+    }
+    return obj;
   }
 }
 
