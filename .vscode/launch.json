@@ -39,7 +39,7 @@
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
-        "--disable-extensions",
+        "--disable-extensions"
       ],
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
