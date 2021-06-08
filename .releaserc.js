@@ -7,9 +7,15 @@ const rules = [
   { type: 'docs', release: 'patch', title: 'Documentation changes' },
 ];
 
+// Commit type to title mapping
+const typeMap = Object.fromEntries(rules.map(rule => [rule.type, rule.title]));
+// Commit title to order-index
+const sortMap = Object.fromEntries(rules.map((rule, index) => [rule.title, index]));
+
 module.exports = {
   branches: ['main'],
   tagFormat: '${version}',
+  repositoryUrl: 'git@github.com:expo/vscode-expo.git',
   plugins: [
     ['@semantic-release/commit-analyzer', {
       preset: 'conventionalcommits',
@@ -18,11 +24,9 @@ module.exports = {
     ['@semantic-release/release-notes-generator', {
       preset: 'conventionalcommits',
       writerOpts: {
+        commitGroupsSort: (a, z) => sortMap[a.title] - sortMap[z.title],
         transform: (commit) => {
-          const rule = rules.find(({ type }) => type === commit.type.toLowerCase());
-          if (rule) {
-            commit.type = rule.title;
-          }
+          commit.type = typeMap[commit.type.toLowerCase()] || commit.type;
           return commit;
         },
       },
