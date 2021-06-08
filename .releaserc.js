@@ -15,7 +15,6 @@ const sortMap = Object.fromEntries(rules.map((rule, index) => [rule.title, index
 module.exports = {
   branches: ['main'],
   tagFormat: '${version}',
-  repositoryUrl: 'git@github.com:expo/vscode-expo.git',
   plugins: [
     ['@semantic-release/commit-analyzer', {
       preset: 'conventionalcommits',
