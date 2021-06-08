@@ -1,3 +1,25 @@
+## [0.5.0](https://github.com/expo/vscode-expo/compare/0.4.0...0.5.0) (2021-06-08)
+
+
+### New features
+
+* add previews to ejected native files (#45) ([](https://github.com/expo/vscode-expo/commit/5228f00ca0107c87c6888b15f8c4feaa5099cb13)), closes [#45](https://github.com/expo/vscode-expo/issues/45)
+
+
+### Code changes
+
+* scope clear module to project modules only (#48) ([](https://github.com/expo/vscode-expo/commit/d49214cc67d0113a02fc96e98249f9dca972cfd4)), closes [#48](https://github.com/expo/vscode-expo/issues/48)
+
+
+### Other chores
+
+* add proper group sorting to changelog ([](https://github.com/expo/vscode-expo/commit/02e9634c10c1f51f84b03f2917bb11a0d9bc8c8f))
+* bump dns-packet from 1.3.1 to 1.3.4 (#44) ([](https://github.com/expo/vscode-expo/commit/c036581fc67b1f4158bdd91bb2c3e45322c7ef12)), closes [#44](https://github.com/expo/vscode-expo/issues/44)
+* clean up linting issue in create completion item ([](https://github.com/expo/vscode-expo/commit/63d2f5dfdc46fbd76d07cb24c9c5880ab103d783))
+* fix typo in release workflow name ([](https://github.com/expo/vscode-expo/commit/8fa7e502c2039b40f9414901131e1eb4e6bb1808))
+* remove duplicated repository url ([](https://github.com/expo/vscode-expo/commit/a2a6f0a4c692bd5217e0e82e2f103d8a499e0777))
+* setup up automated release flow and usage documentation (#43) ([](https://github.com/expo/vscode-expo/commit/8e2ae190a23deda22e3e88eaed6edb889bbd7717)), closes [#43](https://github.com/expo/vscode-expo/issues/43)
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
