@@ -1,8 +1,6 @@
-import { getConfig } from '@expo/config';
-import { compileModsAsync, IOSConfig, ModPlatform } from '@expo/config-plugins';
+import { compileModsAsync, ModPlatform } from '@expo/config-plugins';
 import { getPrebuildConfig } from '@expo/prebuild-config';
 import assert from 'assert';
-import * as path from 'path';
 import * as vscode from 'vscode';
 
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
@@ -132,16 +130,8 @@ export class InfoPlistCodeProvider extends IntrospectCodeProvider {
   }
 
   getFileName(): string {
-    try {
-      // custom
-      const infoPlistPath = IOSConfig.Paths.getInfoPlistPath(this.projectRoot);
-      return path.relative(this.projectRoot, infoPlistPath);
-    } catch {
-      // managed
-      const config = getConfig(this.projectRoot, { skipSDKVersionRequirement: true }).exp;
-      const iosName = IOSConfig.XcodeUtils.getHackyProjectName(this.projectRoot, config);
-      return `ios/${iosName}/Info.plist`;
-    }
+    // Don't use app name in path because the file won't update if the URI changes.
+    return `Info.plist`;
   }
 }
 
@@ -155,17 +145,8 @@ export class EntitlementsPlistCodeProvider extends IntrospectCodeProvider {
   }
 
   getFileName(): string {
-    try {
-      // custom
-      const entitlementsPath = IOSConfig.Paths.getEntitlementsPath(this.projectRoot);
-      if (!entitlementsPath) throw new Error('No entitlements');
-      return path.relative(this.projectRoot, entitlementsPath);
-    } catch {
-      // managed
-      const config = getConfig(this.projectRoot, { skipSDKVersionRequirement: true }).exp;
-      const iosName = IOSConfig.XcodeUtils.getHackyProjectName(this.projectRoot, config);
-      return `ios/${iosName}/${iosName}.entitlements`;
-    }
+    // Don't use app name in path because the file won't update if the URI changes.
+    return `Example.entitlements`;
   }
 }
 
@@ -179,16 +160,7 @@ export class ExpoPlistCodeProvider extends IntrospectCodeProvider {
   }
 
   getFileName(): string {
-    try {
-      // custom
-      const expoPlist = IOSConfig.Paths.getExpoPlistPath(this.projectRoot);
-      if (!expoPlist) throw new Error('No Expo.plist');
-      return path.relative(this.projectRoot, expoPlist);
-    } catch {
-      // managed
-      const config = getConfig(this.projectRoot, { skipSDKVersionRequirement: true }).exp;
-      const iosName = IOSConfig.XcodeUtils.getHackyProjectName(this.projectRoot, config);
-      return `ios/${iosName}/Supporting/Expo.plist`;
-    }
+    // Don't use app name in path because the file won't update if the URI changes.
+    return 'Expo.plist';
   }
 }
