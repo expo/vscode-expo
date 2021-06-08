@@ -1,10 +1,9 @@
 import { AndroidConfig, XML } from '@expo/config-plugins';
 import plist from '@expo/plist';
-import { clearProjectModules } from '../utils/clearModule';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { window } from 'vscode';
 
+import { clearProjectModules } from '../utils/clearModule';
 import { getProjectRoot } from '../utils/getProjectRoot';
 
 export type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties' | 'entitlements';
@@ -156,7 +155,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
       this.fileContents = this.formatWithLanguage(await this.getFileContents());
     } catch (error) {
       this.fileContents = '';
-      window.showErrorMessage(error.message);
+      vscode.window.showErrorMessage(error.message);
     }
     this.sendDidChangeEvent();
   }
