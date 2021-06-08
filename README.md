@@ -35,6 +35,29 @@
 - Autocomplete and validation of your `app.json` or `app.config.json` manifest.
 - Automatic [config plugins](https://docs.expo.io/guides/config-plugins/) validation and IntelliSense.
 
+## Commands
+
+We also provide some commands that helps you get the most out of Expo.
+
+### `Expo: Preview Modifier`
+
+Preview the introspected result as native code from your app manifest or config plugin. The following file types are supported:
+
+- [iOS Entitlements](https://docs.expo.io/build-reference/ios-capabilities/#entitlements) - File written to `ios/[app]/[app].entitlements`.
+- [iOS Info Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Info.plist`.
+- [iOS Expo Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Supporting/Expo.plist`.
+- [Android String Resources](https://developer.android.com/guide/topics/resources/string-resource) - File writen to `android/app/src/main/res/values/strings.xml`.
+- [Android Manifest](https://developer.android.com/guide/topics/manifest/manifest-intro) - File written to `android/app/src/main/AndroidManifest.xml`.
+- [Android Gradle Properties](https://developer.android.com/studio/build#properties-files) - File written to `android/gradle.properties`.
+
+### `Expo: Preview Config`
+
+Preview the built manifest from your app manifest. You can do that for either:
+
+- **prebuild** - The local manifest when running prebuild or eject, including all config plugins and modifiers.
+- **introspect** - The evaluated results for for static config plugins modifiers.
+- **public** - The hosted manifest for OTA updates.
+
 ## Contributors
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
