@@ -33,7 +33,7 @@ module.exports = {
     '@semantic-release/changelog',
     ['@semantic-release/npm', { npmPublish: false }],
     ['@semantic-release/git', {
-      message: 'chore: create new release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+      message: 'chore: create new release ${nextRelease.version}\n\n${nextRelease.notes}',
       assets: ['package.json', 'CHANGELOG.md'],
     }],
     '@semantic-release/github',
