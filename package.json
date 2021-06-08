@@ -36,6 +36,22 @@
   "activationEvents": [
     "*"
   ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "expo.config.preview",
+        "title": "Expo: Preview config"
+      },
+      {
+        "command": "expo.config.prebuild.preview",
+        "title": "Expo: Preview modifier"
+      },
+      {
+        "command": "expo.config.prebuild.preview.json",
+        "title": "Expo: Preview modifier as JSON"
+      }
+    ]
+  },
   "scripts": {
     "postinstall": "patch-package",
     "vscode:prepublish": "yarn clean && yarn build:production",
@@ -47,8 +63,12 @@
     "lint": "eslint .",
     "deploy": "vsce publish --yarn"
   },
+  "resolutions": {
+    "@expo/configure-splash-screen": "0.4.0"
+  },
   "devDependencies": {
-    "@expo/config-plugins": "~1.0.30",
+    "@expo/config-plugins": "2.0.2",
+    "@expo/prebuild-config": "^1.0.3",
     "@expo/json-file": "^8.2.30",
     "@expo/xdl": "^59.1.0",
     "@semantic-release/changelog": "^5.0.1",
@@ -62,6 +82,7 @@
     "@typescript-eslint/parser": "^4.22.1",
     "conventional-changelog-conventionalcommits": "^4.6.0",
     "esbuild-loader": "^2.13.1",
+    "clear-module": "^4.1.1",
     "eslint": "^7.26.0",
     "eslint-config-universe": "^7.0.1",
     "find-up": "^5.0.0",

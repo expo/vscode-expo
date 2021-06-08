@@ -1,8 +1,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { findUpPackageJson } from '../../manifest/utils/getProjectRoot';
 import { positionIsInPlugins } from '../../manifest/utils/iteratePlugins';
+import { findUpPackageJson } from '../../utils/getProjectRoot';
 
 export type ResolveType = 'plugin' | 'image';
 

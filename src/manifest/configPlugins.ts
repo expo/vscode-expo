@@ -2,9 +2,10 @@ import {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
-import fs from 'fs';
-import path from 'path';
-import vscode, {
+import * as fs from 'fs';
+import * as path from 'path';
+import * as vscode from 'vscode';
+import {
   Diagnostic,
   DiagnosticCollection,
   DiagnosticSeverity,
@@ -16,10 +17,10 @@ import vscode, {
   workspace,
 } from 'vscode';
 
+import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
 import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
-import { getProjectRoot } from './utils/getProjectRoot';
 import {
   iteratePluginNames,
   parseSourceRanges,
