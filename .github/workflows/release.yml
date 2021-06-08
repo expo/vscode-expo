@@ -8,7 +8,7 @@ on:
         required: false
 jobs:
   release:
-    name: Release verison
+    name: Release version
     runs-on: ubuntu-latest
     steps:
       - name: Setup repository
