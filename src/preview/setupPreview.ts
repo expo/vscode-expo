@@ -19,14 +19,14 @@ import {
 } from './IntrospectCodeProvider';
 
 const ModProviders: Record<string, typeof CodeProvider> = {
-  'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.infoPlist': InfoPlistCodeProvider,
+  'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.expoPlist': ExpoPlistCodeProvider,
+  'android.manifest': AndroidManifestCodeProvider,
   'android.strings': AndroidStringsCodeProvider,
   // TODO: Update expo/config-plugins
   // 'android.colors': AndroidColorsCodeProvider,
   // 'android.styles': AndroidStylesCodeProvider,
-  'android.manifest': AndroidManifestCodeProvider,
   'android.gradleProperties': GradlePropertiesCodeProvider,
 };
 
