@@ -28,7 +28,8 @@ export class ExpoConfigCodeProvider extends CodeProvider {
   getFileName() {
     // TODO: Maybe manifest.json is better?
 
-    const name = this.configType === ExpoConfigType.PUBLIC ? 'exp.json' : 'app.config.json';
+    // Use _app.config.json to disable all features like auto complete and intellisense on the file.
+    const name = this.configType === ExpoConfigType.PUBLIC ? 'exp.json' : '_app.config.json';
     return name;
   }
 
