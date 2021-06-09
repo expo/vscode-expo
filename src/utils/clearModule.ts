@@ -44,8 +44,6 @@ const clear = (moduleId: string) => {
 };
 
 export function clearProjectModules(projectRoot: string) {
-  const directory = path.dirname(parentModule(__filename) || __filename);
-  
   for (const moduleId of Object.keys(require.cache)) {
     if (
       // Module is inside of project root
