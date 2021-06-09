@@ -35,6 +35,7 @@ jobs:
         run: yarn build
       - name: Lint project
         run: yarn lint
+        if: matrix.os == 'ubuntu-latest' && matrix.vscode == 'stable'
       - name: Test project
         uses: GabrielBB/xvfb-action@v1.0
         with:
