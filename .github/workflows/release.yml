@@ -3,8 +3,8 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      deploy:
-        description: 'type "deploy" to confirm deploy to production (main branch only)'
+      release:
+        description: 'type "release" to confirm creating a new release (main branch only)'
         required: false
 jobs:
   release:
@@ -30,12 +30,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
       - name: Test-run release
-        if: success() && github.event.inputs.deploy != 'deploy'
+        if: success() && github.event.inputs.release != 'release'
         run: yarn semantic-release --dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release
-        if: success() && github.ref == 'refs/heads/main' && github.event.inputs.deploy == 'deploy'
+        if: success() && github.ref == 'refs/heads/main' && github.event.inputs.release == 'release'
         run: yarn semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
