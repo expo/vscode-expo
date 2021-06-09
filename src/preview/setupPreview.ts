@@ -139,5 +139,7 @@ async function openForEditor(
 
   await codeProvider!.update();
   const doc = await vscode.workspace.openTextDocument(codeProvider!.getURI());
-  vscode.window.showTextDocument(doc, column, true);
+  const editor = await vscode.window.showTextDocument(doc, column, true);
+
+  codeProvider.setEditor(editor);
 }

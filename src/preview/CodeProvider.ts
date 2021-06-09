@@ -30,6 +30,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
   public _isOpen = false;
   private _timer: NodeJS.Timer | undefined = undefined;
+  private _editor: vscode.TextEditor | null = null;
 
   readonly defaultLanguage: CodeProviderLanguage = 'json';
 
@@ -37,15 +38,39 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     this.scheme = `expo-config-${this.options.type}`;
     this.projectRoot = getProjectRoot(this._document);
 
-    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) =>
-      this.textDidChange(ev)
-    );
+    this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
+      this.textDidChange(ev);
+      // Apply highlight to changed area
+      if (this._editor && ev.document === this._editor.document) {
+        const styles: vscode.DecorationOptions[] = [];
+        for (const change of ev.contentChanges) {
+          // Only style added lines
+          if (!change.text || !change.range) {
+            continue;
+          }
+          // Get the range of the modification
+          const range = new vscode.Range(
+            this._editor.document.positionAt(change.rangeOffset),
+            this._editor.document.positionAt(change.rangeOffset + change.text.length)
+          );
+          styles.push({
+            range,
+          });
+        }
+        // Apply decorations (styles)
+        this._editor.setDecorations(addedCodeStyle, styles);
+      }
+    });
     this._onDidChangeVisibleTextEditors = vscode.window.onDidChangeVisibleTextEditors((editors) =>
       this.visibleTextEditorsDidChange(editors)
     );
     this._onDidChangeConfiguration = vscode.workspace.onDidChangeConfiguration((ev) =>
       this.configurationDidChange(ev)
     );
+  }
+
+  setEditor(editor: vscode.TextEditor) {
+    this._editor = editor;
   }
 
   getDefinedLanguage() {
@@ -157,6 +182,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
       this.fileContents = '';
       vscode.window.showErrorMessage(error.message);
     }
+
     this.sendDidChangeEvent();
   }
 
@@ -175,3 +201,15 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     return '';
   }
 }
+
+// create a decorator type that we use to decorate small numbers
+const addedCodeStyle = vscode.window.createTextEditorDecorationType({
+  //   before: {
+  //     contentText: '+',
+  //   },
+  isWholeLine: true,
+  backgroundColor: '#e5ffec',
+  dark: {
+    backgroundColor: '#2ea04333',
+  },
+});
