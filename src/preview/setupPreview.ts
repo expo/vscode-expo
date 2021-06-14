@@ -24,7 +24,6 @@ const ModProviders: Record<string, typeof CodeProvider> = {
   'ios.expoPlist': ExpoPlistCodeProvider,
   'android.manifest': AndroidManifestCodeProvider,
   'android.strings': AndroidStringsCodeProvider,
-  // TODO: Update expo/config-plugins
   'android.colors': AndroidColorsCodeProvider,
   'android.styles': AndroidStylesCodeProvider,
   'android.gradleProperties': GradlePropertiesCodeProvider,
