@@ -46,6 +46,9 @@ Preview the introspected result as native code from your app manifest or config 
 - [iOS Entitlements](https://docs.expo.io/build-reference/ios-capabilities/#entitlements) - File written to `ios/[app]/[app].entitlements`.
 - [iOS Info Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Info.plist`.
 - [iOS Expo Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Supporting/Expo.plist`.
+
+- [Android Color Resources](https://developer.android.com/guide/topics/resources/more-resources#Color) - File writen to `android/app/src/main/res/values/colors.xml`.
+- [Android Style Resources](https://developer.android.com/guide/topics/resources/style-resource) - File writen to `android/app/src/main/res/values/styles.xml`.
 - [Android String Resources](https://developer.android.com/guide/topics/resources/string-resource) - File writen to `android/app/src/main/res/values/strings.xml`.
 - [Android Manifest](https://developer.android.com/guide/topics/manifest/manifest-intro) - File written to `android/app/src/main/AndroidManifest.xml`.
 - [Android Gradle Properties](https://developer.android.com/studio/build#properties-files) - File written to `android/gradle.properties`.
