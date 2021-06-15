@@ -1,3 +1,20 @@
+## [0.7.0](https://github.com/expo/vscode-expo/compare/0.6.0...0.7.0) (2021-06-15)
+
+
+### New features
+
+* add Android colors and styles to the prebuild modifier preview ([#53](https://github.com/expo/vscode-expo/issues/53)) ([3940a66](https://github.com/expo/vscode-expo/commit/3940a66352a9133e44d439bdeb45e4500466c7c8))
+
+
+### Other chores
+
+* add custom github token to trigger deployment on release ([0d676ff](https://github.com/expo/vscode-expo/commit/0d676fff2c9cfb96b34a39ea91b116c8b5e3a303))
+
+
+### Documentation changes
+
+* add color and style resources to the readme ([51b9000](https://github.com/expo/vscode-expo/commit/51b9000e1bb2c8a729d80c08267842953e8241c2))
+
 ## [0.6.0](https://github.com/expo/vscode-expo/compare/0.5.0...0.6.0) (2021-06-09)
 
 
