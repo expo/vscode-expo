@@ -1,4 +1,4 @@
-# Contributing to Expo Snack
+# Contributing to vscode-expo
 
 ## 📦 Download and Setup
 
