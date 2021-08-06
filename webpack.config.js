@@ -1,5 +1,6 @@
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   target: 'node',
@@ -18,9 +19,7 @@ module.exports = {
   externalsPresets: {
     node: true,
   },
-  externals: {
-    vscode: 'commonjs vscode',
-  },
+  externals: [nodeExternals(), { vscode: 'commonjs vscode' }],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
@@ -39,7 +38,6 @@ module.exports = {
       {
         test: /\.(ts|js)$/,
         loader: 'esbuild-loader',
-        include: path.resolve(__dirname, 'src'),
         options: {
           loader: 'ts',
         },

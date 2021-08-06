@@ -65,9 +65,8 @@
   },
   "devDependencies": {
     "@expo/config-plugins": "3.0.1",
-    "@expo/prebuild-config": "2.0.1",
     "@expo/json-file": "^8.2.30",
-    "xdl": "^59.0.46",
+    "@expo/prebuild-config": "2.0.1",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@tsconfig/node12": "^1.0.7",
@@ -89,15 +88,17 @@
     "json5": "^2.2.0",
     "jsonc-parser": "^3.0.0",
     "minimatch": "^3.0.4",
+    "parent-module": "^2.0.0",
     "patch-package": "^6.4.7",
     "prettier": "^2.1.1",
-    "parent-module": "^2.0.0",
     "raw-loader": "^4.0.2",
     "semantic-release": "^17.4.3",
     "typescript": "^4.2.4",
     "vsce": "^1.88.0",
     "vscode-test": "^1.5.2",
     "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0"
+    "webpack-cli": "^4.7.0",
+    "webpack-node-externals": "^3.0.0",
+    "xdl": "^59.0.46"
   }
 }
