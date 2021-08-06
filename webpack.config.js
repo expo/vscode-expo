@@ -39,7 +39,6 @@ module.exports = {
       {
         test: /\.(ts|js)$/,
         loader: 'esbuild-loader',
-        include: path.resolve(__dirname, 'src'),
         options: {
           loader: 'ts',
         },
