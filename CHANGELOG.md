@@ -1,3 +1,9 @@
+
+### 0.7.2 (2021-08-06)
+
+* _rollback to `7.0.0` because of issues with the bundled dependencies_
+
+
 ### [0.7.1](https://github.com/expo/vscode-expo/compare/0.7.0...0.7.1) (2021-08-06)
 
 
@@ -62,10 +68,6 @@
 * reduce the lint annotations in pull requests ([4b15ef3](https://github.com/expo/vscode-expo/commit/4b15ef31d51e830149b4cb77dee0ac19db7302e9))
 * remove skip ci from release commit ([d3eda4e](https://github.com/expo/vscode-expo/commit/d3eda4eddc13b3d2a680c046ed776d99f2b4b628))
 
-# Change Log
-
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## 0.5.0 (2021-06-08)
 
