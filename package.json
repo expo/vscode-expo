@@ -98,7 +98,6 @@
     "vsce": "^1.88.0",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0",
-    "webpack-node-externals": "^3.0.0",
     "xdl": "^59.0.46"
   }
 }
