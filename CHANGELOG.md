@@ -1,3 +1,27 @@
+### [0.7.1](https://github.com/expo/vscode-expo/compare/0.7.0...0.7.1) (2021-08-06)
+
+
+### Bug fixes
+
+* resolve webpack bundling issues for production ([#57](https://github.com/expo/vscode-expo/issues/57)) ([5033685](https://github.com/expo/vscode-expo/commit/5033685ce2b1bb41db8037c3131a5d9a71f91738))
+
+
+### Code changes
+
+* move vscode-test over to @vscode/test-electron ([#58](https://github.com/expo/vscode-expo/issues/58)) ([28d7722](https://github.com/expo/vscode-expo/commit/28d77220dd5ae8877a3ad2f911069405e69c7e29))
+
+
+### Other chores
+
+* add breaking and revert rules to semantic release ([53936a8](https://github.com/expo/vscode-expo/commit/53936a8e98f5f7b7d1c862669b674f719519aa3d))
+* bump lock file with new dependencies ([82e1eaa](https://github.com/expo/vscode-expo/commit/82e1eaafb1df26cd5374ca4f7a9468bfc975578c))
+* bump postcss from 7.0.32 to 7.0.36 ([#54](https://github.com/expo/vscode-expo/issues/54)) ([721c9c2](https://github.com/expo/vscode-expo/commit/721c9c2caacfd1689924dc43a67a9745aecffeb4))
+
+
+### Documentation changes
+
+* update the title on contributing guide ([80b4219](https://github.com/expo/vscode-expo/commit/80b4219f2a46ddc126901c3e4a2f983bc2b7bb4b))
+
 ## [0.7.0](https://github.com/expo/vscode-expo/compare/0.6.0...0.7.0) (2021-06-15)
 
 
