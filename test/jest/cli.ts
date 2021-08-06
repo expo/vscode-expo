@@ -1,5 +1,5 @@
+import { runTests } from '@vscode/test-electron';
 import path from 'path';
-import { runTests } from 'vscode-test';
 
 runTests({
   // note: this file is executed from `./out/test/jest`
