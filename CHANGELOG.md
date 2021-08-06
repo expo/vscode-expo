@@ -1,3 +1,9 @@
+### [0.7.3](https://github.com/expo/vscode-expo/compare/0.7.2...0.7.3) (2021-08-06)
+
+
+### Bug fixes
+
+* missing required libraries and make webpack work with xdl ([#59](https://github.com/expo/vscode-expo/issues/59)) ([1388715](https://github.com/expo/vscode-expo/commit/1388715c0f423351879500bd234cb8ad9f99c993))
 
 ### 0.7.2 (2021-08-06)
 
