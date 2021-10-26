@@ -9,6 +9,7 @@ import {
 } from './ExpoConfigCodeProvider';
 import {
   AndroidColorsCodeProvider,
+  AndroidColorsNightCodeProvider,
   AndroidManifestCodeProvider,
   AndroidStringsCodeProvider,
   AndroidStylesCodeProvider,
@@ -16,15 +17,18 @@ import {
   ExpoPlistCodeProvider,
   GradlePropertiesCodeProvider,
   InfoPlistCodeProvider,
+  PodfilePropertiesCodeProvider,
 } from './IntrospectCodeProvider';
 
 const ModProviders: Record<string, typeof CodeProvider> = {
   'ios.infoPlist': InfoPlistCodeProvider,
   'ios.entitlements': EntitlementsPlistCodeProvider,
   'ios.expoPlist': ExpoPlistCodeProvider,
+  'ios.podfileProperties': PodfilePropertiesCodeProvider,
   'android.manifest': AndroidManifestCodeProvider,
   'android.strings': AndroidStringsCodeProvider,
   'android.colors': AndroidColorsCodeProvider,
+  'android.colorsNight': AndroidColorsNightCodeProvider,
   'android.styles': AndroidStylesCodeProvider,
   'android.gradleProperties': GradlePropertiesCodeProvider,
 };
