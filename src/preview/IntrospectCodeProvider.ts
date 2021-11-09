@@ -146,6 +146,19 @@ export class AndroidColorsCodeProvider extends AndroidResourceCodeProvider {
   }
 }
 
+export class AndroidColorsNightCodeProvider extends AndroidResourceCodeProvider {
+  static fileDescription = 'android/app/src/main/res/values-night/colors.xml';
+  readonly defaultLanguage: CodeProviderLanguage = 'xml';
+
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
+    super(document, { ...options, type: 'android.colorsNight' });
+  }
+
+  getResourceFileName(): string {
+    return 'colors.xml';
+  }
+}
+
 export class AndroidStylesCodeProvider extends AndroidResourceCodeProvider {
   static fileDescription = 'android/app/src/main/res/values/styles.xml';
   readonly defaultLanguage: CodeProviderLanguage = 'xml';
@@ -203,5 +216,19 @@ export class ExpoPlistCodeProvider extends IntrospectCodeProvider {
   getFileName(): string {
     // Don't use app name in path because the file won't update if the URI changes.
     return 'Expo.plist';
+  }
+}
+
+export class PodfilePropertiesCodeProvider extends IntrospectCodeProvider {
+  static fileDescription = 'ios/Podfile.properties.json';
+
+  readonly defaultLanguage: CodeProviderLanguage = 'json';
+
+  constructor(document: vscode.TextDocument, options: BasicCodeProviderOptions) {
+    super(document, { ...options, type: 'ios.podfileProperties' });
+  }
+
+  getFileName(): string {
+    return 'Podfile.properties.json';
   }
 }

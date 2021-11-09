@@ -1,13 +1,15 @@
 diff --git a/node_modules/xdl/build/Webpack.js b/node_modules/xdl/build/Webpack.js
-index 3f9ff8e..9317821 100644
+index 8730f8d..59ce15d 100644
 --- a/node_modules/xdl/build/Webpack.js
 +++ b/node_modules/xdl/build/Webpack.js
-@@ -502,7 +502,8 @@ async function getAvailablePortAsync(options) {
+@@ -535,8 +535,9 @@ async function getAvailablePortAsync(options) {
+ }
  
  function setMode(mode) {
-   process.env.BABEL_ENV = mode;
+-  process.env.BABEL_ENV = mode;
 -  process.env.NODE_ENV = mode;
 +  // Webpack tries to resolve this, resulting in "production" = mode;
++  // process.env.BABEL_ENV = mode;
 +  // process.env.NODE_ENV = mode;
  }
  
