@@ -54,7 +54,7 @@ export function setupDefinition() {
             projectRoot,
             resolver.nameValue
           );
-          const linkUri = Uri.parse(pluginFile);
+          const linkUri = Uri.file(pluginFile);
           const range = rangeForQuotedOffset(document, resolver.name);
           const link = new DocumentLink(range, linkUri);
           link.tooltip = 'Go to config plugin';
@@ -68,7 +68,7 @@ export function setupDefinition() {
       // Add links for any random file references starting with `"./` that aren't inside of the `plugins` array.
       iterateFileReferences(document, node, ({ range, fileReference }) => {
         const filePath = path.join(projectRoot, fileReference);
-        const linkUri = Uri.parse(filePath);
+        const linkUri = Uri.file(filePath);
         const link = new DocumentLink(range, linkUri);
         link.tooltip = 'Go to asset';
         links.push(link);
