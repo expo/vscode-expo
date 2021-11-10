@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        vscode: ['1.44.0', 'stable', 'insiders']
+        vscode: ['1.46.0', 'stable', 'insiders']
         os:
           - ubuntu-latest
           - macos-latest
