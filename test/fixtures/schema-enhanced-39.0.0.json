@@ -3,9 +3,6 @@
   "type": "object",
   "version": "39.0.0",
   "additionalProperties": true,
-  "required": [
-    "expo"
-  ],
   "definitions": {
     "AndroidIntentFiltersData": {
       "type": "object",

@@ -3,9 +3,6 @@
   "type": "object",
   "version": "41.0.0",
   "additionalProperties": true,
-  "required": [
-    "expo"
-  ],
   "definitions": {
     "Android": {
       "description": "Configuration that is specific to the Android platform.",

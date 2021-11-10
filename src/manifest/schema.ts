@@ -10,7 +10,6 @@ export type ManifestSchema = {
   type: 'object';
   version: string;
   additionalProperties: true;
-  required: string[];
   definitions?: any;
   properties: {
     expo: any;
@@ -60,7 +59,6 @@ export function createFromXdl(sdkVersion: string, xdlSchema: JsonSchema): Manife
     type: 'object',
     version: sdkVersion,
     additionalProperties: true,
-    required: ['expo'],
     definitions,
     properties: {
       expo: enhancedSchema,
