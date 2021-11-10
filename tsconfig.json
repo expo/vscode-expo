@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "declaration": false,
     "esModuleInterop": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "useUnknownInCatchVariables": false
   }
 }
