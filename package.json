@@ -60,8 +60,7 @@
     "build:production": "webpack --mode production",
     "clean": "git clean -xdf ./out ./.vscode-test *tsbuildinfo",
     "test": "node ./out/test/jest/cli.js",
-    "lint": "eslint .",
-    "deploy": "vsce publish --yarn"
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@expo/config-plugins": "^4.0.7",

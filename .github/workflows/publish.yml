@@ -7,6 +7,8 @@ jobs:
   publish:
     name: Publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
@@ -27,6 +29,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --check-files
       - name: Publish to marketplace
-        run: yarn deploy
+        run: yarn vsce publish --yarn
         env:
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
+      - name: Package extension
+        run: yarn vsce package
+      - name: Add package to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: vscode-expo-*.vsix
