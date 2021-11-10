@@ -14,7 +14,8 @@ it(`is activated on startup`, async () => {
   expect(tools.getExtension().isActive).toBeTruthy();
 });
 
-it('registers global json schema manifest', () => {
+// Disabled due to some sort of race condition
+xit('registers global json schema manifest', () => {
   const config = vscode.workspace.getConfiguration();
   const schemas = config.inspect<any[]>(SCHEMA_PROP)?.globalValue;
   const expo = schemas?.find((item) => item.name === SCHEMA_NAME);

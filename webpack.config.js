@@ -1,4 +1,3 @@
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const path = require('path');
 
 module.exports = {
@@ -13,7 +12,6 @@ module.exports = {
   },
   optimization: {
     splitChunks: false,
-    minimizer: [new ESBuildMinifyPlugin({ target: 'es2015' })],
   },
   externalsPresets: {
     node: true,
@@ -23,10 +21,14 @@ module.exports = {
     // Dirty workaround to prevent modules being bundled,
     // run `yarn webpack --mode development --stats-error-details` to update.
     '@babel/helper-regex',
+    '@expo/dev-server',
+    'babel-preset-expo',
     'emitter',
     'fsevents',
+    'sucrase',
     /^webpack-hot-middleware/i,
     /^webpack-plugin-serve/i,
+    /^webpack-dev-middleware/i,
     // This library causes invalid JS, caused by https://github.com/jantimon/html-webpack-plugin/blob/8f8f7c53c4e4f822020d6da9de0304f8c23de08f/index.js#L133
     // Webpack both shortens the `require: require` -> `require` and replaces require with an internal `__webpack_require(xxx)`.
     // It's kinda stupid, `{ __webpack_require(xxx) }` is invalid, but we don't need this library within the bundle.
@@ -49,9 +51,9 @@ module.exports = {
       },
       {
         test: /\.(ts|js)$/,
-        loader: 'esbuild-loader',
+        loader: '@sucrase/webpack-loader',
         options: {
-          loader: 'ts',
+          transforms: ['typescript'],
         },
       },
     ],
