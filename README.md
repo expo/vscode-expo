@@ -4,7 +4,7 @@
   <br />
   <h1>Expo for VSCode</h1>
   <p>Complementary <a href="https://github.com/expo/expo">Expo</a> tools for vscode</p>
-  <sup>
+  <p>
     <a href="https://github.com/expo-community/vscode-expo/releases">
       <img src="https://img.shields.io/github/package-json/v/expo-community/vscode-expo?style=flat-square" alt="releases" />
     </a>
@@ -16,8 +16,7 @@
     <a href="https://github.com/expo-community/vscode-expo/actions">
       <img src="https://img.shields.io/github/workflow/status/expo-community/vscode-expo/Build/main.svg?style=flat-square" alt="builds" />
     </a>
-  </sup>
-  <br />
+  </p>
   <p align="center">
     <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo"><b>Install</b></a>
     &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
