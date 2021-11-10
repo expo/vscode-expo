@@ -19,5 +19,10 @@ it('registers global json schema manifest', () => {
   const schemas = config.inspect<any[]>(SCHEMA_PROP)?.globalValue;
   const expo = schemas?.find((item) => item.name === SCHEMA_NAME);
 
+  const windowSpy = jest.spyOn(vscode.window, 'showErrorMessage');
+
+  console.log({ schemas, expo });
+
+  expect(windowSpy).not.toBeCalled();
   expect(expo).toBeTruthy();
 });
