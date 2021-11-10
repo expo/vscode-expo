@@ -1,3 +1,33 @@
+### [0.7.4](https://github.com/expo/vscode-expo/compare/0.7.3...0.7.4) (2021-11-10)
+
+
+### Bug fixes
+
+* activate extension after vscode is ready ([#76](https://github.com/expo/vscode-expo/issues/76)) ([0fe92da](https://github.com/expo/vscode-expo/commit/0fe92da055324d3daad748c32c0fa006d1a76e29))
+* config plugin validation by upgrading dependencies ([#68](https://github.com/expo/vscode-expo/issues/68)) ([d3b1853](https://github.com/expo/vscode-expo/commit/d3b1853e03699a048102b2c18012ab0baf9a6665))
+* parse file paths as uri as file explicitly ([#78](https://github.com/expo/vscode-expo/issues/78)) ([de6a331](https://github.com/expo/vscode-expo/commit/de6a3316cb134e063a3ec762e7a231345f338396))
+* remove required expo root from app json file ([#74](https://github.com/expo/vscode-expo/issues/74)) ([785bf3a](https://github.com/expo/vscode-expo/commit/785bf3a75a570a13937c2573338c318f911be7d4))
+
+
+### Code changes
+
+* swap esbuild for sucrase ([#71](https://github.com/expo/vscode-expo/issues/71)) ([bf12211](https://github.com/expo/vscode-expo/commit/bf122110a2280f4e03d23b145a7e01bc627e9a9d))
+
+
+### Other chores
+
+* add package as release assets for open-source usage ([#77](https://github.com/expo/vscode-expo/issues/77)) ([97d9ad3](https://github.com/expo/vscode-expo/commit/97d9ad3a0c46b817596501aac7b7be2b28294617))
+* bump path-parse from 1.0.6 to 1.0.7 ([#60](https://github.com/expo/vscode-expo/issues/60)) ([a037f53](https://github.com/expo/vscode-expo/commit/a037f53192722d4c92b64c0e319fc1240009ed1b))
+* bump semver-regex from 3.1.2 to 3.1.3 ([#70](https://github.com/expo/vscode-expo/issues/70)) ([be73f8a](https://github.com/expo/vscode-expo/commit/be73f8aff8c3b481014eaa3389a5b6fbd9ed2427))
+* bump tmpl from 1.0.4 to 1.0.5 ([#69](https://github.com/expo/vscode-expo/issues/69)) ([74cd121](https://github.com/expo/vscode-expo/commit/74cd121146194763d7991373f8a795d75fd1fb1b))
+* bump url-parse from 1.5.1 to 1.5.3 ([#65](https://github.com/expo/vscode-expo/issues/65)) ([da50dcd](https://github.com/expo/vscode-expo/commit/da50dcd0819545ce38ed32acdcac2df8b8e7540f))
+* upgrade all dependencies ([#75](https://github.com/expo/vscode-expo/issues/75)) ([96c90c4](https://github.com/expo/vscode-expo/commit/96c90c43a64a24e2eea93a60a76873c17bd31ecd))
+
+
+### Documentation changes
+
+* clean up header of readme ([#79](https://github.com/expo/vscode-expo/issues/79)) ([bab44c6](https://github.com/expo/vscode-expo/commit/bab44c6643f78cc0fbc5107fac00cd1965f86911))
+
 ### [0.7.3](https://github.com/expo/vscode-expo/compare/0.7.2...0.7.3) (2021-08-06)
 
 
