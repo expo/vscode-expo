@@ -27,7 +27,7 @@ To test if the code is working using a single JS file, pick `Run Extension (prod
 Testing is done using [Jest](https://jestjs.io/https://jestjs.io/) within vscode.
 
 You can try this locally by running `Extension Tests`.
-In CI we are running tests with the oldest supported version (`1.44.0`), latest stable, and latest insider.
+In CI we are running tests with the oldest supported version ([see test workflow](https://github.com/expo/vscode-expo/blob/main/.github/workflows/test.yml#L10)), latest stable, and latest insider.
 
 ## 📝 Writing a Commit Message
 
