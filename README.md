@@ -31,7 +31,7 @@
 
 ## Features
 
-- Autocomplete and validation of your `app.json` or `app.config.json` manifest.
+- Autocomplete and validation of your `app.json` or `app.config.js` manifest.
 - Automatic [config plugins](https://docs.expo.io/guides/config-plugins/) validation and IntelliSense.
 
 ## Commands
