@@ -10,19 +10,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile --check-files
+
+      - name: ✅ Lint project
+        if: ${{ matrix.shouldLint }}
+        run: yarn lint --max-warnings 0
+
+  vscode-stable:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        vscode: [1.44.0, stable, insiders]
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
-        include:
-          - os: ubuntu-latest
-            vscode: stable
-            shouldLint: true
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v2
@@ -39,11 +50,68 @@ jobs:
       - name: 👷 Build project
         run: yarn build
 
-      - name: ✅ Lint project
-        if: ${{ matrix.shouldLint }}
-        run: yarn lint --max-warnings 0
+      - name: 🧪 Test project
+        run: xvfb-run --auto-servernum --listen-tcp yarn test
+        env:
+          VSCODE_VERSION: stable
+
+  vscode-insiders:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile --check-files
+
+      - name: 👷 Build project
+        run: yarn build
 
       - name: 🧪 Test project
         run: xvfb-run --auto-servernum --listen-tcp yarn test
         env:
-          VSCODE_VERSION: ${{ matrix.vscode }}
+          VSCODE_VERSION: insiders
+
+  vscode-supported:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile --check-files
+
+      - name: 👷 Build project
+        run: yarn build
+
+      - name: 🕵️ Find supported version
+        uses: actions/github-script@v5
+        id: vscodeVersion
+        with:
+          result-encoding: string
+          script: |
+            return require('./package.json')
+              .engines.vscode.replace('^', '')
+
+      - name: 🧪 Test project
+        run: xvfb-run --auto-servernum --listen-tcp yarn test
+        env:
+          VSCODE_VERSION: ${{ steps.vscodeVersion.outputs.result }}
