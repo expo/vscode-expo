@@ -1,40 +1,51 @@
----
-name: Publish
+name: publish
+
 on:
   release:
     types: [published]
+
 jobs:
-  publish:
-    name: Publish
+  github-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Setup repository
+      - name: 🏗 Setup repo
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Find Yarn cache
-        id: yarn-cache-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Yarn
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install dependencies
+          cache: yarn
+
+      - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile --check-files
-      - name: Publish to marketplace
-        run: yarn vsce publish --yarn
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
-      - name: Package extension
+
+      - name: 🎁 Package extension
         run: yarn vsce package
-      - name: Add package to release
+
+      - name: 📋 Add package to release
         uses: softprops/action-gh-release@v1
         with:
           files: vscode-expo-*.vsix
+
+  vscode-marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile --check-files
+
+      - name: 🚀 Publish to marketplace
+        run: yarn vsce publish --yarn
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
