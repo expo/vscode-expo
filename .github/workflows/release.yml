@@ -1,41 +1,40 @@
----
-name: Release
+name: release
+
 on:
   workflow_dispatch:
     inputs:
       release:
-        description: 'type "release" to confirm creating a new release (main branch only)'
+        description: 'type "release" to create the release (main branch only)'
         required: false
+
+concurrency:
+  group: release
+  cancel-in-progress: true
+
 jobs:
   release:
-    name: Release version
     runs-on: ubuntu-latest
     steps:
-      - name: Setup repository
+      - name: 🏗 Setup repo
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Find Yarn cache
-        id: yarn-cache-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Yarn
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install dependencies
+          cache: yarn
+      
+      - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile --check-files
-      - name: Test-run release
-        if: success() && github.event.inputs.release != 'release'
+
+      - name: 📋 Dry-running release
+        if: ${{ github.ref != 'refs/heads/main' || github.event.inputs.release != 'release' }}
         run: yarn semantic-release --dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create release
-        if: success() && github.ref == 'refs/heads/main' && github.event.inputs.release == 'release'
+
+      - name: 📋 Release code
+        if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
         run: yarn semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
