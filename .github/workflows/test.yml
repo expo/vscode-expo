@@ -28,11 +28,12 @@ jobs:
       - name: ✅ Lint project
         run: yarn lint --max-warnings 0
 
-  vscode-stable:
+  vscode:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v2
@@ -49,89 +50,21 @@ jobs:
       - name: 👷 Build project
         run: yarn build
 
-      - name: 🧪 Test project on Ubuntu
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: xvfb-run --auto-servernum --listen-tcp yarn test
-        env:
-          VSCODE_VERSION: stable
-
-      - name: 🧪 Test project on Mac/Windows
-        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
-        run: yarn test
-        env:
-          VSCODE_VERSION: stable
-
-  vscode-insiders:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v2
-
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile --check-files
-
-      - name: 👷 Build project
-        run: yarn build
-
-      - name: 🧪 Test project on Ubuntu
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: xvfb-run --auto-servernum --listen-tcp yarn test
-        env:
-          VSCODE_VERSION: insiders
-
-      - name: 🧪 Test project on Mac/Windows
-        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
-        run: yarn test
-        env:
-          VSCODE_VERSION: insiders
-
-  vscode-supported:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v2
-
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile --check-files
-
-      - name: 👷 Build project
-        run: yarn build
-
-      - name: 🕵️ Find supported version
+      - name: 🕵️ Set vscode version
         uses: actions/github-script@v5
-        id: vscode-version
         with:
-          result-encoding: string
           script: |
-            return require('./package.json')
-              .engines.vscode.replace('^', '')
+            const { engines } = require('./package.json')
+            const vscode = '${{ matrix.vscode }}'
+            const target = vscode === 'oldest' 
+                ? engines.vscode.substring(1)
+                : vscode
+            core.exportVariable('VSCODE_VERSION', target)
 
-      - name: 🧪 Test project on Ubuntu
+      - name: 🧪 Test on Ubuntu
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: xvfb-run --auto-servernum --listen-tcp yarn test
-        env:
-          VSCODE_VERSION: ${{ steps.vscode-version.outputs.result }}
 
-      - name: 🧪 Test project on Mac/Windows
+      - name: 🧪 Test on Mac/Windows
         if: ${{ !startsWith(matrix.os, 'ubuntu') }}
         run: yarn test
-        env:
-          VSCODE_VERSION: ${{ steps.vscode-version.outputs.result }}
