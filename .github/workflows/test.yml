@@ -26,7 +26,6 @@ jobs:
         run: yarn install --frozen-lockfile --check-files
 
       - name: ✅ Lint project
-        if: ${{ matrix.shouldLint }}
         run: yarn lint --max-warnings 0
 
   vscode-stable:
@@ -50,8 +49,15 @@ jobs:
       - name: 👷 Build project
         run: yarn build
 
-      - name: 🧪 Test project
+      - name: 🧪 Test project on Ubuntu
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: xvfb-run --auto-servernum --listen-tcp yarn test
+        env:
+          VSCODE_VERSION: stable
+
+      - name: 🧪 Test project on Mac/Windows
+        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
+        run: yarn test
         env:
           VSCODE_VERSION: stable
 
@@ -76,8 +82,15 @@ jobs:
       - name: 👷 Build project
         run: yarn build
 
-      - name: 🧪 Test project
+      - name: 🧪 Test project on Ubuntu
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: xvfb-run --auto-servernum --listen-tcp yarn test
+        env:
+          VSCODE_VERSION: insiders
+
+      - name: 🧪 Test project on Mac/Windows
+        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
+        run: yarn test
         env:
           VSCODE_VERSION: insiders
 
@@ -104,14 +117,21 @@ jobs:
 
       - name: 🕵️ Find supported version
         uses: actions/github-script@v5
-        id: vscodeVersion
+        id: vscode-version
         with:
           result-encoding: string
           script: |
             return require('./package.json')
               .engines.vscode.replace('^', '')
 
-      - name: 🧪 Test project
+      - name: 🧪 Test project on Ubuntu
+        if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: xvfb-run --auto-servernum --listen-tcp yarn test
         env:
-          VSCODE_VERSION: ${{ steps.vscodeVersion.outputs.result }}
+          VSCODE_VERSION: ${{ steps.vscode-version.outputs.result }}
+
+      - name: 🧪 Test project on Mac/Windows
+        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
+        run: yarn test
+        env:
+          VSCODE_VERSION: ${{ steps.vscode-version.outputs.result }}
