@@ -1,4 +1,4 @@
-import { runTests } from '@vscode/test-electron';
+import { runTests, SilentReporter } from '@vscode/test-electron';
 import path from 'path';
 
 runTests({
@@ -7,6 +7,8 @@ runTests({
   extensionTestsPath: path.resolve(__dirname, './runner'),
   launchArgs: ['--disable-extensions'],
   version: process.env.VSCODE_VERSION,
+  // note: this is disabled in CI because its "a bit slow"
+  reporter: process.env.CI ? new SilentReporter() : undefined,
 })
   .then(() => console.log('✅ All tests passed!'))
   .catch((error) => {
