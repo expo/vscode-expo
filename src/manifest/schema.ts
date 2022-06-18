@@ -40,9 +40,9 @@ export function createFromXdl(sdkVersion: string, xdlSchema: JsonSchema): Manife
 
   const traverser: TraverseCallback = (
     nested,
-    _nestedPointer,
+    _nestedPath,
     _root,
-    _parentPointer,
+    _parentPath,
     parentKey,
     parent,
     parentKeyIndex
