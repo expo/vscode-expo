@@ -13,7 +13,7 @@ import {
 // note: this is the same value as `traverse`, but typed as mock
 const mockedTraverse = traverse as unknown as jest.Mock<[object, Callback]>;
 
-xdescribe(create, () => {
+describe(create, () => {
   it('fetches schema by expo sdk version', async () => {
     const xdlSchema = tools.getFixtureFile('schema-xdl-39.0.0.json');
     const spy = jest.spyOn(xdl, 'getSchemaAsync').mockResolvedValue(xdlSchema);
