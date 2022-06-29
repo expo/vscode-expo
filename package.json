@@ -50,6 +50,12 @@
         "command": "expo.config.prebuild.preview.json",
         "title": "Expo: Preview modifier as JSON"
       }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "store.config.json",
+        "url": "https://raw.githubusercontent.com/expo/eas-cli/main/packages/eas-cli/schema/metadata-0.json"
+      }
     ]
   },
   "scripts": {
