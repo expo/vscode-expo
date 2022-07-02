@@ -1,3 +1,4 @@
+const arg = require('arg');
 const execa = require('execa');
 const fs = require('fs');
 const jsonSchemaTraverse = require('json-schema-traverse');
@@ -6,32 +7,51 @@ const path = require('path');
 const { major } = require('semver');
 
 const schemaDir = path.resolve(__dirname, '../schema');
+const args = arg({
+  '--sdk-version': Number,
+  '--minify': Boolean,
+});
 
-generate()
-  .then((schemaPath) => console.log(`✓ Generated XDL schema!\n  ${schemaPath}`))
-  .catch((error) => {
-    console.error(`✖ Error generating XDL schema\n  ${error}`);
-    throw error;
-  });
+generate().then((schemaPath) => console.log(`✓ Generated XDL schema!\n  ${schemaPath}`));
 
 /** Download and process the XDL schema for usage in vscode. */
-async function generate(tagOrVersion = 'latest') {
-  const sdkVersion = await resolveVersion(tagOrVersion);
+async function generate(tagOrVersion) {
+  const sdkVersion = await resolveVersion(tagOrVersion || args['--sdk-version'] || 'latest');
   const sdkSchema = await resolveSchema(sdkVersion);
   const vscodeSchema = processSchema(sdkVersion, sdkSchema);
 
   const schemaPath = path.resolve(schemaDir, `manifest-${sdkVersion}.json`);
+  const schemaContent = args['--minify']
+    ? JSON.stringify(vscodeSchema)
+    : JSON.stringify(vscodeSchema, null, 2);
 
   await fs.promises.mkdir(path.dirname(schemaPath), { recursive: true });
-  await fs.promises.writeFile(schemaPath, JSON.stringify(vscodeSchema, null, 2), 'utf-8');
+  await fs.promises.writeFile(schemaPath, schemaContent, 'utf-8');
 
   return schemaPath;
 }
 
 /** Find the major SDK version from the `expo` package. */
 async function resolveVersion(tagOrVersion = 'latest') {
-  const version = (await execa('npm', ['info', `expo@${tagOrVersion}`, 'version'])).stdout.trim();
-  return major(version);
+  let stdout = '';
+
+  try {
+    ({ stdout } = await execa('npm', ['info', `expo@${tagOrVersion}`, '--json', 'version']));
+  } catch (error) {
+    throw new Error(`Could not resolve expo@${tagOrVersion}, reason:\n${error.message || error}`);
+  }
+
+  // thanks npm, for returning a "" json string value for invalid versions
+  if (!stdout) {
+    throw new Error(`Could not resolve expo@${tagOrVersion}, reason:\nInvalid version`);
+  }
+
+  // thanks npm, for returning a "x.x.x" json value...
+  if (stdout.startsWith('"')) {
+    stdout = `[${stdout}]`;
+  }
+
+  return major(JSON.parse(stdout).at(-1));
 }
 
 /** Download the latest XDL schema by major Expo SDK version. */
@@ -64,7 +84,7 @@ function processSchema(xdlVersion, xdlSchema) {
   return {
     type: 'object',
     description: 'The Expo manifest (app.json) validation and documentation.',
-    version: xdlVersion,
+    version: `${xdlVersion}.0.0`,
     $schema: 'http://json-schema.org/draft-07/schema#',
     // Do not warn about additional properties for plain React Native apps
     additionalProperties: true,
@@ -95,6 +115,9 @@ function schemaAddBareWorkflowDescription(schema) {
     const bareNotes = schema.meta.bareWorkflow;
 
     schema.description = `${description}\n\n**Bare workflow** - ${bareNotes}`.trim();
+
+    // Remove the bare workflow notes, making the schema smaller
+    delete schema.meta.bareWorkflow;
   }
 }
 
@@ -105,5 +128,8 @@ function schemaAddBareWorkflowDescription(schema) {
 function schemaAddMarkdownDescription(schema) {
   if (schema.description && !schema.markdownDescription) {
     schema.markdownDescription = schema.description;
+
+    // Remove the description notes, making the schema smaller
+    delete schema.description;
   }
 }
