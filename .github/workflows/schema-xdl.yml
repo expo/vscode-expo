@@ -46,11 +46,7 @@ jobs:
         with:
           if-no-files-found: error
           name: schema-xdl
-<<<<<<< HEAD
           path: ./schema/expo-xdl*.json
-=======
-          path: ./schema/expo-xdl-*.json
->>>>>>> f2c0a7d (fix: rename manifest to expo-xdl schema)
 
   publish:
     if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}
