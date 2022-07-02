@@ -16,7 +16,7 @@ export const getWorkfolderTsConfigConfiguration = memoize(async function (
       const parsedFile = JSON5.parse(readFileSync(file.fsPath).toString());
       const newMappings = createMappingsFromWorkspaceConfig(parsedFile);
       return [...mappings, ...newMappings];
-    } catch (error) {
+    } catch {
       return mappings;
     }
   }, []);
