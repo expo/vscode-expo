@@ -1,15 +1,19 @@
-name: schema-xdl
+name: schema-expo-xdl
 
 on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - scripts/schema-xdl.js
+      - 'scripts/**'
       - package.json
   workflow_dispatch:
     inputs:
+      version:
+        description: Expo tag or version to use
+        type: string
+        default: latest
       storage:
-        description: Update the XDL schema in storage?
+        description: Update the Expo XDL schema in storage?
         type: choice
         default: skip
         options:
@@ -30,7 +34,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 👷 Generate schema
-        run: node ./scripts/schema-xdl.js --minify
+        run: node ./scripts/schema-expo-xdl.js --minify --sdk-version="${{ github.event.inputs.version }}"
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
