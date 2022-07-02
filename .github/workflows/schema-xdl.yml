@@ -3,6 +3,9 @@ name: schema-xdl
 on:
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - scripts/schema-xdl.js
+      - package.json
   workflow_dispatch:
     inputs:
       storage:
@@ -34,7 +37,7 @@ jobs:
         with:
           if-no-files-found: error
           name: schema-xdl
-          path: ./schema/xdl-*.json
+          path: ./schema/expo-xdl-*.json
 
   publish:
     if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}

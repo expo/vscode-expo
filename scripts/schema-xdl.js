@@ -6,7 +6,9 @@ const fetch = require('node-fetch');
 const path = require('path');
 const { major } = require('semver');
 
-const schemaDir = path.resolve(__dirname, '../schema');
+const SCHEMA_PREFIX = 'expo-xdl';
+const SCHEMA_DIR = path.resolve(__dirname, '../schema');
+
 const args = arg({
   '--sdk-version': Number,
   '--minify': Boolean,
@@ -20,7 +22,7 @@ async function generate(tagOrVersion) {
   const sdkSchema = await resolveSchema(sdkVersion);
   const vscodeSchema = processSchema(sdkVersion, sdkSchema);
 
-  const schemaPath = path.resolve(schemaDir, `manifest-${sdkVersion}.json`);
+  const schemaPath = path.resolve(SCHEMA_DIR, `${SCHEMA_PREFIX}-${sdkVersion}.json`);
   const schemaContent = args['--minify']
     ? JSON.stringify(vscodeSchema)
     : JSON.stringify(vscodeSchema, null, 2);
