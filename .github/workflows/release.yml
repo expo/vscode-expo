@@ -16,16 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-          cache: yarn
-      
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile --check-files
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
 
       - name: 📋 Dry-running release
         if: ${{ github.ref != 'refs/heads/main' || github.event.inputs.release != 'release' }}

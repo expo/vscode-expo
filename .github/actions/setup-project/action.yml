@@ -1,0 +1,20 @@
+name: Setup project
+description: Prepare the project for any CI action
+
+inputs:
+  node-version:
+    description: Version of Node to install
+    default: 16.x
+
+runs:
+  using: composite
+  steps:
+    - name: 🏗 Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: yarn
+
+    - name: 📦 Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash

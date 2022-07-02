@@ -14,16 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile --check-files
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
 
       - name: ✅ Lint project
         run: yarn lint --max-warnings 0
@@ -36,22 +30,17 @@ jobs:
         vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-          cache: yarn
-
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile --check-files
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
 
       - name: 👷 Build project
         run: yarn build
 
+      # This handles the "oldest" vscode version by looking up our "oldest supported version"
       - name: 🕵️ Set vscode version
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const { engines } = require('./package.json')
