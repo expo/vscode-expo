@@ -97,7 +97,6 @@
     "typescript": "^4.4.4",
     "vsce": "^2.9.2",
     "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0",
-    "xdl": "^59.2.13"
+    "webpack-cli": "^4.7.0"
   }
 }
