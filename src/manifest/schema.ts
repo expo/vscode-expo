@@ -54,7 +54,7 @@ export function createFromXdl(sdkVersion: string, xdlSchema: JsonSchema): Manife
 
   try {
     jsonSchemaTraverse(enhancedSchema, traverser);
-  } catch (error) {
+  } catch {
     // todo: add telemetry, fallback to original schema
     enhancedSchema = xdlSchema;
   }
