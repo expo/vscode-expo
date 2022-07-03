@@ -34,11 +34,11 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 👷 Generate older schema
-        if: ${{ github.event.inputs.storage != 'latest' }}
+        if: ${{ github.event_name != 'schedule' }}
         run: node ./scripts/schema-expo-xdl.js --minify --sdk-version="${{ github.event.inputs.version }}"
       
       - name: 👷 Generate latest schema
-        if: ${{ github.event.inputs.storage == 'latest' }}
+        if: ${{ github.event_name == 'schedule' }}
         run: node ./scripts/schema-expo-xdl.js --minify --latest
 
       - name: 📋 Upload schema
