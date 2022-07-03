@@ -46,7 +46,7 @@ module.exports = {
     rules: [
       {
         // Workaround for files within libraries using dynamic require
-        test: /\.md|LICENSE$/,
+        test: /\.md|\.map|LICENSE$/,
         loader: 'raw-loader',
       },
       {
