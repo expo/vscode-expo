@@ -53,7 +53,7 @@ The JSON Schemas are updated automatically through GitHub Actions. The workflows
 #### Schema workflows
 
 - [`expo-xdl.json`](./schema/expo-xdl.json) - Managed by the [schema-xdl.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-xdl.yml) workflow.
-- [`eas-metadata.json`](./schema/expo-xdl.json) - Managed by the [schema-metadata.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-metadata.yml) workflow.
+- [`eas-metadata.json`](./schema/eas-metadata.json) - Managed by the [schema-metadata.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-metadata.yml) workflow.
 
 ### Adding more schemas
 
