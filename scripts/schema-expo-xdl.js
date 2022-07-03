@@ -16,7 +16,6 @@ if (!process.env.JEST_WORKER_ID) {
     arg({
       '--sdk-version': Number,
       '--latest': Boolean,
-      '--minify': Boolean,
     })
   ).then((schemaPath) => console.log(`✓ Generated XDL schema!\n  ${schemaPath}`));
 }
@@ -31,15 +30,13 @@ async function generate(args) {
   const sdkSchema = await resolveSchema(sdkVersion);
   const schema = vscodeSchema(sdkVersion, sdkSchema);
 
-  const schemaName = args['--latest']
-    ? `${SCHEMA_PREFIX}.json`
-    : `${SCHEMA_PREFIX}-${sdkVersion}.json`;
-
-  const schemaPath = path.resolve(SCHEMA_DIR, schemaName);
-  const schemaContent = args['--minify'] ? JSON.stringify(schema) : JSON.stringify(schema, null, 2);
+  const schemaPath = path.resolve(
+    SCHEMA_DIR,
+    args['--latest'] ? `${SCHEMA_PREFIX}.json` : `${SCHEMA_PREFIX}-${sdkVersion}.json`
+  );
 
   await fs.promises.mkdir(path.dirname(schemaPath), { recursive: true });
-  await fs.promises.writeFile(schemaPath, schemaContent, 'utf-8');
+  await fs.promises.writeFile(schemaPath, JSON.stringify(schema, null, 2), 'utf-8');
 
   return schemaPath;
 }

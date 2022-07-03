@@ -35,11 +35,11 @@ jobs:
 
       - name: 👷 Generate older schema
         if: ${{ github.event_name != 'schedule' }}
-        run: node ./scripts/schema-expo-xdl.js --minify --sdk-version="${{ github.event.inputs.version }}"
+        run: node ./scripts/schema-expo-xdl.js --sdk-version="${{ github.event.inputs.version }}"
       
       - name: 👷 Generate latest schema
         if: ${{ github.event_name == 'schedule' }}
-        run: node ./scripts/schema-expo-xdl.js --minify --latest
+        run: node ./scripts/schema-expo-xdl.js --latest
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
