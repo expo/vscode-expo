@@ -64,8 +64,8 @@ jobs:
 
       - name: 🧪 Test on Ubuntu
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: xvfb-run --auto-servernum --listen-tcp yarn test
+        run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
 
       - name: 🧪 Test on Mac/Windows
         if: ${{ !startsWith(matrix.os, 'ubuntu') }}
-        run: yarn test
+        run: yarn test:vscode

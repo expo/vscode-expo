@@ -1,7 +1,7 @@
 import { runCLI } from 'jest';
 
 // note: this file is executed from `./out/test/jest`
-const jestConfig = require('../../../jest.config');
+const jestConfig = require('../../../jest.vscode');
 
 export async function run() {
   process.stderr.write = (line: string) => {

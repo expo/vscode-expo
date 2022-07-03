@@ -65,7 +65,7 @@
     "build": "tsc -p ./",
     "build:production": "webpack --mode production",
     "clean": "git clean -xdf ./out ./.vscode-test *tsbuildinfo",
-    "test": "node ./out/test/jest/cli.js",
+    "test:vscode": "node ./out/test/jest/cli.js",
     "test:scripts": "jest --config jest.scripts.js",
     "lint": "eslint ."
   },
