@@ -37,6 +37,12 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "app.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+      }
+    ],
     "commands": [
       {
         "command": "expo.config.preview",
@@ -59,7 +65,8 @@
     "build": "tsc -p ./",
     "build:production": "webpack --mode production",
     "clean": "git clean -xdf ./out ./.vscode-test *tsbuildinfo",
-    "test": "node ./out/test/jest/cli.js",
+    "test:vscode": "node ./out/test/jest/cli.js",
+    "test:scripts": "jest --config jest.scripts.js",
     "lint": "eslint ."
   },
   "devDependencies": {
@@ -72,14 +79,17 @@
     "@tsconfig/node12": "^1.0.7",
     "@types/jest": "^26.0.23",
     "@types/json-schema-traverse": "^0.4.0",
+    "@types/minimatch": "^3.0.5",
     "@types/node": "^14.6.0",
     "@types/vscode": "^1.46.0",
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
     "@vscode/test-electron": "^2.1.5",
+    "arg": "^5.0.2",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^8.19.0",
     "eslint-config-universe": "^11.0.0",
+    "execa": "^5.1.1",
     "find-up": "^5.0.0",
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
@@ -88,16 +98,17 @@
     "json5": "^2.2.0",
     "jsonc-parser": "^3.0.0",
     "minimatch": "^3.0.4",
+    "node-fetch": "^2.6.7",
     "parent-module": "^2.0.0",
     "patch-package": "^6.4.7",
     "prettier": "^2.7.1",
     "raw-loader": "^4.0.2",
     "semantic-release": "^19.0.3",
+    "semver": "^7.3.7",
     "sucrase": "^3.20.3",
     "typescript": "^4.4.4",
     "vsce": "^2.9.2",
     "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0",
-    "xdl": "^59.2.13"
+    "webpack-cli": "^4.7.0"
   }
 }

@@ -3,6 +3,9 @@ out
 coverage
 tsconfig.*tsbuildinfo
 
+# schema files
+/schema
+
 # dependencies
 node_modules
 npm-debug.log*
