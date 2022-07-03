@@ -1,25 +1,10 @@
-# config
-.github
-.all-contributorsrc
-.gitignore
-.eslintrc.js
-jest.config.js
-.prettierrc.js
-tsconfig.json
-webpack.config.js
+# switch to allow-list, ignore everything
+**
 
-# vscode
-.vscode/**
-.vscode-test/**
-
-# project
-node_modules/**
-src/**
-test/**
-*.tsbuildinfo
-**/*.map
-**/*.ts
-
-# docs
-images/**
+# only include these files
+!out/**
 !images/logo-marketplace.png
+!CHANGELOG.md
+!LICENSE.md
+!package.json
+!README.md
