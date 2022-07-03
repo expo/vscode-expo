@@ -186,7 +186,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     this.sendDidChangeEvent();
   }
 
-  getExpoConfig() {}
+  getExpoConfigAsync() {}
 
   provideTextDocumentContent(
     _uri: vscode.Uri,
