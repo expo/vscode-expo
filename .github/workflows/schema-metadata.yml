@@ -34,8 +34,10 @@ jobs:
         uses: ./.github/actions/setup-project
       
       - name: 👷 Download schema
-        working-directory: schema
-        run: curl https://cdn.jsdelivr.net/npm/eas-cli@${{ github.event.inputs.version }}/schema/metadata-0.json -o eas-metadata.json
+        run: |
+          mkdir -p ./schema
+          rm -f ./schema/eas-metadata.json
+          curl https://cdn.jsdelivr.net/npm/eas-cli@${{ github.event.inputs.version || 'latest' }}/schema/metadata-0.json -o ./schema/eas-metadata.json
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
