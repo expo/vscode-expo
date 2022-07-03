@@ -2,7 +2,7 @@
   <br />
   <img src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" alt="vscode-expo" width="200">
   <br />
-  <h1>Expo for VSCode</h1>
+  <h1>Expo for vscode</h1>
   <p>Complementary <a href="https://github.com/expo/expo">Expo</a> tools for vscode</p>
   <p>
     <a href="https://github.com/expo/vscode-expo/releases">
