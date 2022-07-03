@@ -1,4 +1,5 @@
 **
+!/schema
 !/schema/**
 !.gitignore
 !README.md
