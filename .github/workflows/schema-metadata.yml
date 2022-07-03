@@ -1,0 +1,71 @@
+name: schema-eas-metadata
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'scripts/**'
+      - package.json
+  workflow_dispatch:
+    inputs:
+      version:
+        description: EAS CLI tag or exact version to use
+        type: string
+        default: latest
+      storage:
+        description: Update the EAS metadata schema in storage?
+        type: choice
+        default: skip
+        options:
+          - skip
+          - update-schema
+  schedule: 
+    # daily at 07:00h UTC
+    - cron: 0 7 * * *
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+      
+      - name: 👷 Download schema
+        run: |
+          mkdir -p ./schema
+          rm -f ./schema/eas-metadata.json
+          curl https://cdn.jsdelivr.net/npm/eas-cli@${{ github.event.inputs.version || 'latest' }}/schema/metadata-0.json -o ./schema/eas-metadata.json
+
+      - name: 📋 Upload schema
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: schema-metadata
+          path: ./schema/eas-metadata.json
+
+  publish:
+    if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+        with:
+          ref: schemas
+
+      - name: 📋 Download schema
+        uses: actions/download-artifact@v3
+        with:
+          name: schema-metadata
+          path: ./schema/
+      
+      - name: 🗂 Store schema
+        run: |
+          git config --global user.name 'Bot'
+          git config --global user.email 'github+bot@cedric.dev'
+          git add ./schema
+          git commit -am "chore: generate eas metadata schema for $(date +"%Y-%m-%dT%H-%M-%S%z")"
+          git push
