@@ -22,6 +22,18 @@ jobs:
       - name: ✅ Lint project
         run: yarn lint --max-warnings 0
 
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: ✅ Test scripts
+        run: yarn test:scripts
+
   vscode:
     runs-on: ${{ matrix.os }}
     strategy:
