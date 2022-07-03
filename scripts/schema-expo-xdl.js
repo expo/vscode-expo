@@ -1,4 +1,5 @@
 const arg = require('arg');
+const assert = require('assert');
 const execa = require('execa');
 const fs = require('fs');
 const jsonSchemaTraverse = require('json-schema-traverse');
@@ -14,6 +15,7 @@ if (!process.env.JEST_WORKER_ID) {
   generate(
     arg({
       '--sdk-version': Number,
+      '--latest': Boolean,
       '--minify': Boolean,
     })
   ).then((schemaPath) => console.log(`✓ Generated XDL schema!\n  ${schemaPath}`));
@@ -21,11 +23,19 @@ if (!process.env.JEST_WORKER_ID) {
 
 /** Download and process the XDL schema for usage in vscode. */
 async function generate(args) {
+  if (args['--latest']) {
+    assert(!args['--sdk-version'], `--latest can't be used with --sdk-version`);
+  }
+
   const sdkVersion = await resolveVersion(args['--sdk-version'] || 'latest');
   const sdkSchema = await resolveSchema(sdkVersion);
   const schema = vscodeSchema(sdkVersion, sdkSchema);
 
-  const schemaPath = path.resolve(SCHEMA_DIR, `${SCHEMA_PREFIX}-${sdkVersion}.json`);
+  const schemaName = args['--latest']
+    ? `${SCHEMA_PREFIX}.json`
+    : `${SCHEMA_PREFIX}-${sdkVersion}.json`;
+
+  const schemaPath = path.resolve(SCHEMA_DIR, schemaName);
   const schemaContent = args['--minify'] ? JSON.stringify(schema) : JSON.stringify(schema, null, 2);
 
   await fs.promises.mkdir(path.dirname(schemaPath), { recursive: true });

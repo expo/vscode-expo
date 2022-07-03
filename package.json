@@ -37,6 +37,12 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "app.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+      }
+    ],
     "commands": [
       {
         "command": "expo.config.preview",
