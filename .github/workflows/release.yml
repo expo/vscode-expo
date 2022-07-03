@@ -1,6 +1,8 @@
 name: release
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       release:
@@ -12,7 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  dryrun:
+    if: ${{ github.ref != 'refs/heads/main' || github.event.inputs.release != 'release' }}
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -22,13 +25,21 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 📋 Dry-running release
-        if: ${{ github.ref != 'refs/heads/main' || github.event.inputs.release != 'release' }}
         run: yarn semantic-release --dry-run
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+  publish:
+    if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
 
       - name: 📋 Release code
-        if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
         run: yarn semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
