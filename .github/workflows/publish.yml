@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: yarn vsce package
+        run: yarn vsce package --yarn
 
       - name: 📋 Add package to release
         uses: softprops/action-gh-release@v1
@@ -37,3 +37,20 @@ jobs:
         run: yarn vsce publish --yarn
         env:
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
+
+  open-vsx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 🎁 Package extension
+        run: yarn vsce package --yarn --out ./vscode-expo.vsix
+
+      - name: 🚀 Publish to open-vsx
+        run: npx ovsx publish ./vscode-expo.vsix
+        env:
+          OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
