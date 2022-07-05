@@ -19,14 +19,14 @@
     },
     {
       "label": "build for test",
-      "dependsOn": "clean project",
+      "dependsOn": ["clean project", "install fixture"],
       "type": "npm",
       "script": "build",
       "problemMatcher": "$tsc",
       "presentation": {
         "reveal": "never"
       },
-      "group": "build",
+      "group": "build"
     },
     {
       "label": "clean project",
@@ -42,6 +42,14 @@
       "type": "npm",
       "script": "build:production",
       "group": "build"
+    },
+    {
+      "label": "install fixture",
+      "type": "shell",
+      "command": "yarn install --frozen-lockfile --cwd ${workspaceFolder}/test/fixture/expo-45",
+      "presentation": {
+        "reveal": "never"
+      }
     }
   ]
 }

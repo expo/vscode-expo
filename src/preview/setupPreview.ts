@@ -20,17 +20,36 @@ import {
   PodfilePropertiesCodeProvider,
 } from './IntrospectCodeProvider';
 
-const ModProviders: Record<string, typeof CodeProvider> = {
-  'ios.infoPlist': InfoPlistCodeProvider,
-  'ios.entitlements': EntitlementsPlistCodeProvider,
-  'ios.expoPlist': ExpoPlistCodeProvider,
-  'ios.podfileProperties': PodfilePropertiesCodeProvider,
-  'android.manifest': AndroidManifestCodeProvider,
-  'android.strings': AndroidStringsCodeProvider,
-  'android.colors': AndroidColorsCodeProvider,
-  'android.colorsNight': AndroidColorsNightCodeProvider,
-  'android.styles': AndroidStylesCodeProvider,
-  'android.gradleProperties': GradlePropertiesCodeProvider,
+export enum PreviewCommand {
+  OpenExpoFilePrebuild = 'expo.config.prebuild.preview',
+  OpenExpoFileJsonPrebuild = 'expo.config.prebuild.preview.json',
+  OpenExpoConfigPrebuild = 'expo.config.preview',
+}
+
+export enum PreviewModProvider {
+  iosInfoPlist = 'ios.infoPlist',
+  iosEntitlements = 'ios.entitlements',
+  iosExpoPlist = 'ios.expoPlist',
+  iosPodfileProperties = 'ios.podfileProperties',
+  androidManifest = 'android.manifest',
+  androidStrings = 'android.strings',
+  androidColors = 'android.colors',
+  androidColorsNight = 'android.colorsNight',
+  androidStyles = 'android.styles',
+  androidGradleProperties = 'android.gradleProperties',
+}
+
+export const ModProviders: Record<string, typeof CodeProvider> = {
+  [PreviewModProvider.iosInfoPlist]: InfoPlistCodeProvider,
+  [PreviewModProvider.iosEntitlements]: EntitlementsPlistCodeProvider,
+  [PreviewModProvider.iosExpoPlist]: ExpoPlistCodeProvider,
+  [PreviewModProvider.iosPodfileProperties]: PodfilePropertiesCodeProvider,
+  [PreviewModProvider.androidManifest]: AndroidManifestCodeProvider,
+  [PreviewModProvider.androidStrings]: AndroidStringsCodeProvider,
+  [PreviewModProvider.androidColors]: AndroidColorsCodeProvider,
+  [PreviewModProvider.androidColorsNight]: AndroidColorsNightCodeProvider,
+  [PreviewModProvider.androidStyles]: AndroidStylesCodeProvider,
+  [PreviewModProvider.androidGradleProperties]: GradlePropertiesCodeProvider,
 };
 
 const CodeProviders: Record<string, typeof CodeProvider> = {
@@ -40,12 +59,6 @@ const CodeProviders: Record<string, typeof CodeProvider> = {
   'config.public': PublicExpoConfigCodeProvider,
 };
 
-enum Command {
-  OpenExpoFilePrebuild = 'expo.config.prebuild.preview',
-  OpenExpoFileJsonPrebuild = 'expo.config.prebuild.preview.json',
-  OpenExpoConfigPrebuild = 'expo.config.preview',
-}
-
 let extensionContext: vscode.ExtensionContext | null = null;
 let lastCodeProvider: CodeProvider | undefined = undefined;
 const codeProviders: Map<string, CodeProvider> = new Map();
@@ -53,47 +66,70 @@ const codeProviders: Map<string, CodeProvider> = new Map();
 export function setupPreview(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoConfigPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick([
-        {
-          label: ExpoConfigType.PREBUILD,
-          description: 'Resolved plugins and added mods object for post-prebuild',
-        },
-        {
-          label: ExpoConfigType.INTROSPECT,
-          description: 'Evaluated results for static modifiers',
-        },
-        {
-          label: ExpoConfigType.PUBLIC,
-          description: 'Hosted manifest for OTA updates',
-        },
-      ]);
-      if (option) {
-        openForEditor(`config.${option.label}`, editor.document);
+    vscode.commands.registerTextEditorCommand(
+      PreviewCommand.OpenExpoConfigPrebuild,
+      async (editor, _, option?: string) => {
+        if (!option) {
+          option = await vscode.window
+            .showQuickPick([
+              {
+                label: ExpoConfigType.PREBUILD,
+                description: 'Resolved plugins and added mods object for post-prebuild',
+              },
+              {
+                label: ExpoConfigType.INTROSPECT,
+                description: 'Evaluated results for static modifiers',
+              },
+              {
+                label: ExpoConfigType.PUBLIC,
+                description: 'Hosted manifest for OTA updates',
+              },
+            ])
+            .then((item) => item?.label);
+        }
+
+        if (option) {
+          return openForEditor(`config.${option}`, editor.document);
+        }
       }
-    }),
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoFilePrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick(
-        Object.keys(ModProviders).map((key) => ({
-          label: key,
-          detail: (ModProviders[key] as any).fileDescription,
-        }))
-      );
-      if (option) {
-        openForEditor(option.label, editor.document);
+    ),
+    vscode.commands.registerTextEditorCommand(
+      PreviewCommand.OpenExpoFilePrebuild,
+      async (editor, _, option?: string) => {
+        if (!option) {
+          option = await vscode.window
+            .showQuickPick(
+              Object.keys(ModProviders).map((key) => ({
+                label: key,
+                detail: (ModProviders[key] as any).fileDescription,
+              }))
+            )
+            .then((item) => item?.label);
+        }
+
+        if (option) {
+          return openForEditor(option, editor.document);
+        }
       }
-    }),
-    vscode.commands.registerTextEditorCommand(Command.OpenExpoFileJsonPrebuild, async (editor) => {
-      const option = await vscode.window.showQuickPick(
-        Object.keys(ModProviders).map((key) => ({
-          label: key,
-          detail: (ModProviders[key] as any).fileDescription,
-        }))
-      );
-      if (option) {
-        openForEditor(option.label, editor.document, true);
+    ),
+    vscode.commands.registerTextEditorCommand(
+      PreviewCommand.OpenExpoFileJsonPrebuild,
+      async (editor, _, option) => {
+        if (!option) {
+          option = await vscode.window
+            .showQuickPick(
+              Object.keys(ModProviders).map((key) => ({
+                label: key,
+                detail: (ModProviders[key] as any).fileDescription,
+              }))
+            )
+            .then((item) => item?.label);
+        }
+        if (option) {
+          return openForEditor(option, editor.document, true);
+        }
       }
-    })
+    )
   );
 }
 

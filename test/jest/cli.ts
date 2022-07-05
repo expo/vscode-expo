@@ -5,7 +5,7 @@ runTests({
   // note: this file is executed from `./out/test/jest`
   extensionDevelopmentPath: path.resolve(__dirname, '../../../'),
   extensionTestsPath: path.resolve(__dirname, './runner'),
-  launchArgs: ['--disable-extensions'],
+  launchArgs: [path.resolve(__dirname, '../fixture/expo-45'), '--disable-extensions'],
   version: process.env.VSCODE_VERSION,
   // note: this is disabled in CI because its "a bit slow"
   reporter: process.env.CI ? new SilentReporter() : undefined,
