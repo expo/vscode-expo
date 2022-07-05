@@ -49,6 +49,10 @@
       {
         "fileMatch": "expo-module.config.json",
         "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-module.json"
+      },
+      {
+        "fileMatch": "eas.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
       }
     ],
     "commands": [
