@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "The Expo modules config (expo-module.config.json) validation and documentation.",
+  "version": "0.9.0",
+  "meta": {
+    "packageVersion": "0.9.0",
+    "packageName": "expo-modules-autolinking",
+    "typePath": "./build/types.d.ts",
+    "typeName": "RawExpoModuleConfig"
+  },
+  "properties": {
+    "platforms": {
+      "type": "array",
+      "description": "An array of supported platforms.",
+      "items": { "$ref": "#/definitions/SupportedPlatform" },
+      "uniqueItems": true
+    },
+    "android": {
+      "$ref": "#/definitions/Android"
+    },
+    "ios": {
+      "$ref": "#/definitions/IOS"
+    }
+  },
+  "definitions": {
+    "SupportedPlatform": {
+      "enum": [
+        "android",
+        "ios",
+        "web"
+      ]
+    },
+    "Android": {
+      "type": "object",
+      "properties": {
+        "modules": {
+          "type": "array",
+          "description": "Full names (package + class name) of Kotlin native modules classes to put to the generated package provider file.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "modulesClassNames": {
+          "type": "array",
+          "description": "Full names (package + class name) of Kotlin native modules classes to put to the generated package provider file.",
+          "markdownDescription": "Full names (package + class name) of Kotlin native modules classes to put to the generated package provider file.",
+          "deprecated": true,
+          "deprecationMessage": "Deprecated in favor of `modules`. Might be removed in the future releases.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gradlePath": {
+          "description": "build.gradle relative path.\n\nTo have multiple build.gradle projects, string array type is also supported.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "IOS": {
+      "type": "object",
+      "properties": {
+        "modules": {
+          "type": "array",
+          "description": "Names of Swift native modules classes to put to the generated modules provider file.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "modulesClassNames": {
+          "type": "array",
+          "description": "ames of Swift native modules classes to put to the generated modules provider file.",
+          "markdownDescription": "Full names (package + class name) of Kotlin native modules classes to put to the generated package provider file.",
+          "deprecated": true,
+          "deprecationMessage": "Deprecated in favor of `modules`. Might be removed in the future releases.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "appDelegateSubscribers": {
+          "type": "array",
+          "description": "Names of Swift classes that hooks into `ExpoAppDelegate` to receive AppDelegate life-cycle events.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reactDelegateHandlers": {
+          "type": "array",
+          "description": "Names of Swift classes that implement `ExpoReactDelegateHandler` to hook React instance creation.",
+          "markdownDescription": "Names of Swift classes that implement `ExpoReactDelegateHandler` to hook React instance creation.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "podspecPath": {
+          "description": "Podspec relative path.\n\nTo have multiple podspecs, string array type is also supported.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "swiftModuleName": {
+          "description": "Swift product module name. If empty, the pod name is used for Swift imports.\n\nTo have multiple modules, string array is also supported.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "debugOnly": {
+          "type": "boolean",
+          "description": "Whether this module will be added only to the debug configuration.",
+          "default": false
+        }
+      }
+    }
+  }
+}
