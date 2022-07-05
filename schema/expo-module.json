@@ -4,6 +4,7 @@
   "description": "The Expo modules config (expo-module.config.json) validation and documentation.",
   "version": "0.9.0",
   "meta": {
+    "updatedAt": "2022-07-05T18:37:12.417Z",
     "packageVersion": "0.9.0",
     "packageName": "expo-modules-autolinking",
     "typePath": "./build/types.d.ts",
