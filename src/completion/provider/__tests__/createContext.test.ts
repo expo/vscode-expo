@@ -14,7 +14,7 @@ const imageAssets = [
   'xxxhdpi',
 ];
 
-describe(matchesImageProperty, () => {
+xdescribe(matchesImageProperty, () => {
   it('matches known image properties', () => {
     for (const propName of imageAssets) {
       expect(matchesImageProperty(propName)).toBe(true);
