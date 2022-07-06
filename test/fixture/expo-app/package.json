@@ -1,5 +1,5 @@
 {
-  "name": "expo-45",
+  "name": "expo-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "expo": "~45.0.0",
     "expo-status-bar": "~1.3.0",
+    "expo-system-ui": "~1.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",

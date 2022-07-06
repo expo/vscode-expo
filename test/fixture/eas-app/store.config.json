@@ -1,0 +1,17 @@
+{
+  "configVersion": 0,
+  "apple": {
+    "info": {
+      "en-US": {
+        "title": "EAS metadata",
+        "subtitle": "metadata from EAS",
+        "description": "EAS metadata",
+        "keywords": ["eas", "metadata"],
+        "marketingUrl": "https://example.com/marketing",
+        "privacyChoicesUrl": "https://example.com/privacy-choice",
+        "privacyPolicyUrl": "https://example.com/privacy-policy",
+        "supportUrl": "https://example.com/support"
+      }
+    }
+  }
+}

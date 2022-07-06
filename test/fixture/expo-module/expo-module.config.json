@@ -1,0 +1,10 @@
+{
+  "platforms": ["ios", "android"],
+  "android": {
+    "modules": ["expo.vscode.example.ExampleModuleModule"]
+  },
+  "ios": {
+    "modules": ["ExampleModuleModule"],
+    "debugOnly": false
+  }
+}

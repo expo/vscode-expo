@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "fixture",
+  "workspaces": [
+    "eas-app",
+    "expo-app",
+    "expo-module"
+  ]
+}
