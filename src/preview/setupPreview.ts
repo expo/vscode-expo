@@ -114,7 +114,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
     ),
     vscode.commands.registerTextEditorCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
-      async (editor, _, option) => {
+      async (editor, _, option?: string) => {
         if (!option) {
           option = await vscode.window
             .showQuickPick(
@@ -125,6 +125,7 @@ export function setupPreview(context: vscode.ExtensionContext) {
             )
             .then((item) => item?.label);
         }
+
         if (option) {
           return openForEditor(option, editor.document, true);
         }
