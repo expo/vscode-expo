@@ -4,22 +4,34 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "watch for development",
+      "label": "watch",
       "type": "npm",
       "script": "start",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {
         "reveal": "never"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
       }
     },
     {
-      "label": "build for test",
-      "dependsOn": ["clean project", "install fixture"],
+      "label": "clean",
+      "type": "npm",
+      "script": "clean",
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "never"
+      }
+    },
+    {
+      "label": "install-fixtures",
+      "type": "shell",
+      "command": "yarn install --frozen-lockfile --cwd ${workspaceFolder}/test/fixture",
+      "presentation": {
+        "reveal": "never"
+      }
+    },
+    {
+      "label": "build-development",
       "type": "npm",
       "script": "build",
       "problemMatcher": "$tsc",
@@ -29,27 +41,36 @@
       "group": "build"
     },
     {
-      "label": "clean project",
+      "label": "build-production",
       "type": "npm",
-      "script": "clean",
-      "group": "build",
+      "script": "build:production",
+      "problemMatcher": "$tsc",
       "presentation": {
         "reveal": "never"
       },
-    },
-    {
-      "label": "build for production",
-      "type": "npm",
-      "script": "build:production",
       "group": "build"
     },
     {
-      "label": "install fixture",
+      "label": "build-extension",
       "type": "shell",
-      "command": "yarn install --frozen-lockfile --cwd ${workspaceFolder}/test/fixture/expo-45",
-      "presentation": {
-        "reveal": "never"
-      }
+      "command": "yarn vsce package",
+      "group": "build"
+    },
+    {
+      "label": "launch-start-development",
+      "dependsOn": ["clean", "build-development", "watch"]
+    },
+    {
+      "label": "launch-start-production",
+      "dependsOn": ["clean", "build-production"]
+    },
+    {
+      "label": "launch-test-development",
+      "dependsOn": ["clean", "build-development"]
+    },
+    {
+      "label": "launch-test-production",
+      "dependsOn": ["clean", "install-fixtures", "build-development", "build-production"]
     }
   ]
 }
