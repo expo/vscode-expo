@@ -1,24 +1,9 @@
-import vscode from 'vscode';
+import { extensions } from 'vscode';
 
-import * as tools from '../../test/tools';
-import { SCHEMA_PROP, SCHEMA_NAME } from '../manifest/config';
+import { EXTENSION_ID } from './utils/vscode';
 
-// note: the delay for the extension activation might take 5 seconds
-jest.setTimeout(10 * 1000);
-
-beforeAll(async () => {
-  await tools.waitForExtensionActivation();
-});
-
-it(`is activated on startup`, async () => {
-  expect(tools.getExtension().isActive).toBeTruthy();
-});
-
-// Disabled due to some sort of race condition
-xit('registers global json schema manifest', () => {
-  const config = vscode.workspace.getConfiguration();
-  const schemas = config.inspect<any[]>(SCHEMA_PROP)?.globalValue;
-  const expo = schemas?.find((item) => item.name === SCHEMA_NAME);
-
-  expect(expo).toBeTruthy();
+describe('extension', () => {
+  it('is activated', () => {
+    expect(extensions.getExtension(EXTENSION_ID)?.isActive).toBe(true);
+  });
 });

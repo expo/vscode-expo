@@ -6,37 +6,40 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Extension (development)",
+      "name": "Start (development)",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
+        "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
       ],
-      "preLaunchTask": "watch for development"
+      "preLaunchTask": "launch-start-development"
     },
     {
-      "name": "Run Extension (production)",
+      "name": "Start (production)",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
+        "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
       ],
-      "preLaunchTask": "build for production"
+      "preLaunchTask": "launch-start-production"
     },
     {
-      "name": "Extension Tests",
+      "name": "Test (development)",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
+        "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
         "--disable-extensions"
@@ -44,7 +47,42 @@
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
       ],
-      "preLaunchTask": "build for test"
+      "preLaunchTask": "launch-test-development"
+    },
+    {
+      "name": "Test (production)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/test/fixture",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--disable-extensions"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "preLaunchTask": "launch-test-production"
+    },
+    {
+      "name": "Test (snapshots)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/test/fixture",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--disable-extensions"
+      ],
+      "env": {
+        "JEST_UPDATE_SNAPSHOTS": "true"
+      },
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "preLaunchTask": "launch-test-development"
     }
   ]
 }

@@ -6,6 +6,10 @@ inputs:
     description: Version of Node to install
     default: 16.x
 
+  with-fixture:
+    description: If the setup should install the test/fixture files
+    type: boolean
+
 runs:
   using: composite
   steps:
@@ -14,7 +18,16 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: yarn
+        cache-dependency-path: |
+          yarn.lock
+          test/fixture/yarn.lock
 
     - name: 📦 Install dependencies
       run: yarn install --frozen-lockfile
+      shell: bash
+
+    - name: 📦 Install fixture
+      if: ${{ inputs.with-fixture == 'true' }}
+      run: yarn install --frozen-lockfile
+      working-directory: test/fixture
       shell: bash

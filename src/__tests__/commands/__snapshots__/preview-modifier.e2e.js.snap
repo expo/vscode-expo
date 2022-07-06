@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expo.config.prebuild.preview runs for android.colors 1`] = `
+"<resources>
+  <color name=\\"iconBackground\\">#FFFFFF</color>
+  <color name=\\"colorPrimary\\">#023c69</color>
+  <color name=\\"colorPrimaryDark\\">#ffffff</color>
+  <color name=\\"splashscreen_background\\">#ffffff</color>
+</resources>"
+`;
+
+exports[`expo.config.prebuild.preview runs for android.colorsNight 1`] = `"<resources/>"`;
+
+exports[`expo.config.prebuild.preview runs for android.gradleProperties 1`] = `""`;
+
+exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
+  <uses-permission android:name=\\"android.permission.INTERNET\\"/>
+  <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
+  <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.WRITE_EXTERNAL_STORAGE\\"/>
+  <queries>
+    <intent>
+      <action android:name=\\"android.intent.action.VIEW\\"/>
+      <category android:name=\\"android.intent.category.BROWSABLE\\"/>
+      <data android:scheme=\\"https\\"/>
+    </intent>
+  </queries>
+  <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/expo-app\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"45.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
+    <activity android:name=\\".MainActivity\\" android:label=\\"@string/app_name\\" android:configChanges=\\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\" android:launchMode=\\"singleTask\\" android:windowSoftInputMode=\\"adjustResize\\" android:theme=\\"@style/Theme.App.SplashScreen\\" android:screenOrientation=\\"portrait\\">
+      <intent-filter>
+        <action android:name=\\"android.intent.action.MAIN\\"/>
+        <category android:name=\\"android.intent.category.LAUNCHER\\"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name=\\"android.intent.action.VIEW\\"/>
+        <category android:name=\\"android.intent.category.DEFAULT\\"/>
+        <category android:name=\\"android.intent.category.BROWSABLE\\"/>
+        <data android:scheme=\\"com.placeholder.appid\\"/>
+      </intent-filter>
+    </activity>
+    <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
+  </application>
+</manifest>"
+`;
+
+exports[`expo.config.prebuild.preview runs for android.strings 1`] = `
+"<resources>
+  <string name=\\"app_name\\">expo-app</string>
+  <string name=\\"expo_splash_screen_resize_mode\\" translatable=\\"false\\">contain</string>
+  <string name=\\"expo_splash_screen_status_bar_translucent\\" translatable=\\"false\\">false</string>
+  <string name=\\"expo_system_ui_user_interface_style\\" translatable=\\"false\\">light</string>
+</resources>"
+`;
+
+exports[`expo.config.prebuild.preview runs for android.styles 1`] = `
+"<resources xmlns:tools=\\"http://schemas.android.com/tools\\">
+  <style name=\\"AppTheme\\" parent=\\"Theme.AppCompat.Light.NoActionBar\\">
+    <item name=\\"colorPrimary\\">@color/colorPrimary</item>
+    <item name=\\"colorPrimaryDark\\">@color/colorPrimaryDark</item>
+  </style>
+  <style name=\\"Theme.App.SplashScreen\\" parent=\\"AppTheme\\">
+    <item name=\\"android:windowBackground\\">@drawable/splashscreen</item>
+  </style>
+</resources>"
+`;
+
+exports[`expo.config.prebuild.preview runs for ios.entitlements 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
+<plist version=\\"1.0\\">
+  <dict>
+    <key>aps-environment</key>
+    <string>development</string>
+  </dict>
+</plist>"
+`;
+
+exports[`expo.config.prebuild.preview runs for ios.expoPlist 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
+<plist version=\\"1.0\\">
+  <dict>
+    <key>EXUpdatesCheckOnLaunch</key>
+    <string>ALWAYS</string>
+    <key>EXUpdatesEnabled</key>
+    <true/>
+    <key>EXUpdatesLaunchWaitMs</key>
+    <integer>0</integer>
+    <key>EXUpdatesSDKVersion</key>
+    <string>45.0.0</string>
+    <key>EXUpdatesURL</key>
+    <string>https://exp.host/@bycedric/expo-app</string>
+  </dict>
+</plist>"
+`;
+
+exports[`expo.config.prebuild.preview runs for ios.infoPlist 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
+<plist version=\\"1.0\\">
+  <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleDisplayName</key>
+    <string>expo-app</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.placeholder.appid</string>
+        </array>
+      </dict>
+    </array>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+      <key>NSExceptionDomains</key>
+      <dict>
+        <key>localhost</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
+      </dict>
+    </dict>
+    <key>UILaunchStoryboardName</key>
+    <string>SplashScreen</string>
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+      <string>armv7</string>
+    </array>
+    <key>UIRequiresFullScreen</key>
+    <false/>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleDefault</string>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+      <string>UIInterfaceOrientationLandscapeLeft</string>
+      <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+  </dict>
+</plist>"
+`;
+
+exports[`expo.config.prebuild.preview runs for ios.podfileProperties 1`] = `
+"{
+  \\"expo.jsEngine\\": \\"jsc\\"
+}"
+`;

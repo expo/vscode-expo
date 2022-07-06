@@ -144,7 +144,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     return this._onDidChange.event;
   }
 
-  private visibleTextEditorsDidChange(editors: vscode.TextEditor[]) {
+  private visibleTextEditorsDidChange(editors: Readonly<vscode.TextEditor[]>) {
     const isOpen = editors.some((e) => e.document.uri.scheme === this.scheme);
     if (!this._isOpen && isOpen) {
       this.update();

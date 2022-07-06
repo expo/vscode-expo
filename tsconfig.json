@@ -1,5 +1,5 @@
 {
-	"exclude": ["out", "node_modules", ".vscode-test"],
+	"exclude": ["out", "node_modules", ".vscode-test", "test/fixture"],
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
     "moduleResolution": "node",

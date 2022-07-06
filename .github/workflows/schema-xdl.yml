@@ -19,7 +19,7 @@ on:
         options:
           - skip
           - update-schema
-  schedule: 
+  schedule:
     # daily at 07:00h UTC
     - cron: 0 7 * * *
 
@@ -36,7 +36,7 @@ jobs:
       - name: 👷 Generate older schema
         if: ${{ github.event_name != 'schedule' && github.event.inputs.version != 'latest' }}
         run: node ./scripts/schema-expo-xdl.js --sdk-version="${{ github.event.inputs.version }}"
-      
+
       - name: 👷 Generate latest schema
         if: ${{ github.event_name == 'schedule' || github.event.inputs.version == 'latest' }}
         run: node ./scripts/schema-expo-xdl.js --latest
@@ -63,7 +63,7 @@ jobs:
         with:
           name: schema-xdl
           path: ./schema/
-      
+
       - name: 🗂 Store schema
         run: |
           git config --global user.name 'Bot'

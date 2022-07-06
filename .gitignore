@@ -16,6 +16,9 @@ yarn.lock
 package-lock.json
 !/yarn.lock
 
+# test fixtures
+!/test/fixture/yarn.lock
+
 # editors
 .idea
 
