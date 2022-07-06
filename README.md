@@ -14,7 +14,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
     </a>
     <a href="https://github.com/expo/vscode-expo/actions">
-      <img src="https://img.shields.io/github/workflow/status/expo/vscode-expo/Build/main.svg?style=flat-square" alt="builds" />
+      <img src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square" alt="builds" />
     </a>
   </p>
   <p align="center">
