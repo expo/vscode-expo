@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "bycedric",
     "name": "expo-app",
     "slug": "expo-app",
     "version": "1.0.0",
