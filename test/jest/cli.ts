@@ -1,13 +1,15 @@
 import { runTests, SilentReporter } from '@vscode/test-electron';
 import path from 'path';
 
+// This file is executed from `./out/test/jest`
+const rootDir = path.resolve(__dirname, '../../../');
+
 runTests({
-  // note: this file is executed from `./out/test/jest`
-  extensionDevelopmentPath: path.resolve(__dirname, '../../../'),
+  extensionDevelopmentPath: rootDir,
   extensionTestsPath: path.resolve(__dirname, './runner'),
-  launchArgs: [path.resolve(__dirname, '../fixture/expo-45'), '--disable-extensions'],
+  launchArgs: [path.resolve(rootDir, './test/fixture'), '--disable-extensions'],
   version: process.env.VSCODE_VERSION,
-  // note: this is disabled in CI because its "a bit slow"
+  // Reporter is disabled in CI because it's super slow
   reporter: process.env.CI ? new SilentReporter() : undefined,
 })
   .then(() => console.log('✅ All tests passed!'))

@@ -1,17 +1,27 @@
 import { runCLI } from 'jest';
+import { resolve } from 'path';
 
-// note: this file is executed from `./out/test/jest`
+// This file is executed from `./out/test/jest`
 const jestConfig = require('../../../jest.vscode');
 
 export async function run() {
-  process.stderr.write = (line: string) => {
-    // note: process.std*.write doesn't add a newline,
-    // console.log does, so lets remove it from the output.
-    console.log(line.replace(/^[\r\n]+|[\r\n]+$/g, ''));
-    return true;
+  const config = {
+    ...jestConfig,
+    // Force all tests to run in series
+    runInBand: true,
+    maxWorkers: 1,
+    // Update snapshots if the vscode task is asking for it
+    updateSnapshot: process.env['JEST_UPDATE_SNAPSHOTS'] === 'true',
+    // Setup the custom vscode environment
+    testEnvironment: resolve(jestConfig.rootDir, './out/test/jest/environment.js'),
+    setupFilesAfterEnv: [
+      resolve(jestConfig.rootDir, './out/test/jest/setup.js'),
+      ...(jestConfig.setupFilesAfterEnv ?? []),
+    ],
+    snapshotResolver: resolve(jestConfig.rootDir, './out/test/jest/snapshots.js'),
   };
 
-  const { results } = await runCLI({ ...jestConfig, runInBand: true }, [jestConfig.rootDir]);
+  const { results } = await runCLI(config, [config.rootDir]);
   const failures = results.testResults.map((test) => test.failureMessage).filter(Boolean);
 
   if (failures.length > 0) {
