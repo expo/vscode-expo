@@ -21,8 +21,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.androidColorsNight}`, async () => {
@@ -34,8 +34,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.androidGradleProperties}`, async () => {
@@ -47,8 +47,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('gradle.properties');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.androidManifest}`, async () => {
@@ -60,8 +60,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.androidStrings}`, async () => {
@@ -73,8 +73,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('strings.xml');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.androidStyles}`, async () => {
@@ -86,8 +86,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('styles.xml');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.iosEntitlements}`, async () => {
@@ -99,8 +99,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Example.entitlements');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.iosExpoPlist}`, async () => {
@@ -112,8 +112,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Expo.plist');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.iosInfoPlist}`, async () => {
@@ -125,8 +125,8 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Info.plist');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${PreviewModProvider.iosPodfileProperties}`, async () => {
@@ -138,7 +138,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Podfile.properties.json');
     const content = preview?.document.getText();
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 });

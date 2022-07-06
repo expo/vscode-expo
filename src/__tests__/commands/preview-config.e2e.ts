@@ -19,8 +19,8 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('_app.config.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${ExpoConfigType.PREBUILD}`, async () => {
@@ -29,8 +29,8 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('_app.config.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   it(`runs for ${ExpoConfigType.PUBLIC}`, async () => {
@@ -39,8 +39,8 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('exp.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
   });
 
   /**
