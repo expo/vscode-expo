@@ -17,7 +17,7 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.INTROSPECT);
 
     const preview = await waitForEditorOpen('_app.config.json');
-    const content = preview?.document.getText();
+    const content = removeAbsolutePaths(preview?.document.getText());
 
     expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
@@ -27,7 +27,7 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PREBUILD);
 
     const preview = await waitForEditorOpen('_app.config.json');
-    const content = preview?.document.getText();
+    const content = removeAbsolutePaths(preview?.document.getText());
 
     expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
@@ -37,9 +37,28 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PUBLIC);
 
     const preview = await waitForEditorOpen('exp.json');
-    const content = preview?.document.getText();
+    const content = removeAbsolutePaths(preview?.document.getText());
 
     expect(content).toMatchSnapshot();
     expect(content).toBeDefined();
   });
+
+  /**
+   * We can't store absolute paths in the snapshots, this kind-of takes care of that.
+   * Else we would run into this issue quite a lot:
+   *   - "packageJsonPath": "d:\\projects\\expo\\vscode-expo\\test\\fixture\\expo-app\\package.json",
+   *   + "packageJsonPath": "/home/runner/work/vscode-expo/vscode-expo/test/fixture/expo-app/package.json",
+   */
+  function removeAbsolutePaths(content = '') {
+    const absoluteProperties = [
+      'projectRoot',
+      'dynamicConfigPath',
+      'staticConfigPath',
+      'packageJsonPath',
+    ];
+
+    return content
+      .split(/[\n\r?]/)
+      .filter((line) => !absoluteProperties.some((property) => line.includes(property)));
+  }
 });
