@@ -126,11 +126,5 @@
     "vsce": "^2.9.2",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0"
-  },
-  "__metadata": {
-    "id": "7ae71939-4941-445c-b0c2-8893c8568ea5",
-    "publisherDisplayName": "Cedric van Putten",
-    "publisherId": "4a7ae35f-f2a4-431a-b454-a75fa99eadb5",
-    "isPreReleaseVersion": false
   }
 }
