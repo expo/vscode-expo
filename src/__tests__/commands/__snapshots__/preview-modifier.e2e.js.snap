@@ -9,14 +9,7 @@ exports[`expo.config.prebuild.preview runs for android.colors 1`] = `
 </resources>"
 `;
 
-exports[`expo.config.prebuild.preview runs for android.colorsNight 1`] = `
-"<resources>
-  <color name=\\"iconBackground\\">#FFFFFF</color>
-  <color name=\\"colorPrimary\\">#023c69</color>
-  <color name=\\"colorPrimaryDark\\">#ffffff</color>
-  <color name=\\"splashscreen_background\\">#ffffff</color>
-</resources>"
-`;
+exports[`expo.config.prebuild.preview runs for android.colorsNight 1`] = `"<resources/>"`;
 
 exports[`expo.config.prebuild.preview runs for android.gradleProperties 1`] = `""`;
 

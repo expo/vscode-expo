@@ -1,12 +1,7 @@
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
-import {
-  closeAllEditors,
-  closeAllEditorsExcept,
-  getWorkspaceUri,
-  waitForEditorOpen,
-} from '../utils/vscode';
+import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   beforeEach(async () => {
@@ -14,14 +9,10 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   afterEach(async () => {
-    await closeAllEditorsExcept(getWorkspaceUri('expo-app/app.json'));
-  });
-
-  afterAll(async () => {
     await closeAllEditors();
   });
 
-  it(`runs for ${PreviewModProvider.androidColors}`, async () => {
+  it(`runs for ${PreviewModProvider.androidColors} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidColors
@@ -34,7 +25,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.androidColorsNight}`, async () => {
+  it(`runs for ${PreviewModProvider.androidColorsNight} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidColorsNight
@@ -47,7 +38,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.androidGradleProperties}`, async () => {
+  it(`runs for ${PreviewModProvider.androidGradleProperties} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidGradleProperties
@@ -60,7 +51,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.androidManifest}`, async () => {
+  it(`runs for ${PreviewModProvider.androidManifest} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidManifest
@@ -73,7 +64,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.androidStrings}`, async () => {
+  it(`runs for ${PreviewModProvider.androidStrings} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidStrings
@@ -86,7 +77,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.androidStyles}`, async () => {
+  it(`runs for ${PreviewModProvider.androidStyles} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidStyles
@@ -99,7 +90,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.iosEntitlements}`, async () => {
+  it(`runs for ${PreviewModProvider.iosEntitlements} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosEntitlements
@@ -112,7 +103,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.iosExpoPlist}`, async () => {
+  it(`runs for ${PreviewModProvider.iosExpoPlist} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosExpoPlist
@@ -125,7 +116,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.iosInfoPlist}`, async () => {
+  it(`runs for ${PreviewModProvider.iosInfoPlist} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosInfoPlist
@@ -138,7 +129,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     expect(content).toBeDefined();
   });
 
-  it(`runs for ${PreviewModProvider.iosPodfileProperties}`, async () => {
+  it(`runs for ${PreviewModProvider.iosPodfileProperties} in json format`, async () => {
     await commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosPodfileProperties

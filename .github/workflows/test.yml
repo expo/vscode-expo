@@ -34,6 +34,31 @@ jobs:
       - name: ✅ Test scripts
         run: yarn test:scripts
 
+  bundled:
+    # This extension is bundled before publishing to the stores,
+    # it removes the need for vscode to download dependencies, making install fast.
+    # But this version might cause issues with webpack "hijacking" `require` statements.
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+        with:
+          with-fixture: true
+
+      - name: 👷 Build tests
+        run: yarn build
+
+      - name: 📦 Bundle extension
+        run: yarn build:production
+
+      - name: 🧪 Test on Ubuntu
+        run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
+        env:
+          VSCODE_VERSION: stable
+
   vscode:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -71,28 +96,3 @@ jobs:
       - name: 🧪 Test on Mac/Windows
         if: ${{ !startsWith(matrix.os, 'ubuntu') }}
         run: yarn test:vscode
-
-  bundled:
-    # This extension is bundled before publishing to the stores,
-    # it removes the need for vscode to download dependencies, making install fast.
-    # But this version might cause issues with webpack "hijacking" `require` statements.
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v3
-
-      - name: 🏗 Setup project
-        uses: ./.github/actions/setup-project
-        with:
-          with-fixture: true
-
-      - name: 👷 Build tests
-        run: yarn build
-
-      - name: 📦 Bundle extension
-        run: yarn build:production
-      
-      - name: 🧪 Test on Ubuntu
-        run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
-        env:
-          VSCODE_VERSION: stable

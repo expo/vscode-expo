@@ -7,6 +7,8 @@ const jestConfig = require('../../../jest.vscode');
 export async function run() {
   const config = {
     ...jestConfig,
+    // Increase the timeout for our e2e tests
+    testTimeout: 30000,
     // Force all tests to run in series
     runInBand: true,
     maxWorkers: 1,

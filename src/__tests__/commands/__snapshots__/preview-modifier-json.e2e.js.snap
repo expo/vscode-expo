@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expo.config.prebuild.preview.json runs for android.colors 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.colors in json format 1`] = `
 "{
   \\"resources\\": {
     \\"color\\": [
@@ -33,40 +33,13 @@ exports[`expo.config.prebuild.preview.json runs for android.colors 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for android.colorsNight 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.colorsNight in json format 1`] = `
 "{
-  \\"resources\\": {
-    \\"color\\": [
-      {
-        \\"$\\": {
-          \\"name\\": \\"iconBackground\\"
-        },
-        \\"_\\": \\"#FFFFFF\\"
-      },
-      {
-        \\"$\\": {
-          \\"name\\": \\"colorPrimary\\"
-        },
-        \\"_\\": \\"#023c69\\"
-      },
-      {
-        \\"$\\": {
-          \\"name\\": \\"colorPrimaryDark\\"
-        },
-        \\"_\\": \\"#ffffff\\"
-      },
-      {
-        \\"$\\": {
-          \\"name\\": \\"splashscreen_background\\"
-        },
-        \\"_\\": \\"#ffffff\\"
-      }
-    ]
-  }
+  \\"resources\\": {}
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for android.gradleProperties 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.gradleProperties in json format 1`] = `
 "{
   \\"0\\": {
     \\"type\\": \\"property\\",
@@ -76,7 +49,7 @@ exports[`expo.config.prebuild.preview.json runs for android.gradleProperties 1`]
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for android.manifest 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.manifest in json format 1`] = `
 "{
   \\"manifest\\": {
     \\"uses-permission\\": [
@@ -247,7 +220,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for android.strings 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.strings in json format 1`] = `
 "{
   \\"resources\\": {
     \\"string\\": [
@@ -283,7 +256,7 @@ exports[`expo.config.prebuild.preview.json runs for android.strings 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for android.styles 1`] = `
+exports[`expo.config.prebuild.preview.json runs for android.styles in json format 1`] = `
 "{
   \\"resources\\": {
     \\"$\\": {
@@ -329,13 +302,13 @@ exports[`expo.config.prebuild.preview.json runs for android.styles 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for ios.entitlements 1`] = `
+exports[`expo.config.prebuild.preview.json runs for ios.entitlements in json format 1`] = `
 "{
   \\"aps-environment\\": \\"development\\"
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for ios.expoPlist 1`] = `
+exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format 1`] = `
 "{
   \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
   \\"EXUpdatesEnabled\\": true,
@@ -345,7 +318,7 @@ exports[`expo.config.prebuild.preview.json runs for ios.expoPlist 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for ios.infoPlist 1`] = `
+exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format 1`] = `
 "{
   \\"CFBundleDevelopmentRegion\\": \\"$(DEVELOPMENT_LANGUAGE)\\",
   \\"CFBundleDisplayName\\": \\"expo-app\\",
@@ -394,7 +367,7 @@ exports[`expo.config.prebuild.preview.json runs for ios.infoPlist 1`] = `
 }"
 `;
 
-exports[`expo.config.prebuild.preview.json runs for ios.podfileProperties 1`] = `
+exports[`expo.config.prebuild.preview.json runs for ios.podfileProperties in json format 1`] = `
 "{
   \\"expo.jsEngine\\": \\"jsc\\"
 }"

@@ -52,14 +52,6 @@ export function closeAllEditors() {
 }
 
 /**
- * Close all (currently open) text editors, except the one matching the uri.
- * @see https://github.com/microsoft/vscode/blob/2c036d15d83916055d20c7f0d7ec6c867a6e2ef5/src/vs/workbench/browser/parts/editor/editorCommands.ts#L891-L917
- */
-export function closeAllEditorsExcept(uri: vscode.Uri) {
-  return vscode.commands.executeCommand('workbench.action.closeOtherEditors', uri);
-}
-
-/**
  * Find the editor content position by search string.
  */
 export function findContentPosition(editor: vscode.TextEditor, search: string): vscode.Position {

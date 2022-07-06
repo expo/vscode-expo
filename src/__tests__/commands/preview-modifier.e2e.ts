@@ -1,12 +1,7 @@
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
-import {
-  closeAllEditors,
-  closeAllEditorsExcept,
-  getWorkspaceUri,
-  waitForEditorOpen,
-} from '../utils/vscode';
+import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   beforeEach(async () => {
@@ -14,10 +9,6 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   afterEach(async () => {
-    await closeAllEditorsExcept(getWorkspaceUri('expo-app/app.json'));
-  });
-
-  afterAll(async () => {
     await closeAllEditors();
   });
 
