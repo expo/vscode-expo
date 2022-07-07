@@ -61,17 +61,45 @@
     "commands": [
       {
         "command": "expo.config.preview",
-        "title": "Expo: Preview config"
+        "title": "Preview config",
+        "category": "Expo"
       },
       {
         "command": "expo.config.prebuild.preview",
-        "title": "Expo: Preview modifier"
+        "title": "Preview modifier",
+        "category": "Expo"
       },
       {
         "command": "expo.config.prebuild.preview.json",
-        "title": "Expo: Preview modifier as JSON"
+        "title": "Preview modifier as JSON",
+        "category": "Expo"
       }
-    ]
+    ],
+    "commandPalette": [
+      {
+        "command": "expo.config.preview",
+        "when": "editorFocus && resourceFilename =~ /app(.config)?.(ts|js|json)/"
+      },
+      {
+        "command": "expo.config.prebuild.preview",
+        "when": "editorFocus && resourceFilename =~ /app(.config)?.(ts|js|json)/"
+      },
+      {
+        "command": "expo.config.prebuild.preview.json",
+        "when": "editorFocus && config.expo.modifier.enableJson"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Expo",
+      "properties": {
+        "expo.modifier.enableJson": {
+          "type": "boolean",
+          "description": "Enable the JSON version of the modifiers preview. This is useful when writing config plugins.",
+          "default": false
+        }
+      }
+    }
   },
   "scripts": {
     "postinstall": "patch-package",
