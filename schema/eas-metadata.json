@@ -19,102 +19,166 @@
         ]
       },
       "AppleKidsAge": {
-        "enum": ["FIVE_AND_UNDER", "SIX_TO_EIGHT", "NINE_TO_ELEVEN"]
+        "enum": [
+          "FIVE_AND_UNDER",
+          "SIX_TO_EIGHT",
+          "NINE_TO_ELEVEN"
+        ]
       },
       "AppleRating": {
-        "enum": ["NONE", "INFREQUENT_OR_MILD", "FREQUENT_OR_INTENSE"]
+        "enum": [
+          "NONE",
+          "INFREQUENT_OR_MILD",
+          "FREQUENT_OR_INTENSE"
+        ]
       },
       "AppleCategory": {
-        "enum": [
-          "FOOD_AND_DRINK",
-          "BUSINESS",
-          "EDUCATION",
-          "SOCIAL_NETWORKING",
-          "BOOKS",
-          "SPORTS",
-          "FINANCE",
-          "REFERENCE",
-          "GRAPHICS_AND_DESIGN",
-          "DEVELOPER_TOOLS",
-          "HEALTH_AND_FITNESS",
-          "MUSIC",
-          "WEATHER",
-          "TRAVEL",
-          "ENTERTAINMENT",
-          "STICKERS",
-          "GAMES",
-          "LIFESTYLE",
-          "MEDICAL",
-          "MAGAZINES_AND_NEWSPAPERS",
-          "UTILITIES",
-          "SHOPPING",
-          "PRODUCTIVITY",
-          "NEWS",
-          "PHOTO_AND_VIDEO",
-          "NAVIGATION"
-        ]
-      },
-      "AppleSubcategory": {
-        "enum": [
-          "STICKERS_PLACES_AND_OBJECTS",
-          "STICKERS_EMOJI_AND_EXPRESSIONS",
-          "STICKERS_CELEBRATIONS",
-          "STICKERS_CELEBRITIES",
-          "STICKERS_MOVIES_AND_TV",
-          "STICKERS_SPORTS_AND_ACTIVITIES",
-          "STICKERS_EATING_AND_DRINKING",
-          "STICKERS_CHARACTERS",
-          "STICKERS_ANIMALS",
-          "STICKERS_FASHION",
-          "STICKERS_ART",
-          "STICKERS_GAMING",
-          "STICKERS_KIDS_AND_FAMILY",
-          "STICKERS_PEOPLE",
-          "STICKERS_MUSIC",
-          "GAMES_SPORTS",
-          "GAMES_WORD",
-          "GAMES_MUSIC",
-          "GAMES_ADVENTURE",
-          "GAMES_ACTION",
-          "GAMES_ROLE_PLAYING",
-          "GAMES_CASUAL",
-          "GAMES_BOARD",
-          "GAMES_TRIVIA",
-          "GAMES_CARD",
-          "GAMES_PUZZLE",
-          "GAMES_CASINO",
-          "GAMES_STRATEGY",
-          "GAMES_SIMULATION",
-          "GAMES_RACING",
-          "GAMES_FAMILY"
-        ]
-      },
-      "AppleIdfa": {
-        "description": "Identifier for Advertisers",
-        "type": "object",
-        "additionalProperties": false,
+        "type": "array",
+        "description": "App Store categories for the app, can add up to two categories. The first item in this list is the primary category, the second is the secondary and optional category. `STICKERS` and `GAMES` categories can add up to two additional subcategories, written as nested array.",
+        "markdownDescription": "App Store categories for the app, can add up to two categories. The first item in this list is the primary category, the second is the secondary and optional category. `STICKERS` and `GAMES` categories can add up to two additional subcategories, written as nested array. E.g.\n\n- `[\"SPORTS\"]`\n- `[\"SPORTS\", \"LIFESTYLE\"]`\n- `[[\"GAMES\", \"GAMES_CARD\"], \"ENTERTAINMENT\"]`\n- `[\"GAMES\", \"WEATHER\"]`",
+        "minItems": 1,
+        "maxItems": 2,
+        "uniqueItems": true,
         "defaultSnippets": [
+          {
+            "label": "Basic categories",
+            "description": "Add two simple categories",
+            "body": [
+              "$1",
+              "$2"
+            ]
+          },
+          {
+            "label": "Category with subcategories",
+            "description": "Add a category containing subcategories",
+            "body": [
+              [
+                "${1|GAMES,STICKERS|}",
+                "$3",
+                "$4"
+              ]
+            ]
+          }
+        ],
+        "items": {
+          "oneOf": [
             {
-              "body": {
-                  "servesAds": false,
-                  "attributesAppInstallationToPreviousAd": false,
-                  "attributesActionWithPreviousAd": false,
-                  "honorsLimitedAdTracking": false
-              }
+              "$ref": "#/definitions/apple/AppleCategory/categories/root"
+            },
+            {
+              "$ref": "#/definitions/apple/AppleCategory/categories/parent"
+            },
+            {
+              "type": "array",
+              "description": "The GAMES category can have additional subcategories",
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": [
+                {
+                  "const": "GAMES"
+                },
+                {
+                  "$ref": "#/definitions/apple/AppleCategory/categories/games"
+                },
+                {
+                  "$ref": "#/definitions/apple/AppleCategory/categories/games"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "description": "The STICKERS category can have additional subcategories",
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": [
+                {
+                  "const": "STICKERS"
+                },
+                {
+                  "$ref": "#/definitions/apple/AppleCategory/categories/stickers"
+                },
+                {
+                  "$ref": "#/definitions/apple/AppleCategory/categories/stickers"
+                }
+              ]
             }
-          ],
-        "properties": {
-          "servesAds": {
-            "type": "boolean"
+          ]
+        },
+        "categories": {
+          "root": {
+            "enum": [
+              "BUSINESS",
+              "SOCIAL_NETWORKING",
+              "MEDICAL",
+              "FOOD_AND_DRINK",
+              "EDUCATION",
+              "BOOKS",
+              "SPORTS",
+              "FINANCE",
+              "REFERENCE",
+              "GRAPHICS_AND_DESIGN",
+              "DEVELOPER_TOOLS",
+              "HEALTH_AND_FITNESS",
+              "MUSIC",
+              "WEATHER",
+              "TRAVEL",
+              "ENTERTAINMENT",
+              "LIFESTYLE",
+              "MAGAZINES_AND_NEWSPAPERS",
+              "UTILITIES",
+              "SHOPPING",
+              "PRODUCTIVITY",
+              "NEWS",
+              "PHOTO_AND_VIDEO",
+              "NAVIGATION"
+            ]
           },
-          "attributesAppInstallationToPreviousAd": {
-            "type": "boolean"
+          "parent": {
+            "enum": [
+              "GAMES",
+              "STICKERS"
+            ]
           },
-          "attributesActionWithPreviousAd": {
-            "type": "boolean"
+          "games": {
+            "enum": [
+              "GAMES_SPORTS",
+              "GAMES_WORD",
+              "GAMES_MUSIC",
+              "GAMES_ADVENTURE",
+              "GAMES_ACTION",
+              "GAMES_ROLE_PLAYING",
+              "GAMES_CASUAL",
+              "GAMES_BOARD",
+              "GAMES_TRIVIA",
+              "GAMES_CARD",
+              "GAMES_PUZZLE",
+              "GAMES_CASINO",
+              "GAMES_STRATEGY",
+              "GAMES_SIMULATION",
+              "GAMES_RACING",
+              "GAMES_FAMILY"
+            ]
           },
-          "honorsLimitedAdTracking": {
-            "type": "boolean"
+          "stickers": {
+            "enum": [
+              "STICKERS_PLACES_AND_OBJECTS",
+              "STICKERS_EMOJI_AND_EXPRESSIONS",
+              "STICKERS_CELEBRATIONS",
+              "STICKERS_CELEBRITIES",
+              "STICKERS_MOVIES_AND_TV",
+              "STICKERS_SPORTS_AND_ACTIVITIES",
+              "STICKERS_EATING_AND_DRINKING",
+              "STICKERS_CHARACTERS",
+              "STICKERS_ANIMALS",
+              "STICKERS_FASHION",
+              "STICKERS_ART",
+              "STICKERS_GAMING",
+              "STICKERS_KIDS_AND_FAMILY",
+              "STICKERS_PEOPLE",
+              "STICKERS_MUSIC"
+            ]
           }
         }
       },
@@ -123,240 +187,278 @@
         "additionalProperties": false,
         "required": [
           "title",
-          "subtitle",
-          "description",
-          "keywords",
-          "marketingUrl",
-          "supportUrl",
           "privacyPolicyUrl"
         ],
         "defaultSnippets": [
           {
             "label": "Basic",
+            "description": "Create the minimum required locale properties",
             "body": {
+              "title": "${1:App title}",
+              "privacyPolicyUrl": "https://${3:www.}"
             }
           },
           {
-            "label": "Interactive",
-            "description": "Creates localized app info",
+            "label": "Full",
+            "description": "Create all available locale properties",
             "body": {
-              "title": "$1",
-              "subtitle": "$2",
-              "description": "$3",
-              "keywords": [],
-              "marketingUrl": "",
-              "supportUrl": "",
-              "privacyPolicyUrl": ""
+              "title": "${1:App title}",
+              "subtitle": "${2:Subtitle for your app}",
+              "description": "${3:A longer description of what your app does}",
+              "keywords": [
+                "${4:keyword}"
+              ],
+              "releaseNotes": "${5:Bug fixes and improved stability}",
+              "promoText": "${6:Short tagline for your app}",
+              "marketingUrl": "https://${7:www.}",
+              "supportUrl": "https://${8:www.}",
+              "privacyPolicyUrl": "https://${9:www.}",
+              "privacyChoicesUrl": "https://${10:www.}"
             }
           }
         ],
         "properties": {
           "title": {
-            "description": "Name of the app in the store. This should be similar to the installed app name.",
             "type": "string",
+            "description": "Name of the app in the store. This should be similar to the installed app name.",
+            "minLength": 2,
             "maxLength": 30,
             "meta": {
               "storeInfo": "The name will be reviewed before it is made available on the App Store."
             }
           },
           "subtitle": {
-            "description": "Subtext for the app. Example: 'A Fun Game For Friends'",
             "type": "string",
+            "description": "Subtext for the app. Example: 'A Fun Game For Friends'",
             "maxLength": 30,
             "meta": {
               "storeInfo": "The subtitle will be reviewed before it is made available on the App Store."
             }
           },
           "description": {
+            "type": "string",
+            "description": "Main description of what the app does",
+            "minLength": 10,
+            "maxLength": 4000,
             "meta": {
               "versioned": true,
               "liveEdits": true
-            },
-            "maxLength": 4000,
-            "description": "Main description of what the app does",
-            "type": "string"
-          },
-          "promoText": {
-            "meta": {
-              "versioned": true,
-              "liveEdits": true,
-              "aso": false
-            },
-            "maxLength": 170,
-            "description": "Short tagline for the app",
-            "type": "string"
+            }
           },
           "keywords": {
-            "meta": {
-              "versioned": true
-            },
-            "description": "List of keywords to help users find the app in the App Store",
             "type": "array",
+            "description": "List of keywords to help users find the app in the App Store",
             "uniqueItems": true,
             "items": {
               "maxLength": 100,
               "type": "string"
+            },
+            "meta": {
+              "versioned": true
+            }
+          },
+          "releaseNotes": {
+            "type": "string",
+            "description": "Changes since the last public version",
+            "maxLength": 4000,
+            "meta": {
+              "versioned": true,
+              "liveEdits": true
+            }
+          },
+          "promoText": {
+            "type": "string",
+            "description": "Short tagline for the app",
+            "maxLength": 170,
+            "meta": {
+              "versioned": true,
+              "liveEdits": true,
+              "aso": false
+            }
+          },
+          "marketingUrl": {
+            "type": "string",
+            "description": "URL to the app marketing page",
+            "maxLength": 255,
+            "meta": {
+              "versioned": true,
+              "liveEdits": true
+            }
+          },
+          "supportUrl": {
+            "type": "string",
+            "description": "URL to the app support page",
+            "maxLength": 255,
+            "meta": {
+              "versioned": true,
+              "liveEdits": true
             }
           },
           "privacyPolicyText": {
             "type": "string",
             "description": "Privacy policy for Apple TV"
           },
-          "whatsNew": {
-            "meta": {
-              "versioned": true,
-              "liveEdits": true
-            },
-            "maxLength": 4000,
-            "description": "Changes since the last public version",
-            "type": "string"
-          },
-          "marketingUrl": {
-            "meta": {
-              "versioned": true,
-              "liveEdits": true
-            },
-            "description": "URL to the app marketing page",
-            "type": "string"
-          },
-          "supportUrl": {
-            "meta": {
-              "versioned": true,
-              "liveEdits": true
-            },
-            "description": "URL to the app support page",
-            "type": "string"
-          },
           "privacyPolicyUrl": {
+            "type": "string",
+            "description": "A URL that links to your privacy policy. A privacy policy is required for all apps.",
+            "maxLength": 255,
             "meta": {
               "versioned": true,
               "liveEdits": true
-            },
-            "maxLength": 255,
-            "description": "A URL that links to your privacy policy. A privacy policy is required for all apps.",
-            "type": "string"
+            }
           },
           "privacyChoicesUrl": {
+            "type": "string",
+            "description": "A URL where users can modify and delete the data collected from the app, or decide how their data is used and shared.",
+            "maxLength": 255,
             "meta": {
               "versioned": true,
               "liveEdits": true,
               "optional": true
-            },
-            "maxLength": 255,
-            "description": "A URL where users can modify and delete the data collected from the app, or decide how their data is used and shared.",
-            "type": "string"
+            }
           }
         }
       },
       "AppleAdvisory": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "alcoholTobaccoOrDrugUseOrReferences",
+          "contests",
+          "gamblingSimulated",
+          "horrorOrFearThemes",
+          "matureOrSuggestiveThemes",
+          "medicalOrTreatmentInformation",
+          "profanityOrCrudeHumor",
+          "sexualContentGraphicAndNudity",
+          "sexualContentOrNudity",
+          "violenceCartoonOrFantasy",
+          "violenceRealistic",
+          "violenceRealisticProlongedGraphicOrSadistic",
+          "gambling",
+          "unrestrictedWebAccess",
+          "kidsAgeBand",
+          "seventeenPlus"
+        ],
         "defaultSnippets": [
-            {
-              "label": "Minimum",
-              "description": "The bare minimum rating, your app does nothing",
-              "body": {
-                "alcoholTobaccoOrDrugUseOrReferences": "NONE",
-                "contests": "NONE",
-                "gamblingSimulated": "NONE",
-                "medicalOrTreatmentInformation": "NONE",
-                "profanityOrCrudeHumor": "NONE",
-                "sexualContentGraphicAndNudity": "NONE",
-                "sexualContentOrNudity": "NONE",
-                "horrorOrFearThemes": "NONE",
-                "matureOrSuggestiveThemes": "NONE",
-                "violenceCartoonOrFantasy": "NONE",
-                "violenceRealisticProlongedGraphicOrSadistic": "NONE",
-                "violenceRealistic": "NONE",
-                "gamblingAndContests":false,
-                "gambling": false,
-                "kidsAgeBand": null,
-                "seventeenPlus": false,
-                "unrestrictedWebAccess": false
-              }
-            },
-            {
-              "label": "Interactive",
-              "description": "Step through options",
-              "body": {
-                "alcoholTobaccoOrDrugUseOrReferences": "${1|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "contests": "${2|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "gamblingSimulated": "${3|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "medicalOrTreatmentInformation": "${4|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "profanityOrCrudeHumor": "${5|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "sexualContentGraphicAndNudity": "${6|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "sexualContentOrNudity": "${7|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "horrorOrFearThemes": "${8|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "matureOrSuggestiveThemes": "${9|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "violenceCartoonOrFantasy": "${10|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "violenceRealisticProlongedGraphicOrSadistic": "${11|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "violenceRealistic": "${12|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
-                "gamblingAndContests":false,
-                "gambling": false,
-                "kidsAgeBand": null,
-                "seventeenPlus": false,
-                "unrestrictedWebAccess": false
-              }
+          {
+            "label": "Basic",
+            "description": "Create an advisory that disables all age-rated properties, for when your app does nothing",
+            "body": {
+              "alcoholTobaccoOrDrugUseOrReferences": "NONE",
+              "contests": "NONE",
+              "gamblingSimulated": "NONE",
+              "horrorOrFearThemes": "NONE",
+              "matureOrSuggestiveThemes": "NONE",
+              "medicalOrTreatmentInformation": "NONE",
+              "profanityOrCrudeHumor": "NONE",
+              "sexualContentGraphicAndNudity": "NONE",
+              "sexualContentOrNudity": "NONE",
+              "violenceCartoonOrFantasy": "NONE",
+              "violenceRealistic": "NONE",
+              "violenceRealisticProlongedGraphicOrSadistic": "NONE",
+              "gambling": false,
+              "unrestrictedWebAccess": false,
+              "kidsAgeBand": null,
+              "seventeenPlus": false
             }
-          ],
+          },
+          {
+            "label": "Full",
+            "description": "Create an advisory that enables some of the age-rated properties",
+            "body": {
+              "alcoholTobaccoOrDrugUseOrReferences": "${1|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "contests": "${2|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "gamblingSimulated": "${3|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "horrorOrFearThemes": "${4|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "matureOrSuggestiveThemes": "${5|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "medicalOrTreatmentInformation": "${6|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "profanityOrCrudeHumor": "${7|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "sexualContentGraphicAndNudity": "${8|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "sexualContentOrNudity": "${9|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "violenceCartoonOrFantasy": "${10|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "violenceRealistic": "${11|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "violenceRealisticProlongedGraphicOrSadistic": "${12|NONE,INFREQUENT_OR_MILD,FREQUENT_OR_INTENSE|}",
+              "unrestrictedWebAccess": false,
+              "gambling": false,
+              "kidsAgeBand": null,
+              "seventeenPlus": false
+            }
+          }
+        ],
         "properties": {
           "alcoholTobaccoOrDrugUseOrReferences": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain alcohol, tobacco, or drug use or references?"
           },
           "contests": {
-            "$ref": "#/definitions/apple/AppleRating"
-          },
-          "gamblingAndContests": {
-            "type": "boolean"
-          },
-          "gambling": {
-            "type": "boolean"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain contests?"
           },
           "gamblingSimulated": {
-            "$ref": "#/definitions/apple/AppleRating"
-          },
-          "kidsAgeBand": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/apple/AppleKidsAge"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain simulated gambling?"
           },
           "medicalOrTreatmentInformation": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain medical or treatment information?"
           },
           "profanityOrCrudeHumor": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain profanity or crude humor?"
           },
           "sexualContentGraphicAndNudity": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain graphic sexual content and nudity?"
           },
           "sexualContentOrNudity": {
-            "$ref": "#/definitions/apple/AppleRating"
-          },
-          "seventeenPlus": {
-            "type": "boolean"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain sexual content or nudity?"
           },
           "horrorOrFearThemes": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain horror or fear themes?"
           },
           "matureOrSuggestiveThemes": {
-            "$ref": "#/definitions/apple/AppleRating"
-          },
-          "unrestrictedWebAccess": {
-            "type": "boolean"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain mature or suggestive themes?"
           },
           "violenceCartoonOrFantasy": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain cartoon or fantasy violence?"
           },
           "violenceRealisticProlongedGraphicOrSadistic": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain prolonged graphic or sadistic realistic violence?"
           },
           "violenceRealistic": {
-            "$ref": "#/definitions/apple/AppleRating"
+            "$ref": "#/definitions/apple/AppleRating",
+            "description": "Does the app contain realistic violence?"
+          },
+          "unrestrictedWebAccess": {
+            "type": "boolean",
+            "description": "Does your app contain unrestricted web access, such as with an embedded browser?"
+          },
+          "gambling": {
+            "type": "boolean",
+            "description": "Does your app contain gambling?"
+          },
+          "kidsAgeBand": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/definitions/apple/AppleKidsAge"
+              }
+            ],
+            "description": "When parents visit the Kids category on the App Store, they expect the apps they find will protect their children’s data, provide only age-appropriate content, and require a parental gate in order to link out of the app, request permissions, or present purchasing opportunities. It’s critical that no personally identifiable information or device information be transmitted to third parties, and that advertisements are human-reviewed for age appropriateness in order to be displayed.\n@see https://developer.apple.com/news/?id=091202019a",
+            "markdownDescription": "When parents visit the Kids category on the App Store, they expect the apps they find will protect their children’s data, provide only age-appropriate content, and require a parental gate in order to link out of the app, request permissions, or present purchasing opportunities. It’s critical that no personally identifiable information or device information be transmitted to third parties, and that advertisements are human-reviewed for age appropriateness in order to be displayed.\n\n[Learn more](https://developer.apple.com/news/?id=091202019a)"
+          },
+          "seventeenPlus": {
+            "type": "boolean",
+            "description": "If your app rates 12+ or lower, and you believe its content may not be suitable for children under 17, you can manually set the age rating to 17+.\n@see https://help.apple.com/app-store-connect/#/dev599d50efb",
+            "markdownDescription": "If your app rates 12+ or lower, and you believe its content may not be suitable for children under 17, you can manually set the age rating to 17+.\n\n[Learn more](https://help.apple.com/app-store-connect/#/dev599d50efb)"
           }
         }
       },
@@ -402,8 +504,8 @@
             }
           },
           "shouldResetRatings": {
-            "description": "Should App Store ratings be reset for this version of the app.",
             "type": "boolean",
+            "description": "Should App Store ratings be reset for this version of the app.",
             "meta": {
               "storeInfo": "You can reset your app’s summary rating for all countries or regions when you release this version. Keep in mind that once this version is released, you won’t be able to restore the rating. Your app’s existing customer reviews will still appear on the App Store."
             }
@@ -412,144 +514,107 @@
             "type": "boolean"
           },
           "automaticRelease": {
-            "description": "Should the app automatically be released when approved by App Store review.",
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Should the app automatically be released when approved by App Store review."
           },
           "usesNonExemptEncryption": {
-            "description": "Alternative to setting `ITSAppUsesNonExemptEncryption` in the binary's `Info.plist`.",
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Alternative to setting `ITSAppUsesNonExemptEncryption` in the binary's `Info.plist`."
           }
         }
       },
       "AppleReview": {
         "type": "object",
         "description": "Info provided to the App Store review team to help them understand how to use your app.",
-        "required": ["firstName", "lastName"],
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "phone"
+        ],
         "defaultSnippets": [
           {
+            "label": "Basic",
+            "description": "Only define the contact details in case communcation is needed with the App Store review team.",
             "body": {
               "firstName": "$1",
-              "lastName": "$2"
+              "lastName": "$2",
+              "email": "$3",
+              "phone": "+$4"
+            }
+          },
+          {
+            "label": "Full",
+            "description": "Define the demo account credentials, additional info, and contact details for the App Store review team.",
+            "body": {
+              "firstName": "$1",
+              "lastName": "$2",
+              "email": "$3",
+              "phone": "+$4",
+              "demoUsername": "$5",
+              "demoPassword": "$6",
+              "demoRequired": true,
+              "notes": "$7"
             }
           }
         ],
         "properties": {
-          "demoUsername": {
-            "description": "Optional username for testing the app.",
-            "type": "string"
-          },
-          "demoPassword": {
-            "description": "Optional password for testing the app.",
-            "type": "string"
-          },
-          "attachment": {
-            "description": "Local file path to upload to the review team.",
-            "type": "string"
-          },
           "firstName": {
-            "description": "Developer first name for the reviewer to contact.",
-            "type": "string"
+            "type": "string",
+            "description": "First name of contact in case communication is needed with the App Store review team.",
+            "minLength": 1
           },
           "lastName": {
-            "description": "Developer last name (surname) for the reviewer to contact.",
-            "type": "string"
-          },
-          "phone": {
-            "description": "Developer phone number for the reviewer to contact.",
-            "type": "string"
+            "type": "string",
+            "description": "Last name of contact in case communication is needed with the App Store review team.",
+            "minLength": 1
           },
           "email": {
-            "description": "Developer email address for the reviewer to contact.",
             "type": "string",
+            "description": "Email address of contact in case communication is needed with the App Store review team.",
             "format": "email"
           },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of contact in case communication is needed with the App Store review team. Preface the phone number with ‘+’ followed by the country code (for example, +44 844 209 0611)"
+          },
+          "demoUsername": {
+            "type": "string",
+            "description": "The user name to sign in to your app to review its features."
+          },
+          "demoPassword": {
+            "type": "string",
+            "description": "The password to sign in to your app to review its features."
+          },
+          "demoRequired": {
+            "type": "boolean",
+            "description": "A Boolean value that indicates if sign-in information is required to review all the features of your app. If users sign in using social media, provide information for an account for review. Credentials must be valid and active for duration of review.",
+            "markdownDescription": "A Boolean value that indicates if sign-in information is required to review all the features of your app. If users sign in using social media, provide information for an account for review.\n\n**Credentials must be valid and active for duration of review.**"
+          },
           "notes": {
-            "description": "Any additional notes for the App Store reviewer.",
-            "type": "string"
+            "type": "string",
+            "description": "Additional information about your app that can help during the review process. Do not include demo account details.",
+            "markdownDescription": "Additional information about your app that can help during the review process.\n\n**Do not include demo account details.**",
+            "minLength": 2,
+            "maxLength": 4000
           }
         }
       }
     },
     "AppleConfig": {
-      "description": "Configuration that is specific to the Apple App Store.",
       "type": "object",
+      "description": "Configuration that is specific to the Apple App Store.",
       "additionalProperties": false,
       "properties": {
         "advisory": {
           "$ref": "#/definitions/apple/AppleAdvisory"
         },
         "categories": {
-          "type": "array",
-          "maxItems": 2,
-          "description": "App Store categories for the app. Can add up to two categories. STICKERS and GAMES categories can add an additional subcategory.",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/apple/AppleCategory"
-              },
-              {
-                "type": "array",
-                "maxItems": 2,
-                "items": [
-                  {
-                    "enum": ["GAMES"]
-                  },
-                  {
-                    "enum": [
-                      "GAMES_SPORTS",
-                      "GAMES_WORD",
-                      "GAMES_MUSIC",
-                      "GAMES_ADVENTURE",
-                      "GAMES_ACTION",
-                      "GAMES_ROLE_PLAYING",
-                      "GAMES_CASUAL",
-                      "GAMES_BOARD",
-                      "GAMES_TRIVIA",
-                      "GAMES_CARD",
-                      "GAMES_PUZZLE",
-                      "GAMES_CASINO",
-                      "GAMES_STRATEGY",
-                      "GAMES_SIMULATION",
-                      "GAMES_RACING",
-                      "GAMES_FAMILY"
-                    ]
-                  }
-                ],
-                "additionalItems": false
-              },
-              {
-                "type": "array",
-                "maxItems": 2,
-                "items": [
-                  {
-                    "enum": ["STICKERS"]
-                  },
-                  {
-                    "enum": [
-                      "STICKERS_PLACES_AND_OBJECTS",
-                      "STICKERS_EMOJI_AND_EXPRESSIONS",
-                      "STICKERS_CELEBRATIONS",
-                      "STICKERS_CELEBRITIES",
-                      "STICKERS_MOVIES_AND_TV",
-                      "STICKERS_SPORTS_AND_ACTIVITIES",
-                      "STICKERS_EATING_AND_DRINKING",
-                      "STICKERS_CHARACTERS",
-                      "STICKERS_ANIMALS",
-                      "STICKERS_FASHION",
-                      "STICKERS_ART",
-                      "STICKERS_GAMING",
-                      "STICKERS_KIDS_AND_FAMILY",
-                      "STICKERS_PEOPLE",
-                      "STICKERS_MUSIC"
-                    ]
-                  }
-                ],
-                "additionalItems": false
-              }
-            ]
-          }
+          "$ref": "#/definitions/apple/AppleCategory"
         },
         "copyright": {
+          "type": "string",
+          "description": "The updated company copyright. Example: 2021 Evan Bacon",
           "defaultSnippets": [
             {
               "body": "$CURRENT_YEAR ${1:name}"
@@ -559,12 +624,7 @@
             "versioned": true,
             "liveEdits": true,
             "storeInfo": "The name of the person or entity that owns the exclusive rights to your app, preceded by the year the rights were obtained (for example, \"2008 Acme Inc.\"). Do not provide a URL."
-          },
-          "description": "The updated company copyright. Example: 2021 Evan Bacon",
-          "type": "string"
-        },
-        "idfa": {
-          "$ref": "#/definitions/apple/AppleIdfa"
+          }
         },
         "info": {
           "description": "Localized core app info",
@@ -901,28 +961,28 @@
           ]
         },
         "release": {
-            "description": "Release strategy",
-          "$ref": "#/definitions/apple/AppleRelease"
+          "$ref": "#/definitions/apple/AppleRelease",
+          "description": "Release strategy"
         },
         "review": {
-            "description": "Info for the App Store reviewer",
-          "$ref": "#/definitions/apple/AppleReview"
-        },
-        "priceTier": {
-            "description": "App price tier. 0 is Free.",
-          "type": "number"
+          "$ref": "#/definitions/apple/AppleReview",
+          "description": "Info for the App Store reviewer"
         }
       }
     }
   },
   "properties": {
     "configVersion": {
-      "const": 0
+      "const": 0,
+      "description": "The EAS metadata store configuration version"
     },
     "apple": {
       "$ref": "#/definitions/AppleConfig"
     }
   },
   "additionalProperties": false,
-  "required": ["configVersion", "apple"]
+  "required": [
+    "configVersion",
+    "apple"
+  ]
 }
