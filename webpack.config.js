@@ -25,7 +25,6 @@ module.exports = {
     'babel-preset-expo',
     'emitter',
     'fsevents',
-    'sucrase',
     /^webpack-hot-middleware/i,
     /^webpack-plugin-serve/i,
     /^webpack-dev-middleware/i,
@@ -48,6 +47,12 @@ module.exports = {
         // Workaround for files within libraries using dynamic require
         test: /\.md|\.map|LICENSE$/,
         loader: 'raw-loader',
+      },
+      {
+        // Allow extension-less imports in `"type": "module"` libraries
+        // see: https://webpack.js.org/configuration/module/#resolvefullyspecified
+        test: /\.m?js/,
+        resolve: { fullySpecified: false },
       },
       {
         test: /\.(ts|js)$/,
