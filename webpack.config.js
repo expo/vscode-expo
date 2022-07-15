@@ -35,6 +35,12 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
+    alias: {
+      // Importing Sucrase with esm support causes default exports to break.
+      // This forces the cjs import and use that as Sucrase in the bundle.
+      // see: https://github.com/webpack/webpack/issues/5756#issuecomment-907080675
+      sucrase: require.resolve('sucrase'),
+    },
   },
   module: {
     parser: {
@@ -47,12 +53,6 @@ module.exports = {
         // Workaround for files within libraries using dynamic require
         test: /\.md|\.map|LICENSE$/,
         loader: 'raw-loader',
-      },
-      {
-        // Allow extension-less imports in `"type": "module"` libraries
-        // see: https://webpack.js.org/configuration/module/#resolvefullyspecified
-        test: /\.m?js/,
-        resolve: { fullySpecified: false },
       },
       {
         test: /\.(ts|js)$/,
