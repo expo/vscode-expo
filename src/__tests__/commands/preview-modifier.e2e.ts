@@ -142,3 +142,51 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     expect(content).toMatchSnapshot();
   });
 });
+
+describe('dynamic configs', () => {
+  afterEach(async () => {
+    await closeAllEditors();
+  });
+
+  it(`runs ${PreviewModProvider.androidManifest} for app.json`, async () => {
+    await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    await commands.executeCommand(
+      PreviewCommand.OpenExpoFilePrebuild,
+      PreviewModProvider.androidManifest
+    );
+
+    const preview = await waitForEditorOpen('AndroidManifest.xml');
+    const content = preview?.document.getText();
+
+    expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
+  });
+
+  it(`runs ${PreviewModProvider.iosInfoPlist} for app.config.js`, async () => {
+    await window.showTextDocument(getWorkspaceUri('config-js-app/app.config.js'));
+    await commands.executeCommand(
+      PreviewCommand.OpenExpoFilePrebuild,
+      PreviewModProvider.iosInfoPlist
+    );
+
+    const preview = await waitForEditorOpen('Info.plist');
+    const content = preview?.document.getText();
+
+    expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
+  });
+
+  it(`runs ${PreviewModProvider.androidManifest} for app.config.ts`, async () => {
+    await window.showTextDocument(getWorkspaceUri('config-ts-app/app.config.ts'));
+    await commands.executeCommand(
+      PreviewCommand.OpenExpoFilePrebuild,
+      PreviewModProvider.androidManifest
+    );
+
+    const preview = await waitForEditorOpen('AndroidManifest.xml');
+    const content = preview?.document.getText();
+
+    expect(content).toBeDefined();
+    expect(content).toMatchSnapshot();
+  });
+});
