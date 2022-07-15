@@ -66,6 +66,21 @@
       "preLaunchTask": "launch-test-production"
     },
     {
+      "name": "Test (no-build)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/test/fixture",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--disable-extensions"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ]
+    },
+    {
       "name": "Test (snapshots)",
       "type": "extensionHost",
       "request": "launch",

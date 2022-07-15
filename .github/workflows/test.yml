@@ -56,6 +56,11 @@ jobs:
       - name: 📦 Bundle extension
         run: yarn build:production
 
+      # When bundled, these dependencies aren't available in normal environments.
+      # This kind-of fakes such environments, while keeping the required dev packages.
+      - name: 🧹 Remove Sucrase
+        run: yarn remove sucrase
+
       - name: 🧪 Test on Ubuntu
         run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
         env:

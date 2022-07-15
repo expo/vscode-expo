@@ -25,7 +25,6 @@ module.exports = {
     'babel-preset-expo',
     'emitter',
     'fsevents',
-    'sucrase',
     /^webpack-hot-middleware/i,
     /^webpack-plugin-serve/i,
     /^webpack-dev-middleware/i,
@@ -36,6 +35,12 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
+    alias: {
+      // Importing Sucrase with esm support causes default exports to break.
+      // This forces the cjs import and use that as Sucrase in the bundle.
+      // see: https://github.com/webpack/webpack/issues/5756#issuecomment-907080675
+      sucrase: require.resolve('sucrase'),
+    },
   },
   module: {
     parser: {
