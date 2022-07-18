@@ -8,13 +8,14 @@
     <a href="https://github.com/expo/vscode-expo/releases">
       <img src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square" alt="releases" />
     </a>
-    <a href="https://github.com/expo/vscode-expo#contributors">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-      <img src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" alt="contributors" />
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-    </a>
     <a href="https://github.com/expo/vscode-expo/actions">
       <img src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square" alt="builds" />
+    </a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo">
+      <img src="https://img.shields.io/badge/vscode-marketplace-%23000000?style=flat-square" alt="vscode marketplace" />
+    </a>
+    <a href="https://open-vsx.org/extension/byCedric/vscode-expo">
+      <img src="https://img.shields.io/badge/vscode-open--vsx-%23000000?style=flat-square" alt="vscode open-vsx" />
     </a>
   </p>
   <p align="center">
