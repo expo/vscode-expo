@@ -3,7 +3,7 @@
   "type": "object",
   "description": "The EAS config (eas.json) validation and documentation.",
   "meta": {
-    "updatedAt": "2022-07-05T18:37:12.417Z"
+    "updatedAt": "2022-07-18T15:00:00.000Z"
   },
   "properties": {
     "cli": {
@@ -31,6 +31,17 @@
         "requireCommit": {
           "type": "boolean",
           "description": "If all changes required to be committed before building or submitting"
+        },
+        "appVersionSource": {
+          "enum": [
+            "local",
+            "remote"
+          ],
+          "markdownDescription": "Version policy defines whether version of your app should be based on your local project or values stored on EAS servers (remote).\n\nThis is the configuration required for `eas build:version:set` and works with the `autoIncrement` options per platform.",
+          "markdownEnumDescriptions": [
+            "When using local, the `autoIncrement` is based on your local project values.",
+            "When using remote, the `autoIncrement` is based on the values stored on EAS servers."
+          ]
         }
       }
     },
