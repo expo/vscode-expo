@@ -20,7 +20,8 @@
             "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, `com.example.app`, where `com.example` is our domain and `app` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
             "bareWorkflow": "This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places)."
           },
-          "markdownDescription": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention).\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places)."
+          "markdownDescription": "The package name for your Android standalone app. You make it up, but it needs to be unique on the Play Store. See [this StackOverflow question](http://stackoverflow.com/questions/6273892/android-package-name-convention).\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `applicationId` as well as in your `AndroidManifest.xml` file (multiple places).",
+          "patternErrorMessage": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, `com.example.app`, where `com.example` is our domain and `app` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter."
         },
         "versionCode": {
           "description": "Version number required by Google Play. Increment by one for each release. Must be a positive integer. [Learn more](https://developer.android.com/studio/publish/versioning.html)\n\n**Bare workflow** - This is set in `android/app/build.gradle` as `versionCode`",
@@ -40,7 +41,8 @@
             "regexHuman": "6 character long hex color string, for example, `'#000000'`",
             "bareWorkflow": "This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`"
           },
-          "markdownDescription": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.\n\n**Bare workflow** - This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`"
+          "markdownDescription": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.\n\n**Bare workflow** - This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "userInterfaceStyle": {
           "description": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`. Requires `expo-system-ui` be installed in your project to work on Android.",
@@ -104,7 +106,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "Color to use as the background for your app's Adaptive Icon on Android. Defaults to white, `#FFFFFF`. Has no effect if `foregroundImage` is not specified."
+              "markdownDescription": "Color to use as the background for your app's Adaptive Icon on Android. Defaults to white, `#FFFFFF`. Has no effect if `foregroundImage` is not specified.",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             }
           },
           "additionalProperties": false,
@@ -224,7 +227,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "Color to fill the loading screen background"
+              "markdownDescription": "Color to fill the loading screen background",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             },
             "resizeMode": {
               "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover`, `contain` or `native`, defaults to `contain`.",
@@ -464,7 +468,8 @@
             "bareWorkflow": "Set this value in `info.plist` under `CFBundleIdentifier`",
             "regexHuman": "iOS bundle identifier notation unique name for your app. For example, `host.exp.expo`, where `exp.host` is our domain and `expo` is our app name."
           },
-          "markdownDescription": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`"
+          "markdownDescription": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`",
+          "patternErrorMessage": "iOS bundle identifier notation unique name for your app. For example, `host.exp.expo`, where `exp.host` is our domain and `expo` is our app name."
         },
         "buildNumber": {
           "description": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleVersion`",
@@ -482,7 +487,8 @@
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
-          "markdownDescription": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present. Requires `expo-system-ui` be installed in your project to work on iOS."
+          "markdownDescription": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present. Requires `expo-system-ui` be installed in your project to work on iOS.",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "icon": {
           "description": "Local path or remote URL to an image to use for your app's icon on iOS. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency. \n\n Expo will generate the other required sizes. This icon will appear on the home screen and within the Expo app.",
@@ -698,7 +704,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "Color to fill the loading screen background"
+              "markdownDescription": "Color to fill the loading screen background",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             },
             "resizeMode": {
               "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`.",
@@ -766,7 +773,8 @@
             "regexHuman": "6 character long hex color string, for example, `'#000000'`",
             "bareWorkflow": "For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`"
           },
-          "markdownDescription": "Color to fill the loading screen background\n\n**Bare workflow** - For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`"
+          "markdownDescription": "Color to fill the loading screen background\n\n**Bare workflow** - For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "resizeMode": {
           "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`.",
@@ -860,7 +868,8 @@
             "html": "theme-color",
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
-          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers."
+          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "description": {
           "description": "Provides a general description of what the pinned website does.",
@@ -932,7 +941,8 @@
             "pwa": "background_color",
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
-          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content."
+          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "barStyle": {
           "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
@@ -976,7 +986,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "Color to fill the loading screen background"
+              "markdownDescription": "Color to fill the loading screen background",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             },
             "resizeMode": {
               "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`.",
@@ -1070,14 +1081,16 @@
           "meta": {
             "notHuman": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \"_\", \"+\", \".\",\"(\", \")\", or \"-\". May not be a decimal ending in a 0. Valid examples: \"1.0.3a+\", \"1.0.0\", \"._+()-0a1\", \"0\".",
             "regexHuman": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \"_\", \"+\", \".\",\"(\", \")\", or \"-\". May not be a decimal ending in a 0. Valid examples: \"1.0.3a+\", \"1.0.0\", \"._+()-0a1\", \"0\"."
-          }
+          },
+          "patternErrorMessage": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \"_\", \"+\", \".\",\"(\", \")\", or \"-\". May not be a decimal ending in a 0. Valid examples: \"1.0.3a+\", \"1.0.0\", \"._+()-0a1\", \"0\"."
         },
         {
           "type": "string",
           "pattern": "^exposdk:((\\d+\\.\\d+\\.\\d+)|(UNVERSIONED))$",
           "meta": {
             "regexHuman": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \"exposdk:44.0.0\"."
-          }
+          },
+          "patternErrorMessage": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \"exposdk:44.0.0\"."
         },
         {
           "$ref": "#/definitions/RuntimeVersionSDKVersionPolicy"
@@ -1200,7 +1213,8 @@
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`. Default is white: `'#ffffff'`"
           },
-          "markdownDescription": "The background color for your app, behind any of your React views. This is also known as the root view background color. Requires `expo-system-ui` be installed in your project to work on iOS."
+          "markdownDescription": "The background color for your app, behind any of your React views. This is also known as the root view background color. Requires `expo-system-ui` be installed in your project to work on iOS.",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`. Default is white: `'#ffffff'`"
         },
         "primaryColor": {
           "description": "On Android, this will determine the color of your app in the multitasker. Currently this is not used on iOS, but it may be used for other purposes in the future.",
@@ -1209,7 +1223,8 @@
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
-          "markdownDescription": "On Android, this will determine the color of your app in the multitasker. Currently this is not used on iOS, but it may be used for other purposes in the future."
+          "markdownDescription": "On Android, this will determine the color of your app in the multitasker. Currently this is not used on iOS, but it may be used for other purposes in the future.",
+          "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "icon": {
           "description": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size.",
@@ -1245,7 +1260,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "(Android only) Tint color for the push notification image when it appears in the notification tray. Defaults to `#ffffff`"
+              "markdownDescription": "(Android only) Tint color for the push notification image when it appears in the notification tray. Defaults to `#ffffff`",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             },
             "iosDisplayInForeground": {
               "description": "Whether or not to display notifications when the app is in the foreground on iOS. `_displayInForeground` option in the individual push notification message overrides this option. [Learn more.](https://docs.expo.dev/push-notifications/receiving-notifications/#foreground-notification-behavior) Defaults to `false`.",
@@ -1298,7 +1314,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string `'#RRGGBB'`, for example, `'#000000'` for black. Or 8 character long hex color string `'#RRGGBBAA'`, for example, `'#00000088'` for semi-transparent black."
               },
-              "markdownDescription": "Specifies the background color of the status bar. Defaults to `#00000000` (transparent) for `dark-content` bar style and `#00000088` (semi-transparent black) for `light-content` bar style"
+              "markdownDescription": "Specifies the background color of the status bar. Defaults to `#00000000` (transparent) for `dark-content` bar style and `#00000088` (semi-transparent black) for `light-content` bar style",
+              "patternErrorMessage": "6 character long hex color string `'#RRGGBB'`, for example, `'#000000'` for black. Or 8 character long hex color string `'#RRGGBBAA'`, for example, `'#00000088'` for semi-transparent black."
             },
             "hidden": {
               "description": "Instructs the system whether the status bar should be visible or not. Defaults to `false`",
@@ -1344,7 +1361,8 @@
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
-              "markdownDescription": "Specifies the background color of the navigation bar."
+              "markdownDescription": "Specifies the background color of the navigation bar.",
+              "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
             }
           },
           "additionalProperties": false,
@@ -1373,7 +1391,8 @@
             "standaloneOnly": true,
             "bareWorkflow": "To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
           },
-          "markdownDescription": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
+          "markdownDescription": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
+          "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \"+\", \".\" or \"-\""
         },
         "entryPoint": {
           "description": "The relative path to your main JavaScript file.",
