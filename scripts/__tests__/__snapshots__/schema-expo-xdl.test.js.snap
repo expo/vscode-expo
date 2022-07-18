@@ -72,6 +72,7 @@ Object {
                     "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
                   },
                   "pattern": "^#|(&#x23;)\\\\d{6}$",
+                  "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
                   "type": "string",
                 },
                 "backgroundImage": Object {
@@ -117,6 +118,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "config": Object {
@@ -304,6 +306,7 @@ Object {
                 "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
               },
               "pattern": "^[a-zA-Z][a-zA-Z0-9\\\\_]*(\\\\.[a-zA-Z][a-zA-Z0-9\\\\_]*)+$",
+              "patternErrorMessage": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
               "type": "string",
             },
             "permissions": Object {
@@ -433,6 +436,7 @@ Object {
                     "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
                   },
                   "pattern": "^#|(&#x23;)\\\\d{6}$",
+                  "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
                   "type": "string",
                 },
                 "hdpi": Object {
@@ -574,6 +578,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "barStyle": Object {
@@ -627,6 +632,7 @@ Object {
                 "regexHuman": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               "type": "string",
             },
             "barStyle": Object {
@@ -659,6 +665,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "appKey": Object {
@@ -681,6 +688,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           "type": "string",
         },
         "currentFullName": Object {
@@ -918,6 +926,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "buildNumber": Object {
@@ -945,6 +954,7 @@ Object {
                 "regexHuman": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
               },
               "pattern": "^[a-zA-Z0-9.-]+$",
+              "patternErrorMessage": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
               "type": "string",
             },
             "config": Object {
@@ -1085,6 +1095,7 @@ Object {
                     "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
                   },
                   "pattern": "^#|(&#x23;)\\\\d{6}$",
+                  "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
                   "type": "string",
                 },
                 "image": Object {
@@ -1199,6 +1210,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "backgroundImage": Object {
@@ -1305,6 +1317,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "icon": Object {
@@ -1379,6 +1392,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "privacy": Object {
@@ -1406,6 +1420,7 @@ The runtime version associated with this manifest for bare workflow projects. If
             "regexHuman": "A string beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\" or \\"-\\". Example: \\"1.0.3a+\\".",
           },
           "pattern": "^[a-zA-Z\\\\d][a-zA-Z\\\\d._+-]*$",
+          "patternErrorMessage": "A string beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\" or \\"-\\". Example: \\"1.0.3a+\\".",
           "type": "string",
         },
         "scheme": Object {
@@ -1421,6 +1436,7 @@ The runtime version associated with this manifest for bare workflow projects. If
             "standaloneOnly": true,
           },
           "pattern": "^[a-z][a-z0-9+.-]*$",
+          "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \\"+\\", \\".\\" or \\"-\\"",
           "type": "string",
         },
         "sdkVersion": Object {
@@ -1458,6 +1474,7 @@ The runtime version associated with this manifest for bare workflow projects. If
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "image": Object {
@@ -1547,6 +1564,7 @@ The runtime version associated with this manifest for bare workflow projects. If
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "barStyle": Object {
@@ -1727,6 +1745,7 @@ The runtime version associated with this manifest for bare workflow projects. If
                     "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
                   },
                   "pattern": "^#|(&#x23;)\\\\d{6}$",
+                  "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
                   "type": "string",
                 },
                 "image": Object {
@@ -1768,6 +1787,7 @@ The runtime version associated with this manifest for bare workflow projects. If
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
           },
@@ -1811,6 +1831,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "backgroundImage": Object {
@@ -1856,6 +1877,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "config": Object {
@@ -2043,6 +2065,7 @@ Object {
             "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
           },
           "pattern": "^[a-zA-Z][a-zA-Z0-9\\\\_]*(\\\\.[a-zA-Z][a-zA-Z0-9\\\\_]*)+$",
+          "patternErrorMessage": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
           "type": "string",
         },
         "permissions": Object {
@@ -2172,6 +2195,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "hdpi": Object {
@@ -2389,6 +2413,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "buildNumber": Object {
@@ -2416,6 +2441,7 @@ Object {
             "regexHuman": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
           },
           "pattern": "^[a-zA-Z0-9.-]+$",
+          "patternErrorMessage": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
           "type": "string",
         },
         "config": Object {
@@ -2563,6 +2589,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "image": Object {
@@ -2689,6 +2716,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "image": Object {
@@ -2726,6 +2754,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "barStyle": Object {
@@ -2906,6 +2935,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "image": Object {
@@ -2947,6 +2977,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
       },
@@ -2988,6 +3019,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "barStyle": Object {
@@ -3036,6 +3068,7 @@ Object {
                 "regexHuman": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               "type": "string",
             },
             "barStyle": Object {
@@ -3068,6 +3101,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "appKey": Object {
@@ -3090,6 +3124,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           "type": "string",
         },
         "currentFullName": Object {
@@ -3315,6 +3350,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "icon": Object {
@@ -3417,6 +3453,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "privacy": Object {
@@ -3441,6 +3478,7 @@ The runtime version associated with this manifest for bare workflow projects. If
             "regexHuman": "A string beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\" or \\"-\\". Example: \\"1.0.3a+\\".",
           },
           "pattern": "^[a-zA-Z\\\\d][a-zA-Z\\\\d._+-]*$",
+          "patternErrorMessage": "A string beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\" or \\"-\\". Example: \\"1.0.3a+\\".",
           "type": "string",
         },
         "scheme": Object {
@@ -3456,6 +3494,7 @@ The runtime version associated with this manifest for bare workflow projects. If
             "standaloneOnly": true,
           },
           "pattern": "^[a-z][a-z0-9+.-]*$",
+          "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \\"+\\", \\".\\" or \\"-\\"",
           "type": "string",
         },
         "sdkVersion": Object {
@@ -3566,6 +3605,7 @@ Object {
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "backgroundImage": Object {
@@ -3611,6 +3651,7 @@ Object {
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "blockedPermissions": Object {
@@ -3824,6 +3865,7 @@ Object {
             "regexHuman": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
           },
           "pattern": "^[a-zA-Z][a-zA-Z0-9\\\\_]*(\\\\.[a-zA-Z][a-zA-Z0-9\\\\_]*)+$",
+          "patternErrorMessage": "Reverse DNS notation unique name for your app. Valid Android Application ID. For example, \`com.example.app\`, where \`com.example\` is our domain and \`app\` is our app. The name may only contain lowercase and uppercase letters (a-z, A-Z), numbers (0-9) and underscores (_), separated by periods (.). Each component of the name should start with a lowercase letter.",
           "type": "string",
         },
         "permissions": Object {
@@ -3970,6 +4012,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "hdpi": Object {
@@ -4188,6 +4231,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "bitcode": Object {
@@ -4231,6 +4275,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
           },
           "pattern": "^[a-zA-Z0-9.-]+$",
+          "patternErrorMessage": "iOS bundle identifier notation unique name for your app. For example, \`host.exp.expo\`, where \`exp.host\` is our domain and \`expo\` is our app name.",
           "type": "string",
         },
         "config": Object {
@@ -4399,6 +4444,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "image": Object {
@@ -4513,6 +4559,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "pattern": "^\\\\d+\\\\.\\\\d*0$",
           },
           "pattern": "^[a-zA-Z\\\\d][a-zA-Z\\\\d._+()-]{0,254}$",
+          "patternErrorMessage": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\",\\"(\\", \\")\\", or \\"-\\". May not be a decimal ending in a 0. Valid examples: \\"1.0.3a+\\", \\"1.0.0\\", \\"._+()-0a1\\", \\"0\\".",
           "type": "string",
         },
         Object {
@@ -4520,6 +4567,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \\"exposdk:44.0.0\\".",
           },
           "pattern": "^exposdk:((\\\\d+\\\\.\\\\d+\\\\.\\\\d+)|(UNVERSIONED))$",
+          "patternErrorMessage": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \\"exposdk:44.0.0\\".",
           "type": "string",
         },
         Object {
@@ -4567,6 +4615,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "image": Object {
@@ -4604,6 +4653,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "barStyle": Object {
@@ -4784,6 +4834,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "image": Object {
@@ -4825,6 +4876,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
       },
@@ -4851,6 +4903,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "barStyle": Object {
@@ -4899,6 +4952,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string \`'#RRGGBB'\`, for example, \`'#000000'\` for black. Or 8 character long hex color string \`'#RRGGBBAA'\`, for example, \`'#00000088'\` for semi-transparent black.",
               "type": "string",
             },
             "barStyle": Object {
@@ -4946,6 +5000,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`. Default is white: \`'#ffffff'\`",
           "type": "string",
         },
         "description": Object {
@@ -5182,6 +5237,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
                 "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
               },
               "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
               "type": "string",
             },
             "icon": Object {
@@ -5278,6 +5334,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
           },
           "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
           "type": "string",
         },
         "privacy": Object {
@@ -5315,6 +5372,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
             "standaloneOnly": true,
           },
           "pattern": "^[a-z][a-z0-9+.-]*$",
+          "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \\"+\\", \\".\\" or \\"-\\"",
           "type": "string",
         },
         "sdkVersion": Object {
