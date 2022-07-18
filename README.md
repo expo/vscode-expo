@@ -15,7 +15,7 @@
       <img src="https://img.shields.io/badge/vscode-marketplace-%23000000?style=flat-square" alt="vscode marketplace" />
     </a>
     <a href="https://open-vsx.org/extension/byCedric/vscode-expo">
-      <img src="https://img.shields.io/badge/vscode-open--vsx-%23000000?style=flat-square" alt="vscode open-vsx" />
+      <img src="https://img.shields.io/badge/vscode-open--vsx-%23303030?style=flat-square" alt="vscode open-vsx" />
     </a>
   </p>
   <p align="center">
