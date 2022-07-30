@@ -1060,7 +1060,8 @@
           "type": "string",
           "enum": [
             "nativeVersion",
-            "sdkVersion"
+            "sdkVersion",
+            "appVersion"
           ]
         }
       },
@@ -1070,7 +1071,7 @@
       "additionalProperties": false
     },
     "RuntimeVersion": {
-      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion'; }",
+      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion' | 'appVersion'; }",
       "oneOf": [
         {
           "type": "string",
