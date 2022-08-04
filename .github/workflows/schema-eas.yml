@@ -49,7 +49,7 @@ jobs:
         run: |
           mkdir -p ./schema
           rm -f ./schema/eas.json
-          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.resolved }}/packages/eas-cli/schema/eas.json -o ./schema/eas.json
+          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.resolved }}/packages/eas-cli/schema/eas.json -o ./schema/eas.json
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
