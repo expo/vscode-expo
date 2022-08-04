@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: EAS CLI tag or exact version to use
+        description: EAS CLI tag or exact version to use (without `v`)
         type: string
         default: latest
       storage:
@@ -38,6 +38,24 @@ jobs:
           mkdir -p ./schema
           rm -f ./schema/eas-metadata.json
           curl https://cdn.jsdelivr.net/npm/eas-cli@${{ github.event.inputs.version || 'latest' }}/schema/metadata-0.json -o ./schema/eas-metadata.json
+
+      - name: 🌐 Resolve version
+        id: version
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const inputVersion = "${{ github.event.inputs.version || 'latest' }}";
+            const { stdout: latestVersion } = await exec.getExecOutput('npm', ['view', 'eas-cli', 'dist-tags.latest']);
+
+            inputVersion === 'latest'
+              ? core.setOutput('resolved', latestVersion.trim())
+              : core.setOutput('resolved', inputVersion.trim());
+
+      - name: 👷 Download schema
+        run: |
+          mkdir -p ./schema
+          rm -f ./schema/eas-metadata.json
+          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.resolved }}/packages/eas-cli/schema/metadata-0.json -o ./schema/eas-metadata.json
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
