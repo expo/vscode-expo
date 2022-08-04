@@ -63,8 +63,20 @@ jobs:
         with:
           name: schema-xdl
           path: ./schema/
+      
+      - name: 🕵️ Latest schema
+        id: diff
+        run: |
+          if [ "$(git diff | wc -l)" -gt "0" ]; then
+            echo "⚠️ Schema has changed, see changes below"
+            git diff
+            exit 1
+          else
+            echo "✅ Schema is up-to-date"
+          fi
 
-      - name: 🗂 Store schema
+      - name: 🗂 Update schema
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
         run: |
           git config --global user.name 'Bot'
           git config --global user.email 'github+bot@cedric.dev'
