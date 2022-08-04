@@ -1,0 +1,95 @@
+name: schema-eas
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'scripts/**'
+      - package.json
+  workflow_dispatch:
+    inputs:
+      version:
+        description: EAS CLI tag or exact version to use (without `v`)
+        type: string
+        default: latest
+      storage:
+        description: Update the EAS schema in storage?
+        type: choice
+        default: skip
+        options:
+          - skip
+          - update-schema
+  schedule:
+    # daily at 07:00h UTC
+    - cron: 0 7 * * *
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 🌐 Resolve version
+        id: version
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const inputVersion = "${{ github.event.inputs.version || 'latest' }}";
+            const { stdout: latestVersion } = await exec.getExecOutput('npm', ['view', 'eas-cli', 'dist-tags.latest']);
+
+            inputVersion === 'latest'
+              ? core.setOutput('resolved', latestVersion.trim())
+              : core.setOutput('resolved', inputVersion.trim());
+
+      - name: 👷 Download schema
+        run: |
+          mkdir -p ./schema
+          rm -f ./schema/eas.json
+          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.resolved }}/packages/eas-cli/schema/eas.json -o ./schema/eas.json
+
+      - name: 📋 Upload schema
+        uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          name: schema-eas
+          path: ./schema/eas.json
+
+  publish:
+    if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+        with:
+          ref: schemas
+
+      - name: 📋 Download schema
+        uses: actions/download-artifact@v3
+        with:
+          name: schema-eas
+          path: ./schema/
+
+      - name: 🕵️ Latest schema
+        id: diff
+        run: |
+          if [ "$(git diff | wc -l)" -gt "0" ]; then
+            echo "⚠️ Schema has changed, see changes below"
+            git diff
+            exit 1
+          else
+            echo "✅ Schema is up-to-date"
+          fi
+
+      - name: 🗂 Update schema
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+        run: |
+          git config --global user.name 'Bot'
+          git config --global user.email 'github+bot@cedric.dev'
+          git add ./schema
+          git commit -am "chore: generate eas schema for $(date +"%Y-%m-%dT%H-%M-%S%z")"
+          git push
