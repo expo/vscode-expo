@@ -62,13 +62,15 @@ jobs:
           name: schema-metadata
           path: ./schema/
 
-      - name: 🕵️ Inspect schema
+      - name: 🕵️ Latest schema
         id: diff
         run: |
           if [ "$(git diff | wc -l)" -gt "0" ]; then
             echo "⚠️ Schema has changed, see changes below"
             git diff
             exit 1
+          else
+            echo "✅ Schema is up-to-date"
           fi
 
       - name: 🗂 Update schema
