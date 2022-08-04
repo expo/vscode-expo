@@ -62,7 +62,17 @@ jobs:
           name: schema-metadata
           path: ./schema/
 
-      - name: 🗂 Store schema
+      - name: 🕵️ Inspect schema
+        id: diff
+        run: |
+          if [ "$(git diff | wc -l)" -gt "0" ]; then
+            echo "⚠️ Schema has changed, see changes below"
+            git diff
+            exit 1
+          fi
+
+      - name: 🗂 Update schema
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
         run: |
           git config --global user.name 'Bot'
           git config --global user.email 'github+bot@cedric.dev'
