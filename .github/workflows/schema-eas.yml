@@ -40,10 +40,12 @@ jobs:
           script: |
             const inputVersion = "${{ github.event.inputs.version || 'latest' }}";
             const { stdout: latestVersion } = await exec.getExecOutput('npm', ['view', 'eas-cli', 'dist-tags.latest']);
+            const resolvedVersion = inputVersion === 'latest'
+              ? latestVersion.trim()
+              : inputVersion.trim();
 
-            inputVersion === 'latest'
-              ? core.setOutput('resolved', latestVersion.trim())
-              : core.setOutput('resolved', inputVersion.trim());
+            core.setOutput('resolved', resolvedVersion);
+            console.log('✅ Resolved versions for eas-cli', { inputVersion, latestVersion, resolvedVersion });
 
       - name: 👷 Download schema
         run: |
