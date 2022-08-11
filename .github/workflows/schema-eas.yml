@@ -1,4 +1,4 @@
-name: schema-eas-metadata
+name: schema-eas
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ on:
         type: string
         default: latest
       storage:
-        description: Update the EAS metadata schema in storage?
+        description: Update the EAS schema in storage?
         type: choice
         default: skip
         options:
@@ -50,15 +50,15 @@ jobs:
       - name: 👷 Download schema
         run: |
           mkdir -p ./schema
-          rm -f ./schema/eas-metadata.json
-          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.resolved }}/packages/eas-cli/schema/metadata-0.json -o ./schema/eas-metadata.json
+          rm -f ./schema/eas.json
+          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.resolved }}/packages/eas-json/schema/eas.schema.json -o ./schema/eas.json
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
-          name: schema-metadata
-          path: ./schema/eas-metadata.json
+          name: schema-eas
+          path: ./schema/eas.json
 
   publish:
     if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}
@@ -73,7 +73,7 @@ jobs:
       - name: 📋 Download schema
         uses: actions/download-artifact@v3
         with:
-          name: schema-metadata
+          name: schema-eas
           path: ./schema/
 
       - name: 🕵️ Latest schema
@@ -93,5 +93,5 @@ jobs:
           git config --global user.name 'Bot'
           git config --global user.email 'github+bot@cedric.dev'
           git add ./schema
-          git commit -am "chore: generate eas metadata schema for $(date +"%Y-%m-%dT%H-%M-%S%z")"
+          git commit -am "chore: generate eas schema for $(date +"%Y-%m-%dT%H-%M-%S%z")"
           git push
