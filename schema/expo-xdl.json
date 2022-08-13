@@ -472,13 +472,13 @@
           "patternErrorMessage": "iOS bundle identifier notation unique name for your app. For example, `host.exp.expo`, where `exp.host` is our domain and `expo` is our app name."
         },
         "buildNumber": {
-          "description": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleVersion`",
+          "description": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleVersion`",
           "type": "string",
           "pattern": "^[A-Za-z0-9\\.]+$",
           "meta": {
             "bareWorkflow": "Set this value in `info.plist` under `CFBundleVersion`"
           },
-          "markdownDescription": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleVersion`"
+          "markdownDescription": "Build number for your iOS standalone app. Corresponds to `CFBundleVersion` and must match Apple's [specified format](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleversion). (Note: Transporter will pull the value for `Version Number` from `expo.version` and NOT from `expo.ios.buildNumber`.)\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleVersion`"
         },
         "backgroundColor": {
           "description": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present. Requires `expo-system-ui` be installed in your project to work on iOS.",
