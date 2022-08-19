@@ -1,34 +1,54 @@
-<div align="center">
+<h1 align="center">
+  <a href="http://www.amitmerchant.com/electron-markdownify">
+    <img width="150" alt="Expo for vscode" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" />
+  </a>
   <br />
-  <img src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" alt="vscode-expo" width="200">
-  <br />
-  <h1>Expo for vscode - JSON Schema</h1>
-  <p>This branch holds all JSON Schemas used in <a href="https://github.com/expo/expo">Expo</a> for vscode</p>
-  <p>
-    <a href="https://github.com/expo/vscode-expo/releases">
-      <img src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square" alt="releases" />
-    </a>
-    <a href="https://github.com/expo/vscode-expo#contributors">
-    </a>
-    <a href="https://github.com/expo/vscode-expo/actions">
-      <img src="https://img.shields.io/github/workflow/status/expo/vscode-expo/Build/main.svg?style=flat-square" alt="builds" />
-    </a>
-  </p>
-  <p align="center">
-    <a href="https://github.com/expo/vscode-expo"><b>Back to plugin</b></a>
-    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-    <a href="https://github.com/expo/vscode-expo/commits/schemas"><b>Schema changes</b></a>
-  </p>
-  <br />
-</div>
+  Expo for vscode
+</h1>
 
-## ℹ️ What is this branch?
+<p align="center">
+  <a href="https://github.com/expo/vscode-expo/releases" title="Latest release">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=49505A">
+      <img alt="Latest release" src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=D1D5DA" />
+    </picture>
+  </a>
+  <a href="https://github.com/expo/vscode-expo/actions" title="Workflow status">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=49505A">
+      <img alt="Workflow status" src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=D1D5DA" />
+    </picture>
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo" title="Install from vscode marketplace">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code">
+      <img alt="Install from vscode marketplace" src="https://img.shields.io/badge/vscode-marketplace-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Visual%20Studio%20Code" />
+    </picture>
+  </a>
+  <a href="https://open-vsx.org/extension/byCedric/vscode-expo" title="Install from open vsx">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-open%20vsx-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Eclipse%20IDE" />
+      <img alt="Install from open vsx" src="https://img.shields.io/badge/vscode-open%20vsx-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Eclipse%20IDE" />
+    </picture>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/expo/vscode-expo#readme"><b>Back to plugin</b></a> &nbsp;&mdash;&nbsp;
+  <a href="https://github.com/expo/vscode-expo/commits/schemas"><b>Schema changes</b></a>
+</p>
+
+<br />
+
+This branch holds all JSON Schemas used in [Expo](https://expo.dev) for vscode.
+
+## What is this branch?
 
 To get IntelliSense for Expo tooling in vscode, like [**app.json**](https://docs.expo.dev/versions/latest/config/app/) and **store.config.json**, we import JSON Schemas. We use these JSON Schemas in other Expo tools too, and because of that, the schemas aren't optimized for vscode. In plugin versions `<=0.7.4`, downloading, modifying, and applying the schema was done inside the actual vscode plugin. Although this worked, it did cause unexpected issues like [#87](https://github.com/expo/vscode-expo/issues/87) and [#83](https://github.com/expo/vscode-expo/issues/83).
 
 To avoid these issues, we now pre-process the JSON Schemas in this repository and host the result in this orphaned **schemas** branch.
 
-## 🚀 How it works
+## How it works
 
 If you are lucky to maintain this system, you probably need to know how it works. Because JSON Schemas are supposed to be static, and the basic JSON Schema versions aren't optimized for vscode usage, we need to do some pre-processing. Here are some of the constraints that define the JSON Schema system currently implemented in this repo:
 
@@ -52,10 +72,10 @@ The JSON Schemas are updated automatically through GitHub Actions. The workflows
 
 #### Schema workflows
 
-- [`eas.json`](./schema/eas.json) - Managed by the [schema-eas.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-eas.yml) workflow.
-- [`eas-metadata.json`](./schema/eas-metadata.json) - Managed by the [schema-metadata.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-metadata.yml) workflow.
-- [`expo-module.json`](./schema/expo-module.json) - Workflow TBD (see issue [#113](https://github.com/expo/vscode-expo/issues/113))
-- [`expo-xdl.json`](./schema/expo-xdl.json) - Managed by the [schema-xdl.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-xdl.yml) workflow.
+- [`eas.json`](./schema/eas.json) → Managed by the [schema-eas.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-eas.yml) workflow.
+- [`eas-metadata.json`](./schema/eas-metadata.json) → Managed by the [schema-metadata.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-metadata.yml) workflow.
+- [`expo-module.json`](./schema/expo-module.json) → _Workflow TBD (see issue [#113](https://github.com/expo/vscode-expo/issues/113))_
+- [`expo-xdl.json`](./schema/expo-xdl.json) → Managed by the [schema-xdl.yml](https://github.com/expo/vscode-expo/blob/main/.github/workflows/schema-xdl.yml) workflow.
 
 ### Adding more schemas
 
