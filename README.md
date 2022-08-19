@@ -1,84 +1,98 @@
-<div align="center">
+<h1 align="center">
+  <a href="http://www.amitmerchant.com/electron-markdownify">
+    <img width="150" alt="Expo for vscode" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" />
+  </a>
   <br />
-  <img src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" alt="vscode-expo" width="200">
-  <br />
-  <h1>Expo for vscode</h1>
-  <p>Complementary <a href="https://github.com/expo/expo">Expo</a> tools for vscode</p>
-  <p>
-    <a href="https://github.com/expo/vscode-expo/releases">
-      <img src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square" alt="releases" />
-    </a>
-    <a href="https://github.com/expo/vscode-expo/actions">
-      <img src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square" alt="builds" />
-    </a>
-    <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo">
-      <img src="https://img.shields.io/badge/vscode-marketplace-%23000000?style=flat-square" alt="vscode marketplace" />
-    </a>
-    <a href="https://open-vsx.org/extension/byCedric/vscode-expo">
-      <img src="https://img.shields.io/badge/vscode-open--vsx-%23303030?style=flat-square" alt="vscode open-vsx" />
-    </a>
-  </p>
-  <p align="center">
-    <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo"><b>Install</b></a>
-    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
-    <a href="https://github.com/expo/vscode-expo/blob/main/CHANGELOG.md"><b>Changelog</b></a>
-  </p>
-  <br />
-  <div align="center">
-    <img src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/feature-autocomplete.gif" alt="vscode-expo overview">
-  </div>
-  <br />
-</div>
+  Expo for vscode
+</h1>
 
-## Features
+<p align="center">
+  <a href="https://github.com/expo/vscode-expo/releases" title="Latest release">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=49505A">
+      <img alt="Latest release" src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=D1D5DA" />
+    </picture>
+  </a>
+  <a href="https://github.com/expo/vscode-expo/actions" title="Workflow status">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=49505A">
+      <img alt="Workflow status" src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=D1D5DA" />
+    </picture>
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo" title="Install from vscode marketplace">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code">
+      <img alt="Install from vscode marketplace" src="https://img.shields.io/badge/vscode-marketplace-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Visual%20Studio%20Code" />
+    </picture>
+  </a>
+  <a href="https://open-vsx.org/extension/byCedric/vscode-expo" title="Install from open vsx">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-open%20vsx-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Eclipse%20IDE" />
+      <img alt="Install from open vsx" src="https://img.shields.io/badge/vscode-open%20vsx-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Eclipse%20IDE" />
+    </picture>
+  </a>
+</p>
 
-- Autocomplete and validation of your `app.json` or `app.config.json` manifest.
-- Automatic [config plugins](https://docs.expo.io/guides/config-plugins/) validation and IntelliSense.
+<p align="center">
+  <a href="https://github.com/expo/vscode-expo#intellisense-for-expo-configs">IntelliSense</a> &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+  <a href="https://github.com/expo/vscode-expo#live-preview-for-native-files">Preview prebuild</a> &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+  <a href="https://github.com/expo/vscode-expo/blob/main/CHANGELOG.md">Changelog</a> &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+  <a href="https://github.com/expo/vscode-expo/blob/main/CONTRIBUTING.md">Contribute</a>
+</p>
 
-## Commands
+<br />
 
-We also provide some commands that helps you get the most out of Expo.
+Expo for vscode adds suggestions and docs for all Expo config. It also shows live previews for native files from prebuild, right in your editor!
 
-### `Expo: Preview Modifier`
+<br />
 
-Preview the introspected result as native code from your app manifest or config plugin. The following file types are supported:
+## IntelliSense for Expo configs
 
-- [iOS Entitlements](https://docs.expo.io/build-reference/ios-capabilities/#entitlements) - File written to `ios/[app]/[app].entitlements`.
-- [iOS Info Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Info.plist`.
-- [iOS Expo Plist](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) - File written to `ios/[app]/Supporting/Expo.plist`.
+<img alt="Expo config IntelliSense example" align="right" width="45%" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/feature-autocomplete.gif" />
 
-- [Android Color Resources](https://developer.android.com/guide/topics/resources/more-resources#Color) - File writen to `android/app/src/main/res/values/colors.xml`.
-- [Android Style Resources](https://developer.android.com/guide/topics/resources/style-resource) - File writen to `android/app/src/main/res/values/styles.xml`.
-- [Android String Resources](https://developer.android.com/guide/topics/resources/string-resource) - File writen to `android/app/src/main/res/values/strings.xml`.
-- [Android Manifest](https://developer.android.com/guide/topics/manifest/manifest-intro) - File written to `android/app/src/main/AndroidManifest.xml`.
-- [Android Gradle Properties](https://developer.android.com/studio/build#properties-files) - File written to `android/gradle.properties`.
+Get suggestions and docs where you need them the most.
 
-### `Expo: Preview Config`
+- EAS Build / Submit / Update → [`eas.json`](https://docs.expo.dev/build-reference/eas-json/) 
+- EAS Metadata → [`store.config.json`](https://docs.expo.dev/eas-metadata/introduction/)
+- Expo Manifest → [`app.json`](https://docs.expo.dev/versions/v46.0.0/config/app/)
+- Expo Modules → [`expo-module.config.json`](https://docs.expo.dev/modules/overview/)
 
-Preview the built manifest from your app manifest. You can do that for either:
+<br />
+<br />
+<br />
 
-- **prebuild** - The local manifest when running prebuild or eject, including all config plugins and modifiers.
-- **introspect** - The evaluated results for for static config plugins modifiers.
-- **public** - The hosted manifest for OTA updates.
+## Live preview for prebuild
 
-## Contributors
+See how your changes in **app.json** or **app.config.js** would affect the native files created by [`npx expo prebuild`](https://docs.expo.dev/workflow/prebuild/). The previews are generated whenever you save the app manifest and won't affect existing files.
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification ([emoji key](https://allcontributors.org/docs/en/emoji-key)). Contributions of any kind welcome!
+> Open **app.json** or **app.config.js** and run the **`Expo: Preview Modifier`** command.
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo/vscode-expo/commits?author=byCedric" title="Code">💻</a> <a href="https://github.com/expo/vscode-expo/commits?author=byCedric" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://jb1905.github.io/portfolio/"><img src="https://avatars2.githubusercontent.com/u/28870390?v=4" width="100px;" alt=""/><br /><sub><b>Jakub Biesiada</b></sub></a><br /><a href="https://github.com/expo/vscode-expo/commits?author=JB1905" title="Code">💻</a></td>
-    <td align="center"><a href="https://jameside.com"><img src="https://avatars0.githubusercontent.com/u/379606?v=4" width="100px;" alt=""/><br /><sub><b>James Ide</b></sub></a><br /><a href="https://github.com/expo/vscode-expo/commits?author=ide" title="Code">💻</a></td>
-    <td align="center"><a href="https://evanbacon.dev/"><img src="https://avatars0.githubusercontent.com/u/9664363?v=4" width="100px;" alt=""/><br /><sub><b>Evan Bacon</b></sub></a><br /><a href="https://github.com/expo/vscode-expo/commits?author=EvanBacon" title="Code">💻</a></td>
-  </tr>
-</table>
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+### Supported Android files
+
+- [`AndroidManifest.xml`](https://developer.android.com/guide/topics/manifest/manifest-intro) → App manifest with settings for build tools, Android, and Google Play.
+- [`gradle.properties`](https://developer.android.com/studio/build#properties-files) → Configuration for the Grdle build toolkit itself.
+- [`colors.xml`](https://developer.android.com/guide/topics/resources/more-resources#Color) → Color resources defining the color and opacity.
+- [`strings.xml`](https://developer.android.com/guide/topics/resources/string-resource) → String resources defining string content, styling, and formatting.
+- [`styles.xml`](https://developer.android.com/guide/topics/resources/style-resource) → Style resources defining the format and look for a UI element.
+
+### Supported iOS files
+
+- [`Info.plist`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) → Property list with core config for the app.
+- [`[name].entitlements`](https://docs.expo.dev/build-reference/ios-capabilities/#entitlements) → Property list enabling permission to use services.
+- [`Expo.plist`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html) → Supporting property list with config for Expo.
+- [`Podfile.properties.json`](https://github.com/expo/fyi/blob/main/hermes-ios-config.md#create-iospodfilepropertiesjson) → JSON file with install or build config.
+
+<br />
+
+## Live preview for manifest
+
+Preview the generated manifests for your app. You can do this for the different config types listed below.
+
+> Open **app.json** or **app.config.js** and run the **`Expo: Preview Config`** command.
+
+- **prebuild** - The local app manifest when running `npx expo prebuild`.
+- **introspect** - The evaluated app manifest result when running `npx expo prebuild`.
+- **public** - The hosted manifest when using OTA updates.
 
 <div align="center">
   <br />
