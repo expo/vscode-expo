@@ -1,13 +1,11 @@
 name: publish
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       tag:
-        type: text
-        description: Tag name to run from
+        description: The tag to publish
+        required: true
 
 jobs:
   github-release:
@@ -16,11 +14,6 @@ jobs:
       contents: write
     steps:
       - name: 🏗 Setup repo
-        if: ${{ !github.event.inputs.tag }}
-        uses: actions/checkout@v3
-
-      - name: 🏗 Setup repo from tag
-        if: ${{ github.event.inputs.tag }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.tag }}
@@ -35,16 +28,12 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: vscode-expo-*.vsix
+          tag_name: ${{ github.event.inputs.tag }}
 
   vscode-marketplace:
     runs-on: ubuntu-latest
     steps:
-      - name: 🏗 Setup repo
-        if: ${{ !github.event.inputs.tag }}
-        uses: actions/checkout@v3
-
       - name: 🏗 Setup repo from tag
-        if: ${{ github.event.inputs.tag }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.tag }}
@@ -60,12 +49,7 @@ jobs:
   open-vsx:
     runs-on: ubuntu-latest
     steps:
-      - name: 🏗 Setup repo
-        if: ${{ !github.event.inputs.tag }}
-        uses: actions/checkout@v3
-
       - name: 🏗 Setup repo from tag
-        if: ${{ github.event.inputs.tag }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.tag }}
