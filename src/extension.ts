@@ -6,9 +6,11 @@ import { setupPreview } from './preview/setupPreview';
 
 export async function activate(context: vscode.ExtensionContext) {
   try {
-    await setupXdlManifest(context);
-    await setupCompletionItemProvider(context);
-    await setupPreview(context);
+    await Promise.all([
+      setupXdlManifest(context),
+      setupCompletionItemProvider(context),
+      setupPreview(context),
+    ]);
   } catch (error) {
     vscode.window.showErrorMessage(
       `Oops, looks like we can't fully activate Expo Tools: ${error.message}`
