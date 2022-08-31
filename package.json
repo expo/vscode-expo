@@ -5,13 +5,17 @@
   "description": "Expo for vscode keeps you productive with intellisense and prebuild previews",
   "keywords": [
     "expo",
+    "eas",
+    "build",
+    "metadata",
+    "submit",
     "vscode"
   ],
   "license": "MIT",
   "author": {
-    "email": "me@bycedric.com",
+    "email": "npm@cedric.dev",
     "name": "Cedric van Putten",
-    "url": "https://bycedric.com"
+    "url": "https://cedric.dev"
   },
   "publisher": "byCedric",
   "icon": "images/logo-marketplace.png",
@@ -25,7 +29,7 @@
   },
   "main": "./out/src/extension.js",
   "engines": {
-    "vscode": "^1.46.0"
+    "vscode": "^1.59.0"
   },
   "categories": [
     "Other"
@@ -96,7 +100,7 @@
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.56",
-    "@types/vscode": "^1.46.0",
+    "@types/vscode": "^1.59.0",
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
     "@vscode/test-electron": "^2.1.5",
