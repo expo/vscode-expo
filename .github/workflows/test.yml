@@ -80,6 +80,7 @@ jobs:
         uses: ./.github/actions/setup-project
         with:
           with-fixture: true
+          without-cache: ${{ matrix.os == 'windows-latest' }}
 
       - name: 👷 Build project
         run: yarn build
