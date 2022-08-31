@@ -3,6 +3,11 @@ name: publish
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: text
+        description: Tag name to run from
 
 jobs:
   github-release:
@@ -11,7 +16,14 @@ jobs:
       contents: write
     steps:
       - name: 🏗 Setup repo
+        if: ${{ !github.event.inputs.tag }}
         uses: actions/checkout@v3
+
+      - name: 🏗 Setup repo from tag
+        if: ${{ github.event.inputs.tag }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -28,7 +40,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
+        if: ${{ !github.event.inputs.tag }}
         uses: actions/checkout@v3
+
+      - name: 🏗 Setup repo from tag
+        if: ${{ github.event.inputs.tag }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -42,7 +61,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
+        if: ${{ !github.event.inputs.tag }}
         uses: actions/checkout@v3
+
+      - name: 🏗 Setup repo from tag
+        if: ${{ github.event.inputs.tag }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
