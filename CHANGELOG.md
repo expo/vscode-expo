@@ -1,3 +1,23 @@
+## [0.8.1](https://github.com/expo/vscode-expo/compare/0.8.0...0.8.1) (2022-08-31)
+
+
+### Code changes
+
+* remove old global config manifest code ([#124](https://github.com/expo/vscode-expo/issues/124)) ([5b4d675](https://github.com/expo/vscode-expo/commit/5b4d675dc8b4d097b4471ea9ee3182c081a767ba))
+* update components and minor refactors ([#129](https://github.com/expo/vscode-expo/issues/129)) ([e31dc08](https://github.com/expo/vscode-expo/commit/e31dc08d2eeadeb6898f32a11c5a052da51135c8))
+
+
+### Other chores
+
+* add automated eas schema workflow ([#126](https://github.com/expo/vscode-expo/issues/126)) ([6fa5182](https://github.com/expo/vscode-expo/commit/6fa5182b9b1666a96ab32bf5075f29a4cb9ca03e))
+* bump terser from 5.9.0 to 5.14.2 ([#123](https://github.com/expo/vscode-expo/issues/123)) ([4dc492e](https://github.com/expo/vscode-expo/commit/4dc492e8ac2b3d1a1e52257b5a8399f7672393ad))
+* only commit schema changes when actually changed ([#125](https://github.com/expo/vscode-expo/issues/125)) ([55fdf49](https://github.com/expo/vscode-expo/commit/55fdf49cd4a2e1047df58829a6a13a834e908025))
+
+
+### Documentation changes
+
+* rework the header of the readme ([#128](https://github.com/expo/vscode-expo/issues/128)) ([92079ac](https://github.com/expo/vscode-expo/commit/92079ac8bef7ba7767fdc8b657d828bb03287f13))
+
 ## [0.8.0](https://github.com/expo/vscode-expo/compare/0.7.4...0.8.0) (2022-07-18)
 
 
