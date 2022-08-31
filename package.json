@@ -2,16 +2,20 @@
   "name": "vscode-expo",
   "displayName": "Expo Tools",
   "version": "0.8.0",
-  "description": "Expo tools for vscode",
+  "description": "Expo for vscode keeps you productive with intellisense and prebuild previews",
   "keywords": [
     "expo",
+    "eas",
+    "build",
+    "metadata",
+    "submit",
     "vscode"
   ],
   "license": "MIT",
   "author": {
-    "email": "me@bycedric.com",
+    "email": "npm@cedric.dev",
     "name": "Cedric van Putten",
-    "url": "https://bycedric.com"
+    "url": "https://cedric.dev"
   },
   "publisher": "byCedric",
   "icon": "images/logo-marketplace.png",
@@ -25,7 +29,7 @@
   },
   "main": "./out/src/extension.js",
   "engines": {
-    "vscode": "^1.46.0"
+    "vscode": "^1.59.0"
   },
   "categories": [
     "Other"
@@ -92,12 +96,11 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@sucrase/webpack-loader": "^2.0.0",
-    "@tsconfig/node12": "^1.0.7",
+    "@tsconfig/node16": "^1.0.3",
     "@types/jest": "^26.0.23",
-    "@types/json-schema-traverse": "^0.4.0",
     "@types/minimatch": "^3.0.5",
-    "@types/node": "^14.6.0",
-    "@types/vscode": "^1.46.0",
+    "@types/node": "^16.11.56",
+    "@types/vscode": "^1.59.0",
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
     "@vscode/test-electron": "^2.1.5",
@@ -122,7 +125,7 @@
     "semantic-release": "^19.0.3",
     "semver": "^7.3.7",
     "sucrase": "^3.20.3",
-    "typescript": "^4.4.4",
+    "typescript": "^4.8.2",
     "vsce": "^2.9.2",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0"
