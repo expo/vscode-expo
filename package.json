@@ -94,7 +94,6 @@
     "@sucrase/webpack-loader": "^2.0.0",
     "@tsconfig/node16": "^1.0.3",
     "@types/jest": "^26.0.23",
-    "@types/json-schema-traverse": "^1.0.0",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.56",
     "@types/vscode": "^1.46.0",
