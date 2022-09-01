@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="http://www.amitmerchant.com/electron-markdownify">
+  <a href="https://docs.expo.dev">
     <img width="150" alt="Expo for vscode" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" />
   </a>
   <br />
@@ -53,9 +53,9 @@ Expo for vscode adds suggestions and docs for all Expo config. It also shows liv
 
 Get suggestions and docs where you need them the most.
 
-- EAS Build / Submit / Update → [`eas.json`](https://docs.expo.dev/build-reference/eas-json/) 
+- EAS Build / Submit / Update → [`eas.json`](https://docs.expo.dev/build-reference/eas-json/)
 - EAS Metadata → [`store.config.json`](https://docs.expo.dev/eas-metadata/introduction/)
-- Expo Manifest → [`app.json`](https://docs.expo.dev/versions/v46.0.0/config/app/)
+- Expo Manifest → [`app.json`](https://docs.expo.dev/versions/latest/config/app/)
 - Expo Modules → [`expo-module.config.json`](https://docs.expo.dev/modules/overview/)
 
 <br />
@@ -97,6 +97,6 @@ Preview the generated manifests for your app. You can do this for the different 
 
 <div align="center">
   <br />
-  with&nbsp;:heart:&nbsp;&nbsp;<strong>byCedric</strong>
+  with&nbsp;❤️&nbsp;&nbsp;<strong>byCedric</strong>
   <br />
 </div>
