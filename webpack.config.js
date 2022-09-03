@@ -37,8 +37,10 @@ module.exports = {
   ],
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.EXPO_DEBUG': JSON.stringify(process.env.EXPO_DEBUG),
-      'process.env.TELEMETRY_KEY': JSON.stringify(process.env.TELEMETRY_KEY),
+      'process.env.VSCODE_EXPO_DEBUG': JSON.stringify(process.env.VSCODE_EXPO_DEBUG),
+      'process.env.VSCODE_EXPO_TELEMETRY_KEY': JSON.stringify(
+        process.env.VSCODE_EXPO_TELEMETRY_KEY
+      ),
     }),
   ],
   resolve: {

@@ -7,7 +7,7 @@ export const TAG = 'vscode-expo';
 export const debug = Debug(TAG);
 
 // vscode doesn't pipe the `DEBUG` environment variable,
-// so we use `EXPO_DEBUG` instead.
-if (process.env.EXPO_DEBUG) {
-  Debug.enable(process.env.EXPO_DEBUG);
+// so we use `VSCODE_EXPO_DEBUG` instead.
+if (process.env.VSCODE_EXPO_DEBUG) {
+  Debug.enable(process.env.VSCODE_EXPO_DEBUG);
 }

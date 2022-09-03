@@ -8,8 +8,8 @@ runTests({
   extensionDevelopmentPath: rootDir,
   extensionTestsPath: path.resolve(__dirname, './runner'),
   extensionTestsEnv: {
-    EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
-    TELEMETRY_KEY: '', // always disable telemetry in tests
+    VSCODE_EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
+    VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
   },
   launchArgs: [path.resolve(rootDir, './test/fixture'), '--disable-extensions'],
   version: process.env.VSCODE_VERSION,

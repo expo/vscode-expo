@@ -15,8 +15,8 @@
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "TELEMETRY_KEY": null,
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -33,8 +33,8 @@
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "TELEMETRY_KEY": null
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -53,8 +53,8 @@
         "--disable-extensions"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "TELEMETRY_KEY": null
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -73,8 +73,8 @@
         "--disable-extensions"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "TELEMETRY_KEY": null
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -93,8 +93,8 @@
         "--disable-extensions"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "TELEMETRY_KEY": null
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
@@ -112,9 +112,9 @@
         "--disable-extensions"
       ],
       "env": {
-        "EXPO_DEBUG": "vscode-expo*",
-        "JEST_UPDATE_SNAPSHOTS": "true",
-        "TELEMETRY_KEY": null
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
+        "JEST_UPDATE_SNAPSHOTS": "true"
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"

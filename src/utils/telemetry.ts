@@ -9,7 +9,7 @@ import { debug } from './debug';
 const log = debug.extend('telemetry');
 
 /** The telemetry instrumentation key */
-const telemetryKey = process.env.TELEMETRY_KEY;
+const telemetryKey = process.env.VSCODE_EXPO_TELEMETRY_KEY;
 
 /** The telemetry singleton instance */
 export let reporter: TelemetryReporter | null = null;
