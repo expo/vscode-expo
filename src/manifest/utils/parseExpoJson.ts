@@ -1,4 +1,4 @@
-import { Node, ParseError, parseTree } from 'jsonc-parser';
+import { Node, ParseError, parseTree, findNodeAtLocation } from 'jsonc-parser';
 import path from 'path';
 import { TextDocument } from 'vscode';
 
@@ -19,27 +19,21 @@ export function parseExpoJson(text: string): { node: Node | undefined; errors: P
   if (text in expoJsonCache) {
     return { node: expoJsonCache[text], errors: [] };
   }
+
   const errors: ParseError[] = [];
-  function findUpExpoObject(node: Node | undefined): Node | undefined {
-    if (node?.children) {
-      for (const child of node.children) {
-        if (
-          child.type === 'property' &&
-          child.children?.[0]?.value === 'expo' &&
-          child.children?.[1]?.type === 'object'
-        ) {
-          return findUpExpoObject(child.children[1]);
-        }
-      }
-    }
-    return node;
+  const tree = parseTree(text, errors);
+
+  if (!tree) {
+    return { errors, node: undefined };
   }
-  // Ensure we get the expo object if it exists.
-  const node = findUpExpoObject(parseTree(text, errors));
-  if (node) {
+
+  const expo = findNodeAtLocation(tree, ['expo']);
+
+  if (expo) {
     expoJsonCache = {
-      [text]: node,
+      [text]: expo,
     };
   }
-  return { node, errors };
+
+  return { errors, node: expo };
 }

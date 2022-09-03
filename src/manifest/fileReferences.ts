@@ -1,7 +1,7 @@
 import { Node } from 'jsonc-parser';
 import { Range, TextDocument } from 'vscode';
 
-import { getPluginsArrayNode, rangeForOffset } from './utils/iteratePlugins';
+import { findPluginsNode, rangeForOffset } from './utils/iteratePlugins';
 
 function rangeForMatch(document: TextDocument, match: { index: number; length: number }) {
   return new Range(
@@ -15,7 +15,7 @@ export function iterateFileReferences(
   node: Node | undefined,
   callback: (props: { fileReference: string; range: Range; match: RegExpMatchArray }) => void
 ) {
-  const pluginsNode = getPluginsArrayNode(node);
+  const pluginsNode = findPluginsNode(node);
   const pluginsRange = pluginsNode ? rangeForOffset(document, pluginsNode) : null;
 
   const matches = document.getText().matchAll(/"(\.\/.*)"/g);
