@@ -3,6 +3,7 @@ import JsonFile from '@expo/json-file';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import { isManifestFileReferencesEnabled } from '../../settings';
 import { Config, getConfiguration } from './configuration/getConfiguration';
 import { createNodeModuleItem, createPathCompletionItem } from './createCompletionItem';
 import { Context, createContext, ResolveType } from './createContext';
@@ -12,6 +13,10 @@ export async function provideCompletionItems(
   document: vscode.TextDocument,
   position: vscode.Position
 ): Promise<vscode.CompletionItem[]> {
+  if (!isManifestFileReferencesEnabled(document)) {
+    return [];
+  }
+
   const context = createContext(document, position);
 
   if (!context) {
