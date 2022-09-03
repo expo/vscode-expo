@@ -1,5 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
 
+/** @type {import('webpack').Configuration} */
 module.exports = {
   target: 'node',
   entry: './src/extension.ts',
@@ -32,6 +34,14 @@ module.exports = {
     // Webpack both shortens the `require: require` -> `require` and replaces require with an internal `__webpack_require(xxx)`.
     // It's kinda stupid, `{ __webpack_require(xxx) }` is invalid, but we don't need this library within the bundle.
     'html-webpack-plugin',
+  ],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.VSCODE_EXPO_DEBUG': JSON.stringify(process.env.VSCODE_EXPO_DEBUG),
+      'process.env.VSCODE_EXPO_TELEMETRY_KEY': JSON.stringify(
+        process.env.VSCODE_EXPO_TELEMETRY_KEY
+      ),
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
