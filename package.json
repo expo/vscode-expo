@@ -78,7 +78,45 @@
         "command": "expo.config.prebuild.preview.json",
         "title": "Preview modifier as JSON"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Expo Tools",
+      "properties": {
+        "expo.appManifest.pluginValidation": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Validate the config plugins in app manifests, listed under \"expo.plugins\". This only applies to \"app.json\" and \"app.config.json\" files.",
+          "markdownDescription": "Validate the config plugins in app manifests, listed under `expo.plugins`. This only applies to `app.json` and `app.config.json` files."
+        },
+        "expo.appManifest.fileReferences": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Enable suggestions for file references in app manifests, like the splash screen. This only applies to \"app.json\" and \"app.config.json\" files.",
+          "markdownDescription": "Enable suggestions for file references in app manifests, like the splash screen This only applies to `app.json` and `app.config.json` files."
+        },
+        "expo.appManifest.fileReferences.showHiddenFiles": {
+          "type": "boolean",
+          "default": false,
+          "scope": "resource",
+          "description": "Show hidden file suggestions for file references in app manifests, like the icon image.",
+          "markdownDescription": "Show hidden file suggestions for file references in app manifests, like the icon image."
+        },
+        "expo.appManifest.fileReferences.excludeGlobPatterns": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "boolean",
+              "default": true,
+              "description": "Enable or disable file references matching the glob pattern."
+            }
+          },
+          "scope": "resource",
+          "description": "Exclude file suggestions for file references in app manifest, using glob patterns."
+        }
+      }
+    }
   },
   "scripts": {
     "postinstall": "patch-package",

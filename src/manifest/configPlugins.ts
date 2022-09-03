@@ -17,9 +17,9 @@ import {
   workspace,
 } from 'vscode';
 
+import { isManifestFileReferencesEnabled, isManifestPluginValidationEnabled } from '../settings';
 import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
-import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
 import {
   iteratePluginNames,
@@ -66,13 +66,15 @@ export function setupDefinition() {
       });
 
       // Add links for any random file references starting with `"./` that aren't inside of the `plugins` array.
-      iterateFileReferences(document, node, ({ range, fileReference }) => {
-        const filePath = path.join(projectRoot, fileReference);
-        const linkUri = Uri.file(filePath);
-        const link = new DocumentLink(range, linkUri);
-        link.tooltip = 'Go to asset';
-        links.push(link);
-      });
+      if (isManifestFileReferencesEnabled(document)) {
+        iterateFileReferences(document, node, ({ range, fileReference }) => {
+          const filePath = path.join(projectRoot, fileReference);
+          const linkUri = Uri.file(filePath);
+          const link = new DocumentLink(range, linkUri);
+          link.tooltip = 'Go to asset';
+          links.push(link);
+        });
+      }
 
       return links;
     },
@@ -120,7 +122,7 @@ function clearDiagnosticCollection() {
 }
 
 async function validateDocument(document: TextDocument) {
-  if (!isConfigPluginValidationEnabled(document)) {
+  if (!isManifestPluginValidationEnabled(document)) {
     clearDiagnosticCollection();
     return;
   }
