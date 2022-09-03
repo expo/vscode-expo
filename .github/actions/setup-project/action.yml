@@ -9,11 +9,16 @@ inputs:
   with-fixture:
     description: If the setup should install the test/fixture files
     type: boolean
+  
+  without-cache:
+    description: If the Yarn cache should not be used
+    type: boolean
 
 runs:
   using: composite
   steps:
-    - name: 🏗 Setup Node
+    - name: 🏗 Setup Node with cache
+      if: ${{ inputs.without-cache != 'true' }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
@@ -21,6 +26,12 @@ runs:
         cache-dependency-path: |
           yarn.lock
           test/fixture/yarn.lock
+
+    - name: 🏗 Setup Node without cache
+      if: ${{ inputs.without-cache == 'true' }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
 
     - name: 📦 Install dependencies
       run: yarn install --frozen-lockfile
