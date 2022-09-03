@@ -1,3 +1,30 @@
+## [0.9.0](https://github.com/expo/vscode-expo/compare/0.8.1...0.9.0) (2022-09-03)
+
+
+### New features
+
+* add configuration options to the extension ([#132](https://github.com/expo/vscode-expo/issues/132)) ([3b2d38b](https://github.com/expo/vscode-expo/commit/3b2d38b73e348f40d5c27426e5be05789ed8b566))
+
+
+### Bug fixes
+
+* set command category instead of in title ([#133](https://github.com/expo/vscode-expo/issues/133)) ([3dcd3b3](https://github.com/expo/vscode-expo/commit/3dcd3b39f498f8896d28c6086a28b685bd7e8420))
+
+
+### Other chores
+
+* add option to disable cache ([#130](https://github.com/expo/vscode-expo/issues/130)) ([f166546](https://github.com/expo/vscode-expo/commit/f166546a267b217560ccb6a2a1dd851cd373c696))
+* add telemetry to extension ([#131](https://github.com/expo/vscode-expo/issues/131)) ([b61108e](https://github.com/expo/vscode-expo/commit/b61108e884008eec69a5b09418c17534706f035e))
+* keep running tests even when one fails ([7a41f41](https://github.com/expo/vscode-expo/commit/7a41f41e5ab5eb053fd1a27252959af9d81bc026))
+* make publish runnable from manual tag ([50b4c68](https://github.com/expo/vscode-expo/commit/50b4c68e2458d6122bad8d36516e1683b5c02a56))
+* remove unsued configuration ([11a6ab9](https://github.com/expo/vscode-expo/commit/11a6ab96b9efddc330bb4746912598fb043c1f3d))
+* simplify publish workflow ([c6abad2](https://github.com/expo/vscode-expo/commit/c6abad245aafdc37cbafc1f1d456e4880eb0f1dd))
+
+
+### Documentation changes
+
+* update readme links ([ef8b999](https://github.com/expo/vscode-expo/commit/ef8b999e095a14b1a2460e43ebc0afe15f3303c6))
+
 ## [0.8.1](https://github.com/expo/vscode-expo/compare/0.8.0...0.8.1) (2022-08-31)
 
 
