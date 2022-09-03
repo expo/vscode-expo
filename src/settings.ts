@@ -31,9 +31,9 @@ export function getManifestFileReferencesConfig(scope?: ConfigurationScope) {
 
   return {
     showHiddenFiles: config.get<boolean>('showHiddenFiles', false),
-    filesExclude: config.get<Record<string, string>>('excludeGlobPatterns') || null,
+    filesExclude: config.get<Record<string, string> | null>('excludeGlobPatterns', null),
     // TODO(cedric): Check if the settings blow this comment are still required
     absolutePathToWorkspace: config.get<boolean>('useAbsolutePathsForFileReferences', false),
-    mappings: config.get<Record<string, string> | null>('mappings') || null,
+    mappings: config.get<Record<string, string> | null>('mappings', null),
   };
 }
