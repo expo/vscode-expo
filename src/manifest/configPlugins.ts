@@ -17,9 +17,9 @@ import {
   workspace,
 } from 'vscode';
 
+import { shouldValidatePlugins } from '../settings';
 import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
-import { isConfigPluginValidationEnabled } from './settings';
 import { ThrottledDelayer } from './utils/async';
 import {
   iteratePluginNames,
@@ -120,7 +120,7 @@ function clearDiagnosticCollection() {
 }
 
 async function validateDocument(document: TextDocument) {
-  if (!isConfigPluginValidationEnabled(document)) {
+  if (!shouldValidatePlugins(document)) {
     clearDiagnosticCollection();
     return;
   }

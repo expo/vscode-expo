@@ -75,7 +75,18 @@
         "command": "expo.config.prebuild.preview.json",
         "title": "Expo: Preview modifier as JSON"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Expo Tools",
+      "properties": {
+        "expo.plugins.validate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate the config plugins in app manifests, listed under \"expo.plugins\". This only applies to \"app.json\" and \"app.config.json\" files. – Learn more: https://docs.expo.dev/versions/v46.0.0/config/app/#plugins",
+          "markdownDescription": "Validate the config plugins in app manifests, listed under `expo.plugins`. This only applies to `app.json` and `app.config.json` files. – [Learn more](https://docs.expo.dev/versions/latest/config/app/#plugins)"
+        }
+      }
+    }
   },
   "scripts": {
     "postinstall": "patch-package",
