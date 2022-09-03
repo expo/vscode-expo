@@ -69,6 +69,7 @@ jobs:
   vscode:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         vscode: [oldest, stable]
@@ -92,7 +93,7 @@ jobs:
           script: |
             const { engines } = require('./package.json')
             const vscode = '${{ matrix.vscode }}'
-            const target = vscode === 'oldest' 
+            const target = vscode === 'oldest'
                 ? engines.vscode.substring(1)
                 : vscode
             core.exportVariable('VSCODE_VERSION', target)
