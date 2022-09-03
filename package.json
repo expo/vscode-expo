@@ -64,16 +64,19 @@
     ],
     "commands": [
       {
+        "category": "Expo",
         "command": "expo.config.preview",
-        "title": "Expo: Preview config"
+        "title": "Preview config"
       },
       {
+        "category": "Expo",
         "command": "expo.config.prebuild.preview",
-        "title": "Expo: Preview modifier"
+        "title": "Preview modifier"
       },
       {
+        "category": "Expo",
         "command": "expo.config.prebuild.preview.json",
-        "title": "Expo: Preview modifier as JSON"
+        "title": "Preview modifier as JSON"
       }
     ]
   },
