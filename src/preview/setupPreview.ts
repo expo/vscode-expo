@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { reporter, TelemetryEvent } from '../utils/telemetry';
 import { CodeProvider } from './CodeProvider';
 import {
   ExpoConfigType,
@@ -88,6 +89,8 @@ export function setupPreview(context: vscode.ExtensionContext) {
             .then((item) => item?.label);
         }
 
+        reporter?.sendTelemetryEvent(TelemetryEvent.PREVIEW_CONFIG, { option: option ?? '' });
+
         if (option) {
           return openForEditor(`config.${option}`, editor.document);
         }
@@ -107,6 +110,8 @@ export function setupPreview(context: vscode.ExtensionContext) {
             .then((item) => item?.label);
         }
 
+        reporter?.sendTelemetryEvent(TelemetryEvent.PREVIEW_PREBUILD, { option: option ?? '' });
+
         if (option) {
           return openForEditor(option, editor.document);
         }
@@ -125,6 +130,11 @@ export function setupPreview(context: vscode.ExtensionContext) {
             )
             .then((item) => item?.label);
         }
+
+        reporter?.sendTelemetryEvent(TelemetryEvent.PREVIEW_PREBUILD, {
+          option: option ?? '',
+          type: 'json',
+        });
 
         if (option) {
           return openForEditor(option, editor.document, true);

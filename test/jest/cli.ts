@@ -7,6 +7,10 @@ const rootDir = path.resolve(__dirname, '../../../');
 runTests({
   extensionDevelopmentPath: rootDir,
   extensionTestsPath: path.resolve(__dirname, './runner'),
+  extensionTestsEnv: {
+    EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
+    TELEMETRY_KEY: '', // always disable telemetry in tests
+  },
   launchArgs: [path.resolve(rootDir, './test/fixture'), '--disable-extensions'],
   version: process.env.VSCODE_VERSION,
   // Reporter is disabled in CI because it's super slow
