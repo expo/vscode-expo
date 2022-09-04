@@ -37,3 +37,13 @@ export function getManifestFileReferencesConfig(scope?: ConfigurationScope) {
     mappings: config.get<Record<string, string> | null>('mappings', null),
   };
 }
+
+/**
+ * Determine if we should validate the (versioned) dependencies listed in `package.json`.
+ * This uses the `expo.packageJson.dependenciesValidation` setting from the configuration scope.
+ */
+export function isDependenciesValidationEnabled(scope?: ConfigurationScope) {
+  return workspace
+    .getConfiguration('expo.packageJson', scope)
+    .get<boolean>('dependencyValidation', true);
+}

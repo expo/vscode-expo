@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
+import { setupPackageDependencyDiagnostics } from './dependencies';
 import { setupXdlManifest } from './manifest';
 import { setupPreview } from './preview/setupPreview';
 import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
@@ -14,6 +15,7 @@ export async function activate(context: vscode.ExtensionContext) {
       setupXdlManifest(context),
       setupCompletionItemProvider(context),
       setupPreview(context),
+      setupPackageDependencyDiagnostics(context),
     ]);
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED, undefined, {
