@@ -18,6 +18,8 @@ import {
 } from 'vscode';
 
 import { isManifestFileReferencesEnabled, isManifestPluginValidationEnabled } from '../settings';
+import { debug } from '../utils/debug';
+import { expoProject } from '../utils/expo-project';
 import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
 import { ThrottledDelayer } from './utils/async';
@@ -27,31 +29,30 @@ import {
   PluginRange,
   rangeForQuotedOffset,
 } from './utils/iteratePlugins';
-import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson';
+import { appJsonPattern, isAppJson } from './utils/parseExpoJson';
 
 let diagnosticCollection: DiagnosticCollection | null = null;
 let delayer: ThrottledDelayer<void> | null = null;
+
+const log = debug.extend('manifest');
 
 export function setupDefinition() {
   // Enables jumping to source
   vscode.languages.registerDocumentLinkProvider(appJsonPattern, {
     provideDocumentLinks(document) {
       const links: vscode.DocumentLink[] = [];
+      const project = expoProject.fromManifest(document);
 
-      // Ensure we get the expo object if it exists.
-      const { node } = parseExpoJson(document.getText());
-
-      if (!node) {
+      if (!project || !project.manifest) {
+        log('Could not resolve project manifest for %s', document.fileName);
         return links;
       }
 
-      const projectRoot = getProjectRoot(document);
-
       // Add links for plugin module resolvers in the plugins array.
-      iteratePluginNames(node, (resolver) => {
+      iteratePluginNames(project.manifest.tree, (resolver) => {
         try {
           const { pluginFile } = resolveConfigPluginFunctionWithInfo(
-            projectRoot,
+            project.root,
             resolver.nameValue
           );
           const linkUri = Uri.file(pluginFile);
@@ -67,8 +68,8 @@ export function setupDefinition() {
 
       // Add links for any random file references starting with `"./` that aren't inside of the `plugins` array.
       if (isManifestFileReferencesEnabled(document)) {
-        iterateFileReferences(document, node, ({ range, fileReference }) => {
-          const filePath = path.join(projectRoot, fileReference);
+        iterateFileReferences(document, project.manifest.tree, ({ range, fileReference }) => {
+          const filePath = path.join(project.root, fileReference);
           const linkUri = Uri.file(filePath);
           const link = new DocumentLink(range, linkUri);
           link.tooltip = 'Go to asset';
