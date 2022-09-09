@@ -1,12 +1,7 @@
-import {
-  resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
-} from '@expo/config-plugins/build/utils/plugin-resolver';
+import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
 import { Node } from 'jsonc-parser';
 
-import { createDebug } from '../debug';
-
-const log = createDebug('plugins');
+import { resetModuleFrom } from '../module';
 
 /**
  * Get the plugin name from manifest node.
@@ -30,12 +25,11 @@ export function getPluginName(node: Node) {
 }
 
 export function resolvePluginFile(root: string, name: string): string | undefined {
+  resetModuleFrom(root, name);
+
   try {
-    const plugin = resolveConfigPluginFunctionWithInfo(root, name);
-    log('Resolved plugin %s in %s', name, root);
-    return plugin.pluginFile;
+    return resolveConfigPluginFunctionWithInfo(root, name).pluginFile;
   } catch {
-    log('Failed resolving plugin %s in %s', name, root);
     return undefined;
   }
 }
