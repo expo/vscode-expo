@@ -1,10 +1,10 @@
 import path from 'path';
 import { CancellationToken, DocumentLink, TextDocument, Uri } from 'vscode';
 
+import { findManifestFileReferences, findManifestPlugins } from './expo/manifest';
+import { getPluginName, resolvePluginFile } from './expo/plugin';
+import { manifestPattern, projectCache } from './expo/project';
 import { createDebug } from './utils/debug';
-import { findManifestFileReferences, findManifestPlugins } from './utils/expo/manifest';
-import { getPluginName, resolvePluginFile } from './utils/expo/plugin';
-import { manifestPattern, projectCache } from './utils/expo/project';
 import { getDocumentRange } from './utils/json';
 
 const log = createDebug('manifest-links');

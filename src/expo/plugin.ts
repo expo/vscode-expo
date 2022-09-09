@@ -1,7 +1,7 @@
 import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
 import { Node } from 'jsonc-parser';
 
-import { resetModuleFrom } from '../module';
+import { resetModuleFrom } from '../utils/module';
 
 /**
  * Get the plugin name from manifest node.
@@ -24,6 +24,10 @@ export function getPluginName(node: Node) {
   };
 }
 
+/**
+ * Resolve the file path for a plugin.
+ * This will reset the node require cache before resolving.
+ */
 export function resolvePluginFile(root: string, name: string): string | undefined {
   resetModuleFrom(root, name);
 

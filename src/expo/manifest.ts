@@ -1,13 +1,12 @@
 import { findNodeAtLocation, Node, Range } from 'jsonc-parser';
-import { DocumentLink, TextDocument, Uri } from 'vscode';
 
-import { getDocumentRange, JsonFile } from '../json';
+import { JsonFile } from '../utils/json';
 
 export function findManifestPlugins(manifest: JsonFile): Node | undefined {
   return findNodeAtLocation(manifest.tree, ['plugins']);
 }
 
-export function findManifestFileReferences(manifest: JsonFile) {
+export function findManifestFileReferences(manifest: JsonFile): { file: string; range: Range }[] {
   const references = [];
   const matches = manifest.content.matchAll(/"(\.\/.*)"/g);
 
@@ -26,8 +25,4 @@ export function findManifestFileReferences(manifest: JsonFile) {
   }
 
   return references;
-}
-
-export function createManifestFileLink(document: TextDocument, range: Range, file: string) {
-  return new DocumentLink(getDocumentRange(document, range), Uri.file(file));
 }

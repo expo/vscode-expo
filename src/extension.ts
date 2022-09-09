@@ -1,7 +1,7 @@
 import vscode from 'vscode';
 
+import { projectCache } from './expo/project';
 import { manifestLinkProvider } from './manifestLinks';
-import { projectCache } from './utils/expo/project';
 import { TelemetryEvent, activateTelemetry } from './utils/telemetry';
 
 export async function activate(context: vscode.ExtensionContext) {

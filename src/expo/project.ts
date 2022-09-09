@@ -3,9 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { DocumentFilter, TextDocument } from 'vscode';
 
-import { MapCache } from '../cache';
-import { createDebug } from '../debug';
-import { JsonFile, parseJson } from '../json';
+import { MapCache } from '../utils/cache';
+import { createDebug } from '../utils/debug';
+import { JsonFile, parseJson } from '../utils/json';
 
 const log = createDebug('project-cache');
 
