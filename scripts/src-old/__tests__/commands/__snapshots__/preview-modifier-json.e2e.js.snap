@@ -1,0 +1,374 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expo.config.prebuild.preview.json runs for android.colors in json format 1`] = `
+"{
+  \\"resources\\": {
+    \\"color\\": [
+      {
+        \\"$\\": {
+          \\"name\\": \\"iconBackground\\"
+        },
+        \\"_\\": \\"#FFFFFF\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"colorPrimary\\"
+        },
+        \\"_\\": \\"#023c69\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"colorPrimaryDark\\"
+        },
+        \\"_\\": \\"#ffffff\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"splashscreen_background\\"
+        },
+        \\"_\\": \\"#ffffff\\"
+      }
+    ]
+  }
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for android.colorsNight in json format 1`] = `
+"{
+  \\"resources\\": {}
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for android.gradleProperties in json format 1`] = `
+"{
+  \\"0\\": {
+    \\"type\\": \\"property\\",
+    \\"key\\": \\"expo.jsEngine\\",
+    \\"value\\": \\"jsc\\"
+  }
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for android.manifest in json format 1`] = `
+"{
+  \\"manifest\\": {
+    \\"uses-permission\\": [
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.INTERNET\\"
+        }
+      },
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.SYSTEM_ALERT_WINDOW\\"
+        }
+      },
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.READ_EXTERNAL_STORAGE\\"
+        }
+      },
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.WRITE_EXTERNAL_STORAGE\\"
+        }
+      }
+    ],
+    \\"queries\\": [
+      {
+        \\"intent\\": [
+          {
+            \\"action\\": [
+              {
+                \\"$\\": {
+                  \\"android:name\\": \\"android.intent.action.VIEW\\"
+                }
+              }
+            ],
+            \\"category\\": [
+              {
+                \\"$\\": {
+                  \\"android:name\\": \\"android.intent.category.BROWSABLE\\"
+                }
+              }
+            ],
+            \\"data\\": [
+              {
+                \\"$\\": {
+                  \\"android:scheme\\": \\"https\\"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    \\"application\\": [
+      {
+        \\"meta-data\\": [
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATE_URL\\",
+              \\"android:value\\": \\"https://exp.host/@bycedric/expo-app\\"
+            }
+          },
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
+              \\"android:value\\": \\"45.0.0\\"
+            }
+          },
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"expo.modules.updates.ENABLED\\",
+              \\"android:value\\": \\"true\\"
+            }
+          },
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\",
+              \\"android:value\\": \\"ALWAYS\\"
+            }
+          },
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\",
+              \\"android:value\\": \\"0\\"
+            }
+          }
+        ],
+        \\"activity\\": [
+          {
+            \\"$\\": {
+              \\"android:name\\": \\".MainActivity\\",
+              \\"android:label\\": \\"@string/app_name\\",
+              \\"android:configChanges\\": \\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\",
+              \\"android:launchMode\\": \\"singleTask\\",
+              \\"android:windowSoftInputMode\\": \\"adjustResize\\",
+              \\"android:theme\\": \\"@style/Theme.App.SplashScreen\\",
+              \\"android:screenOrientation\\": \\"portrait\\"
+            },
+            \\"intent-filter\\": [
+              {
+                \\"action\\": [
+                  {
+                    \\"$\\": {
+                      \\"android:name\\": \\"android.intent.action.MAIN\\"
+                    }
+                  }
+                ],
+                \\"category\\": [
+                  {
+                    \\"$\\": {
+                      \\"android:name\\": \\"android.intent.category.LAUNCHER\\"
+                    }
+                  }
+                ]
+              },
+              {
+                \\"action\\": [
+                  {
+                    \\"$\\": {
+                      \\"android:name\\": \\"android.intent.action.VIEW\\"
+                    }
+                  }
+                ],
+                \\"category\\": [
+                  {
+                    \\"$\\": {
+                      \\"android:name\\": \\"android.intent.category.DEFAULT\\"
+                    }
+                  },
+                  {
+                    \\"$\\": {
+                      \\"android:name\\": \\"android.intent.category.BROWSABLE\\"
+                    }
+                  }
+                ],
+                \\"data\\": [
+                  {
+                    \\"$\\": {
+                      \\"android:scheme\\": \\"com.placeholder.appid\\"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            \\"$\\": {
+              \\"android:name\\": \\"com.facebook.react.devsupport.DevSettingsActivity\\"
+            }
+          }
+        ],
+        \\"$\\": {
+          \\"android:name\\": \\".MainApplication\\",
+          \\"android:label\\": \\"@string/app_name\\",
+          \\"android:icon\\": \\"@mipmap/ic_launcher\\",
+          \\"android:roundIcon\\": \\"@mipmap/ic_launcher_round\\",
+          \\"android:allowBackup\\": \\"true\\",
+          \\"android:theme\\": \\"@style/AppTheme\\",
+          \\"android:usesCleartextTraffic\\": \\"true\\"
+        }
+      }
+    ],
+    \\"$\\": {
+      \\"xmlns:android\\": \\"http://schemas.android.com/apk/res/android\\",
+      \\"package\\": \\"com.placeholder.appid\\"
+    }
+  }
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for android.strings in json format 1`] = `
+"{
+  \\"resources\\": {
+    \\"string\\": [
+      {
+        \\"$\\": {
+          \\"name\\": \\"app_name\\"
+        },
+        \\"_\\": \\"expo-app\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"expo_splash_screen_resize_mode\\",
+          \\"translatable\\": \\"false\\"
+        },
+        \\"_\\": \\"contain\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"expo_splash_screen_status_bar_translucent\\",
+          \\"translatable\\": \\"false\\"
+        },
+        \\"_\\": \\"false\\"
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"expo_system_ui_user_interface_style\\",
+          \\"translatable\\": \\"false\\"
+        },
+        \\"_\\": \\"light\\"
+      }
+    ]
+  }
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for android.styles in json format 1`] = `
+"{
+  \\"resources\\": {
+    \\"$\\": {
+      \\"xmlns:tools\\": \\"http://schemas.android.com/tools\\"
+    },
+    \\"style\\": [
+      {
+        \\"$\\": {
+          \\"name\\": \\"AppTheme\\",
+          \\"parent\\": \\"Theme.AppCompat.Light.NoActionBar\\"
+        },
+        \\"item\\": [
+          {
+            \\"$\\": {
+              \\"name\\": \\"colorPrimary\\"
+            },
+            \\"_\\": \\"@color/colorPrimary\\"
+          },
+          {
+            \\"$\\": {
+              \\"name\\": \\"colorPrimaryDark\\"
+            },
+            \\"_\\": \\"@color/colorPrimaryDark\\"
+          }
+        ]
+      },
+      {
+        \\"$\\": {
+          \\"name\\": \\"Theme.App.SplashScreen\\",
+          \\"parent\\": \\"AppTheme\\"
+        },
+        \\"item\\": [
+          {
+            \\"$\\": {
+              \\"name\\": \\"android:windowBackground\\"
+            },
+            \\"_\\": \\"@drawable/splashscreen\\"
+          }
+        ]
+      }
+    ]
+  }
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for ios.entitlements in json format 1`] = `
+"{
+  \\"aps-environment\\": \\"development\\"
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format 1`] = `
+"{
+  \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
+  \\"EXUpdatesEnabled\\": true,
+  \\"EXUpdatesLaunchWaitMs\\": 0,
+  \\"EXUpdatesSDKVersion\\": \\"45.0.0\\",
+  \\"EXUpdatesURL\\": \\"https://exp.host/@bycedric/expo-app\\"
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format 1`] = `
+"{
+  \\"CFBundleDevelopmentRegion\\": \\"$(DEVELOPMENT_LANGUAGE)\\",
+  \\"CFBundleDisplayName\\": \\"expo-app\\",
+  \\"CFBundleExecutable\\": \\"$(EXECUTABLE_NAME)\\",
+  \\"CFBundleIdentifier\\": \\"$(PRODUCT_BUNDLE_IDENTIFIER)\\",
+  \\"CFBundleInfoDictionaryVersion\\": \\"6.0\\",
+  \\"CFBundleName\\": \\"$(PRODUCT_NAME)\\",
+  \\"CFBundlePackageType\\": \\"$(PRODUCT_BUNDLE_PACKAGE_TYPE)\\",
+  \\"CFBundleShortVersionString\\": \\"1.0.0\\",
+  \\"CFBundleSignature\\": \\"????\\",
+  \\"CFBundleURLTypes\\": [
+    {
+      \\"CFBundleURLSchemes\\": [
+        \\"com.placeholder.appid\\"
+      ]
+    }
+  ],
+  \\"CFBundleVersion\\": \\"1\\",
+  \\"LSRequiresIPhoneOS\\": true,
+  \\"NSAppTransportSecurity\\": {
+    \\"NSAllowsArbitraryLoads\\": true,
+    \\"NSExceptionDomains\\": {
+      \\"localhost\\": {
+        \\"NSExceptionAllowsInsecureHTTPLoads\\": true
+      }
+    }
+  },
+  \\"UILaunchStoryboardName\\": \\"SplashScreen\\",
+  \\"UIRequiredDeviceCapabilities\\": [
+    \\"armv7\\"
+  ],
+  \\"UIRequiresFullScreen\\": false,
+  \\"UIStatusBarStyle\\": \\"UIStatusBarStyleDefault\\",
+  \\"UISupportedInterfaceOrientations\\": [
+    \\"UIInterfaceOrientationPortrait\\",
+    \\"UIInterfaceOrientationPortraitUpsideDown\\"
+  ],
+  \\"UISupportedInterfaceOrientations~ipad\\": [
+    \\"UIInterfaceOrientationPortrait\\",
+    \\"UIInterfaceOrientationPortraitUpsideDown\\",
+    \\"UIInterfaceOrientationLandscapeLeft\\",
+    \\"UIInterfaceOrientationLandscapeRight\\"
+  ],
+  \\"UIUserInterfaceStyle\\": \\"Light\\",
+  \\"UIViewControllerBasedStatusBarAppearance\\": false
+}"
+`;
+
+exports[`expo.config.prebuild.preview.json runs for ios.podfileProperties in json format 1`] = `
+"{
+  \\"expo.jsEngine\\": \\"jsc\\"
+}"
+`;
