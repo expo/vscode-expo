@@ -1,17 +1,17 @@
 import vscode from 'vscode';
 
-import { projectCache } from './expo/project';
-import { manifestLinkProvider } from './manifestLinks';
+import { ExpoProjectCache } from './expo/project';
+import { ManifestLinkProvider } from './manifestLinks';
 import { TelemetryEvent, activateTelemetry } from './utils/telemetry';
 
+// The contained provider classes are self-registering required subscriptions.
+// It helps grouping this code and keeping it maintainable, so disable the eslint rule.
+/* eslint-disable no-new */
+
 export async function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(projectCache);
-  context.subscriptions.push(
-    vscode.languages.registerDocumentLinkProvider(
-      manifestLinkProvider.pattern,
-      manifestLinkProvider
-    )
-  );
+  const projects = new ExpoProjectCache(context);
+
+  new ManifestLinkProvider(context, projects);
 
   activateTelemetry(context)?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
 }
