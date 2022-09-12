@@ -1,6 +1,7 @@
 import vscode from 'vscode';
 
 import { ExpoProjectCache } from './expo/project';
+import { ManifestCompletionProivder } from './manifestCompletion';
 import { ManifestDiagnosticProvider } from './manifestDiagnostic';
 import { ManifestLinkProvider } from './manifestLinks';
 import { TelemetryEvent, activateTelemetry } from './utils/telemetry';
@@ -14,6 +15,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
   new ManifestLinkProvider(context, projects);
   new ManifestDiagnosticProvider(context, projects);
+  new ManifestCompletionProivder(context, projects);
 
   activateTelemetry(context)?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
 }

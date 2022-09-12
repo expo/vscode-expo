@@ -8,12 +8,12 @@ import {
   findManifestPlugins,
   manifestFiles,
 } from './expo/manifest';
-import { getPluginDefinition, resolvePlugin } from './expo/plugin';
+import { getDefinedPlugins, resolvePlugin } from './expo/plugin';
 import { ExpoProject, ExpoProjectCache } from './expo/project';
-import { coalesce } from './utils/array';
+import { filter } from './utils/array';
 import { createDebug } from './utils/debug';
 import { getDocumentRange } from './utils/json';
-import { ExpoDiagnosticProvider } from './utils/vscode';
+import { ExpoDiagnosticProvider } from './vscode/diagnostic';
 
 const log = createDebug('manifest-diagnostic');
 
@@ -58,17 +58,11 @@ export class ManifestDiagnosticProvider extends ExpoDiagnosticProvider {
 
     const issues: vscode.Diagnostic[] = [];
     const references = findManifestFileReferences(project.manifest);
-    const plugins = findManifestPlugins(project.manifest);
-    const pluginsRange = plugins && getDocumentRange(document, plugins);
+    const pluginsNode = findManifestPlugins(project.manifest);
+    const pluginsRange = pluginsNode && getDocumentRange(document, pluginsNode);
 
-    if (plugins && plugins.children) {
-      const pluginsRange = getDocumentRange(document, plugins);
-
-      issues.push(
-        ...diagnosePlugins(document, project, plugins.children).filter(
-          (issue) => !pluginsRange.contains(issue.range)
-        )
-      );
+    if (pluginsNode && pluginsNode.children) {
+      issues.push(...diagnosePlugins(document, project, pluginsNode));
     }
 
     if (references.length) {
@@ -85,12 +79,10 @@ export class ManifestDiagnosticProvider extends ExpoDiagnosticProvider {
   }
 }
 
-function diagnosePlugins(document: vscode.TextDocument, project: ExpoProject, plugins: Node[]) {
-  const issues = [];
+function diagnosePlugins(document: vscode.TextDocument, project: ExpoProject, pluginsNode: Node) {
+  const issues: vscode.Diagnostic[] = [];
 
-  for (const node of plugins) {
-    const plugin = getPluginDefinition(node);
-
+  getDefinedPlugins(pluginsNode).forEach((plugin) => {
     try {
       resolvePlugin(project.root, plugin.nameValue);
     } catch (error) {
@@ -103,7 +95,7 @@ function diagnosePlugins(document: vscode.TextDocument, project: ExpoProject, pl
       issue.code = error.code;
       issues.push(issue);
     }
-  }
+  });
 
   return issues;
 }
@@ -146,5 +138,5 @@ async function diagnoseAssets(
     );
   });
 
-  return Promise.all(pending).then(coalesce);
+  return Promise.all(pending).then(filter);
 }

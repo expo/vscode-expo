@@ -2,11 +2,11 @@ import path from 'path';
 import vscode from 'vscode';
 
 import { findManifestFileReferences, findManifestPlugins, manifestPattern } from './expo/manifest';
-import { getPluginDefinition, resolvePluginFile } from './expo/plugin';
+import { getDefinedPlugins, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import { createDebug } from './utils/debug';
 import { getDocumentRange } from './utils/json';
-import { ExpoLinkProvider } from './utils/vscode';
+import { ExpoLinkProvider } from './vscode/link';
 
 const log = createDebug('manifest-links');
 
@@ -23,25 +23,23 @@ export class ManifestLinkProvider extends ExpoLinkProvider {
     }
 
     const links: vscode.DocumentLink[] = [];
-    const plugins = findManifestPlugins(project.manifest);
-    const pluginsRange = plugins && getDocumentRange(document, plugins);
+    const pluginsNode = findManifestPlugins(project.manifest);
+    const pluginsRange = pluginsNode && getDocumentRange(document, pluginsNode);
 
-    for (const plugin of plugins?.children ?? []) {
-      if (token.isCancellationRequested) break;
+    getDefinedPlugins(pluginsNode).forEach((plugin) => {
+      if (token.isCancellationRequested) return;
 
-      const { nameValue, nameRange } = getPluginDefinition(plugin);
-      const file = resolvePluginFile(project.root, nameValue);
-
+      const file = resolvePluginInfo(project.root, plugin.nameValue)?.pluginFile;
       if (file) {
         const link = new vscode.DocumentLink(
-          getDocumentRange(document, nameRange),
+          getDocumentRange(document, plugin.nameRange),
           vscode.Uri.file(file)
         );
 
         link.tooltip = 'Go to plugin';
         links.push(link);
       }
-    }
+    });
 
     for (const reference of findManifestFileReferences(project.manifest)) {
       if (token.isCancellationRequested) break;

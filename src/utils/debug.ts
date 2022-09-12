@@ -4,7 +4,7 @@ const NAMESPACE = 'vscode-expo';
 const debug = Debug(NAMESPACE);
 
 export function createDebug(category: string) {
-  return debug.extend(category);
+  return debug.extend(category) as (formatter: any, ...args: any[]) => undefined;
 }
 
 // vscode doesn't pipe the `DEBUG` environment variable,

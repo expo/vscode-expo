@@ -5,7 +5,7 @@ import { TextDocument } from 'vscode';
 
 import { createDebug } from '../utils/debug';
 import { JsonFile, parseJson } from '../utils/json';
-import { MapCacheProvider } from '../utils/vscode';
+import { MapCacheProvider } from '../vscode/cache';
 
 const log = createDebug('project-cache');
 
@@ -29,7 +29,7 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
 
       if (packageFile) {
         this.cache.set(root, new ExpoProject(root, packageFile));
-        log('created new project %s', root);
+        log('Created new project: %s', root);
       }
     }
 
@@ -86,8 +86,6 @@ export class ExpoProject {
     const file = parseJson(content, ['expo']);
     if (file) {
       this.manifestFile = file;
-    } else {
-      this.manifestFile = undefined;
     }
 
     return this.manifestFile;

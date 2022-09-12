@@ -22,9 +22,13 @@ export function findManifestPlugins(manifest: JsonFile): Node | undefined {
   return findNodeAtLocation(manifest.tree, ['plugins']);
 }
 
+/**
+ * Find all strings that might be a file path.
+ * This returns all strings matching `"./"` or "../", including plugins.
+ */
 export function findManifestFileReferences(manifest: JsonFile): FileReferenceDefinition[] {
   const references = [];
-  const matches = manifest.content.matchAll(/"(\.\/.*)"/g);
+  const matches = manifest.content.matchAll(/"(\.\.?\/.*)"/g);
 
   for (const match of matches) {
     if (!match.index) continue;
@@ -41,4 +45,14 @@ export function findManifestFileReferences(manifest: JsonFile): FileReferenceDef
   }
 
   return references;
+}
+
+/**
+ * Estimate if the manifest property is likely an image.
+ * This uses the property name without the quotes.
+ *
+ * @todo use the actual XDL manifest for this instead of "estimate"
+ */
+export function isManifestPropertyImage(name: string): boolean {
+  return /^((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)/.test(name);
 }

@@ -9,15 +9,21 @@ export function resetModulesFrom(dir: string) {
   }
 }
 
-export function resetModuleFrom(dir: string, moduleOrFile: string) {
-  const moduleId = require.resolve(moduleOrFile, { paths: [dir] });
-  const module = require.cache[moduleId];
+export function resetModuleFrom(dir: string, moduleOrFile: string): string | undefined {
+  try {
+    const moduleId = require.resolve(moduleOrFile, { paths: [dir] });
+    const module = require.cache[moduleId];
 
-  if (module) {
-    for (const child of module.children) {
-      delete require.cache[child.id];
+    if (module) {
+      for (const child of module.children) {
+        delete require.cache[child.id];
+      }
+
+      delete require.cache[moduleId];
     }
 
-    delete require.cache[moduleId];
+    return moduleId;
+  } catch {
+    return undefined;
   }
 }
