@@ -10,3 +10,7 @@ export function fileIsHidden(pathOrName: string): boolean {
 export function fileIsExcluded(pathOrName: string): boolean {
   return false;
 }
+
+export function fileIsImage(pathOrName: string): boolean {
+  return /\.(png|jpg|jpeg)$/.test(pathOrName);
+}

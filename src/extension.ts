@@ -1,9 +1,10 @@
 import vscode from 'vscode';
 
 import { ExpoProjectCache } from './expo/project';
-import { ManifestCompletionProivder } from './manifestCompletion';
+import { ManifestAssetCompletionProvider } from './manifestAssetCompletion';
 import { ManifestDiagnosticProvider } from './manifestDiagnostic';
 import { ManifestLinkProvider } from './manifestLinks';
+import { ManifestPluginCompletionProvider } from './manifestPluginCompletion';
 import { TelemetryEvent, activateTelemetry } from './utils/telemetry';
 
 // The contained provider classes are self-registering required subscriptions.
@@ -15,7 +16,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
   new ManifestLinkProvider(context, projects);
   new ManifestDiagnosticProvider(context, projects);
-  new ManifestCompletionProivder(context, projects);
+  new ManifestAssetCompletionProvider(context, projects);
+  new ManifestPluginCompletionProvider(context, projects);
 
   activateTelemetry(context)?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
 }
