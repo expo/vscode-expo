@@ -105,6 +105,7 @@
         },
         "expo.appManifest.fileReferences.excludeGlobPatterns": {
           "type": "object",
+          "default": null,
           "patternProperties": {
             ".*": {
               "type": "boolean",
