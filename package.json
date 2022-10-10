@@ -116,7 +116,17 @@
           "description": "Exclude file suggestions for file references in app manifest, using glob patterns."
         }
       }
-    }
+    },
+    "languages": [
+      {
+        "id": "jsonc",
+        "filenames": [
+          "app.json",
+          "app.config.json",
+          "eas.json"
+        ]
+      }
+    ]
   },
   "scripts": {
     "postinstall": "patch-package",
