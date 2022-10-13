@@ -1,7 +1,7 @@
 {
   "name": "vscode-expo",
   "displayName": "Expo Tools",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Expo for vscode keeps you productive with intellisense and prebuild previews",
   "keywords": [
     "expo",

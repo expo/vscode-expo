@@ -1,3 +1,16 @@
+## [0.9.1](https://github.com/expo/vscode-expo/compare/0.9.0...0.9.1) (2022-10-13)
+
+
+### Bug fixes
+
+* set `null` as default for exclude glob patterns ([#138](https://github.com/expo/vscode-expo/issues/138)) ([5403474](https://github.com/expo/vscode-expo/commit/5403474b10326b7b2b1c44caefb2a8f066987a5b))
+* set language for app manifests and eas to jsonc ([#137](https://github.com/expo/vscode-expo/issues/137)) ([665983b](https://github.com/expo/vscode-expo/commit/665983be9cd8b0df909c6db8fae413f75525d2ff))
+
+
+### Code changes
+
+* use node lookup method instead of custom code ([#134](https://github.com/expo/vscode-expo/issues/134)) ([866d5c7](https://github.com/expo/vscode-expo/commit/866d5c7fdc6732e84b12a653a4de4eb981379afa))
+
 ## [0.9.0](https://github.com/expo/vscode-expo/compare/0.8.1...0.9.0) (2022-09-03)
 
 
