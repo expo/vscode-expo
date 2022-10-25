@@ -1,3 +1,10 @@
+## [0.9.2](https://github.com/expo/vscode-expo/compare/0.9.1...0.9.2) (2022-10-25)
+
+
+### Bug fixes
+
+* app manifest asset linking ([#140](https://github.com/expo/vscode-expo/issues/140)) ([6a8d176](https://github.com/expo/vscode-expo/commit/6a8d176e6192c56eaad89d62500cd74c0b258f28))
+
 ## [0.9.1](https://github.com/expo/vscode-expo/compare/0.9.0...0.9.1) (2022-10-13)
 
 
