@@ -8,7 +8,7 @@ export const appJsonPattern = {
   scheme: 'file',
   // Match against app.json and app.config.json
   pattern: '**/*/app{,.config}.json',
-  language: 'json',
+  language: 'jsonc',
 };
 
 export function isAppJson(document: TextDocument) {
