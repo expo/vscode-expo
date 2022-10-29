@@ -29,7 +29,7 @@
   },
   "main": "./out/src/extension.js",
   "engines": {
-    "vscode": "^1.59.0"
+    "vscode": "^1.59.1"
   },
   "categories": [
     "Other"
