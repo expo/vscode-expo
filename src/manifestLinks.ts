@@ -1,6 +1,6 @@
 import { findNodeAtLocation } from 'jsonc-parser';
 import path from 'path';
-import { CancellationToken, DocumentLink, ExtensionContext, TextDocument, Uri } from 'vscode';
+import vscode from 'vscode';
 
 import {
   getFileReferences,
@@ -19,13 +19,19 @@ const log = debug.extend('manifest-links');
 export class ManifestLinksProvider extends ExpoLinkProvider {
   private isEnabled = true;
 
-  constructor(extension: ExtensionContext, projects: ExpoProjectCache) {
+  constructor(extension: vscode.ExtensionContext, projects: ExpoProjectCache) {
     super(extension, projects, manifestPattern);
-    this.isEnabled = isManifestFileReferencesEnabled(); // TODO: Add change listener
+    this.isEnabled = isManifestFileReferencesEnabled();
+
+    extension.subscriptions.push(
+      vscode.workspace.onDidChangeConfiguration(() => {
+        this.isEnabled = isManifestFileReferencesEnabled();
+      })
+    );
   }
 
-  provideDocumentLinks(document: TextDocument, token: CancellationToken) {
-    const links: DocumentLink[] = [];
+  provideDocumentLinks(document: vscode.TextDocument, token: vscode.CancellationToken) {
+    const links: vscode.DocumentLink[] = [];
 
     if (!this.isEnabled) return links;
 
@@ -45,9 +51,9 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       const plugin = resolvePlugin(project.root, nameValue);
 
       if (plugin) {
-        const link = new DocumentLink(
+        const link = new vscode.DocumentLink(
           getDocumentRange(document, nameRange),
-          Uri.file(plugin.pluginFile)
+          vscode.Uri.file(plugin.pluginFile)
         );
 
         link.tooltip = 'Go to plugin';
@@ -62,7 +68,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
 
       if (!pluginsRange?.contains(range)) {
         const file = path.resolve(project.root, reference.filePath);
-        const link = new DocumentLink(range, Uri.file(file));
+        const link = new vscode.DocumentLink(range, vscode.Uri.file(file));
 
         link.tooltip = 'Go to asset';
         links.push(link);
