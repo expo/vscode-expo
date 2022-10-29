@@ -1,10 +1,13 @@
-import { resolveConfigPluginFunctionWithInfo } from '@expo/config-plugins/build/utils/plugin-resolver';
+import {
+  resolveConfigPluginFunction,
+  resolveConfigPluginFunctionWithInfo,
+} from '@expo/config-plugins/build/utils/plugin-resolver';
 import { Node, Range } from 'jsonc-parser';
 import { DocumentFilter } from 'vscode';
 
 import { resetModuleFrom } from '../utils/module';
 
-type FileReference = {
+export type FileReference = {
   filePath: string;
   fileRange: Range;
 };
@@ -70,7 +73,12 @@ export function getPluginDefinition(plugin: Node): PluginDefiniton {
   };
 }
 
-export function resolvePlugin(dir: string, name: string) {
+/**
+ * Try to resolve the config plugin information.
+ * This resets previously imported modules to reload this information.
+ * When it fails to resolve the config plugin, undefined is returned.
+ */
+export function resolvePluginInfo(dir: string, name: string) {
   resetModuleFrom(dir, name);
 
   try {
@@ -78,4 +86,12 @@ export function resolvePlugin(dir: string, name: string) {
   } catch {
     return undefined;
   }
+}
+
+/**
+ * Try to resolve the actual config plugin function.
+ * When it fails to resolve the config plugin, an error is thrown.
+ */
+export function resolvePluginFunction(dir: string, name: string) {
+  return resolveConfigPluginFunction(dir, name);
 }

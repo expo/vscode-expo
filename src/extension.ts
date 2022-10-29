@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 
 import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
 import { ExpoProjectCache } from './expo/project';
-import { setupXdlManifest } from './manifest';
+import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
 import { setupPreview } from './preview/setupPreview';
 import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
@@ -17,13 +17,10 @@ export async function activate(context: vscode.ExtensionContext) {
     const projects = new ExpoProjectCache(context);
 
     await setupTelemetry(context);
-    await Promise.all([
-      setupXdlManifest(context),
-      setupCompletionItemProvider(context),
-      setupPreview(context),
-    ]);
+    await Promise.all([setupCompletionItemProvider(context), setupPreview(context)]);
 
     new ManifestLinksProvider(context, projects);
+    new ManifestDiagnosticsProvider(context, projects);
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED, undefined, {
       duration: Date.now() - start,
