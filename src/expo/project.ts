@@ -1,6 +1,6 @@
 import findUp from 'find-up';
 import fs from 'fs';
-import jsonc from 'jsonc-parser';
+import * as jsonc from 'jsonc-parser';
 import path from 'path';
 import { TextDocument } from 'vscode';
 
