@@ -17,7 +17,7 @@ describe(ManifestLinksProvider, () => {
     });
 
     it('opens valid asset link', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('with-plugins/app.json'));
+      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -33,7 +33,7 @@ describe(ManifestLinksProvider, () => {
 
   describe('plugins', () => {
     it('opens valid plugin from package', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('with-plugins/app.json'));
+      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -47,7 +47,7 @@ describe(ManifestLinksProvider, () => {
     });
 
     it('opens valid plugin from package with options', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('with-plugins/app.json'));
+      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -61,7 +61,7 @@ describe(ManifestLinksProvider, () => {
     });
 
     it('opens valid plugin from local file', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('with-plugins/app.json'));
+      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
