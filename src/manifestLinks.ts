@@ -6,7 +6,7 @@ import {
   getFileReferences,
   getPluginDefinition,
   manifestPattern,
-  resolvePlugin,
+  resolvePluginInfo,
 } from './expo/manifest';
 import { ExpoProjectCache } from './expo/project';
 import { isManifestFileReferencesEnabled } from './settings';
@@ -48,7 +48,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       if (token.isCancellationRequested) return links;
 
       const { nameValue, nameRange } = getPluginDefinition(pluginNode);
-      const plugin = resolvePlugin(project.root, nameValue);
+      const plugin = resolvePluginInfo(project.root, nameValue);
 
       if (plugin) {
         const link = new vscode.DocumentLink(

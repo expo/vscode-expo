@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "manifest-links",
-    "slug": "manifest-links",
-    "description": "This fixture was created for manifest links",
+    "name": "manifest-diagnostics",
+    "slug": "manifest-diagnostics",
+    "description": "This fixture was created for manifest diagnostics",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,12 +30,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-system-ui",
-      ["expo-camera", {
-        "cameraPermission": "This tests the multiple variants of defining plugins"
-      }],
-      "./plugins/valid"
-    ]
+    "plugins": ["expo-system-ui"]
   }
 }
