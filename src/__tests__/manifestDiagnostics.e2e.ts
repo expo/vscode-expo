@@ -98,22 +98,4 @@ describe(ManifestDiagnosticsProvider, () => {
       severity: DiagnosticSeverity.Error,
     });
   });
-
-  it('diagnoses too many arguments for plugin definition', async () => {
-    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
-    await app.edit((builder) =>
-      builder.replace(range, `"plugins": [["expo-system-ui", "this", "is", "incorrect"]]`)
-    );
-    await app.document.save();
-
-    await waitFor();
-    const diagnostics = await languages.getDiagnostics(app.document.uri);
-
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
-      code: `PLUGIN_INVALID`,
-      message: 'Plugin definition has more than 2 items, expected [name, options]',
-      severity: DiagnosticSeverity.Error,
-    });
-  });
 });

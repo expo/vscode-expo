@@ -92,6 +92,6 @@ export function resolvePluginInfo(dir: string, name: string) {
  * Try to resolve the actual config plugin function.
  * When it fails to resolve the config plugin, an error is thrown.
  */
-export function resolvePluginFunction(dir: string, name: string) {
+export function resolvePluginFunctionUnsafe(dir: string, name: string) {
   return resolveConfigPluginFunction(dir, name);
 }

@@ -1,4 +1,4 @@
-import { findNodeAtLocation } from 'jsonc-parser';
+import { findNodeAtLocation, Node } from 'jsonc-parser';
 import path from 'path';
 import vscode from 'vscode';
 
@@ -7,7 +7,7 @@ import {
   getFileReferences,
   getPluginDefinition,
   manifestPattern,
-  resolvePluginFunction,
+  resolvePluginFunctionUnsafe,
 } from './expo/manifest';
 import { ExpoProject, ExpoProjectCache } from './expo/project';
 import { isManifestPluginValidationEnabled } from './settings';
@@ -20,6 +20,10 @@ const log = debug.extend('manifest-diagnostics');
 enum AssetIssueCode {
   notFound = 'FILE_NOT_FOUND',
   isDirectory = 'FILE_IS_DIRECTORY',
+}
+
+enum PluginIssueCode {
+  invalid = 'PLUGIN_INVALID',
 }
 
 export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
@@ -51,24 +55,8 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     const pluginsRange = plugins && getDocumentRange(document, plugins);
 
     for (const pluginNode of plugins?.children ?? []) {
-      const { nameValue, nameRange } = getPluginDefinition(pluginNode);
-
-      try {
-        resolvePluginFunction(project.root, nameValue);
-      } catch (error) {
-        const issue = new vscode.Diagnostic(
-          getDocumentRange(document, nameRange),
-          error.message,
-          vscode.DiagnosticSeverity.Error
-        );
-
-        if (error.code === 'PLUGIN_NOT_FOUND') {
-          issue.message = `Plugin not found: ${nameValue}`;
-        }
-
-        issue.code = error.code;
-        issues.push(issue);
-      }
+      const issue = diagnosePlugin(document, project, pluginNode);
+      if (issue) issues.push(issue);
     }
 
     for (const reference of getFileReferences(project.manifest.content)) {
@@ -81,6 +69,39 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     }
 
     return issues;
+  }
+}
+
+function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plugin: Node) {
+  // Note, we don't test for more than 2 array items. That's handled of by the JSON schema.
+
+  const { nameValue, nameRange } = getPluginDefinition(plugin);
+
+  if ((plugin.children && plugin.children.length === 0) || !nameValue) {
+    const issue = new vscode.Diagnostic(
+      getDocumentRange(document, nameRange ?? plugin),
+      `Plugin definition is empty, expected a file or dependency name`,
+      vscode.DiagnosticSeverity.Error,
+    );
+    issue.code = PluginIssueCode.invalid;
+    return issue;
+  }
+
+  try {
+    resolvePluginFunctionUnsafe(project.root, nameValue);
+  } catch (error) {
+    const issue = new vscode.Diagnostic(
+      getDocumentRange(document, nameRange),
+      error.message,
+      vscode.DiagnosticSeverity.Error
+    );
+
+    if (error.code === 'PLUGIN_NOT_FOUND') {
+      issue.message = `Plugin not found: ${nameValue}`;
+    }
+
+    issue.code = error.code;
+    return issue;
   }
 }
 
