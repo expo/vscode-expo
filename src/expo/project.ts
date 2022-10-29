@@ -37,7 +37,7 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
 
   fromManifest(manifest: TextDocument) {
     const root = findUp.sync('package.json', { cwd: manifest.fileName });
-    const project = root ? this.fromRoot(root) : undefined;
+    const project = root ? this.fromRoot(path.dirname(root)) : undefined;
     project?.setManifest(manifest.getText());
     return project;
   }
