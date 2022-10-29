@@ -4,6 +4,7 @@
   "workspaces": [
     "eas-app",
     "expo-app",
-    "expo-module"
+    "expo-module",
+    "manifest-links"
   ]
 }

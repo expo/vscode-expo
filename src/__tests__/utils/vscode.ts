@@ -2,7 +2,7 @@ import assert from 'assert';
 import path from 'path';
 import vscode from 'vscode';
 
-import { waitForValue } from './wait';
+import { waitForTrue, waitForValue } from './wait';
 
 const pkg = require('../../../../package');
 
@@ -41,6 +41,16 @@ export function waitForEditorOpen(
       ),
     { delay }
   );
+}
+
+/**
+ * Wait until the active tab name is opened.
+ * This can by any type of file, from text editor to asset.
+ */
+export function waitForActiveTabNameOpen(tabName: string, delay = 500): Promise<true | undefined> {
+  return waitForTrue(() => tabName === vscode.window.tabGroups.activeTabGroup.activeTab?.label, {
+    delay,
+  });
 }
 
 /**
