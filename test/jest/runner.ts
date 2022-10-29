@@ -21,6 +21,10 @@ export async function run() {
       ...(jestConfig.setupFilesAfterEnv ?? []),
     ],
     snapshotResolver: resolve(jestConfig.rootDir, './out/test/jest/snapshots.js'),
+    // Set the test pattern to run, if any
+    testPathPattern: process.env['VSCODE_EXPO_TEST_PATTERN']
+      ? [process.env['VSCODE_EXPO_TEST_PATTERN']]
+      : undefined,
   };
 
   const { results } = await runCLI(config, [config.rootDir]);
