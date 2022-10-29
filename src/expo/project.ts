@@ -78,7 +78,7 @@ export class ExpoProject {
       return this.manifestFile;
     }
 
-    const file = parseJsonFile(content);
+    const file = parseJsonFile(content, ['expo']);
     if (file) {
       this.manifestFile = file;
     }
