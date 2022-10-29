@@ -99,17 +99,6 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  it('diagnoses too many arguments for plugin definition', async () => {
-    // Note, this is technically handled by JSON Schema. But we still want to make sure this pops up.
-    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
-    await app.edit((builder) =>
-      builder.replace(range, `"plugins": [["expo-system-ui", "too", "many"]]`)
-    );
-    await app.document.save();
-
-    await waitFor();
-    const diagnostics = await languages.getDiagnostics(app.document.uri);
-
-    expect(diagnostics).toHaveLength(1);
-  });
+  // Note, we don't test for plugin definitions with more than 2 array items.
+  // That's handled by JSON Schema and out of scope for this test.
 });
