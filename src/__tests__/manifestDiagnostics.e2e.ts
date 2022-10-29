@@ -31,7 +31,7 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(diagnostics[0]).toMatchObject({
       code: 'FILE_NOT_FOUND',
       message: 'File not found: ./assets/doesnt-exist.png',
-      severity: DiagnosticSeverity.Error,
+      severity: DiagnosticSeverity.Warning,
     });
   });
 
@@ -63,7 +63,7 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(diagnostics[0]).toMatchObject({
       code: 'PLUGIN_NOT_FOUND',
       message: 'Plugin not found: doesnt-exists',
-      severity: DiagnosticSeverity.Error,
+      severity: DiagnosticSeverity.Warning,
     });
   });
 
@@ -79,7 +79,7 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(diagnostics[0]).toMatchObject({
       code: `PLUGIN_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
-      severity: DiagnosticSeverity.Error,
+      severity: DiagnosticSeverity.Warning,
     });
   });
 
@@ -95,7 +95,21 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(diagnostics[0]).toMatchObject({
       code: `PLUGIN_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
-      severity: DiagnosticSeverity.Error,
+      severity: DiagnosticSeverity.Warning,
     });
+  });
+
+  it('diagnoses too many arguments for plugin definition', async () => {
+    // Note, this is technically handled by JSON Schema. But we still want to make sure this pops up.
+    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
+    await app.edit((builder) =>
+      builder.replace(range, `"plugins": [["expo-system-ui", "too", "many"]]`)
+    );
+    await app.document.save();
+
+    await waitFor();
+    const diagnostics = await languages.getDiagnostics(app.document.uri);
+
+    expect(diagnostics).toHaveLength(1);
   });
 });

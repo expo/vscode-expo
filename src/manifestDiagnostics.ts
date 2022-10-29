@@ -73,15 +73,13 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
 }
 
 function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plugin: Node) {
-  // Note, we don't test for more than 2 array items. That's handled of by the JSON schema.
-
   const { nameValue, nameRange } = getPluginDefinition(plugin);
 
   if ((plugin.children && plugin.children.length === 0) || !nameValue) {
     const issue = new vscode.Diagnostic(
       getDocumentRange(document, nameRange ?? plugin),
       `Plugin definition is empty, expected a file or dependency name`,
-      vscode.DiagnosticSeverity.Error,
+      vscode.DiagnosticSeverity.Warning
     );
     issue.code = PluginIssueCode.invalid;
     return issue;
@@ -93,7 +91,7 @@ function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plu
     const issue = new vscode.Diagnostic(
       getDocumentRange(document, nameRange),
       error.message,
-      vscode.DiagnosticSeverity.Error
+      vscode.DiagnosticSeverity.Warning
     );
 
     if (error.code === 'PLUGIN_NOT_FOUND') {
@@ -128,7 +126,7 @@ async function diagnoseAsset(
     const issue = new vscode.Diagnostic(
       getDocumentRange(document, reference.fileRange),
       error.message,
-      vscode.DiagnosticSeverity.Error
+      vscode.DiagnosticSeverity.Warning
     );
 
     if (error.code === 'FileNotFound') {
