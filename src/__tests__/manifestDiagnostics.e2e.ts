@@ -51,7 +51,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  it('diagnoses non-existing plugin reference', async () => {
+  it('diagnoses non-existing plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, '"plugins": ["doesnt-exists"]'));
     await app.document.save();
@@ -63,6 +63,56 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(diagnostics[0]).toMatchObject({
       code: 'PLUGIN_NOT_FOUND',
       message: 'Plugin not found: doesnt-exists',
+      severity: DiagnosticSeverity.Error,
+    });
+  });
+
+  it('diagnoses empty string plugin definition', async () => {
+    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
+    await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", ""]`));
+    await app.document.save();
+
+    await waitFor();
+    const diagnostics = await languages.getDiagnostics(app.document.uri);
+
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0]).toMatchObject({
+      code: `PLUGIN_INVALID`,
+      message: 'Plugin definition is empty, expected a file or dependency name',
+      severity: DiagnosticSeverity.Error,
+    });
+  });
+
+  it('diagnoses empty array plugin definition', async () => {
+    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
+    await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", []]`));
+    await app.document.save();
+
+    await waitFor();
+    const diagnostics = await languages.getDiagnostics(app.document.uri);
+
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0]).toMatchObject({
+      code: `PLUGIN_INVALID`,
+      message: 'Plugin definition is empty, expected a file or dependency name',
+      severity: DiagnosticSeverity.Error,
+    });
+  });
+
+  it('diagnoses too many arguments for plugin definition', async () => {
+    const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
+    await app.edit((builder) =>
+      builder.replace(range, `"plugins": [["expo-system-ui", "this", "is", "incorrect"]]`)
+    );
+    await app.document.save();
+
+    await waitFor();
+    const diagnostics = await languages.getDiagnostics(app.document.uri);
+
+    expect(diagnostics).toHaveLength(1);
+    expect(diagnostics[0]).toMatchObject({
+      code: `PLUGIN_INVALID`,
+      message: 'Plugin definition has more than 2 items, expected [name, options]',
       severity: DiagnosticSeverity.Error,
     });
   });
