@@ -1,6 +1,6 @@
 import vscode from 'vscode';
 
-import { setupDefinition, setupPluginsValidation } from './configPlugins';
+import { setupPluginsValidation } from './configPlugins';
 
 /**
  * Set up enhancements for the App manifest file.
@@ -8,5 +8,4 @@ import { setupDefinition, setupPluginsValidation } from './configPlugins';
  */
 export async function setupXdlManifest(context: vscode.ExtensionContext) {
   setupPluginsValidation(context);
-  setupDefinition();
 }

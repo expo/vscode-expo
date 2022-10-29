@@ -1,7 +1,4 @@
-import {
-  resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
-} from '@expo/config-plugins/build/utils/plugin-resolver';
+import { resolveConfigPluginFunction } from '@expo/config-plugins/build/utils/plugin-resolver';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
@@ -9,77 +6,21 @@ import {
   Diagnostic,
   DiagnosticCollection,
   DiagnosticSeverity,
-  DocumentLink,
   languages,
   TextDocument,
-  Uri,
   window,
   workspace,
 } from 'vscode';
 
-import { isManifestFileReferencesEnabled, isManifestPluginValidationEnabled } from '../settings';
+import { isManifestPluginValidationEnabled } from '../settings';
 import { getProjectRoot } from '../utils/getProjectRoot';
 import { iterateFileReferences } from './fileReferences';
 import { ThrottledDelayer } from './utils/async';
-import {
-  iteratePluginNames,
-  parseSourceRanges,
-  PluginRange,
-  rangeForQuotedOffset,
-} from './utils/iteratePlugins';
-import { appJsonPattern, isAppJson, parseExpoJson } from './utils/parseExpoJson';
+import { parseSourceRanges, PluginRange, rangeForQuotedOffset } from './utils/iteratePlugins';
+import { isAppJson } from './utils/parseExpoJson';
 
 let diagnosticCollection: DiagnosticCollection | null = null;
 let delayer: ThrottledDelayer<void> | null = null;
-
-export function setupDefinition() {
-  // Enables jumping to source
-  vscode.languages.registerDocumentLinkProvider(appJsonPattern, {
-    provideDocumentLinks(document) {
-      const links: vscode.DocumentLink[] = [];
-
-      // Ensure we get the expo object if it exists.
-      const { node } = parseExpoJson(document.getText());
-
-      if (!node) {
-        return links;
-      }
-
-      const projectRoot = getProjectRoot(document);
-
-      // Add links for plugin module resolvers in the plugins array.
-      iteratePluginNames(node, (resolver) => {
-        try {
-          const { pluginFile } = resolveConfigPluginFunctionWithInfo(
-            projectRoot,
-            resolver.nameValue
-          );
-          const linkUri = Uri.file(pluginFile);
-          const range = rangeForQuotedOffset(document, resolver.name);
-          const link = new DocumentLink(range, linkUri);
-          link.tooltip = 'Go to config plugin';
-          links.push(link);
-        } catch {
-          // Invalid plugin.
-          // This should be formatted by validation
-        }
-      });
-
-      // Add links for any random file references starting with `"./` that aren't inside of the `plugins` array.
-      if (isManifestFileReferencesEnabled(document)) {
-        iterateFileReferences(document, node, ({ range, fileReference }) => {
-          const filePath = path.join(projectRoot, fileReference);
-          const linkUri = Uri.file(filePath);
-          const link = new DocumentLink(range, linkUri);
-          link.tooltip = 'Go to asset';
-          links.push(link);
-        });
-      }
-
-      return links;
-    },
-  });
-}
 
 export function setupPluginsValidation(context: vscode.ExtensionContext) {
   diagnosticCollection = languages.createDiagnosticCollection('expo-config');
