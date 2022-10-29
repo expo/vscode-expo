@@ -62,6 +62,27 @@
       "preLaunchTask": "launch-test-development"
     },
     {
+      "name": "Test: current file (development)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/test/fixture",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--disable-extensions"
+      ],
+      "env": {
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
+        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}"
+      },
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "preLaunchTask": "launch-test-development"
+    },
+    {
       "name": "Test (production)",
       "type": "extensionHost",
       "request": "launch",
