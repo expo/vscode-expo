@@ -57,8 +57,8 @@ describe(ManifestPluginCompletionsProvider, () => {
 
     expect(suggestions.items).toEqual(
       expect.arrayContaining([
+        // `node_modules` are disabled by default in `src/settings.ts`
         expect.objectContaining({ label: 'assets' }),
-        expect.objectContaining({ label: 'node_modules' }),
         expect.objectContaining({ label: 'plugins' }),
       ])
     );
