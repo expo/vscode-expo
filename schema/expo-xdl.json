@@ -1,7 +1,7 @@
 {
   "type": "object",
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "46.0.0",
+  "version": "47.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -54,13 +54,6 @@
             "automatic"
           ],
           "markdownDescription": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`. Requires `expo-system-ui` be installed in your project to work on Android."
-        },
-        "useNextNotificationsApi": {
-          "deprecated": true,
-          "description": "@deprecated A Boolean value that indicates whether the app should use the new notifications API.",
-          "type": "boolean",
-          "fallback": false,
-          "markdownDescription": "@deprecated A Boolean value that indicates whether the app should use the new notifications API."
         },
         "icon": {
           "description": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo app.",
@@ -189,28 +182,6 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Client and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
-            },
-            "googleSignIn": {
-              "deprecated": true,
-              "meta": {
-                "deprecated": true
-              },
-              "description": "@deprecated Use `googleServicesFile` instead. [Google Sign-In Android SDK](https://developers.google.com/identity/sign-in/android/start-integrating) keys for your standalone app.",
-              "type": "object",
-              "properties": {
-                "apiKey": {
-                  "description": "The Android API key. Can be found in the credentials section of the developer console or in `google-services.json`.",
-                  "type": "string",
-                  "markdownDescription": "The Android API key. Can be found in the credentials section of the developer console or in `google-services.json`."
-                },
-                "certificateHash": {
-                  "description": "The SHA-1 hash of the signing certificate used to build the APK without any separator (`:`). Can be found in `google-services.json`. https://developers.google.com/android/guides/client-auth",
-                  "type": "string",
-                  "markdownDescription": "The SHA-1 hash of the signing certificate used to build the APK without any separator (`:`). Can be found in `google-services.json`. https://developers.google.com/android/guides/client-auth"
-                }
-              },
-              "additionalProperties": false,
-              "markdownDescription": "@deprecated Use `googleServicesFile` instead. [Google Sign-In Android SDK](https://developers.google.com/identity/sign-in/android/start-integrating) keys for your standalone app."
             }
           },
           "additionalProperties": false,
@@ -501,14 +472,6 @@
           },
           "markdownDescription": "Local path or remote URL to an image to use for your app's icon on iOS. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency. \n\n Expo will generate the other required sizes. This icon will appear on the home screen and within the Expo app."
         },
-        "merchantId": {
-          "description": "@deprecated Merchant ID for use with Apple Pay in your standalone app.",
-          "type": "string",
-          "meta": {
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated Merchant ID for use with Apple Pay in your standalone app."
-        },
         "appStoreUrl": {
           "description": "URL to your app on the Apple App Store, if you have deployed it there. This is used to link to your store page from your Expo project page if your app is public.",
           "pattern": "^https://(itunes|apps)\\.apple\\.com/.*?\\d+",
@@ -571,25 +534,6 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Go and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`.](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
-            },
-            "googleSignIn": {
-              "description": "@deprecated Use `ios.googleServicesFile` instead.",
-              "type": "object",
-              "meta": {
-                "deprecated": true
-              },
-              "properties": {
-                "reservedClientId": {
-                  "description": "@deprecated Use `ios.googleServicesFile` instead.",
-                  "type": "string",
-                  "meta": {
-                    "deprecated": true
-                  },
-                  "markdownDescription": "@deprecated Use `ios.googleServicesFile` instead."
-                }
-              },
-              "additionalProperties": false,
-              "markdownDescription": "@deprecated Use `ios.googleServicesFile` instead."
             }
           },
           "additionalProperties": false,
@@ -686,17 +630,6 @@
           "description": "Configuration for loading and splash screen for standalone iOS apps.",
           "type": "object",
           "properties": {
-            "xib": {
-              "description": "@deprecated Apple has deprecated `.xib` splash screens in favor of `.storyboard` files. Local path to a XIB file as the loading screen. It overrides other loading screen options. Note: This will only be used in the standalone app (i.e., after you build the app). It will not be used in the Expo Go.",
-              "type": "string",
-              "meta": {
-                "deprecated": true,
-                "asset": true,
-                "contentTypePattern": "^text/xml$",
-                "contentTypeHuman": ".xib interface builder document"
-              },
-              "markdownDescription": "@deprecated Apple has deprecated `.xib` splash screens in favor of `.storyboard` files. Local path to a XIB file as the loading screen. It overrides other loading screen options. Note: This will only be used in the standalone app (i.e., after you build the app). It will not be used in the Expo Go."
-            },
             "backgroundColor": {
               "description": "Color to fill the loading screen background",
               "type": "string",
@@ -1295,14 +1228,6 @@
           },
           "additionalProperties": false,
           "markdownDescription": "Configuration for remote (push) notifications."
-        },
-        "appKey": {
-          "description": "@deprecated By default, Expo looks for the application registered with the AppRegistry as `main`. If you would like to change this, you can specify the name in this property.",
-          "meta": {
-            "deprecated": true
-          },
-          "type": "string",
-          "markdownDescription": "@deprecated By default, Expo looks for the application registered with the AppRegistry as `main`. If you would like to change this, you can specify the name in this property."
         },
         "androidStatusBar": {
           "description": "Configuration for the status bar on Android. For more details please navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).",
