@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 import { ExpoProjectCache } from './expo/project';
+import { ManifestAssetCompletionsProvider } from './manifestAssetCompletions';
 import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
 import { ManifestPluginCompletionsProvider } from './manifestPluginCompletions';
@@ -21,6 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);
     new ManifestPluginCompletionsProvider(context, projects);
+    new ManifestAssetCompletionsProvider(context, projects);
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
   } catch (error) {

@@ -34,8 +34,7 @@
       "expo-system-ui",
       ["expo-camera", {
         "cameraPermission": "This tests the multiple variants of defining plugins"
-      }],
-      "./plugins/valid"
+      }]
     ]
   }
 }

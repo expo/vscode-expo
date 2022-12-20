@@ -2,8 +2,9 @@ import { findNodeAtLocation, findNodeAtOffset, getNodeValue } from 'jsonc-parser
 import path from 'path';
 import vscode from 'vscode';
 
+import { createFolder, createPluginFile, createPluginModule } from './expo/completion';
 import { manifestPattern } from './expo/manifest';
-import { PluginInfo, resolveInstalledPluginInfo, resolvePluginInfo } from './expo/plugin';
+import { resolveInstalledPluginInfo, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import {
   getManifestFileReferencesExcludedFiles,
@@ -11,9 +12,9 @@ import {
 } from './settings';
 import { truthy } from './utils/array';
 import { debug } from './utils/debug';
-import { fileIsExcluded, fileIsHidden, getDirectoryPath } from './utils/file';
-import { getDocumentRange, isKeyNode } from './utils/json';
-import { ExpoCompletionsProvider } from './utils/vscode';
+import { fileIsExcluded, fileIsHidden, getSearchDirectoryPath } from './utils/file';
+import { getDocumentRange, getPropertyNode } from './utils/json';
+import { ExpoCompletionsProvider, withCancelToken } from './utils/vscode';
 
 const log = debug.extend('manifest-plugin-completions');
 
@@ -51,38 +52,46 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
       return [];
     }
 
-    const positionNode = findNodeAtOffset(project.manifest.tree, document.offsetAt(position));
-    if (!positionNode || isKeyNode(positionNode)) return null;
-
+    // Abort if the change is not within the plugins section
     const plugins = findNodeAtLocation(project.manifest.tree, ['plugins']);
-    const positionInPlugins = plugins && getDocumentRange(document, plugins).contains(position);
-    if (!positionInPlugins) return null;
+    if (!plugins || !getDocumentRange(document, plugins).contains(position)) {
+      return null;
+    }
+
+    // Abort if we can't locate the change, or if it's a JSON key node
+    const positionNode = findNodeAtOffset(project.manifest.tree, document.offsetAt(position));
+    const propertyNode = positionNode && getPropertyNode(positionNode);
+    if (!positionNode || propertyNode === positionNode) {
+      return null;
+    }
 
     const positionValue = getNodeValue(positionNode);
-    const positionIsPath = positionValue && positionValue.startsWith('./');
+    const positionIsPath = positionValue && positionValue.startsWith('.');
 
+    // Resolve plugin suggestions from installed packages if the path is not relative
     if (!positionIsPath && !token.isCancellationRequested) {
       return createPossibleIncompleteList(
         resolveInstalledPluginInfo(project, positionValue, MAX_RESULT).map((plugin) =>
-          createPluginModule(plugin)
+          createPluginModule(plugin, positionValue)
         )
       );
     }
 
-    if (positionIsPath && !token.isCancellationRequested) {
-      const positionDir = getDirectoryPath(positionValue) ?? '';
-      const entities = await vscode.workspace.fs.readDirectory(
-        vscode.Uri.file(path.join(project.root, positionDir))
+    // Resolve plugin suggestions from the local project if the path is relative
+    if (positionIsPath) {
+      const positionDir = getSearchDirectoryPath(positionValue) ?? '';
+      const entities = await withCancelToken(token, () =>
+        vscode.workspace.fs.readDirectory(vscode.Uri.file(path.join(project.root, positionDir)))
       );
 
       return entities
-        .map(([entityName, entityType]) => {
+        ?.map(([entityName, entityType]) => {
           if (fileIsHidden(entityName) || fileIsExcluded(entityName, this.excludedFiles)) {
             return null;
           }
 
           if (entityType === vscode.FileType.Directory) {
-            return createFolder(entityName);
+            return createFolder(entityName, positionValue);
           }
 
           if (path.extname(entityName) === '.js') {
@@ -108,34 +117,4 @@ function createPossibleIncompleteList(
     items,
     isIncomplete !== undefined ? isIncomplete : items.length >= MAX_RESULT
   );
-}
-
-function createPluginModule(plugin: PluginInfo): vscode.CompletionItem {
-  const item = new vscode.CompletionItem(plugin.pluginReference, vscode.CompletionItemKind.Module);
-
-  // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
-  item.sortText = `a_${plugin.isPluginFile ? 'a' : 'b'}_${plugin.pluginReference}`;
-
-  // Add a detail text on the right of the suggestion that shows the filename.
-  // This can be useful for packages which don't use `app.plugin.js`.
-  item.detail = path.basename(plugin.pluginFile);
-
-  return item;
-}
-
-function createPluginFile(plugin: PluginInfo, pluginFile: string): vscode.CompletionItem {
-  const item = new vscode.CompletionItem(pluginFile, vscode.CompletionItemKind.File);
-
-  // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
-  item.sortText = `c_${plugin.isPluginFile ? 'c' : 'd'}_${plugin.pluginReference}`;
-
-  return item;
-}
-
-function createFolder(folderPath: string): vscode.CompletionItem {
-  const item = new vscode.CompletionItem(folderPath, vscode.CompletionItemKind.Folder);
-
-  item.sortText = `e_${path.basename(folderPath)}`;
-
-  return item;
 }

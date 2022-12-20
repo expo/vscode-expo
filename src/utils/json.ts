@@ -21,19 +21,21 @@ export function rangeForCompletion(range: Range): Range {
 }
 
 /**
- * Determine if the node is a JSON key node.
- * For that, the node must be either:
+ * Get the paired JSON property or key node, using a value starting node.
+ * This returns the parent node when:
  *   - type of `property`
  *   - type of `string` and have a parent of type `property`
  *
  * @example `{ "some": "value" }` where `some` is a key node
  */
-export function isKeyNode(node: Node) {
+export function getPropertyNode(node: Node) {
   if (node.type === 'property') {
-    return true;
+    return node;
   }
 
-  return (
-    node.type === 'string' && node.parent?.type === 'property' && node.parent.children?.[0] === node
-  );
+  if (node.type === 'string' && node.parent?.type === 'property') {
+    return node.parent;
+  }
+
+  return null;
 }
