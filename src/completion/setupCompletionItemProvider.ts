@@ -3,9 +3,9 @@
 import * as path from 'path';
 import vscode, { languages } from 'vscode';
 
-import { appJsonPattern } from '../manifest/utils/parseExpoJson';
 import { subscribeToTsConfigChanges } from './provider/configuration/getTsconfig';
 import { provideCompletionItems } from './provider/provideCompletionItems';
+import { appJsonPattern } from './utils/parseExpoJson';
 
 const triggerCharacters = [path.sep, '.', '"'];
 

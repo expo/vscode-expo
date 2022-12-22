@@ -1,6 +1,4 @@
 import { Node, ParseError, parseTree, findNodeAtLocation } from 'jsonc-parser';
-import path from 'path';
-import { TextDocument } from 'vscode';
 
 let expoJsonCache: Record<string, Node> = {};
 
@@ -10,10 +8,6 @@ export const appJsonPattern = {
   pattern: '**/*/app{,.config}.json',
   language: 'jsonc',
 };
-
-export function isAppJson(document: TextDocument) {
-  return document && ['app.json', 'app.config.json'].includes(path.basename(document.fileName));
-}
 
 export function parseExpoJson(text: string): { node: Node | undefined; errors: ParseError[] } {
   if (text in expoJsonCache) {
