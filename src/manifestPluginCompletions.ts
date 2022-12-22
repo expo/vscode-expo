@@ -132,10 +132,19 @@ function createPluginFile(plugin: PluginInfo, pluginFile: string): vscode.Comple
   return item;
 }
 
+/**
+ * Create a new completion item for a folder.
+ * Note, this adds a trailing `/` to the folder and triggers the next suggestion automatically.
+ * While this makes it harder to type `./folder`, `./folder/` is a valid shorthand for `./folder/index.js`.
+ */
 function createFolder(folderPath: string): vscode.CompletionItem {
-  const item = new vscode.CompletionItem(folderPath, vscode.CompletionItemKind.Folder);
+  const item = new vscode.CompletionItem(folderPath + '/', vscode.CompletionItemKind.Folder);
 
   item.sortText = `e_${path.basename(folderPath)}`;
+  item.command = {
+    title: '',
+    command: 'editor.action.triggerSuggest',
+  };
 
   return item;
 }
