@@ -15,8 +15,8 @@
   </a>
   <a href="https://github.com/expo/vscode-expo/actions" title="Workflow status">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=49505A">
-      <img alt="Workflow status" src="https://img.shields.io/github/workflow/status/expo/vscode-expo/test/main.svg?style=flat-square&labelColor=D1D5DA" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=49505A">
+      <img alt="Workflow status" src="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=D1D5DA" />
     </picture>
   </a>
   <a href="https://marketplace.visualstudio.com/items?itemName=byCedric.vscode-expo" title="Install from vscode marketplace">
