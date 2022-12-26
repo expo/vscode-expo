@@ -50,11 +50,13 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     const plugins = findNodeAtLocation(project.manifest.tree, ['plugins']);
     const pluginsRange = plugins && getDocumentRange(document, plugins);
 
+    // Diagnose each defined plugin, if any
     for (const pluginNode of plugins?.children ?? []) {
       const issue = diagnosePlugin(document, project, pluginNode);
       if (issue) issues.push(issue);
     }
 
+    // Diagnose each defined asset, if any
     for (const reference of getFileReferences(project.manifest.content)) {
       const range = getDocumentRange(document, reference.fileRange);
 

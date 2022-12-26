@@ -51,9 +51,11 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
       return [];
     }
 
+    // Abort if we can't locate the cursor, or if the cursor is on a JSON key property
     const positionNode = findNodeAtOffset(project.manifest.tree, document.offsetAt(position));
     if (!positionNode || isKeyNode(positionNode)) return null;
 
+    // Abort if the cursor is not in the plugins property
     const plugins = findNodeAtLocation(project.manifest.tree, ['plugins']);
     const positionInPlugins = plugins && getDocumentRange(document, plugins).contains(position);
     if (!positionInPlugins) return null;
@@ -61,6 +63,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
     const positionValue = getNodeValue(positionNode);
     const positionIsPath = positionValue && positionValue.startsWith('./');
 
+    // Create a list of installed Expo plugins when referencing a plugin by package name
     if (!positionIsPath && !token.isCancellationRequested) {
       return createPossibleIncompleteList(
         resolveInstalledPluginInfo(project, positionValue, MAX_RESULT).map((plugin) =>
@@ -69,6 +72,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
       );
     }
 
+    // Create a list of local Expo plugin files when referencing a plugin by path
     if (positionIsPath && !token.isCancellationRequested) {
       const positionDir = getDirectoryPath(positionValue) ?? '';
       const entities = await vscode.workspace.fs.readDirectory(
