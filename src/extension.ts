@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
-import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
 import { ExpoProjectCache } from './expo/project';
+import { ManifestAssetCompletionsProvider } from './manifestAssetCompletions';
 import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
 import { ManifestPluginCompletionsProvider } from './manifestPluginCompletions';
@@ -18,11 +18,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
     setupTelemetry(context);
     setupPreview(context);
-    await setupCompletionItemProvider(context);
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);
     new ManifestPluginCompletionsProvider(context, projects);
+    new ManifestAssetCompletionsProvider(context, projects);
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
   } catch (error) {
