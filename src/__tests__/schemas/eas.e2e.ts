@@ -1,7 +1,7 @@
-import { commands, Selection, window } from 'vscode';
+import { commands, CompletionList, window } from 'vscode';
 
 import { closeAllEditors, findContentRange, getWorkspaceUri } from '../utils/vscode';
-import { waitFor, waitForTrue } from '../utils/wait';
+import { waitForTrue } from '../utils/wait';
 
 describe('eas', () => {
   afterEach(async () => {
@@ -12,15 +12,19 @@ describe('eas', () => {
     const app = await window.showTextDocument(getWorkspaceUri('eas-app/eas.json'));
     const range = findContentRange(app, 'developmentClient');
 
-    app.selection = new Selection(range.start, range.end);
     await app.edit((builder) => builder.replace(range, 'developmentCl'));
 
-    await commands.executeCommand('editor.action.triggerSuggest');
-    await waitFor(500);
-    await commands.executeCommand('acceptSelectedSuggestion');
-
     await expect(
-      waitForTrue(() => app.document.getText(range) === 'developmentClient')
+      // Retry the suggestions a couple of times, the schema might still need to be downloaded
+      waitForTrue(async () => {
+        const suggestions = await commands.executeCommand<CompletionList>(
+          'vscode.executeCompletionItemProvider',
+          app.document.uri,
+          range.start
+        );
+
+        return suggestions.items.some((item) => item.label === 'developmentClient');
+      })
     ).resolves.toBe(true);
   });
 });
