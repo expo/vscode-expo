@@ -34,23 +34,3 @@ export function getManifestFileReferencesExcludedFiles(scope?: ConfigurationScop
     }),
   };
 }
-
-/**
- * Get the manifest file references configuration set.
- * This uses multiple settings from the configuration scope.
- *   - `expo.appManifest.fileReferences.showHiddenFiles`
- *   - `expo.appManifest.fileReferences.excludeGlobPatterns`
- *   - `expo.appManifest.fileReferences.useAbsolutePathsForFileReferences` (hidden)
- *   - `expo.appManifest.fileReferences.mappings` (hidden)
- */
-export function getManifestFileReferencesConfig(scope?: ConfigurationScope) {
-  const config = workspace.getConfiguration('expo.appManifest.fileReferences', scope);
-
-  return {
-    showHiddenFiles: config.get<boolean>('showHiddenFiles', false),
-    filesExclude: config.get<Record<string, string> | null>('excludeGlobPatterns', null),
-    // TODO(cedric): Check if the settings blow this comment are still required
-    absolutePathToWorkspace: config.get<boolean>('useAbsolutePathsForFileReferences', false),
-    mappings: config.get<Record<string, string> | null>('mappings', null),
-  };
-}

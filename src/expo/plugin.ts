@@ -8,7 +8,7 @@ import { truthy } from '../utils/array';
 import { resetModuleFrom } from '../utils/module';
 import { ExpoProject } from './project';
 
-export type PluginDefiniton = {
+type PluginDefiniton = {
   nameValue: string;
   nameRange: Range;
 };
