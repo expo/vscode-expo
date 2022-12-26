@@ -5,6 +5,8 @@ export async function waitFor(delay: number = 500) {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
+type SyncOrAsync<T> = T | Promise<T>;
+
 type WaitForValueOptions = {
   /** The delay in milliseconds to wait for next attempt */
   delay?: number;
@@ -31,16 +33,16 @@ export async function waitForValue<T>(
   return value;
 }
 
-export async function waitForTrue<T extends boolean | undefined | null>(
+export async function waitForTrue<T extends SyncOrAsync<boolean | undefined | null>>(
   action: () => T,
-  context?: WaitForValueOptions
+  options?: WaitForValueOptions
 ) {
-  return waitForValue(() => (action() === true ? true : undefined), context);
+  return waitForValue(async () => ((await action()) === true ? true : undefined), options);
 }
 
-export async function waitForFalse<T extends boolean | undefined | null>(
+export async function waitForFalse<T extends SyncOrAsync<boolean | undefined | null>>(
   action: () => T,
-  context: WaitForValueOptions = {}
+  options: WaitForValueOptions = {}
 ) {
-  return waitForValue(() => (action() === false ? true : undefined), context);
+  return waitForValue(async () => ((await action()) === false ? true : undefined), options);
 }

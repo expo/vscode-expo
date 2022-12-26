@@ -62,6 +62,14 @@ export function closeAllEditors() {
 }
 
 /**
+ * Close the current active editor.
+ * Usually `closeAllEditors` should be used instead, but for 1 document tests this can be used when running into errors.
+ */
+export function closeActiveEditor() {
+  return vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+}
+
+/**
  * Find the editor content position by search string.
  */
 export function findContentPosition(editor: vscode.TextEditor, search: string): vscode.Position {

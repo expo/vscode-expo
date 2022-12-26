@@ -1,34 +1,22 @@
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
 import { ManifestPluginCompletionsProvider } from '../manifestPluginCompletions';
-import {
-  closeAllEditors,
-  findContentRange,
-  getWorkspaceUri,
-  storeOriginalContent,
-} from './utils/vscode';
+import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
 
 describe(ManifestPluginCompletionsProvider, () => {
   let app: TextEditor;
-  let restoreContent: ReturnType<typeof storeOriginalContent>;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
-    restoreContent = storeOriginalContent(app);
   });
 
   afterEach(async () => {
-    await restoreContent();
-  });
-
-  afterAll(async () => {
-    await closeAllEditors();
+    await closeActiveEditor();
   });
 
   it('suggests plugins from installed packages', async () => {
     const range = findContentRange(app, 'expo-system-ui');
     await app.edit((builder) => builder.replace(range, ''));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
@@ -47,7 +35,6 @@ describe(ManifestPluginCompletionsProvider, () => {
   it('suggests folders from local project', async () => {
     const range = findContentRange(app, './plugins/valid');
     await app.edit((builder) => builder.replace(range, './'));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
@@ -73,7 +60,6 @@ describe(ManifestPluginCompletionsProvider, () => {
   it('suggests plugins from local project', async () => {
     const range = findContentRange(app, './plugins/valid');
     await app.edit((builder) => builder.replace(range, './plugins/'));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
