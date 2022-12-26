@@ -1,34 +1,22 @@
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
 import { ManifestAssetCompletionsProvider } from '../manifestAssetCompletions';
-import {
-  closeAllEditors,
-  findContentRange,
-  getWorkspaceUri,
-  storeOriginalContent,
-} from './utils/vscode';
+import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
 
 describe(ManifestAssetCompletionsProvider, () => {
   let app: TextEditor;
-  let restoreContent: ReturnType<typeof storeOriginalContent>;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
-    restoreContent = storeOriginalContent(app);
   });
 
   afterEach(async () => {
-    await restoreContent();
-  });
-
-  afterAll(async () => {
-    await closeAllEditors();
+    await closeActiveEditor();
   });
 
   it('suggests folders from project', async () => {
     const range = findContentRange(app, './assets/icon.png');
     await app.edit((builder) => builder.replace(range, './'));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
@@ -49,7 +37,6 @@ describe(ManifestAssetCompletionsProvider, () => {
   it('suggests image asset files from project', async () => {
     const range = findContentRange(app, './assets/icon.png');
     await app.edit((builder) => builder.replace(range, './assets/'));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
@@ -72,7 +59,6 @@ describe(ManifestAssetCompletionsProvider, () => {
   it('does not suggest for non-asset key properties', async () => {
     const range = findContentRange(app, 'portrait');
     await app.edit((builder) => builder.replace(range, './'));
-    await app.document.save();
 
     const suggestions = await commands.executeCommand<CompletionList>(
       'vscode.executeCompletionItemProvider',
