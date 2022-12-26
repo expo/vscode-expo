@@ -40,6 +40,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
     const plugins = findNodeAtLocation(project.manifest.tree, ['plugins']);
     const pluginsRange = plugins && getDocumentRange(document, plugins);
 
+    // Create links for each defined plugins, if any
     for (const pluginNode of plugins?.children ?? []) {
       if (token.isCancellationRequested) return links;
 
@@ -57,6 +58,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       }
     }
 
+    // Create links for each defined assets, if any
     for (const reference of getFileReferences(project.manifest.content)) {
       if (token.isCancellationRequested) return links;
 
