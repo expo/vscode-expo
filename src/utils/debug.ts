@@ -1,7 +1,7 @@
 import Debug from 'debug';
 
 /** The namespace tag used for logging */
-export const TAG = 'vscode-expo';
+const TAG = 'vscode-expo';
 
 /** The root debug logger for the extension, use `debug.extend` to create sub-loggers */
 export const debug = Debug(TAG);

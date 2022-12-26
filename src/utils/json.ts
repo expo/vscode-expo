@@ -9,18 +9,6 @@ export function getDocumentRange(document: vscode.TextDocument, range: Range): v
 }
 
 /**
- * The range for completion items seems the have a wrong offset and length.
- * Possibly due to the quotes not being counted in the range, but completion items expect it.
- * @todo figure out if this is true, and rename the method to reflect this fix.
- */
-export function rangeForCompletion(range: Range): Range {
-  return {
-    offset: range.offset + 1,
-    length: range.length - 2,
-  };
-}
-
-/**
  * Determine if the node is a JSON key node.
  * For that, the node must be either:
  *   - type of `property`
