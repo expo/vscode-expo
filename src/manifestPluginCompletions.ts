@@ -13,7 +13,7 @@ import { truthy } from './utils/array';
 import { debug } from './utils/debug';
 import { fileIsExcluded, fileIsHidden, getDirectoryPath } from './utils/file';
 import { getDocumentRange, isKeyNode } from './utils/json';
-import { ExpoCompletionsProvider } from './utils/vscode';
+import { ExpoCompletionsProvider, withCancelToken } from './utils/vscode';
 
 const log = debug.extend('manifest-plugin-completions');
 
@@ -75,12 +75,12 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
     // Create a list of local Expo plugin files when referencing a plugin by path
     if (positionIsPath && !token.isCancellationRequested) {
       const positionDir = getDirectoryPath(positionValue) ?? '';
-      const entities = await vscode.workspace.fs.readDirectory(
-        vscode.Uri.file(path.join(project.root, positionDir))
+      const entities = await withCancelToken(token, () =>
+        vscode.workspace.fs.readDirectory(vscode.Uri.file(path.join(project.root, positionDir)))
       );
 
       return entities
-        .map(([entityName, entityType]) => {
+        ?.map(([entityName, entityType]) => {
           if (fileIsHidden(entityName) || fileIsExcluded(entityName, this.excludedFiles)) {
             return null;
           }
