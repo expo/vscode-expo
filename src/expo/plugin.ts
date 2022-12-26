@@ -63,6 +63,8 @@ export function resolvePluginFunctionUnsafe(dir: string, name: string): PluginFu
 /**
  * Resolve all installed plugin info from the project.
  * This uses the `package.json` to find all installed plugins.
+ *
+ * @todo Investigate potential issues with monorepos
  */
 export function resolveInstalledPluginInfo(
   project: ExpoProject,

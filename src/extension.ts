@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import { setupCompletionItemProvider } from './completion/setupCompletionItemProvider';
 import { ExpoProjectCache } from './expo/project';
 import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
@@ -11,12 +12,13 @@ import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
 // It helps grouping this code and keeping it maintainable, so disable the eslint rule.
 /* eslint-disable no-new */
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   try {
     const projects = new ExpoProjectCache(context);
 
     setupTelemetry(context);
     setupPreview(context);
+    await setupCompletionItemProvider(context);
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);
