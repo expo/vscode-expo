@@ -19,6 +19,23 @@ export function isManifestFileReferencesEnabled(scope?: ConfigurationScope) {
 }
 
 /**
+ * Get the excluded files configuration, used to filter out path-based suggestions.
+ * This is a combination of multiple glob patterns:
+ *   - `files.exclude` - main vscode file exclusion
+ *   - `expo.appManifest.fileReferences.excludeGlobPatterns` - expo-specific file exclusion
+ */
+export function getManifestFileReferencesExcludedFiles(scope?: ConfigurationScope) {
+  const config = workspace.getConfiguration(undefined, scope);
+
+  return {
+    ...config.get<Record<string, boolean>>('files.exclude', {}),
+    ...config.get<Record<string, boolean>>('expo.appManifest.fileReferences.excludeGlobPatterns', {
+      '**/node_modules': true,
+    }),
+  };
+}
+
+/**
  * Get the manifest file references configuration set.
  * This uses multiple settings from the configuration scope.
  *   - `expo.appManifest.fileReferences.showHiddenFiles`

@@ -1,4 +1,4 @@
-import vscode from 'vscode';
+import vscode, { CompletionItemProvider } from 'vscode';
 
 import { ExpoProjectCache } from '../expo/project';
 
@@ -48,4 +48,24 @@ export abstract class ExpoDiagnosticsProvider {
   public abstract provideDiagnostics(
     document: vscode.TextDocument
   ): vscode.Diagnostic[] | Promise<vscode.Diagnostic[]>;
+}
+
+export abstract class ExpoCompletionsProvider implements CompletionItemProvider {
+  constructor(
+    { subscriptions }: vscode.ExtensionContext,
+    protected projects: ExpoProjectCache,
+    selector: vscode.DocumentSelector,
+    triggerCharacters: string[]
+  ) {
+    subscriptions.push(
+      vscode.languages.registerCompletionItemProvider(selector, this, ...triggerCharacters)
+    );
+  }
+
+  abstract provideCompletionItems(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    token: vscode.CancellationToken,
+    context: vscode.CompletionContext
+  ): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>>;
 }

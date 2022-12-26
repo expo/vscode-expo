@@ -4,6 +4,7 @@ import { setupCompletionItemProvider } from './completion/setupCompletionItemPro
 import { ExpoProjectCache } from './expo/project';
 import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
+import { ManifestPluginCompletionsProvider } from './manifestPluginCompletions';
 import { setupPreview } from './preview/setupPreview';
 import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
 
@@ -13,18 +14,17 @@ import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
 
 export async function activate(context: vscode.ExtensionContext) {
   try {
-    const start = Date.now();
     const projects = new ExpoProjectCache(context);
 
-    await setupTelemetry(context);
-    await Promise.all([setupCompletionItemProvider(context), setupPreview(context)]);
+    setupTelemetry(context);
+    setupPreview(context);
+    await setupCompletionItemProvider(context);
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);
+    new ManifestPluginCompletionsProvider(context, projects);
 
-    reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED, undefined, {
-      duration: Date.now() - start,
-    });
+    reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
   } catch (error) {
     reporter?.sendTelemetryException(error);
     vscode.window.showErrorMessage(

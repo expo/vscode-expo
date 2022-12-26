@@ -77,7 +77,7 @@ describe(ManifestDiagnosticsProvider, () => {
 
     expect(diagnostics).toHaveLength(1);
     expect(diagnostics[0]).toMatchObject({
-      code: `PLUGIN_INVALID`,
+      code: `PLUGIN_DEFINITION_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
       severity: DiagnosticSeverity.Warning,
     });
@@ -93,7 +93,7 @@ describe(ManifestDiagnosticsProvider, () => {
 
     expect(diagnostics).toHaveLength(1);
     expect(diagnostics[0]).toMatchObject({
-      code: `PLUGIN_INVALID`,
+      code: `PLUGIN_DEFINITION_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
       severity: DiagnosticSeverity.Warning,
     });

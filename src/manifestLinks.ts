@@ -2,12 +2,8 @@ import { findNodeAtLocation } from 'jsonc-parser';
 import path from 'path';
 import vscode from 'vscode';
 
-import {
-  getFileReferences,
-  getPluginDefinition,
-  manifestPattern,
-  resolvePluginInfo,
-} from './expo/manifest';
+import { getFileReferences, manifestPattern } from './expo/manifest';
+import { getPluginDefinition, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import { isManifestFileReferencesEnabled } from './settings';
 import { debug } from './utils/debug';

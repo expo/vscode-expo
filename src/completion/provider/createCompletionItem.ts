@@ -1,4 +1,3 @@
-import * as path from 'path';
 import * as vscode from 'vscode';
 
 import { Config } from './configuration/getConfiguration';
@@ -22,30 +21,6 @@ export function createPathCompletionItem(
       );
 }
 
-export function createNodeModuleItem(
-  pluginInfo: {
-    plugin: Function;
-    pluginFile: string;
-    pluginReference: string;
-    isPluginFile: boolean;
-  },
-  importRange: vscode.Range
-): vscode.CompletionItem {
-  const moduleName = pluginInfo.pluginReference;
-  //   const hasProps = pluginInfo.plugin.length > 1
-  return {
-    label: moduleName,
-    kind: vscode.CompletionItemKind.Module,
-    range: importRange,
-    insertText: new vscode.SnippetString(moduleName),
-    // Add a detail text on the right of the suggestion that shows the filename.
-    // This can be useful for packages like lodash which don't use `app.plugin.js`.
-    detail: path.basename(pluginInfo.pluginFile),
-    // Sort app.plugin.js plugins higher since we can be sure that they have a valid plugin.
-    sortText: `a_${pluginInfo.isPluginFile ? 'a' : 'b'}_${moduleName}`,
-  };
-}
-
 function createFolderItem(
   fileInfo: FileInfo,
   autoSlash: boolean,
@@ -56,7 +31,7 @@ function createFolderItem(
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.Folder,
-    range: importRange,
+    // range: importRange,
     insertText: new vscode.SnippetString(newText),
     sortText: `d_${fileInfo.file}`,
     // If we auto slash, then trigger the next suggestion automatically.
@@ -79,7 +54,7 @@ function createFileItem(
   return {
     label: fileInfo.file,
     kind: vscode.CompletionItemKind.File,
-    range: context.importRange,
+    // range: context.importRange,
     insertText,
     sortText: `c_${fileInfo.file}`,
   };

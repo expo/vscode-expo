@@ -2,13 +2,8 @@ import { findNodeAtLocation, Node } from 'jsonc-parser';
 import path from 'path';
 import vscode from 'vscode';
 
-import {
-  FileReference,
-  getFileReferences,
-  getPluginDefinition,
-  manifestPattern,
-  resolvePluginFunctionUnsafe,
-} from './expo/manifest';
+import { FileReference, getFileReferences, manifestPattern } from './expo/manifest';
+import { getPluginDefinition, resolvePluginFunctionUnsafe } from './expo/plugin';
 import { ExpoProject, ExpoProjectCache } from './expo/project';
 import { isManifestPluginValidationEnabled } from './settings';
 import { debug } from './utils/debug';
@@ -23,7 +18,8 @@ enum AssetIssueCode {
 }
 
 enum PluginIssueCode {
-  invalid = 'PLUGIN_INVALID',
+  definitionInvalid = 'PLUGIN_DEFINITION_INVALID',
+  functionInvalid = 'PLUGIN_FUNCTION_INVALID',
 }
 
 export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
@@ -81,7 +77,7 @@ function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plu
       `Plugin definition is empty, expected a file or dependency name`,
       vscode.DiagnosticSeverity.Warning
     );
-    issue.code = PluginIssueCode.invalid;
+    issue.code = PluginIssueCode.definitionInvalid;
     return issue;
   }
 
@@ -94,11 +90,17 @@ function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plu
       vscode.DiagnosticSeverity.Warning
     );
 
+    issue.code = error.code;
+
     if (error.code === 'PLUGIN_NOT_FOUND') {
       issue.message = `Plugin not found: ${nameValue}`;
     }
 
-    issue.code = error.code;
+    if (error.name === 'TypeError' && error.message?.includes(`null (reading 'default')`)) {
+      issue.message = `Plugin exports null, expected a plugin function: ${nameValue}`;
+      issue.code = PluginIssueCode.functionInvalid;
+    }
+
     return issue;
   }
 }
