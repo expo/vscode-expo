@@ -20,10 +20,6 @@ export function getDirectoryPath(filePath: string) {
   return dir;
 }
 
-export function fileFromSegments(segments: string[]) {
-  return segments[segments.length - 1];
-}
-
 export function fileIsHidden(filePath: string) {
   return filePath.startsWith('.');
 }

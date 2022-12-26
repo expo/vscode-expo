@@ -96,13 +96,6 @@
           "description": "Enable suggestions for file references in app manifests, like the splash screen. This only applies to \"app.json\" and \"app.config.json\" files.",
           "markdownDescription": "Enable suggestions for file references in app manifests, like the splash screen This only applies to `app.json` and `app.config.json` files."
         },
-        "expo.appManifest.fileReferences.showHiddenFiles": {
-          "type": "boolean",
-          "default": false,
-          "scope": "resource",
-          "description": "Show hidden file suggestions for file references in app manifests, like the icon image.",
-          "markdownDescription": "Show hidden file suggestions for file references in app manifests, like the icon image."
-        },
         "expo.appManifest.fileReferences.excludeGlobPatterns": {
           "type": "object",
           "default": null,
