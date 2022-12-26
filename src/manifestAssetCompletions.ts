@@ -11,7 +11,7 @@ import {
 import { truthy } from './utils/array';
 import { debug } from './utils/debug';
 import { fileIsExcluded, fileIsHidden, getDirectoryPath } from './utils/file';
-import { getDocumentRange, isKeyNode } from './utils/json';
+import { findKeyStringNode, getDocumentRange, isKeyNode } from './utils/json';
 import { ExpoCompletionsProvider, withCancelToken } from './utils/vscode';
 
 const log = debug.extend('manifest-asset-completions');
@@ -64,6 +64,11 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
       return null;
     }
 
+    // Abort if the property's key node is not a known asset node
+    const positionKeyNode = findKeyStringNode(positionNode);
+    const positionKeyValue = positionKeyNode && getNodeValue(positionKeyNode);
+    if (!isAssetProperty(positionKeyValue)) return null;
+
     // Search entities within the user-provided directory
     const positionDir = getDirectoryPath(positionValue) ?? '';
     const entities = await withCancelToken(token, () =>
@@ -91,6 +96,10 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
       })
       .filter(truthy);
   }
+}
+
+function isAssetProperty(name: string): boolean {
+  return /^((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)/.test(name);
 }
 
 function createFile(filePath: string): vscode.CompletionItem {

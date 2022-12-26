@@ -37,3 +37,19 @@ export function isKeyNode(node: Node) {
     node.type === 'string' && node.parent?.type === 'property' && node.parent.children?.[0] === node
   );
 }
+
+/**
+ * Find the JSON property string node, from a value node.
+ * This searches the `parent.children` list and returns the first `string` node.
+ */
+export function findKeyStringNode(node: Node) {
+  if (node.parent?.type !== 'property') {
+    return null;
+  }
+
+  if (node.parent?.children?.[0].type === 'string') {
+    return node.parent.children[0];
+  }
+
+  return null;
+}

@@ -68,4 +68,20 @@ describe(ManifestAssetCompletionsProvider, () => {
       ])
     );
   });
+
+  it('does not suggest for non-asset key properties', async () => {
+    const range = findContentRange(app, 'portrait');
+    await app.edit((builder) => builder.replace(range, './'));
+    await app.document.save();
+
+    const suggestions = await commands.executeCommand<CompletionList>(
+      'vscode.executeCompletionItemProvider',
+      app.document.uri,
+      range.start
+    );
+
+    expect(suggestions.items).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ label: 'assets/' })])
+    );
+  });
 });
