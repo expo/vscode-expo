@@ -4,7 +4,6 @@ const path = require('path');
 module.exports = {
   verbose: true,
   restoreMocks: true,
-  rootDir: path.resolve(__dirname),
-  roots: ['./out/src'],
-  testRegex: '__tests__/.*\\.(test|e2e)\\.[jt]sx?$',
+  rootDir: path.resolve(__dirname, '..'),
+  roots: ['./scripts'],
 };

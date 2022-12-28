@@ -2,7 +2,7 @@ import { runCLI } from 'jest';
 import { resolve } from 'path';
 
 // This file is executed from `./out/test/jest`
-const jestConfig = require('../../../jest.vscode');
+const jestConfig = require('../../jest.vscode');
 
 export async function run() {
   const config = {
