@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`vscodeSchema creates expected SDK 39 schema 1`] = `
-Object {
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -215,7 +215,7 @@ Object {
 
 **Bare workflow** - This is set in \`AndroidManifest.xml\` directly. [Learn more.](https://developer.android.com/guide/components/intents-filters)",
               "example": [
-                Object {
+                {
                   "action": "VIEW",
                   "autoVerify": true,
                   "category": [
@@ -251,12 +251,12 @@ Object {
                   },
                   "category": {
                     "anyOf": [
-                      Object {
+                      {
                         "type": [
                           "string",
                         ],
                       },
-                      Object {
+                      {
                         "items": {
                           "type": "string",
                         },
@@ -266,10 +266,10 @@ Object {
                   },
                   "data": {
                     "anyOf": [
-                      Object {
+                      {
                         "$ref": "#/definitions/AndroidIntentFiltersData",
                       },
-                      Object {
+                      {
                         "items": {
                           "$ref": "#/definitions/AndroidIntentFiltersData",
                         },
@@ -1807,7 +1807,7 @@ The runtime version associated with this manifest for bare workflow projects. If
 `;
 
 exports[`vscodeSchema creates expected SDK 41 schema 1`] = `
-Object {
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -1974,7 +1974,7 @@ Object {
 
 **Bare workflow** - This is set in \`AndroidManifest.xml\` directly. [Learn more.](https://developer.android.com/guide/components/intents-filters)",
           "example": [
-            Object {
+            {
               "action": "VIEW",
               "autoVerify": true,
               "category": [
@@ -2010,12 +2010,12 @@ Object {
               },
               "category": {
                 "anyOf": [
-                  Object {
+                  {
                     "type": [
                       "string",
                     ],
                   },
-                  Object {
+                  {
                     "items": {
                       "type": "string",
                     },
@@ -2025,10 +2025,10 @@ Object {
               },
               "data": {
                 "anyOf": [
-                  Object {
+                  {
                     "$ref": "#/definitions/AndroidIntentFiltersData",
                   },
-                  Object {
+                  {
                     "items": {
                       "$ref": "#/definitions/AndroidIntentFiltersData",
                     },
@@ -3419,20 +3419,20 @@ Object {
 **Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build",
           "items": {
             "anyOf": [
-              Object {
+              {
                 "type": [
                   "string",
                 ],
               },
-              Object {
+              {
                 "additionalItems": false,
                 "items": [
-                  Object {
+                  {
                     "type": [
                       "string",
                     ],
                   },
-                  Object {},
+                  {},
                 ],
                 "type": "array",
               },
@@ -3581,7 +3581,7 @@ The runtime version associated with this manifest for bare workflow projects. If
 `;
 
 exports[`vscodeSchema creates expected SDK 45 schema 1`] = `
-Object {
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -3757,7 +3757,7 @@ Object {
 
 **Bare workflow** - This is set in \`AndroidManifest.xml\` directly. [Learn more.](https://developer.android.com/guide/components/intents-filters)",
           "example": [
-            Object {
+            {
               "action": "VIEW",
               "autoVerify": true,
               "category": [
@@ -3793,12 +3793,12 @@ Object {
               },
               "category": {
                 "anyOf": [
-                  Object {
+                  {
                     "type": [
                       "string",
                     ],
                   },
-                  Object {
+                  {
                     "items": {
                       "type": "string",
                     },
@@ -3808,10 +3808,10 @@ Object {
               },
               "data": {
                 "anyOf": [
-                  Object {
+                  {
                     "$ref": "#/definitions/AndroidIntentFiltersData",
                   },
-                  Object {
+                  {
                     "items": {
                       "$ref": "#/definitions/AndroidIntentFiltersData",
                     },
@@ -4236,12 +4236,12 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
         },
         "bitcode": {
           "anyOf": [
-            Object {
+            {
               "type": [
                 "boolean",
               ],
             },
-            Object {
+            {
               "type": [
                 "string",
               ],
@@ -4550,7 +4550,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
     },
     "RuntimeVersion": {
       "oneOf": [
-        Object {
+        {
           "meta": {
             "notHuman": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\",\\"(\\", \\")\\", or \\"-\\". May not be a decimal ending in a 0. Valid examples: \\"1.0.3a+\\", \\"1.0.0\\", \\"._+()-0a1\\", \\"0\\".",
             "regexHuman": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\",\\"(\\", \\")\\", or \\"-\\". May not be a decimal ending in a 0. Valid examples: \\"1.0.3a+\\", \\"1.0.0\\", \\"._+()-0a1\\", \\"0\\".",
@@ -4562,7 +4562,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
           "patternErrorMessage": "String beginning with an alphanumeric character followed by any combination of alphanumeric character, \\"_\\", \\"+\\", \\".\\",\\"(\\", \\")\\", or \\"-\\". May not be a decimal ending in a 0. Valid examples: \\"1.0.3a+\\", \\"1.0.0\\", \\"._+()-0a1\\", \\"0\\".",
           "type": "string",
         },
-        Object {
+        {
           "meta": {
             "regexHuman": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \\"exposdk:44.0.0\\".",
           },
@@ -4570,7 +4570,7 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
           "patternErrorMessage": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \\"exposdk:44.0.0\\".",
           "type": "string",
         },
-        Object {
+        {
           "$ref": "#/definitions/RuntimeVersionSDKVersionPolicy",
         },
       ],
@@ -5300,20 +5300,20 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
 **Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build",
           "items": {
             "anyOf": [
-              Object {
+              {
                 "type": [
                   "string",
                 ],
               },
-              Object {
+              {
                 "additionalItems": false,
                 "items": [
-                  Object {
+                  {
                     "type": [
                       "string",
                     ],
                   },
-                  Object {},
+                  {},
                 ],
                 "type": "array",
               },
