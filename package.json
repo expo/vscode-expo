@@ -151,6 +151,7 @@
     "@typescript-eslint/parser": "^5.48.0",
     "@vscode/extension-telemetry": "^0.6.2",
     "@vscode/test-electron": "^2.1.5",
+    "@vscode/vsce": "^2.16.0",
     "arg": "^5.0.2",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "debug": "^4.3.4",
@@ -166,6 +167,7 @@
     "jsonc-parser": "^3.0.0",
     "minimatch": "^3.0.4",
     "node-fetch": "^2.6.7",
+    "ovsx": "^0.8.0",
     "parent-module": "^2.0.0",
     "patch-package": "^6.4.7",
     "prettier": "^2.8.1",
@@ -174,7 +176,6 @@
     "semver": "^7.3.7",
     "sucrase": "^3.20.3",
     "typescript": "^4.9.4",
-    "vsce": "^2.9.2",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0"
   }
