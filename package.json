@@ -89,6 +89,16 @@
           "description": "Validate the config plugins in app manifests, listed under \"expo.plugins\". This only applies to \"app.json\" and \"app.config.json\" files.",
           "markdownDescription": "Validate the config plugins in app manifests, listed under `expo.plugins`. This only applies to `app.json` and `app.config.json` files."
         },
+        "expo.appDependency.versionValidation": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Validate package dependencies based on known version compatibility with the used \"expo\" version. Dependency versions are resolved with the installed \"expo\" package, Unpkg (unpkg.com), and the Expo API (api.expo.dev).",
+          "markdownDescription": "Validate package dependencies based on known version compatibility with the used `expo` version. Dependency versions are resolved with the installed \"expo\" package, Unpkg (unpkg.com), and the Expo API (api.expo.dev).",
+          "tags": [
+            "usesOnlineServices"
+          ]
+        },
         "expo.appManifest.fileReferences": {
           "type": "boolean",
           "default": true,
@@ -146,6 +156,7 @@
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.56",
+    "@types/node-fetch": "2.6.2",
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
@@ -165,7 +176,7 @@
     "json5": "^2.2.2",
     "jsonc-parser": "^3.0.0",
     "minimatch": "^3.0.4",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "2.6.2",
     "parent-module": "^2.0.0",
     "patch-package": "^6.4.7",
     "prettier": "^2.8.1",

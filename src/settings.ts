@@ -34,3 +34,13 @@ export function getManifestFileReferencesExcludedFiles(scope?: ConfigurationScop
     }),
   };
 }
+
+/**
+ * Determine if we should validate dependency versions within the package.json.
+ * This uses the `expo.appDependency.versionValidation` setting from the configuration scope.
+ */
+export function isPackageVersionValidationEnabled(scope?: ConfigurationScope) {
+  return workspace
+    .getConfiguration('expo.appDependency', scope)
+    .get<boolean>('versionValidation', true);
+}
