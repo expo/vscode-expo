@@ -6,9 +6,18 @@ on:
       tag:
         description: The tag to publish
         required: true
+      type:
+        description: What type of release is this?
+        required: true
+        type: choice
+        default: release
+        choice:
+          - release
+          - prerelease
 
 jobs:
   github-release:
+    if: ${{ github.event.inputs.type == 'release' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -32,7 +41,34 @@ jobs:
           files: vscode-expo-*.vsix
           tag_name: ${{ github.event.inputs.tag }}
 
-  vscode-marketplace:
+  github-prerelease:
+    if: ${{ github.event.inputs.type == 'prerelease' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 🎁 Package extension
+        run: yarn vsce package --pre-release --yarn
+        env:
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+
+      - name: 📋 Add package to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: vscode-expo-*.vsix
+          tag_name: ${{ github.event.inputs.tag }}
+          prerelease: true
+
+  vscode-marketplace-release:
+    if: ${{ github.event.inputs.type == 'release' }}
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
@@ -49,7 +85,26 @@ jobs:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
 
-  open-vsx:
+  vscode-marketplace-prerelease:
+    if: ${{ github.event.inputs.type == 'prerelease' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo from tag
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 🚀 Publish to marketplace
+        run: yarn vsce publish --pre-release --yarn
+        env:
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
+
+  open-vsx-release:
+    if: ${{ github.event.inputs.type == 'release' }}
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
@@ -67,5 +122,27 @@ jobs:
 
       - name: 🚀 Publish to open-vsx
         run: npx ovsx publish ./vscode-expo.vsix
+        env:
+          OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
+
+  open-vsx-prerelease:
+    if: ${{ github.event.inputs.type == 'prerelease' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo from tag
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 🎁 Package extension
+        run: yarn vsce package --pre-release --yarn --out ./vscode-expo.vsix
+        env:
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+
+      - name: 🚀 Publish to open-vsx
+        run: yarn ovsx publish --pre-release ./vscode-expo.vsix
         env:
           OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
