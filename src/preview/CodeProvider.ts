@@ -3,8 +3,11 @@ import plist from '@expo/plist';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { clearProjectModules } from '../utils/clearModule';
-import { getProjectRoot } from '../utils/getProjectRoot';
+import { getProjectRoot } from '../expo/project';
+import { debug } from '../utils/debug';
+import { resetModulesFrom } from '../utils/module';
+
+const log = debug.extend('preview-code-provider');
 
 export type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties' | 'entitlements';
 
@@ -36,7 +39,10 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
   constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
     this.scheme = `expo-config-${this.options.type}`;
-    this.projectRoot = getProjectRoot(this._document);
+    this.projectRoot = getProjectRoot(this._document.fileName) ?? this._document.fileName;
+    if (this.projectRoot === this._document.fileName) {
+      log('Unable to find project root for %s', this._document.fileName);
+    }
 
     this._changeSubscription = vscode.workspace.onDidChangeTextDocument((ev) => {
       this.textDidChange(ev);
@@ -175,7 +181,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   async update(): Promise<void> {
     try {
       // Reset all requires to ensure plugins update
-      clearProjectModules(this.projectRoot);
+      resetModulesFrom(this.projectRoot);
 
       this.fileContents = this.formatWithLanguage(await this.getFileContents());
     } catch (error) {
