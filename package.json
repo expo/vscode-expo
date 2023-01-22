@@ -119,6 +119,16 @@
         "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
       }
     ],
+    "languages": [
+      {
+        "id": "jsonc",
+        "filenames": [
+          "app.json",
+          "app.config.json",
+          "eas.json"
+        ]
+      }
+    ],
     "commands": [
       {
         "category": "Expo",
@@ -167,16 +177,6 @@
           "description": "Exclude file suggestions for file references in app manifest, using glob patterns."
         }
       }
-    },
-    "languages": [
-      {
-        "id": "jsonc",
-        "filenames": [
-          "app.json",
-          "app.config.json",
-          "eas.json"
-        ]
-      }
-    ]
+    }
   }
 }
