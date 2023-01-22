@@ -98,35 +98,18 @@
     "onStartupFinished"
   ],
   "contributes": {
-    "jsonValidation": [
+    "breakpoints": [
       {
-        "fileMatch": [
-          "app.json",
-          "app.config.json"
-        ],
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+        "language": "javascript"
       },
       {
-        "fileMatch": "store.config.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-metadata.json"
+        "language": "javascriptreact"
       },
       {
-        "fileMatch": "expo-module.config.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-module.json"
+        "language": "typescript"
       },
       {
-        "fileMatch": "eas.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "jsonc",
-        "filenames": [
-          "app.json",
-          "app.config.json",
-          "eas.json"
-        ]
+        "language": "typescriptreact"
       }
     ],
     "commands": [
@@ -177,6 +160,37 @@
           "description": "Exclude file suggestions for file references in app manifest, using glob patterns."
         }
       }
-    }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "app.json",
+          "app.config.json"
+        ],
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+      },
+      {
+        "fileMatch": "store.config.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-metadata.json"
+      },
+      {
+        "fileMatch": "expo-module.config.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-module.json"
+      },
+      {
+        "fileMatch": "eas.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "jsonc",
+        "filenames": [
+          "app.json",
+          "app.config.json",
+          "eas.json"
+        ]
+      }
+    ]
   }
 }
