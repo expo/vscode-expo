@@ -3,8 +3,8 @@ import plist from '@expo/plist';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { clearProjectModules } from '../utils/clearModule';
 import { getProjectRoot } from '../utils/getProjectRoot';
+import { resetModulesFrom } from '../utils/module';
 
 export type CodeProviderLanguage = 'json' | 'xml' | 'plist' | 'properties' | 'entitlements';
 
@@ -175,7 +175,7 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
   async update(): Promise<void> {
     try {
       // Reset all requires to ensure plugins update
-      clearProjectModules(this.projectRoot);
+      resetModulesFrom(this.projectRoot);
 
       this.fileContents = this.formatWithLanguage(await this.getFileContents());
     } catch (error) {
