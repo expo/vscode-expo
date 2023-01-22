@@ -10,6 +10,15 @@ import { debug } from '../utils/debug';
 const log = debug.extend('project');
 
 /**
+ * Find the project root from a file path.
+ * This returns the directory where the first `package.json` was found.
+ */
+export function getProjectRoot(filePath: string) {
+  const root = findUp.sync('package.json', { cwd: filePath });
+  return root ? path.dirname(root) : undefined;
+}
+
+/**
  * The Expo project cache keeps track of resolved project information.
  * It's designed to work as "just-in-time"-resolving to avoid unnecessary heavy operations.
  *
@@ -36,8 +45,8 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
   }
 
   fromManifest(manifest: TextDocument) {
-    const root = findUp.sync('package.json', { cwd: manifest.fileName });
-    const project = root ? this.fromRoot(path.dirname(root)) : undefined;
+    const root = getProjectRoot(manifest.fileName);
+    const project = root ? this.fromRoot(root) : undefined;
     project?.setManifest(manifest.getText());
     return project;
   }
