@@ -2,11 +2,6 @@
  * Reset a single resolved module from the cache registry.
  */
 function resetModule(module: NodeModule) {
-  // Delete all children of this module from cache
-  for (const child of module.children) {
-    delete require.cache[child.id];
-  }
-
   // Delete this module from possible parents
   for (const cached of Object.values(require.cache)) {
     if (!cached) continue;
@@ -19,6 +14,11 @@ function resetModule(module: NodeModule) {
 
   // Delete itself from the cache
   delete require.cache[module.id];
+
+  // Delete all children of this module from cache
+  for (const child of module.children) {
+    resetModule(child);
+  }
 }
 
 /**
