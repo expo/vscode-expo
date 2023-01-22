@@ -18,6 +18,9 @@ const log = debug.extend('manifest-asset-completions');
 
 /** The allowed asset extensions to provide file completions for */
 const ASSET_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'];
+/** Regex that matches all known asset properties within the XDL schema */
+const ASSET_PROPERTIES =
+  /^((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)/;
 
 export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
   private isEnabled = true;
@@ -99,7 +102,7 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
 }
 
 function isAssetProperty(name: string): boolean {
-  return /^((?:x?x?x?(?:h|m)dpi)|(tablet|foreground|background)?[iI]mage|(?:fav)?icon)/.test(name);
+  return ASSET_PROPERTIES.test(name);
 }
 
 function createFile(filePath: string): vscode.CompletionItem {
