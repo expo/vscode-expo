@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 import { ExpoProjectCache } from './expo/project';
+import { ExpoDebuggersProvider } from './expoDebuggers';
 import { ManifestAssetCompletionsProvider } from './manifestAssetCompletions';
 import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
@@ -18,6 +19,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
     setupTelemetry(context);
     setupPreview(context);
+
+    new ExpoDebuggersProvider(context);
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);

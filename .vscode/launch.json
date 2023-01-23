@@ -11,7 +11,8 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "${workspaceFolder}/test/fixture",
+        // "${workspaceFolder}/test/fixture",
+        "${workspaceFolder}/../../bycedric/expo-monorepo-example",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "env": {

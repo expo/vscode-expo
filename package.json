@@ -50,6 +50,7 @@
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.56",
+    "@types/node-fetch": "^2.6.2",
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
@@ -110,6 +111,54 @@
       },
       {
         "language": "typescriptreact"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "expo",
+        "label": "Expo SDK 47+ with Hermes enabled",
+        "runtime": "node",
+        "configurationAttributes": {
+          "attach": {
+            "properties": {
+              "projectRoot": {
+                "type": "string",
+                "description": "The root of the Expo project, within the workspace.",
+                "default": "${workspaceFolder}"
+              },
+              "port": {
+                "type": "number",
+                "description": "The port of the Expo dev server",
+                "default": 19000
+              },
+              "host": {
+                "type": "string",
+                "description": "The host of the Expo dev server",
+                "default": "localhost"
+              }
+            }
+          },
+          "launch": {
+            "properties": {
+              "projectRoot": {
+                "type": "string",
+                "description": "The root of the Expo project, within the workspace.",
+                "default": "${workspaceFolder}"
+              },
+              "port": {
+                "type": "number",
+                "description": "The port of the Expo dev server",
+                "default": 19000
+              },
+              "host": {
+                "type": "string",
+                "description": "The host of the Expo dev server",
+                "default": "localhost"
+              }
+            }
+          }
+        },
+        "configurationSnippets": []
       }
     ],
     "commands": [

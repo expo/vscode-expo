@@ -1,4 +1,4 @@
-import vscode, { CompletionItemProvider } from 'vscode';
+import vscode from 'vscode';
 
 import { ExpoProjectCache } from '../expo/project';
 
@@ -63,7 +63,7 @@ export abstract class ExpoDiagnosticsProvider {
   ): vscode.Diagnostic[] | Promise<vscode.Diagnostic[]>;
 }
 
-export abstract class ExpoCompletionsProvider implements CompletionItemProvider {
+export abstract class ExpoCompletionsProvider implements vscode.CompletionItemProvider {
   constructor(
     { subscriptions }: vscode.ExtensionContext,
     protected projects: ExpoProjectCache,
