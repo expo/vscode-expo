@@ -1417,51 +1417,59 @@
           "markdownDescription": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode."
         },
         "facebookAppId": {
-          "description": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "pattern": "^[0-9]+$",
           "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+            "deprecated": true
           },
-          "markdownDescription": "Used for all Facebook libraries. Set up your Facebook App ID at https://developers.facebook.com.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookAutoInitEnabled": {
-          "description": "Whether the Facebook SDK should be initialized automatically. The default in Expo (Client and in standalone apps) is `false`.",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.",
           "type": "boolean",
-          "markdownDescription": "Whether the Facebook SDK should be initialized automatically. The default in Expo (Client and in standalone apps) is `false`."
+          "meta": {
+            "deprecated": true
+          },
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead."
         },
         "facebookAutoLogAppEventsEnabled": {
-          "description": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "boolean",
           "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+            "deprecated": true
           },
-          "markdownDescription": "Whether the Facebook SDK log app events automatically. If you don't set this property, Facebook's default will be used. (Applicable only to standalone apps.) Note: The Facebook SDK must be initialized for app events to work. You may autoinitialize Facebook SDK by setting `facebookAutoInitEnabled` to `true`\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookAdvertiserIDCollectionEnabled": {
-          "description": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "boolean",
           "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+            "deprecated": true
           },
-          "markdownDescription": "Whether the Facebook SDK should collect advertiser ID properties, like the Apple IDFA and Android Advertising ID, automatically. If you don't set this property, Facebook's default policy will be used. (Applicable only to standalone apps.)\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookDisplayName": {
-          "description": "Used for native Facebook login.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+            "deprecated": true
           },
-          "markdownDescription": "Used for native Facebook login.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "facebookScheme": {
-          "description": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo Go apps).\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
           "type": "string",
           "pattern": "^fb[0-9]+[A-Za-z]*$",
           "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
+            "deprecated": true
           },
-          "markdownDescription": "Used for Facebook native login. Starts with 'fb' and followed by a string of digits, like 'fb1234567890'. You can find your scheme [here](https://developers.facebook.com/docs/facebook-login/ios)in the 'Configuring Your info.plist' section (only applicable to standalone apps and custom Expo Go apps).\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
+          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "assetBundlePatterns": {
           "description": "An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)",
