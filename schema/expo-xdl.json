@@ -1,7 +1,7 @@
 {
   "type": "object",
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "47.0.0",
+  "version": "48.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -81,8 +81,8 @@
               },
               "markdownDescription": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` and the `android.icon` keys. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive). This icon will appear on the home screen."
             },
-            "backgroundImage": {
-              "description": "Local path or remote URL to a background image for your app's Adaptive Icon on Android. If specified, this overrides the `backgroundColor` key. Must have the same dimensions as  foregroundImage`, and has no effect if `foregroundImage` is not specified. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive).",
+            "monochromeImage": {
+              "description": "Local path or remote URL to an image representing the Android 13+ monochromatic icon. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive). This icon will appear on the home screen when the user enables 'Themed icons' in system settings on a device running Android 13+.",
               "type": "string",
               "meta": {
                 "asset": true,
@@ -90,7 +90,18 @@
                 "contentTypeHuman": ".png image",
                 "square": true
               },
-              "markdownDescription": "Local path or remote URL to a background image for your app's Adaptive Icon on Android. If specified, this overrides the `backgroundColor` key. Must have the same dimensions as  foregroundImage`, and has no effect if `foregroundImage` is not specified. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)."
+              "markdownDescription": "Local path or remote URL to an image representing the Android 13+ monochromatic icon. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive). This icon will appear on the home screen when the user enables 'Themed icons' in system settings on a device running Android 13+."
+            },
+            "backgroundImage": {
+              "description": "Local path or remote URL to a background image for your app's Adaptive Icon on Android. If specified, this overrides the `backgroundColor` key. Must have the same dimensions as `foregroundImage`, and has no effect if `foregroundImage` is not specified. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive).",
+              "type": "string",
+              "meta": {
+                "asset": true,
+                "contentTypePattern": "^image/png$",
+                "contentTypeHuman": ".png image",
+                "square": true
+              },
+              "markdownDescription": "Local path or remote URL to a background image for your app's Adaptive Icon on Android. If specified, this overrides the `backgroundColor` key. Must have the same dimensions as `foregroundImage`, and has no effect if `foregroundImage` is not specified. Should follow the [specified guidelines](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)."
             },
             "backgroundColor": {
               "description": "Color to use as the background for your app's Adaptive Icon on Android. Defaults to white, `#FFFFFF`. Has no effect if `foregroundImage` is not specified.",
@@ -127,12 +138,12 @@
           "markdownDescription": "List of permissions used by the standalone app. \n\n To use ONLY the following minimum necessary permissions and none of the extras supported by Expo in a default managed app, set `permissions` to `[]`. The minimum necessary permissions do not require a Privacy Policy when uploading to Google Play Store and are: \n• receive data from Internet \n• view network connections \n• full network access \n• change your audio settings \n• prevent device from sleeping \n\n To use ALL permissions supported by Expo by default, do not specify the `permissions` key. \n\n  To use the minimum necessary permissions ALONG with certain additional permissions, specify those extras in `permissions`, e.g.\n\n `[ \"CAMERA\", \"ACCESS_FINE_LOCATION\" ]`.\n\n  You can specify the following permissions depending on what you need:\n\n- `ACCESS_COARSE_LOCATION`\n- `ACCESS_FINE_LOCATION`\n- `ACCESS_BACKGROUND_LOCATION`\n- `CAMERA`\n- `RECORD_AUDIO`\n- `READ_CONTACTS`\n- `WRITE_CONTACTS`\n- `READ_CALENDAR`\n- `WRITE_CALENDAR`\n- `READ_EXTERNAL_STORAGE`\n- `WRITE_EXTERNAL_STORAGE`\n- `USE_FINGERPRINT`\n- `USE_BIOMETRIC`\n- `WRITE_SETTINGS`\n- `VIBRATE`\n- `READ_PHONE_STATE`\n- `FOREGROUND_SERVICE`\n- `WAKE_LOCK`\n- `com.anddoes.launcher.permission.UPDATE_COUNT`\n- `com.android.launcher.permission.INSTALL_SHORTCUT`\n- `com.google.android.c2dm.permission.RECEIVE`\n- `com.google.android.gms.permission.ACTIVITY_RECOGNITION`\n- `com.google.android.providers.gsf.permission.READ_GSERVICES`\n- `com.htc.launcher.permission.READ_SETTINGS`\n- `com.htc.launcher.permission.UPDATE_SHORTCUT`\n- `com.majeur.launcher.permission.UPDATE_BADGE`\n- `com.sec.android.provider.badge.permission.READ`\n- `com.sec.android.provider.badge.permission.WRITE`\n- `com.sonyericsson.home.permission.BROADCAST_BADGE`\n\n\n**Bare workflow** - To change the permissions your app requests, you'll need to edit `AndroidManifest.xml` manually. To prevent your app from requesting one of the permissions listed below, you'll need to explicitly add it to `AndroidManifest.xml` along with a `tools:node=\"remove\"` tag."
         },
         "blockedPermissions": {
-          "description": "List of permissions to block in the final `AndroidManifest.xml`. This is useful for removing permissions that are added by native package `AndroidManifest.xml` files which are merged into the final manifest. Internally this feature uses the `tools:node=\"remove\"` XML attribute to remove permissions. Not available in the classic `expo build:android` or Expo Go.",
+          "description": "List of permissions to block in the final `AndroidManifest.xml`. This is useful for removing permissions that are added by native package `AndroidManifest.xml` files which are merged into the final manifest. Internally this feature uses the `tools:node=\"remove\"` XML attribute to remove permissions. Not available in Expo Go.",
           "type": "array",
           "items": {
             "type": "string"
           },
-          "markdownDescription": "List of permissions to block in the final `AndroidManifest.xml`. This is useful for removing permissions that are added by native package `AndroidManifest.xml` files which are merged into the final manifest. Internally this feature uses the `tools:node=\"remove\"` XML attribute to remove permissions. Not available in the classic `expo build:android` or Expo Go."
+          "markdownDescription": "List of permissions to block in the final `AndroidManifest.xml`. This is useful for removing permissions that are added by native package `AndroidManifest.xml` files which are merged into the final manifest. Internally this feature uses the `tools:node=\"remove\"` XML attribute to remove permissions. Not available in Expo Go."
         },
         "googleServicesFile": {
           "description": "[Firebase Configuration File](https://support.google.com/firebase/answer/7015592) Location of the `GoogleService-Info.plist` file for configuring Firebase. Including this key automatically enables FCM in your standalone app.\n\n**Bare workflow** - Add or edit the file directly at `android/app/google-services.json`",
@@ -270,6 +281,93 @@
                 "contentTypeHuman": ".png image"
               },
               "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 4x`"
+            },
+            "dark": {
+              "description": "Configuration for loading and splash screen for managed and standalone Android apps in dark mode.",
+              "type": "object",
+              "properties": {
+                "backgroundColor": {
+                  "description": "Color to fill the loading screen background",
+                  "type": "string",
+                  "pattern": "^#|(&#x23;)\\d{6}$",
+                  "meta": {
+                    "regexHuman": "6 character long hex color string, for example, `'#000000'`"
+                  },
+                  "markdownDescription": "Color to fill the loading screen background",
+                  "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
+                },
+                "resizeMode": {
+                  "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover`, `contain` or `native`, defaults to `contain`.",
+                  "enum": [
+                    "cover",
+                    "contain",
+                    "native"
+                  ],
+                  "type": "string",
+                  "markdownDescription": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover`, `contain` or `native`, defaults to `contain`."
+                },
+                "image": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png."
+                },
+                "mdpi": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Natural sized image (baseline)`",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Natural sized image (baseline)`"
+                },
+                "hdpi": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 1.5x`",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 1.5x`"
+                },
+                "xhdpi": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 2x`",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 2x`"
+                },
+                "xxhdpi": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 3x`",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 3x`"
+                },
+                "xxxhdpi": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 4x`",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen in \"native\" mode. Image size and aspect ratio are up to you. [Learn more]( https://developer.android.com/training/multiscreen/screendensities) \n\n `Scale 4x`"
+                }
+              },
+              "markdownDescription": "Configuration for loading and splash screen for managed and standalone Android apps in dark mode."
             }
           },
           "markdownDescription": "Configuration for loading and splash screen for managed and standalone Android apps."
@@ -482,7 +580,7 @@
           "markdownDescription": "URL to your app on the Apple App Store, if you have deployed it there. This is used to link to your store page from your Expo project page if your app is public."
         },
         "bitcode": {
-          "description": "Enable iOS Bitcode optimizations in the native build. Accepts the name of an iOS build configuration to enable for a single configuration and disable for all others, e.g. Debug, Release. Not available in the classic 'expo build:ios' or Expo Go. Defaults to `undefined` which uses the template's predefined settings.",
+          "description": "Enable iOS Bitcode optimizations in the native build. Accepts the name of an iOS build configuration to enable for a single configuration and disable for all others, e.g. Debug, Release. Not available in Expo Go. Defaults to `undefined` which uses the template's predefined settings.",
           "anyOf": [
             {
               "type": [
@@ -495,7 +593,7 @@
               ]
             }
           ],
-          "markdownDescription": "Enable iOS Bitcode optimizations in the native build. Accepts the name of an iOS build configuration to enable for a single configuration and disable for all others, e.g. Debug, Release. Not available in the classic 'expo build:ios' or Expo Go. Defaults to `undefined` which uses the template's predefined settings."
+          "markdownDescription": "Enable iOS Bitcode optimizations in the native build. Accepts the name of an iOS build configuration to enable for a single configuration and disable for all others, e.g. Debug, Release. Not available in Expo Go. Defaults to `undefined` which uses the template's predefined settings."
         },
         "config": {
           "type": "object",
@@ -668,6 +766,52 @@
                 "contentTypeHuman": ".png image"
               },
               "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png."
+            },
+            "dark": {
+              "description": "Configuration for loading and splash screen for standalone iOS apps in dark mode.",
+              "type": "object",
+              "properties": {
+                "backgroundColor": {
+                  "description": "Color to fill the loading screen background",
+                  "type": "string",
+                  "pattern": "^#|(&#x23;)\\d{6}$",
+                  "meta": {
+                    "regexHuman": "6 character long hex color string, for example, `'#000000'`"
+                  },
+                  "markdownDescription": "Color to fill the loading screen background",
+                  "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
+                },
+                "resizeMode": {
+                  "description": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`.",
+                  "enum": [
+                    "cover",
+                    "contain"
+                  ],
+                  "type": "string",
+                  "markdownDescription": "Determines how the `image` will be displayed in the splash loading screen. Must be one of `cover` or `contain`, defaults to `contain`."
+                },
+                "image": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png."
+                },
+                "tabletImage": {
+                  "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+                  "type": "string",
+                  "meta": {
+                    "asset": true,
+                    "contentTypePattern": "^image/png$",
+                    "contentTypeHuman": ".png image"
+                  },
+                  "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png."
+                }
+              },
+              "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps in dark mode."
             }
           },
           "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps."
@@ -1258,9 +1402,9 @@
               "markdownDescription": "Instructs the system whether the status bar should be visible or not. Defaults to `false`"
             },
             "translucent": {
-              "description": "Sets `android:windowTranslucentStatus` in `styles.xml`. When false, the system status bar pushes the content of your app down (similar to `position: relative`). When true, the status bar floats above the content in your app (similar to `position: absolute`). Defaults to `true` to match the iOS status bar behavior (which can only float above content).",
+              "description": "When false, the system status bar pushes the content of your app down (similar to `position: relative`). When true, the status bar floats above the content in your app (similar to `position: absolute`). Defaults to `true` to match the iOS status bar behavior (which can only float above content). Explicitly setting this property to `true` will add `android:windowTranslucentStatus` to `styles.xml` and may cause unexpected keyboard behavior on Android when using the `softwareKeyboardLayoutMode` set to `resize`. In this case you will have to use `KeyboardAvoidingView` to manage the keyboard layout.",
               "type": "boolean",
-              "markdownDescription": "Sets `android:windowTranslucentStatus` in `styles.xml`. When false, the system status bar pushes the content of your app down (similar to `position: relative`). When true, the status bar floats above the content in your app (similar to `position: absolute`). Defaults to `true` to match the iOS status bar behavior (which can only float above content)."
+              "markdownDescription": "When false, the system status bar pushes the content of your app down (similar to `position: relative`). When true, the status bar floats above the content in your app (similar to `position: absolute`). Defaults to `true` to match the iOS status bar behavior (which can only float above content). Explicitly setting this property to `true` will add `android:windowTranslucentStatus` to `styles.xml` and may cause unexpected keyboard behavior on Android when using the `softwareKeyboardLayoutMode` set to `resize`. In this case you will have to use `KeyboardAvoidingView` to manage the keyboard layout."
             }
           },
           "additionalProperties": false,
@@ -1329,11 +1473,6 @@
           "markdownDescription": "**Standalone Apps Only**. URL scheme to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
           "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \"+\", \".\" or \"-\""
         },
-        "entryPoint": {
-          "description": "The relative path to your main JavaScript file.",
-          "type": "string",
-          "markdownDescription": "The relative path to your main JavaScript file."
-        },
         "extra": {
           "description": "Any extra fields you want to pass to your experience. Values are accessible via `Expo.Constants.manifest.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))",
           "type": "object",
@@ -1396,6 +1535,12 @@
               },
               "additionalProperties": false,
               "markdownDescription": "Metadata for `codeSigningCertificate`"
+            },
+            "requestHeaders": {
+              "description": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers.",
+              "type": "object",
+              "additionalProperties": true,
+              "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers."
             }
           },
           "additionalProperties": false,
@@ -1415,61 +1560,6 @@
             ]
           },
           "markdownDescription": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode."
-        },
-        "facebookAppId": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-          "type": "string",
-          "pattern": "^[0-9]+$",
-          "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
-        },
-        "facebookAutoInitEnabled": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.",
-          "type": "boolean",
-          "meta": {
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead."
-        },
-        "facebookAutoLogAppEventsEnabled": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-          "type": "boolean",
-          "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
-        },
-        "facebookAdvertiserIDCollectionEnabled": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-          "type": "boolean",
-          "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
-        },
-        "facebookDisplayName": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-          "type": "string",
-          "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
-        },
-        "facebookScheme": {
-          "description": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-          "type": "string",
-          "pattern": "^fb[0-9]+[A-Za-z]*$",
-          "meta": {
-            "bareWorkflow": "For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)",
-            "deprecated": true
-          },
-          "markdownDescription": "@deprecated See documentation of the preferred Facebook React Native SDK instead.\n\n**Bare workflow** - For details, check the [Facebook iOS SDK documentation](https://developers.facebook.com/docs/facebook-login/ios/#4--configure-your-project) and [Android SDK documentation](https://developers.facebook.com/docs/facebook-login/android#manifest)"
         },
         "assetBundlePatterns": {
           "description": "An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)",
@@ -1512,7 +1602,7 @@
           "$ref": "#/definitions/Splash"
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
+          "description": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
           "type": "string",
           "fallback": "jsc",
           "enum": [
@@ -1522,7 +1612,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
+          "markdownDescription": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
         },
         "ios": {
           "$ref": "#/definitions/IOS"
