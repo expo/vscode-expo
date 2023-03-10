@@ -90,13 +90,18 @@
     "vscode": "^1.67.0"
   },
   "categories": [
+    "Debuggers",
     "Other"
   ],
   "extensionKind": [
     "workspace"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onDebug",
+    "onDebugDynamicConfigurations",
+    "onDebugInitialConfigurations",
+    "onDebugResolve:expo"
   ],
   "contributes": {
     "breakpoints": [
@@ -111,54 +116,6 @@
       },
       {
         "language": "typescriptreact"
-      }
-    ],
-    "debuggers": [
-      {
-        "type": "expo",
-        "label": "Expo SDK 47+ with Hermes enabled",
-        "runtime": "node",
-        "configurationAttributes": {
-          "attach": {
-            "properties": {
-              "projectRoot": {
-                "type": "string",
-                "description": "The root of the Expo project, within the workspace.",
-                "default": "${workspaceFolder}"
-              },
-              "port": {
-                "type": "number",
-                "description": "The port of the Expo dev server",
-                "default": 19000
-              },
-              "host": {
-                "type": "string",
-                "description": "The host of the Expo dev server",
-                "default": "localhost"
-              }
-            }
-          },
-          "launch": {
-            "properties": {
-              "projectRoot": {
-                "type": "string",
-                "description": "The root of the Expo project, within the workspace.",
-                "default": "${workspaceFolder}"
-              },
-              "port": {
-                "type": "number",
-                "description": "The port of the Expo dev server",
-                "default": 19000
-              },
-              "host": {
-                "type": "string",
-                "description": "The host of the Expo dev server",
-                "default": "localhost"
-              }
-            }
-          }
-        },
-        "configurationSnippets": []
       }
     ],
     "commands": [
@@ -176,6 +133,11 @@
         "category": "Expo",
         "command": "expo.config.prebuild.preview.json",
         "title": "Preview modifier as JSON"
+      },
+      {
+        "category": "Expo",
+        "command": "expo.debug.start",
+        "title": "Debug launched app"
       }
     ],
     "configuration": {
@@ -210,6 +172,35 @@
         }
       }
     },
+    "debuggers": [
+      {
+        "type": "expo",
+        "label": "Expo",
+        "configurationAttributes": {
+          "attach": {
+            "properties": {
+              "projectRoot": {
+                "type": "string",
+                "markdownDescription": "The absolute path to your Expo project. If you have a monorepo, or if your Expo project is not located at `${workspaceFolder}`, change this to `${workspaceFolder}/apps/awesome-app`.",
+                "default": "${workspaceFolder}"
+              },
+              "bundlerHost": {
+                "type": "string",
+                "description": "The host of the Metro bundler."
+              },
+              "bundlerPort": {
+                "type": "string",
+                "description": "The port of the Metro bundler."
+              },
+              "deviceName": {
+                "type": "string",
+                "description": "The name of the device to attach to, if you have multiple devices connected."
+              }
+            }
+          }
+        }
+      }
+    ],
     "jsonValidation": [
       {
         "fileMatch": [

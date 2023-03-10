@@ -20,7 +20,7 @@ export async function activate(context: vscode.ExtensionContext) {
     setupTelemetry(context);
     setupPreview(context);
 
-    new ExpoDebuggersProvider(context);
+    new ExpoDebuggersProvider(context, projects);
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);

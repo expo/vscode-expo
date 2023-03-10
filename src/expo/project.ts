@@ -69,6 +69,17 @@ export class ExpoProject {
     return this.manifestFile;
   }
 
+  resolveWorkflow() {
+    const hasAndroid = fs.existsSync(path.join(this.root, 'android'));
+    const hasiOS = fs.existsSync(path.join(this.root, 'ios'));
+
+    if (hasAndroid || hasiOS) {
+      return 'generic';
+    }
+
+    return 'managed';
+  }
+
   setPackage(content: string) {
     if (content === this.packageFile.content) {
       return this.packageFile;

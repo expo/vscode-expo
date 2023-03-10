@@ -1,160 +1,170 @@
-import fetch from 'node-fetch';
-import path from 'path';
-import { URL } from 'url';
 import vscode from 'vscode';
 
-const DEBUG_TYPE = 'expo';
+import { fetchDevicesToInspect, findDeviceByName, askDeviceByName } from './expo/bundler';
+import { ExpoProjectCache, ExpoProject } from './expo/project';
+import { debug } from './utils/debug';
 
-interface ExpoDebugConfig extends vscode.DebugConfiguration {
-  port: number;
-  host: string;
-}
+const log = debug.extend('expo-debuggers');
+
+const DEBUG_TYPE = 'expo';
+const DEBUG_COMMAND = 'expo.debug.start';
 
 export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider {
-  constructor(extension: vscode.ExtensionContext) {
+  constructor(extension: vscode.ExtensionContext, protected projects: ExpoProjectCache) {
     extension.subscriptions.push(
       vscode.debug.registerDebugConfigurationProvider(
         DEBUG_TYPE,
         this,
-        // I have no idea what this does, but why not, Expo is dynamic I think
         vscode.DebugConfigurationProviderTriggerKind.Dynamic
       )
+    );
+
+    extension.subscriptions.push(
+      vscode.commands.registerCommand(DEBUG_COMMAND, (config?: ExpoDebugConfig) => {
+        vscode.debug.startDebugging(undefined, {
+          type: DEBUG_TYPE,
+          request: 'attach',
+          name: 'Debug Expo app',
+          ...(config ?? {}),
+        });
+      })
     );
   }
 
   provideDebugConfigurations(folder?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
+    log('provideDebugConfigurations', 'called');
     return [
       {
         type: DEBUG_TYPE,
-        name: 'Attach to running Expo app',
         request: 'attach',
-        port: 19000,
-        host: 'localhost',
-        projectRoot: '${workspaceFolder}',
-      },
-      {
-        type: DEBUG_TYPE,
-        name: 'Launch new Expo app',
-        request: 'launch',
-        port: 19000,
-        host: 'localhost',
-        projectRoot: '${workspaceFolder}',
+        name: 'Inspect Expo app',
       },
     ];
   }
 
   async resolveDebugConfiguration(
     folder: vscode.WorkspaceFolder | undefined,
-    debugConfig: ExpoDebugConfig,
+    config: ExpoDebugConfig,
     token?: vscode.CancellationToken
   ) {
-    // Pre-launch checks:
-    //  - Is the `projectRoot` a valid Expo project?
-    //  - Is the project SDK lower than 48? If so, warn that the debugger might not fully function
-    //  - Is a compatible device connected?
-    //    - If none, communicate to user and poll for new devices (also check for new incompatible devices and notify users)
-    //    - If one, use it and continue
-    //    - If multiple, find a way to describe devices and let the user choose
-    //  - Finally, connect the debugger and wait for sourcemaps
+    log('resolveDebugConfiguration', 'called');
 
-    // Other things to consider:
-    //  - Detect if monorepo, and Metro `serverRoot` is used properly (else sourcemaps won't work due to `../../` in urls)
-    //  - Allow to start debugger by command instead of `launch.json` task
-    //  - Check if we can add a `launch` debugger, that just starts Metro and runs everything from attach -> e.g. start separate terminal task that runs Metro
-    //  - Try to auto-detect the expected port (19000 for classic managed, 8081 for dev clients)
-    //  - Try to auto-detect the url vs hardcoding localhost
-
-    // Let's eagerly abort stuff
-    if (debugConfig.type !== DEBUG_TYPE) {
-      throw new Error(`Unknown debug type: ${debugConfig.type}`);
-    }
-    if (debugConfig.request === 'launch') {
-      throw new Error('Not implemented yet');
+    if (config.request === 'launch') {
+      throw new Error(
+        'Expo debugger does not support launch mode yet. Start the app manually, and connect through `attach`.'
+      );
     }
 
-    const metroHost = createMetroUrl(debugConfig);
-    const sourceMapLocalRoot = path.join('${workspaceFolder}', debugConfig.projectRoot);
-    const devices = await fetchMetroDevices(debugConfig);
-    if (devices.length === 0) {
-      throw new Error('Please connect a device running Hermes by loading your app');
-    }
+    return {
+      type: 'pwa-node',
+      request: config.request,
+      name: config.name,
 
-    const device = devices[0];
+      // Pass the user-provided configuration
+      projectRoot: config.projectRoot,
+      bundlerHost: config.bundlerHost,
+      bundlerPort: config.bundlerPort,
+      deviceName: config.deviceName,
 
-    /* Manual example
-      {
-        "type": "node",
-        "request": "attach",
-        "name": "Attach to Expo",
-        "websocketAddress": "ws://[::1]:8081/inspector/debug?device=0&page=-1",
-        "sourceMaps": true,
-        "remoteRoot": "http://192.168.86.249:8081/",
-        "localRoot": "${workspaceFolder}/apps/mobile",
-        "sourceMapPathOverrides": {
-          "http://192.168.86.249:8081/(.*).bundle": "${workspaceFolder}/apps/mobile/$1.(js|ts|tsx)"
-        }
-      }
-    */
-    const finalConfig = {
-      type: 'pwa-node', // ofc... why use normal names?
-      request: debugConfig.request,
-      name: debugConfig.name,
-      sourceMaps: true,
-      localRoot: sourceMapLocalRoot,
-      remoteRoot: metroHost,
-      sourceMapPathOverrides: {
-        [path.join(metroHost, '(.*).bundle')]: `${sourceMapLocalRoot}/$1.(jsx?|tsx?)`,
-      },
-      // pwa-node specific - https://github.com/microsoft/vscode-js-debug/blob/main/src/configuration.ts#L518
-      websocketAddress: device.webSocketDebuggerUrl,
-      attachExistingChildren: true,
-      restart: true,
+      // Enable sourcemaps
+      sourceMap: true,
       pauseForSourceMap: true,
-      rootPath: sourceMapLocalRoot,
-      // pwa-chrome specific - https://github.com/microsoft/vscode-js-debug/blob/main/src/configuration.ts#L639
-      // Note, this one doesn't seem to work
-      // address: '192.168.92.226',
-      // restart: true,
-      // inspectUri: device.webSocketDebuggerUrl,
-      // perScriptSourcemaps: 'no',
-      // url: null,
+      // But disable certain attempts to resolve non-existing source code
+      resolveSourceMapLocations: ['!**/__prelude__', '!**/node_modules/**', '!webpack:/**'],
+
+      // Attach to whatever processes is running in Hermes (not sure if required)
+      attachExistingChildren: true,
+      // When Hermes/app or the inspector unexpectedly disconnects, close the debug session
+      restart: false,
+      // Speed up the sourcemap loading, it's kind of experimental in `vscode-js-debug`, but does work fine eiher way
+      enableTurboSourcemaps: true,
     };
+  }
 
-    console.log('EXPO DEBUG CONFIG', finalConfig);
+  async resolveDebugConfigurationWithSubstitutedVariables(
+    folder: vscode.WorkspaceFolder | undefined,
+    config: ExpoDebugConfig,
+    token?: vscode.CancellationToken
+  ) {
+    const projectRoot = config.projectRoot ?? vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+    // TODO(cedric): resolve this through the project cache instead
+    const project = new ExpoProject(projectRoot, {} as any);
 
-    return finalConfig;
+    const metroConfig = await resolveMetroConfig(config, project);
+
+    log('resolveDebugConfigurationWithSubstitutedVariables', {
+      ...config,
+      ...metroConfig,
+    });
+
+    return { ...config, ...metroConfig };
   }
 }
 
-/** @todo Find a lesser hacky hack */
-function createMetroUrl(config: ExpoDebugConfig, path = '/') {
-  const url = new URL(path, 'http://localhost');
-  url.protocol = 'http';
-  url.hostname = config.host || 'localhost';
-  // url.port = String(config.port || '8081') || '8081';
-  url.port = '8081';
-  return url.toString();
+interface ExpoDebugConfig extends vscode.DebugConfiguration {
+  projectRoot: string;
+  bundlerHost?: string;
+  bundlerPort?: string;
 }
 
-/** @todo Reuse the logic from `@expo/dev-server` - would be great if we can have the device name through this list, to allow the user to select the right device */
-interface MetroDevice {
-  id: string;
-  description: string;
-  title: string;
-  faviconUrl: string;
-  devtoolsFrontendUrl: string;
-  type: 'node';
-  webSocketDebuggerUrl: string;
-  vm: 'Hermes' | "don't use";
+async function resolveMetroConfig(debugConfig: ExpoDebugConfig, project: ExpoProject) {
+  const workflow = project.resolveWorkflow();
+
+  const metroPort = debugConfig.bundlerPort ?? (workflow === 'generic' ? 8081 : 19000);
+  const metroHost = debugConfig.bundlerHost ?? '127.0.0.1';
+  const metroUrl = `http://${metroHost}:${metroPort}`;
+
+  const device = await waitForMetroDevice(debugConfig, metroUrl);
+
+  if (!device) {
+    throw new Error('Expo debug cancelled.');
+  }
+
+  return {
+    // The address of the device to connect to
+    websocketAddress: device.webSocketDebuggerUrl,
+
+    // Define the required root paths to resolve source maps
+    localRoot: project.root,
+    remoteRoot: metroUrl,
+  };
 }
 
-/** @todo Reuse the logic from `@expo/dev-server` */
-async function fetchMetroDevices(config: ExpoDebugConfig) {
-  const data = await fetch(createMetroUrl(config, '/json/list')).then((response) =>
-    response.ok ? response.json() : Promise.reject(response)
-  );
+async function waitForMetroDevice(debugConfig: ExpoDebugConfig, metroUrl: string) {
+  return await vscode.window.withProgress(
+    { location: vscode.ProgressLocation.Notification, cancellable: true, title: 'Expo debug' },
+    async (progress, token) => {
+      progress.report({ message: 'connecting to device...' });
 
-  return (data as MetroDevice[]).filter(
-    (device) => device.title === 'React Native Experimental (Improved Chrome Reloads)'
+      while (!token.isCancellationRequested) {
+        try {
+          return await resolveMetroDevice(debugConfig, metroUrl);
+        } catch (error) {
+          progress.report({ message: error.message });
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+      }
+    }
   );
+}
+
+async function resolveMetroDevice(config: ExpoDebugConfig, metroUrl: string) {
+  const devices = await fetchDevicesToInspect(metroUrl).catch(() => {
+    throw new Error('waiting for Metro bundler...');
+  });
+
+  if (devices.length === 1) {
+    return devices[0];
+  }
+
+  if (devices.length > 1 && config.deviceName) {
+    const device = findDeviceByName(devices, config.deviceName);
+    if (device) return device;
+  }
+
+  if (devices.length > 1) {
+    return await askDeviceByName(devices);
+  }
+
+  throw new Error('waiting for device to connect...');
 }
