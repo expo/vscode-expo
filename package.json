@@ -1,7 +1,7 @@
 {
   "name": "vscode-expo",
   "displayName": "Expo Tools",
-  "version": "0.9.2",
+  "version": "0.10.0-rc.0",
   "description": "Expo for vscode keeps you productive with intellisense and prebuild previews",
   "keywords": [
     "expo",
@@ -137,7 +137,7 @@
       {
         "category": "Expo",
         "command": "expo.debug.start",
-        "title": "Debug launched app"
+        "title": "Debug app on device"
       }
     ],
     "configuration": {
@@ -181,7 +181,7 @@
             "properties": {
               "projectRoot": {
                 "type": "string",
-                "markdownDescription": "The absolute path to your Expo project. If you have a monorepo, or if your Expo project is not located at `${workspaceFolder}`, change this to `${workspaceFolder}/apps/awesome-app`.",
+                "markdownDescription": "The workspace-relative path to your Expo project. If your project is not located in the workspace folder, change this to `${workspaceFolder}/apps/awesome-app`.",
                 "default": "${workspaceFolder}"
               },
               "bundlerHost": {
@@ -192,9 +192,9 @@
                 "type": "string",
                 "description": "The port of the Metro bundler."
               },
-              "deviceName": {
-                "type": "string",
-                "description": "The name of the device to attach to, if you have multiple devices connected."
+              "trace": {
+                "type": "boolean",
+                "markdownDescription": "Trace may be set to `true` to write diagnostic logs to the disk."
               }
             }
           }

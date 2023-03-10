@@ -1,3 +1,4 @@
+import path, { relative } from 'path';
 import vscode from 'vscode';
 
 import { fetchDevicesToInspect, findDeviceByName, askDeviceByName } from './expo/bundler';
@@ -20,15 +21,41 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     );
 
     extension.subscriptions.push(
-      vscode.commands.registerCommand(DEBUG_COMMAND, (config?: ExpoDebugConfig) => {
-        vscode.debug.startDebugging(undefined, {
-          type: DEBUG_TYPE,
-          request: 'attach',
-          name: 'Debug Expo app',
-          ...(config ?? {}),
-        });
-      })
+      vscode.commands.registerCommand(DEBUG_COMMAND, (config?: ExpoDebugConfig) =>
+        this.onDebugCommand(projects, config)
+      )
     );
+  }
+
+  async onDebugCommand(projects: ExpoProjectCache, config?: ExpoDebugConfig) {
+    const workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? '';
+    let relativePath = config?.projectRoot;
+    let projectRoot = relativePath ? path.join(workspaceRoot, relativePath) : workspaceRoot;
+
+    let project = projectRoot ? projects.maybeFromRoot(projectRoot) : undefined;
+
+    if (!projectRoot || !projects.maybeFromRoot(projectRoot)) {
+      relativePath = await vscode.window.showInputBox({
+        title: 'Expo Debugger',
+        prompt: 'Enter the path to the project root',
+        value: './',
+      });
+
+      if (!relativePath) return;
+
+      projectRoot = path.join(workspaceRoot, relativePath);
+      project = projects.maybeFromRoot(projectRoot);
+      if (!project) {
+        return vscode.window.showErrorMessage(`Could not find the Expo project in: ${projectRoot}`);
+      }
+    }
+
+    vscode.debug.startDebugging(undefined, {
+      type: DEBUG_TYPE,
+      request: 'attach',
+      name: 'Inspect Expo app',
+      projectRoot: relativePath ? path.join('${workspaceFolder}', relativePath) : undefined,
+    });
   }
 
   provideDebugConfigurations(folder?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
@@ -61,10 +88,10 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       name: config.name,
 
       // Pass the user-provided configuration
-      projectRoot: config.projectRoot,
+      projectRoot: config.projectRoot ?? '${workspaceFolder}',
       bundlerHost: config.bundlerHost,
       bundlerPort: config.bundlerPort,
-      deviceName: config.deviceName,
+      trace: true,
 
       // Enable sourcemaps
       sourceMap: true,
@@ -86,9 +113,15 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     config: ExpoDebugConfig,
     token?: vscode.CancellationToken
   ) {
-    const projectRoot = config.projectRoot ?? vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-    // TODO(cedric): resolve this through the project cache instead
-    const project = new ExpoProject(projectRoot, {} as any);
+    const project = this.projects.maybeFromRoot(config.projectRoot);
+    if (!project) {
+      throw new Error('Could not resolve Expo project: ' + config.projectRoot);
+    }
+
+    // Infer the metro address from project workflow
+    config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
+    config.bundlerPort =
+      config.bundlerPort ?? (project.resolveWorkflow() === 'generic' ? '8081' : '19000');
 
     const metroConfig = await resolveMetroConfig(config, project);
 
@@ -107,14 +140,8 @@ interface ExpoDebugConfig extends vscode.DebugConfiguration {
   bundlerPort?: string;
 }
 
-async function resolveMetroConfig(debugConfig: ExpoDebugConfig, project: ExpoProject) {
-  const workflow = project.resolveWorkflow();
-
-  const metroPort = debugConfig.bundlerPort ?? (workflow === 'generic' ? 8081 : 19000);
-  const metroHost = debugConfig.bundlerHost ?? '127.0.0.1';
-  const metroUrl = `http://${metroHost}:${metroPort}`;
-
-  const device = await waitForMetroDevice(debugConfig, metroUrl);
+async function resolveMetroConfig(config: ExpoDebugConfig, project: ExpoProject) {
+  const device = await waitForMetroDevice(config);
 
   if (!device) {
     throw new Error('Expo debug cancelled.');
@@ -126,11 +153,11 @@ async function resolveMetroConfig(debugConfig: ExpoDebugConfig, project: ExpoPro
 
     // Define the required root paths to resolve source maps
     localRoot: project.root,
-    remoteRoot: metroUrl,
+    remoteRoot: `http://${config.bundlerHost}:${config.bundlerPort}`,
   };
 }
 
-async function waitForMetroDevice(debugConfig: ExpoDebugConfig, metroUrl: string) {
+async function waitForMetroDevice(config: ExpoDebugConfig) {
   return await vscode.window.withProgress(
     { location: vscode.ProgressLocation.Notification, cancellable: true, title: 'Expo debug' },
     async (progress, token) => {
@@ -138,7 +165,7 @@ async function waitForMetroDevice(debugConfig: ExpoDebugConfig, metroUrl: string
 
       while (!token.isCancellationRequested) {
         try {
-          return await resolveMetroDevice(debugConfig, metroUrl);
+          return await resolveMetroDevice(config);
         } catch (error) {
           progress.report({ message: error.message });
           await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -148,9 +175,10 @@ async function waitForMetroDevice(debugConfig: ExpoDebugConfig, metroUrl: string
   );
 }
 
-async function resolveMetroDevice(config: ExpoDebugConfig, metroUrl: string) {
+async function resolveMetroDevice(config: ExpoDebugConfig) {
+  const metroUrl = `http://${config.bundlerHost}:${config.bundlerPort}`;
   const devices = await fetchDevicesToInspect(metroUrl).catch(() => {
-    throw new Error('waiting for Metro bundler...');
+    throw new Error(`waiting for bundler on port ${config.bundlerPort}...`);
   });
 
   if (devices.length === 1) {

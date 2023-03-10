@@ -2,7 +2,7 @@ import findUp from 'find-up';
 import fs from 'fs';
 import * as jsonc from 'jsonc-parser';
 import path from 'path';
-import { TextDocument } from 'vscode';
+import { CommentThreadCollapsibleState, TextDocument } from 'vscode';
 
 import { MapCacheProvider } from '../utils/cache';
 import { debug } from '../utils/debug';
@@ -48,6 +48,27 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
     const root = getProjectRoot(manifest.fileName);
     const project = root ? this.fromRoot(root) : undefined;
     project?.setManifest(manifest.getText());
+    return project;
+  }
+
+  maybeFromRoot(root: string) {
+    if (this.cache.has(root)) {
+      return this.cache.get(root);
+    }
+
+    // Check if there is a `package.json` file
+    if (!fs.existsSync(path.join(root, 'package.json'))) {
+      return undefined;
+    }
+
+    // Check if that `package.json` file contains `"expo"` as dependency
+    const packageFile = parseJsonFile(fs.readFileSync(path.join(root, 'package.json'), 'utf-8'));
+    if (!packageFile?.content.includes('"expo"')) {
+      return undefined;
+    }
+
+    const project = new ExpoProject(root, packageFile);
+    this.cache.set(root, project);
     return project;
   }
 }
