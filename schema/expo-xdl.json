@@ -1474,11 +1474,11 @@
           "patternErrorMessage": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \"+\", \".\" or \"-\""
         },
         "extra": {
-          "description": "Any extra fields you want to pass to your experience. Values are accessible via `Expo.Constants.manifest.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))",
+          "description": "Any extra fields you want to pass to your experience. Values are accessible via `Constants.expoConfig.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))",
           "type": "object",
           "properties": {},
           "additionalProperties": true,
-          "markdownDescription": "Any extra fields you want to pass to your experience. Values are accessible via `Expo.Constants.manifest.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))"
+          "markdownDescription": "Any extra fields you want to pass to your experience. Values are accessible via `Constants.expoConfig.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))"
         },
         "updates": {
           "description": "Configuration for how and when the app should request OTA JavaScript updates",
