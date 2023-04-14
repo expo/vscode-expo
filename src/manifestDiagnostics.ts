@@ -8,6 +8,7 @@ import { ExpoProject, ExpoProjectCache } from './expo/project';
 import { isManifestPluginValidationEnabled } from './settings';
 import { debug } from './utils/debug';
 import { getDocumentRange } from './utils/json';
+import { resetModuleFrom } from './utils/module';
 import { ExpoDiagnosticsProvider } from './utils/vscode';
 
 const log = debug.extend('manifest-diagnostics');
@@ -84,6 +85,7 @@ function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plu
   }
 
   try {
+    resetModuleFrom(project.root, nameValue);
     resolvePluginFunctionUnsafe(project.root, nameValue);
   } catch (error) {
     const issue = new vscode.Diagnostic(
