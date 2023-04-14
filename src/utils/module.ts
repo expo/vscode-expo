@@ -27,7 +27,8 @@ function resetModule(module: NodeModule) {
  */
 export function resetModuleFrom(dir: string, moduleOrFile: string) {
   try {
-    const moduleId = require.resolve(moduleOrFile, { paths: [dir] });
+    const modulePaths = require.resolve.paths(moduleOrFile) ?? [];
+    const moduleId = require.resolve(moduleOrFile, { paths: [dir, ...modulePaths] });
     const module = require.cache[moduleId];
 
     if (module) {
