@@ -1,4 +1,4 @@
-import path, { relative } from 'path';
+import path from 'path';
 import vscode from 'vscode';
 
 import { fetchDevicesToInspect, findDeviceByName, askDeviceByName } from './expo/bundler';
@@ -96,8 +96,12 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       // Enable sourcemaps
       sourceMap: true,
       pauseForSourceMap: true,
+      // Enable source-loading for `node_modules`, when using `expo/AppEntry.js`
+      outFiles: [],
       // But disable certain attempts to resolve non-existing source code
-      resolveSourceMapLocations: ['!**/__prelude__', '!**/node_modules/**', '!webpack:/**'],
+      resolveSourceMapLocations: ['!**/__prelude__', '!webpack:**'],
+      // Disable some internal webpack source-mapping, mostly for React DevTools Backend
+      sourceMapPathOverrides: {},
 
       // Attach to whatever processes is running in Hermes (not sure if required)
       attachExistingChildren: true,
@@ -117,6 +121,13 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     if (!project) {
       throw new Error('Could not resolve Expo project: ' + config.projectRoot);
     }
+
+    // Reuse the validated project root as cwd
+    config.cwd = config.projectRoot;
+
+    // Tell vscode how to resolve metro URLs locally
+    // config.sourceMapPathOverrides['http:[\/]+[^\/]+\/(.+).bundle.*'] = `${config.projectRoot}/$1(.js|.jsx|.ts|.tsx|.css)`;
+    // config.sourceMapPathOverrides['192.168.86.21:19000/App.bundle.*'] = `${config.projectRoot}/App.js`;
 
     // Infer the metro address from project workflow
     config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
