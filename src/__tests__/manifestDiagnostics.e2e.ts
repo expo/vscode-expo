@@ -21,7 +21,7 @@ describe(ManifestDiagnosticsProvider, () => {
     await restoreContent();
   });
 
-  xit('diagnoses non-existing asset file reference', async () => {
+  it('diagnoses non-existing asset file reference', async () => {
     const range = findContentRange(app, './assets/splash.png');
     await app.edit((builder) => builder.replace(range, './assets/doesnt-exist.png'));
     await app.document.save();
@@ -37,7 +37,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses asset directory reference', async () => {
+  it('diagnoses asset directory reference', async () => {
     const range = findContentRange(app, './assets/adaptive-icon.png');
     await app.edit((builder) => builder.replace(range, './assets'));
     await app.document.save();
@@ -53,7 +53,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses non-existing plugin definition', async () => {
+  it('diagnoses non-existing plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, '"plugins": ["doesnt-exists"]'));
     await app.document.save();
@@ -69,7 +69,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses empty string plugin definition', async () => {
+  it('diagnoses empty string plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", ""]`));
     await app.document.save();
@@ -85,7 +85,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses empty array plugin definition', async () => {
+  it('diagnoses empty array plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", []]`));
     await app.document.save();
