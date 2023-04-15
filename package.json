@@ -97,11 +97,11 @@
     "workspace"
   ],
   "activationEvents": [
-    "onStartupFinished",
+    "workspaceContains:node_modules/expo",
     "onDebug",
-    "onDebugDynamicConfigurations",
+    "onDebugResolve:expo",
     "onDebugInitialConfigurations",
-    "onDebugResolve:expo"
+    "onDebugDynamicConfigurations:expo"
   ],
   "contributes": {
     "breakpoints": [
@@ -177,7 +177,9 @@
         "type": "expo",
         "label": "Expo",
         "configurationAttributes": {
+          "launch": {},
           "attach": {
+            "required": [],
             "properties": {
               "projectRoot": {
                 "type": "string",
@@ -186,7 +188,8 @@
               },
               "bundlerHost": {
                 "type": "string",
-                "description": "The host of the Metro bundler."
+                "description": "The host of the Metro bundler.",
+                "default": "127.0.0.1"
               },
               "bundlerPort": {
                 "type": "string",
@@ -194,7 +197,18 @@
               },
               "trace": {
                 "type": "boolean",
-                "markdownDescription": "Trace may be set to `true` to write diagnostic logs to the disk."
+                "markdownDescription": "Trace may be set to `true` to write diagnostic logs to the disk.",
+                "default": false
+              },
+              "restart": {
+                "type": "boolean",
+                "markdownDescription": "Automatically try to reconnect to device when connection is lost.",
+                "default": false
+              },
+              "enableTurboSourcemaps": {
+                "type": "boolean",
+                "markdownDescription": "Use the faster sourcemap implementation to translate bundled code to actual code.",
+                "default": true
               }
             }
           }
