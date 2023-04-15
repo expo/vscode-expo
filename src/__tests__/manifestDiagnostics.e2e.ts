@@ -21,7 +21,7 @@ describe(ManifestDiagnosticsProvider, () => {
     await restoreContent();
   });
 
-  xit('diagnoses non-existing asset file reference', async () => {
+  it('diagnoses non-existing asset file reference', async () => {
     const range = findContentRange(app, './assets/splash.png');
     await app.edit((builder) => builder.replace(range, './assets/doesnt-exist.png'));
     await app.document.save();
@@ -37,7 +37,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses asset directory reference', async () => {
+  it('diagnoses asset directory reference', async () => {
     const range = findContentRange(app, './assets/adaptive-icon.png');
     await app.edit((builder) => builder.replace(range, './assets'));
     await app.document.save();
@@ -53,7 +53,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses non-existing plugin definition', async () => {
+  it('diagnoses non-existing plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, '"plugins": ["doesnt-exists"]'));
     await app.document.save();
@@ -69,7 +69,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses empty string plugin definition', async () => {
+  it('diagnoses empty string plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", ""]`));
     await app.document.save();
@@ -85,7 +85,7 @@ describe(ManifestDiagnosticsProvider, () => {
     });
   });
 
-  xit('diagnoses empty array plugin definition', async () => {
+  it('diagnoses empty array plugin definition', async () => {
     const range = findContentRange(app, '"plugins": ["expo-system-ui"]');
     await app.edit((builder) => builder.replace(range, `"plugins": ["expo-system-ui", []]`));
     await app.document.save();
@@ -102,14 +102,14 @@ describe(ManifestDiagnosticsProvider, () => {
   });
 
   it('re-diagnoses newly installed plugins', async () => {
-    const pluginDir = getWorkspaceUri('manifest-diagnostics/node_modules/test-expo-plugin').fsPath;
+    const pluginFile = getWorkspaceUri('manifest-diagnostics/.expo/new-plugin.js').fsPath;
 
     // Force-remove the new plugin, to ensure it's not installed
     // Also use a gitignored folder to make sure its never committed
-    fs.rmSync(pluginDir, { force: true, recursive: true });
+    fs.rmSync(pluginFile, { force: true });
 
     const preRange = findContentRange(app, '"plugins": ["expo-system-ui"]');
-    await app.edit((builder) => builder.replace(preRange, '"plugins": ["test-expo-plugin"]'));
+    await app.edit((builder) => builder.replace(preRange, '"plugins": ["./.expo/new-plugin.js"]'));
     await app.document.save();
 
     await waitFor();
@@ -118,27 +118,22 @@ describe(ManifestDiagnosticsProvider, () => {
     expect(preInstallDiagnostic).toHaveLength(1);
     expect(preInstallDiagnostic[0]).toMatchObject({
       code: 'PLUGIN_NOT_FOUND',
-      message: 'Plugin not found: test-expo-plugin',
+      message: 'Plugin not found: ./.expo/new-plugin.js',
       severity: DiagnosticSeverity.Warning,
     });
 
-    // Create the new plugin module
-    fs.mkdirSync(pluginDir, { recursive: true });
-    fs.writeFileSync(path.join(pluginDir, 'index.js'), 'module.exports = { test: true };');
+    // Create the new plugin file
+    fs.mkdirSync(path.dirname(pluginFile), { recursive: true });
     fs.writeFileSync(
-      path.join(pluginDir, 'app.plugin.js'),
+      pluginFile,
       'module.exports = function noopPlugin(config) { return config; };'
-    );
-    fs.writeFileSync(
-      path.join(pluginDir, 'package.json'),
-      JSON.stringify({ name: 'test-expo-plugin', version: '0.0.0' })
     );
 
     // Force an update in the manifest file, reset the existing diagnostics
     await app.edit((builder) =>
       builder.replace(
-        findContentRange(app, '"plugins": ["test-expo-plugin"]'),
-        '"plugins": ["test-expo-plugin" ]'
+        findContentRange(app, '"plugins": ["./.expo/new-plugin.js"]'),
+        '"plugins": ["./.expo/new-plugin.js" ]'
       )
     );
     await app.document.save();
@@ -147,7 +142,7 @@ describe(ManifestDiagnosticsProvider, () => {
     const postInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
     expect(postInstallDiagnostic).toHaveLength(0);
 
-    fs.rmSync(pluginDir, { force: true, recursive: true });
+    fs.rmSync(pluginFile, { force: true });
   });
 
   // Note, we don't test for plugin definitions with more than 2 array items.
