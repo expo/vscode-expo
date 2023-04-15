@@ -50,6 +50,7 @@
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.56",
+    "@types/node-fetch": "^2.6.2",
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
@@ -89,34 +90,32 @@
     "vscode": "^1.67.0"
   },
   "categories": [
+    "Debuggers",
     "Other"
   ],
   "extensionKind": [
     "workspace"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "workspaceContains:node_modules/expo",
+    "onDebug",
+    "onDebugResolve:expo",
+    "onDebugInitialConfigurations",
+    "onDebugDynamicConfigurations:expo"
   ],
   "contributes": {
-    "jsonValidation": [
+    "breakpoints": [
       {
-        "fileMatch": [
-          "app.json",
-          "app.config.json"
-        ],
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+        "language": "javascript"
       },
       {
-        "fileMatch": "store.config.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-metadata.json"
+        "language": "javascriptreact"
       },
       {
-        "fileMatch": "expo-module.config.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-module.json"
+        "language": "typescript"
       },
       {
-        "fileMatch": "eas.json",
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
+        "language": "typescriptreact"
       }
     ],
     "commands": [
@@ -134,6 +133,11 @@
         "category": "Expo",
         "command": "expo.config.prebuild.preview.json",
         "title": "Preview modifier as JSON"
+      },
+      {
+        "category": "Expo",
+        "command": "expo.debug.start",
+        "title": "Debug Expo app on a device or simulator, using Hermes"
       }
     ],
     "configuration": {
@@ -168,6 +172,89 @@
         }
       }
     },
+    "debuggers": [
+      {
+        "type": "expo",
+        "label": "Expo",
+        "languages": [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact"
+        ],
+        "configurationAttributes": {
+          "attach": {
+            "required": [],
+            "properties": {
+              "projectRoot": {
+                "type": "string",
+                "markdownDescription": "The workspace-relative path to your Expo project. If your project is not located in the workspace folder, change this to `${workspaceFolder}/apps/awesome-app`.",
+                "default": "${workspaceFolder}"
+              },
+              "bundlerHost": {
+                "type": "string",
+                "description": "The host of the Metro bundler.",
+                "default": "127.0.0.1"
+              },
+              "bundlerPort": {
+                "type": "string",
+                "description": "The port of the Metro bundler."
+              },
+              "trace": {
+                "type": "boolean",
+                "markdownDescription": "Trace may be set to `true` to write diagnostic logs to the disk.",
+                "default": false
+              },
+              "restart": {
+                "type": "boolean",
+                "markdownDescription": "Automatically try to reconnect to device when connection is lost.",
+                "default": false
+              },
+              "enableTurboSourcemaps": {
+                "type": "boolean",
+                "markdownDescription": "Use the faster sourcemap implementation to translate bundled code to actual code.",
+                "default": true
+              }
+            }
+          }
+        },
+        "configurationSnippets": [
+          {
+            "label": "Expo: Debug app on device or emulator",
+            "description": "Debug your Expo app on a connected device or emulator, using the Hermes engine.",
+            "body": {
+              "type": "expo",
+              "request": "attach",
+              "name": "Debug Expo app",
+              "projectRoot": "^\"\\${workspaceFolder}\"${1}",
+              "bundlerPort": "${2:19000}",
+              "bundlerHost": "${3:127.0.0.1}"
+            }
+          }
+        ]
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "app.json",
+          "app.config.json"
+        ],
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+      },
+      {
+        "fileMatch": "store.config.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-metadata.json"
+      },
+      {
+        "fileMatch": "expo-module.config.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-module.json"
+      },
+      {
+        "fileMatch": "eas.json",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
+      }
+    ],
     "languages": [
       {
         "id": "jsonc",
