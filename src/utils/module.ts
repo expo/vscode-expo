@@ -1,9 +1,13 @@
+// This workaround is required for Webpack to leave the require statements unprocessed
+declare const __non_webpack_require__: NodeRequire;
+const actualRequire = (__non_webpack_require__ as typeof require) || require;
+
 /**
  * Reset a single resolved module from the cache registry.
  */
 function resetModule(module: NodeModule) {
   // Delete this module from possible parents
-  for (const cached of Object.values(require.cache)) {
+  for (const cached of Object.values(actualRequire.cache)) {
     if (!cached) continue;
 
     const index = cached.children.indexOf(module);
@@ -13,7 +17,7 @@ function resetModule(module: NodeModule) {
   }
 
   // Delete itself from the cache
-  delete require.cache[module.id];
+  delete actualRequire.cache[module.id];
 
   // Delete all children of this module from cache
   for (const child of module.children) {
@@ -27,9 +31,9 @@ function resetModule(module: NodeModule) {
  */
 export function resetModuleFrom(dir: string, moduleOrFile: string) {
   try {
-    const modulePaths = require.resolve.paths(moduleOrFile) ?? [];
-    const moduleId = require.resolve(moduleOrFile, { paths: [dir, ...modulePaths] });
-    const module = require.cache[moduleId];
+    const modulePaths = actualRequire.resolve.paths(moduleOrFile) ?? [];
+    const moduleId = actualRequire.resolve(moduleOrFile, { paths: [dir, ...modulePaths] });
+    const module = actualRequire.cache[moduleId];
 
     if (module) {
       resetModule(module);
@@ -46,12 +50,12 @@ export function resetModuleFrom(dir: string, moduleOrFile: string) {
  */
 export function resetModulesFrom(dir: string) {
   // Find all cached modules matching the directory
-  const cachedIds = Object.keys(require.cache).filter(
+  const cachedIds = Object.keys(actualRequire.cache).filter(
     (cacheId) => cacheId.startsWith(dir) && !/node_modules/.test(cacheId)
   );
 
   for (const cachedId of cachedIds) {
-    const module = require.cache[cachedId];
+    const module = actualRequire.cache[cachedId];
     if (module) {
       resetModule(module);
     }
