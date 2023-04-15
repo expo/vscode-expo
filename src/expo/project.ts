@@ -2,7 +2,7 @@ import findUp from 'find-up';
 import fs from 'fs';
 import * as jsonc from 'jsonc-parser';
 import path from 'path';
-import { CommentThreadCollapsibleState, TextDocument } from 'vscode';
+import vscode from 'vscode';
 
 import { MapCacheProvider } from '../utils/cache';
 import { debug } from '../utils/debug';
@@ -16,6 +16,35 @@ const log = debug.extend('project');
 export function getProjectRoot(filePath: string) {
   const root = findUp.sync('package.json', { cwd: filePath });
   return root ? path.dirname(root) : undefined;
+}
+
+/**
+ * Try to get the project root from any of the current workspaces.
+ * This will iterate and try to detect an Expo project for each open workspaces.
+ */
+export function findProjectFromWorkspaces(projects: ExpoProjectCache, relativePath?: string) {
+  const workspaces = vscode.workspace.workspaceFolders ?? [];
+
+  for (const workspace of workspaces) {
+    const project = findProjectFromWorkspace(projects, workspace, relativePath);
+    if (project) return project;
+  }
+
+  return undefined;
+}
+
+/**
+ * Try to get the Expo project from a specific workspace.
+ * This is useful when the user already has selected the right workspace.
+ */
+export function findProjectFromWorkspace(
+  projects: ExpoProjectCache,
+  workspace: vscode.WorkspaceFolder,
+  relativePath?: string
+) {
+  return relativePath
+    ? projects.maybeFromRoot(path.join(workspace.uri.fsPath, relativePath))
+    : projects.maybeFromRoot(workspace.uri.fsPath);
 }
 
 /**
@@ -38,13 +67,13 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
     return this.cache.get(root);
   }
 
-  fromPackage(pkg: TextDocument) {
+  fromPackage(pkg: vscode.TextDocument) {
     const project = this.fromRoot(path.dirname(pkg.fileName));
     project?.setPackage(pkg.getText());
     return project;
   }
 
-  fromManifest(manifest: TextDocument) {
+  fromManifest(manifest: vscode.TextDocument) {
     const root = getProjectRoot(manifest.fileName);
     const project = root ? this.fromRoot(root) : undefined;
     project?.setManifest(manifest.getText());
@@ -93,12 +122,7 @@ export class ExpoProject {
   resolveWorkflow() {
     const hasAndroid = fs.existsSync(path.join(this.root, 'android'));
     const hasiOS = fs.existsSync(path.join(this.root, 'ios'));
-
-    if (hasAndroid || hasiOS) {
-      return 'generic';
-    }
-
-    return 'managed';
+    return hasAndroid || hasiOS ? 'generic' : 'managed';
   }
 
   setPackage(content: string) {

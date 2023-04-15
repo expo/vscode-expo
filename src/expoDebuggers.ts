@@ -1,14 +1,23 @@
-import path from 'path';
 import vscode from 'vscode';
 
-import { fetchDevicesToInspect, findDeviceByName, askDeviceByName } from './expo/bundler';
-import { ExpoProjectCache, ExpoProject } from './expo/project';
+import { fetchDevicesToInspect, askDeviceByName } from './expo/bundler';
+import { ExpoProjectCache, ExpoProject, findProjectFromWorkspaces } from './expo/project';
 import { debug } from './utils/debug';
 
 const log = debug.extend('expo-debuggers');
 
 const DEBUG_TYPE = 'expo';
 const DEBUG_COMMAND = 'expo.debug.start';
+
+interface ExpoDebugConfig extends vscode.DebugConfiguration {
+  projectRoot: string;
+  bundlerHost?: string;
+  bundlerPort?: string;
+  // Inherited config from `pwa-node`
+  trace?: boolean;
+  restart?: boolean;
+  enableTurboSourcemaps?: boolean;
+}
 
 export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider {
   constructor(extension: vscode.ExtensionContext, protected projects: ExpoProjectCache) {
@@ -21,61 +30,68 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     );
 
     extension.subscriptions.push(
-      vscode.commands.registerCommand(DEBUG_COMMAND, (config?: ExpoDebugConfig) =>
-        this.onDebugCommand(projects, config)
-      )
+      vscode.commands.registerCommand(DEBUG_COMMAND, () => this.onDebugCommand())
     );
   }
 
-  async onDebugCommand(projects: ExpoProjectCache, config?: ExpoDebugConfig) {
-    const workspaceRoot = vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? '';
-    let relativePath = config?.projectRoot;
-    let projectRoot = relativePath ? path.join(workspaceRoot, relativePath) : workspaceRoot;
+  async onDebugCommand() {
+    let project = findProjectFromWorkspaces(this.projects);
+    let projectRelativePath: string | undefined = '';
 
-    let project = projectRoot ? projects.maybeFromRoot(projectRoot) : undefined;
-
-    if (!projectRoot || !projects.maybeFromRoot(projectRoot)) {
-      relativePath = await vscode.window.showInputBox({
+    if (!project) {
+      projectRelativePath = await vscode.window.showInputBox({
         title: 'Expo Debugger',
-        prompt: 'Enter the path to the project root',
+        prompt: 'Enter the path to the Expo project',
         value: './',
       });
 
-      if (!relativePath) return;
-
-      projectRoot = path.join(workspaceRoot, relativePath);
-      project = projects.maybeFromRoot(projectRoot);
-      if (!project) {
-        return vscode.window.showErrorMessage(`Could not find the Expo project in: ${projectRoot}`);
+      // Abort silently if nothing was entered
+      if (!projectRelativePath) {
+        return log('No relative project path entered, aborting...');
       }
+
+      project = findProjectFromWorkspaces(this.projects, projectRelativePath);
     }
 
-    vscode.debug.startDebugging(undefined, {
+    if (!project) {
+      return vscode.window.showErrorMessage(
+        projectRelativePath
+          ? `Could not find any Expo projects in: ${projectRelativePath}`
+          : `Could not find any Expo projects in the current workspaces`
+      );
+    }
+
+    log('Resolved dynamic project configuration for:', project.root);
+
+    return vscode.debug.startDebugging(undefined, {
       type: DEBUG_TYPE,
       request: 'attach',
       name: 'Inspect Expo app',
-      projectRoot: relativePath ? path.join('${workspaceFolder}', relativePath) : undefined,
+      projectRoot: project.root,
     });
   }
 
-  provideDebugConfigurations(folder?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
-    log('provideDebugConfigurations', 'called');
+  provideDebugConfigurations(workspace?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
+    const project = findProjectFromWorkspaces(this.projects);
+    const workflow = project?.resolveWorkflow();
+
     return [
       {
         type: DEBUG_TYPE,
         request: 'attach',
         name: 'Inspect Expo app',
+        projectRoot: project?.root ?? '${workspaceFolder}',
+        bundlerHost: '127.0.0.1',
+        bundlerPort: workflow === 'managed' ? '19000' : '8081',
       },
     ];
   }
 
   async resolveDebugConfiguration(
-    folder: vscode.WorkspaceFolder | undefined,
+    workspace: vscode.WorkspaceFolder | undefined,
     config: ExpoDebugConfig,
     token?: vscode.CancellationToken
   ) {
-    log('resolveDebugConfiguration', 'called');
-
     if (config.request === 'launch') {
       throw new Error(
         'Expo debugger does not support launch mode yet. Start the app manually, and connect through `attach`.'
@@ -91,7 +107,6 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       projectRoot: config.projectRoot ?? '${workspaceFolder}',
       bundlerHost: config.bundlerHost,
       bundlerPort: config.bundlerPort,
-      trace: true,
 
       // Enable sourcemaps
       sourceMap: true,
@@ -103,21 +118,25 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       // Disable some internal webpack source-mapping, mostly for React DevTools Backend
       sourceMapPathOverrides: {},
 
-      // Attach to whatever processes is running in Hermes (not sure if required)
+      // Enable the CDP tracer
+      trace: config.trace ?? false,
+      // Attach to whatever processes is running in Hermes
       attachExistingChildren: true,
       // When Hermes/app or the inspector unexpectedly disconnects, close the debug session
-      restart: false,
+      restart: config.restart ?? false,
       // Speed up the sourcemap loading, it's kind of experimental in `vscode-js-debug`, but does work fine eiher way
-      enableTurboSourcemaps: true,
+      enableTurboSourcemaps: config.enableTurboSourcemaps ?? true,
     };
   }
 
   async resolveDebugConfigurationWithSubstitutedVariables(
-    folder: vscode.WorkspaceFolder | undefined,
+    workspace: vscode.WorkspaceFolder | undefined,
     config: ExpoDebugConfig,
     token?: vscode.CancellationToken
   ) {
     const project = this.projects.maybeFromRoot(config.projectRoot);
+    const workflow = project?.resolveWorkflow();
+
     if (!project) {
       throw new Error('Could not resolve Expo project: ' + config.projectRoot);
     }
@@ -125,37 +144,21 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     // Reuse the validated project root as cwd
     config.cwd = config.projectRoot;
 
-    // Tell vscode how to resolve metro URLs locally
-    // config.sourceMapPathOverrides['http:[\/]+[^\/]+\/(.+).bundle.*'] = `${config.projectRoot}/$1(.js|.jsx|.ts|.tsx|.css)`;
-    // config.sourceMapPathOverrides['192.168.86.21:19000/App.bundle.*'] = `${config.projectRoot}/App.js`;
-
-    // Infer the metro address from project workflow
+    // Infer the bundler address from project workflow
     config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
-    config.bundlerPort =
-      config.bundlerPort ?? (project.resolveWorkflow() === 'generic' ? '8081' : '19000');
+    config.bundlerPort = config.bundlerPort ?? (workflow === 'managed' ? '19000' : '8081');
 
-    const metroConfig = await resolveMetroConfig(config, project);
+    // Resolve the target device config to inspect
+    const deviceConfig = await resolveDeviceConfig(config, project);
 
-    log('resolveDebugConfigurationWithSubstitutedVariables', {
-      ...config,
-      ...metroConfig,
-    });
-
-    return { ...config, ...metroConfig };
+    return { ...config, ...deviceConfig };
   }
 }
 
-interface ExpoDebugConfig extends vscode.DebugConfiguration {
-  projectRoot: string;
-  bundlerHost?: string;
-  bundlerPort?: string;
-}
-
-async function resolveMetroConfig(config: ExpoDebugConfig, project: ExpoProject) {
-  const device = await waitForMetroDevice(config);
-
+async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject) {
+  const device = await waitForDevice(config);
   if (!device) {
-    throw new Error('Expo debug cancelled.');
+    throw new Error('Expo debug session aborted.');
   }
 
   return {
@@ -168,15 +171,15 @@ async function resolveMetroConfig(config: ExpoDebugConfig, project: ExpoProject)
   };
 }
 
-async function waitForMetroDevice(config: ExpoDebugConfig) {
+async function waitForDevice(config: ExpoDebugConfig) {
   return await vscode.window.withProgress(
     { location: vscode.ProgressLocation.Notification, cancellable: true, title: 'Expo debug' },
     async (progress, token) => {
-      progress.report({ message: 'connecting to device...' });
+      progress.report({ message: 'connecting to bundler...' });
 
       while (!token.isCancellationRequested) {
         try {
-          return await resolveMetroDevice(config);
+          return await pickDevice(config);
         } catch (error) {
           progress.report({ message: error.message });
           await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -186,22 +189,20 @@ async function waitForMetroDevice(config: ExpoDebugConfig) {
   );
 }
 
-async function resolveMetroDevice(config: ExpoDebugConfig) {
-  const metroUrl = `http://${config.bundlerHost}:${config.bundlerPort}`;
-  const devices = await fetchDevicesToInspect(metroUrl).catch(() => {
-    throw new Error(`waiting for bundler on port ${config.bundlerPort}...`);
+async function pickDevice(config: ExpoDebugConfig) {
+  const devices = await fetchDevicesToInspect(
+    `http://${config.bundlerHost}:${config.bundlerPort}`
+  ).catch(() => {
+    throw new Error(`waiting for bundler on ${config.bundlerHost}:${config.bundlerPort}...`);
   });
 
   if (devices.length === 1) {
+    log('Picking only device available:', devices[0].deviceName ?? 'Unknown device');
     return devices[0];
   }
 
-  if (devices.length > 1 && config.deviceName) {
-    const device = findDeviceByName(devices, config.deviceName);
-    if (device) return device;
-  }
-
   if (devices.length > 1) {
+    log('Asking user to pick device by name...');
     return await askDeviceByName(devices);
   }
 

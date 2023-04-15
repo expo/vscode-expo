@@ -9,7 +9,7 @@ import { ExpoProjectCache } from '../expo/project';
 export async function withCancelToken<T>(
   token: vscode.CancellationToken,
   action: (token: vscode.CancellationToken) => Thenable<T>
-): Promise<T | null> {
+) {
   if (token.isCancellationRequested) return null;
   const result = await action(token);
   return token.isCancellationRequested ? null : result;
