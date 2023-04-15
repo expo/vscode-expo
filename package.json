@@ -183,7 +183,6 @@
           "typescriptreact"
         ],
         "configurationAttributes": {
-          "launch": {},
           "attach": {
             "required": [],
             "properties": {
@@ -218,7 +217,21 @@
               }
             }
           }
-        }
+        },
+        "configurationSnippets": [
+          {
+            "label": "Expo: Debug app on device or emulator",
+            "description": "Debug your Expo app on a connected device or emulator, using the Hermes engine.",
+            "body": {
+              "type": "expo",
+              "request": "attach",
+              "name": "Debug Expo app",
+              "projectRoot": "^\"\\${workspaceFolder}\"${1}",
+              "bundlerPort": "${2:19000}",
+              "bundlerHost": "${3:127.0.0.1}"
+            }
+          }
+        ]
       }
     ],
     "jsonValidation": [
