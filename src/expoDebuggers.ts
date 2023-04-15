@@ -100,8 +100,8 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
 
     return {
       type: 'pwa-node',
-      request: config.request,
-      name: config.name,
+      request: 'attach',
+      name: config.name ?? 'Debug Expo app',
 
       // Pass the user-provided configuration
       projectRoot: config.projectRoot ?? '${workspaceFolder}',

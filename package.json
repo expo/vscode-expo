@@ -176,6 +176,12 @@
       {
         "type": "expo",
         "label": "Expo",
+        "languages": [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact"
+        ],
         "configurationAttributes": {
           "launch": {},
           "attach": {
