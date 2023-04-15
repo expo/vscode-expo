@@ -1,8 +1,9 @@
 import vscode from 'vscode';
 
-import { fetchDevicesToInspect, askDeviceByName } from './expo/bundler';
+import { fetchDevicesToInspect, askDeviceByName, inferDevicePlatform } from './expo/bundler';
 import { ExpoProjectCache, ExpoProject, findProjectFromWorkspaces } from './expo/project';
 import { debug } from './utils/debug';
+import { featureTelemetry } from './utils/telemetry';
 
 const log = debug.extend('expo-debuggers');
 
@@ -47,6 +48,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
 
       // Abort silently if nothing was entered
       if (!projectRelativePath) {
+        featureTelemetry('command', `${DEBUG_COMMAND}/aborted`, { reason: 'no-path' });
         return log('No relative project path entered, aborting...');
       }
 
@@ -54,6 +56,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     }
 
     if (!project) {
+      featureTelemetry('command', `${DEBUG_COMMAND}/aborted`, { reason: 'no-project' });
       return vscode.window.showErrorMessage(
         projectRelativePath
           ? `Could not find any Expo projects in: ${projectRelativePath}`
@@ -62,6 +65,9 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     }
 
     log('Resolved dynamic project configuration for:', project.root);
+    featureTelemetry('command', DEBUG_COMMAND, {
+      path: projectRelativePath ? 'nested' : 'workspace',
+    });
 
     return vscode.debug.startDebugging(undefined, {
       type: DEBUG_TYPE,
@@ -93,6 +99,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     token?: vscode.CancellationToken
   ) {
     if (config.request === 'launch') {
+      featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'launch' });
       throw new Error(
         'Expo debugger does not support launch mode yet. Start the app manually, and connect through `attach`.'
       );
@@ -138,6 +145,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     const workflow = project?.resolveWorkflow();
 
     if (!project) {
+      featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'no-project' });
       throw new Error('Could not resolve Expo project: ' + config.projectRoot);
     }
 
@@ -149,7 +157,9 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     config.bundlerPort = config.bundlerPort ?? (workflow === 'managed' ? '19000' : '8081');
 
     // Resolve the target device config to inspect
-    const deviceConfig = await resolveDeviceConfig(config, project);
+    const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
+
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, workflow: workflow ?? 'unknown' });
 
     return { ...config, ...deviceConfig };
   }
@@ -158,10 +168,13 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
 async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject) {
   const device = await waitForDevice(config);
   if (!device) {
+    featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'device-canceled' });
     throw new Error('Expo debug session aborted.');
   }
 
   return {
+    platform: inferDevicePlatform(device) ?? 'unknown',
+
     // The address of the device to connect to
     websocketAddress: device.webSocketDebuggerUrl,
 

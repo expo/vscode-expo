@@ -34,10 +34,7 @@ export function setupTelemetry(context: ExtensionContext) {
   }
 
   if (!reporter) {
-    const extensionId = context.extension.id;
-    const extensionVersion = context.extension.packageJSON.version;
-
-    reporter = new TelemetryReporter(extensionId, extensionVersion, telemetryKey);
+    reporter = new TelemetryReporter(telemetryKey);
     context.subscriptions.push(reporter);
   }
 
@@ -59,4 +56,13 @@ export async function withErrorTelemetry<T>(
     reporter?.sendTelemetryException(error, properties, measurements);
     throw error;
   }
+}
+
+export function featureTelemetry(
+  feature: 'command' | 'debugger',
+  command: string,
+  properties?: TelemetryEventProperties,
+  measurements?: TelemetryEventMeasurements
+) {
+  return reporter?.sendTelemetryEvent(`${feature}/${command}`, properties);
 }

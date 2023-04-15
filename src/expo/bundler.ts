@@ -52,3 +52,10 @@ export async function askDeviceByName(devices: InspectableDevice[]) {
 
   return device;
 }
+
+/** Try to infer the device platform, by device name */
+export function inferDevicePlatform(device: InspectableDevice) {
+  const name = device.deviceName?.toLowerCase();
+  if (!name) return null;
+  return name.includes('iphone') ? 'ios' : 'android';
+}
