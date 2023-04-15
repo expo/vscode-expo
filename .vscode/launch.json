@@ -11,11 +11,7 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        // "${workspaceFolder}/../../../Projects/bycedric/expo-monorepo-example",
-        // "${workspaceFolder}/test/fixture",
-        // "${workspaceFolder}/../../../Desktop/test-debugger-metro-0.76.0",
-        "${workspaceFolder}/../../../Desktop/test-debugger",
-        // "${workspaceFolder}/../../../Projects/expo/expo/apps/native-component-list",
+        "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "env": {
