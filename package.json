@@ -1,7 +1,7 @@
 {
   "name": "vscode-expo",
   "displayName": "Expo Tools",
-  "version": "1.0.0-rc.1",
+  "version": "0.9.2",
   "description": "Expo for vscode keeps you productive with intellisense and prebuild previews",
   "keywords": [
     "expo",
@@ -137,7 +137,7 @@
       {
         "category": "Expo",
         "command": "expo.debug.start",
-        "title": "Debug app on device"
+        "title": "Debug Expo app on a device or simulator, using Hermes"
       }
     ],
     "configuration": {
