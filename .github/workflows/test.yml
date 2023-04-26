@@ -67,11 +67,11 @@ jobs:
           VSCODE_VERSION: stable
 
   vscode:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu, macos, windows]
         vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
@@ -81,7 +81,7 @@ jobs:
         uses: ./.github/actions/setup-project
         with:
           with-fixture: true
-          without-cache: ${{ matrix.os == 'windows-latest' }}
+          without-cache: ${{ matrix.os == 'windows' }}
 
       - name: 👷 Build project
         run: yarn build
