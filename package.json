@@ -54,7 +54,7 @@
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
-    "@vscode/extension-telemetry": "^0.6.2",
+    "@vscode/extension-telemetry": "^0.7.7",
     "@vscode/test-electron": "^2.1.5",
     "@vscode/vsce": "^2.16.0",
     "arg": "^5.0.2",
