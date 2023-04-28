@@ -1,3 +1,50 @@
+## [1.0.0-rc](https://github.com/expo/vscode-expo/compare/0.9.2...1.0.0-rc.3) (2023-04-15)
+
+### New features
+
+* add debugger for Expo apps using Hermes ([#172](https://github.com/expo/vscode-expo/issues/172)) ([67f33c2](https://github.com/expo/vscode-expo/commit/67f33c25c9a2878cdbe04c2d803a556c6481a3d1))
+* add expo project cache for efficient json parsing ([#141](https://github.com/expo/vscode-expo/issues/141)) ([01cc8e3](https://github.com/expo/vscode-expo/commit/01cc8e384348e4cfc9550a7499f6ed296cae0765))
+* add manifest plugin completion provider ([#146](https://github.com/expo/vscode-expo/issues/146)) ([55a0c83](https://github.com/expo/vscode-expo/commit/55a0c83a2d639b7743ff8a406c386f821c94d422))
+
+### Bug fixes
+
+* always diagnose plugins from an empty modules cache ([#168](https://github.com/expo/vscode-expo/issues/168)) ([d900dc7](https://github.com/expo/vscode-expo/commit/d900dc78c1706c0e56ce5561d199b22c2933a71c))
+
+### Code changes
+
+* drop outdated manifest related code ([#151](https://github.com/expo/vscode-expo/issues/151)) ([312cc49](https://github.com/expo/vscode-expo/commit/312cc49ed8bf8909f61ec339adf6446be368dd91))
+* drop superseded utilities from code preview ([#161](https://github.com/expo/vscode-expo/issues/161)) ([bc45d50](https://github.com/expo/vscode-expo/commit/bc45d502a06a2b920cc8f332de57681d949de248))
+* drop unused code after dropping most superseded code ([#154](https://github.com/expo/vscode-expo/issues/154)) ([1b2339a](https://github.com/expo/vscode-expo/commit/1b2339a489d90876f36ccf9227b9a9aa6240662c))
+* move asset property regex to constant (d63557a (https://github.com/expo/vscode-expo/commit/d63557a1d34694a7236c166b45ba4e32e3814f30))
+* move manifest asset completions to dedicated provider ([#153](https://github.com/expo/vscode-expo/issues/153)) ([52a2e17](https://github.com/expo/vscode-expo/commit/52a2e177674929b74aeecd2aafcc9a4cc3aad59e))
+* move manifest diagnostics to dedicated provider  ([#145](https://github.com/expo/vscode-expo/issues/145)) ([634bc2b](https://github.com/expo/vscode-expo/commit/634bc2bc45a058e889c02dc5e75f5f9f89475ad9))
+* move manifest links to dedicated provider ([#142](https://github.com/expo/vscode-expo/issues/142)) ([5759073](https://github.com/expo/vscode-expo/commit/5759073bea[309](https://github.com/expo/vscode-expo/actions/runs/4699771689/jobs/8333643841#step:4:310)a1f6a1777411cc188bbe23cbcf5))
+* reformat package file moving vscode settings below standard npm (91b429f (https://github.com/expo/vscode-expo/commit/91b429f8d32b32f5bd7adf7f6e605d0813e50053))
+* update tests with new tricks to improve stability and performance ([#155](https://github.com/expo/vscode-expo/issues/155)) ([c7daf51](https://github.com/expo/vscode-expo/commit/c7daf51968e7aed575388554428c54b99fec5062))
+* upgrade various development packages ([#158](https://github.com/expo/vscode-expo/issues/158)) ([38080ab](https://github.com/expo/vscode-expo/commit/38080ab62b0affc0a5267cacca69f12846b4fb23))
+
+### Other chores
+
+* add current file test launch option ([#143](https://github.com/expo/vscode-expo/issues/143)) ([664baf3](https://github.com/expo/vscode-expo/commit/664baf3be6f6381[322](https://github.com/expo/vscode-expo/actions/runs/4699771689/jobs/8333643841#step:4:323)d28818b21bf1b5a1617b44))
+* bump decode-uri-component from 0.2.0 to 0.2.2 ([#149](https://github.com/expo/vscode-expo/issues/149)) ([f841233](https://github.com/expo/vscode-expo/commit/f8412337e126d5e5bd35983cb349024c5b02ffa7))
+* bump decode-uri-component from 0.2.0 to 0.2.2 in /test/fixture ([#150](https://github.com/expo/vscode-expo/issues/150)) ([22ea7f3](https://github.com/expo/vscode-expo/commit/22ea7f325c07561ec5456b72d854afcde11d71e0))
+* bump http-cache-semantics from 4.1.0 to 4.1.1 ([#165](https://github.com/expo/vscode-expo/issues/165)) ([d12c951](https://github.com/expo/vscode-expo/commit/d12c9511d1bafe067d97568aa3c3024782854986))
+* bump json5 from 2.2.1 to 2.2.2 ([#157](https://github.com/expo/vscode-expo/issues/157)) ([e9fb1c9](https://github.com/expo/vscode-expo/commit/e9fb1c92e8dc06ac7fc34f35a373c72aa706c76a))
+* bump loader-utils from 1.4.0 to 1.4.2 ([#148](https://github.com/expo/vscode-expo/issues/148)) ([fbaf2c8](https://github.com/expo/vscode-expo/commit/fbaf2c88045c7995fb7049a430d0f73dc6d6ed15))
+* bump ua-parser-js from 0.7.31 to 0.7.33 in /test/fixture ([#163](https://github.com/expo/vscode-expo/issues/163)) ([7144c18](https://github.com/expo/vscode-expo/commit/7144c1818c22088d53763a2cd058cfd236bf131f))
+* bump vscode to min 1.67.0 ([#144](https://github.com/expo/vscode-expo/issues/144)) ([40f1d9f](https://github.com/expo/vscode-expo/commit/40f1d9f95b2353b33e5e19acb7c54c57[324](https://github.com/expo/vscode-expo/actions/runs/4699771689/jobs/8333643841#step:4:325)3fcd0))
+* bump webpack from 5.74.0 to 5.76.0 ([#167](https://github.com/expo/vscode-expo/issues/167)) ([74e8a7a](https://github.com/expo/vscode-expo/commit/74e8a7a62c96ad896077374605188f004d79a2cb))
+* re-enable all manifest diagnostic tests (365d417 (https://github.com/expo/vscode-expo/commit/365d417bd0f16957c0ec0ad0829e3d61fedf1acc))
+* upgrade to latest vsce and support prerelease publish ([#162](https://github.com/expo/vscode-expo/issues/162)) ([cbd4360](https://github.com/expo/vscode-expo/commit/cbd43609fbbdbfa0c362af30a6a4cb962869adbe))
+* **ci**: improve workflow check names in pull requests ([2109f57](https://github.com/expo/vscode-expo/commit/2109f5756fcfe0f8db4542e84c83b4a9a5eba6ab))
+* improve telemetry around debugging ([#173](https://github.com/expo/vscode-expo/issues/173)) ([0a12ac3](https://github.com/expo/vscode-expo/commit/0a12ac3b6fea09b6b0be872dae0f7338756e3be3))
+
+### Documentation changes
+
+* add comments for individual chunks of code ([#152](https://github.com/expo/vscode-expo/issues/152)) ([a70da3b](https://github.com/expo/vscode-expo/commit/a70da3bf574e7e[325](https://github.com/expo/vscode-expo/actions/runs/4699771689/jobs/8333643841#step:4:326)7f4209152f3a3a69c571b8e))
+* update readme workflow status badge ([38eba2b](https://github.com/expo/vscode-expo/commit/38eba2bd85ec0cbb41de7bd5aed2da935e840ec3))
+
+
 ## [0.9.2](https://github.com/expo/vscode-expo/compare/0.9.1...0.9.2) (2022-10-25)
 
 
