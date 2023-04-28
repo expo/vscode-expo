@@ -460,9 +460,8 @@
           "markdownDescription": "Determines how the software keyboard will impact the layout of your application. This maps to the `android:windowSoftInputMode` property. Defaults to `resize`. Valid values: `resize`, `pan`."
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`",
+          "description": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`",
           "type": "string",
-          "fallback": "jsc",
           "enum": [
             "hermes",
             "jsc"
@@ -470,7 +469,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
+          "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
         "runtimeVersion": {
           "description": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically.",
@@ -817,9 +816,8 @@
           "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps."
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`",
+          "description": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`",
           "type": "string",
-          "fallback": "jsc",
           "enum": [
             "hermes",
             "jsc"
@@ -827,7 +825,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `jsc`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
+          "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
         },
         "runtimeVersion": {
           "description": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically.",
@@ -1604,7 +1602,6 @@
         "jsEngine": {
           "description": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
           "type": "string",
-          "fallback": "jsc",
           "enum": [
             "hermes",
             "jsc"
