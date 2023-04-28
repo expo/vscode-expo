@@ -1,4 +1,4 @@
-## [1.0.0-rc](https://github.com/expo/vscode-expo/compare/0.9.2...1.0.0-rc.3) (2023-04-15)
+## [1.0.0](https://github.com/expo/vscode-expo/compare/0.9.2...1.0.0) (2023-04-28)
 
 ### New features
 
