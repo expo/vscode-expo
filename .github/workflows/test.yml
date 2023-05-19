@@ -66,7 +66,9 @@ jobs:
         with:
           run: yarn test:vscode
         env:
-          VSCODE_VERSION: stable
+          # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
+          # See: https://github.com/microsoft/vscode/issues/152938
+          VSCODE_VERSION: 1.77.3
 
   vscode:
     runs-on: ${{ matrix.os }}-latest
@@ -74,7 +76,15 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        vscode: [oldest, stable]
+        # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
+        # See: https://github.com/microsoft/vscode/issues/152938
+        vscode: [oldest, 1.77.3]
+        # Instead of failing the whole workflow, we keep testing on stable to see when it's fixed
+        experimental: [false]
+        include:
+          - os: ubuntu
+            vscode: stable
+            experimental: true
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
