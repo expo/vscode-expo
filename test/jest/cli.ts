@@ -11,7 +11,11 @@ runTests({
     VSCODE_EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
     VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
   },
-  launchArgs: [path.resolve(rootDir, './test/fixture'), '--disable-extensions'],
+  launchArgs: [
+    path.resolve(rootDir, './test/fixture'),
+    '--disable-extensions',
+    '--verbose',
+  ],
   version: process.env.VSCODE_VERSION,
   // Reporter is disabled in CI because it's super slow
   reporter: process.env.CI ? new SilentReporter() : undefined,
