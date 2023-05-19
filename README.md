@@ -64,16 +64,10 @@ Get suggestions and docs where you need them the most.
 
 ## Debug Expo apps
 
-<img alt="Expo config IntelliSense example" align="right" width="45%" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/feature-autocomplete.gif" />
+Debug your app, without leaving your editor. The built-in `expo` debugger can connect directly to your simulator or phone, giving you complete insights into what your app is doing.
 
-Debug your app, without leaving your editor. The built-in `expo` debugger can connect directly to your simulator or phone, giving you the full insights what your app is doing.
-
-Use the `Expo: Debug ...` command, or configure the `expo` debugger through the [**.vscode/launch.json**](https://code.visualstudio.com/docs/editor/debugging) script.
-
-<br />
-<br />
-<br />
-<br />
+- `Expo: Debug ...` → Start debugging with the default settings, with just a single command.
+- **.vscode/launch.json** → Fully configure the `expo` debugger through [vscode launch scripts](https://code.visualstudio.com/docs/editor/debugging).
 
 ## Live preview for native files
 
