@@ -35,6 +35,7 @@
 
 <p align="center">
   <a href="https://github.com/expo/vscode-expo#intellisense-for-expo-configs">IntelliSense</a> &nbsp;&mdash;&nbsp;
+  <a href="https://github.com/expo/vscode-expo#debug-expo-apps">Debug apps</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo#live-preview-for-native-files">Preview prebuild</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo#live-preview-for-manifest">Preview manifest</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo/blob/main/CHANGELOG.md">Changelog</a> &nbsp;&mdash;&nbsp;
