@@ -61,8 +61,10 @@ jobs:
       - name: 🧹 Remove Sucrase
         run: yarn remove sucrase
 
-      - name: 🧪 Test on Ubuntu
-        run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
+      - name: 🧪 Test project
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:vscode
         env:
           VSCODE_VERSION: stable
 
@@ -98,10 +100,7 @@ jobs:
                 : vscode
             core.exportVariable('VSCODE_VERSION', target)
 
-      - name: 🧪 Test on Ubuntu
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: xvfb-run --auto-servernum --listen-tcp yarn test:vscode
-
-      - name: 🧪 Test on Mac/Windows
-        if: ${{ !startsWith(matrix.os, 'ubuntu') }}
-        run: yarn test:vscode
+      - name: 🧪 Test project
+        uses: coactions/setup-xvfb@v1
+        with:
+          run: yarn test:vscode
