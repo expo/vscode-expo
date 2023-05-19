@@ -12,9 +12,11 @@ runTests({
     VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
   },
   launchArgs: [
-    path.resolve(rootDir, './test/fixture'),
     '--disable-extensions',
-    '--verbose',
+    '--disable-gpu',
+    '--disable-workspace-trust',
+    '--no-xshm',
+    path.resolve(rootDir, './test/fixture'),
   ],
   version: process.env.VSCODE_VERSION,
   // Reporter is disabled in CI because it's super slow
