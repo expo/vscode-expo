@@ -62,6 +62,19 @@ Get suggestions and docs where you need them the most.
 <br />
 <br />
 
+## Debug Expo apps
+
+<img alt="Expo config IntelliSense example" align="right" width="45%" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/feature-autocomplete.gif" />
+
+Debug your app, without leaving your editor. The built-in `expo` debugger can connect directly to your simulator or phone, giving you the full insights what your app is doing.
+
+Use the `Expo: Debug ...` command, or configure the `expo` debugger through the [**.vscode/launch.json**](https://code.visualstudio.com/docs/editor/debugging) script.
+
+<br />
+<br />
+<br />
+<br />
+
 ## Live preview for native files
 
 See how your changes in **app.json** or **app.config.js** would affect the native files created by [`npx expo prebuild`](https://docs.expo.dev/workflow/prebuild/). The previews are generated whenever you save the app manifest and won't affect existing files.
