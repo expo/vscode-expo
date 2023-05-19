@@ -35,6 +35,7 @@
 
 <p align="center">
   <a href="https://github.com/expo/vscode-expo#intellisense-for-expo-configs">IntelliSense</a> &nbsp;&mdash;&nbsp;
+  <a href="https://github.com/expo/vscode-expo#debug-expo-apps">Debug apps</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo#live-preview-for-native-files">Preview prebuild</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo#live-preview-for-manifest">Preview manifest</a> &nbsp;&mdash;&nbsp;
   <a href="https://github.com/expo/vscode-expo/blob/main/CHANGELOG.md">Changelog</a> &nbsp;&mdash;&nbsp;
@@ -60,6 +61,15 @@ Get suggestions and docs where you need them the most.
 
 <br />
 <br />
+<br />
+
+## Debug Expo apps
+
+Debug your app, without leaving your editor. The built-in `expo` debugger can connect directly to your simulator or phone, giving you complete insights into what your app is doing.
+
+- `Expo: Debug ...` → Start debugging with the default settings, with just a single command.
+- **.vscode/launch.json** → Fully configure the `expo` debugger through [vscode launch scripts](https://code.visualstudio.com/docs/editor/debugging).
+
 <br />
 
 ## Live preview for native files
