@@ -70,6 +70,8 @@ Debug your app, without leaving your editor. The built-in `expo` debugger can co
 - `Expo: Debug ...` → Start debugging with the default settings, with just a single command.
 - **.vscode/launch.json** → Fully configure the `expo` debugger through [vscode launch scripts](https://code.visualstudio.com/docs/editor/debugging).
 
+<br />
+
 ## Live preview for native files
 
 See how your changes in **app.json** or **app.config.js** would affect the native files created by [`npx expo prebuild`](https://docs.expo.dev/workflow/prebuild/). The previews are generated whenever you save the app manifest and won't affect existing files.
