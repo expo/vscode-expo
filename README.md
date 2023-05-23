@@ -19,7 +19,7 @@
       <img alt="Workflow status" src="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=D1D5DA" />
     </picture>
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo" title="Install from VS Code Marketplace">
+  <a href="https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools" title="Install from VS Code Marketplace">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code">
       <img alt="Install from vscode marketplace" src="https://img.shields.io/badge/vscode-marketplace-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Visual%20Studio%20Code" />
