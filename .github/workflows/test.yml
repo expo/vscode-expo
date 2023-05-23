@@ -72,7 +72,6 @@ jobs:
 
   vscode:
     runs-on: ${{ matrix.os }}-latest
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
@@ -113,5 +112,6 @@ jobs:
 
       - name: 🧪 Test project
         uses: coactions/setup-xvfb@v1
+        continue-on-error: ${{ matrix.experimental }}
         with:
           run: yarn test:vscode
