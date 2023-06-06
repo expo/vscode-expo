@@ -27,7 +27,7 @@
 
 ### Documentation changes
 
-* add section about debugging in the readme ([#177](https://github.com/expo/vscode-expo/issues/177)) (45509b1 (https://github.com/expo/vscode-expo/commit/45509b1065a4ddd1acb7daef9792706f4a033baf))
+* add section about debugging in the readme ([#177](https://github.com/expo/vscode-expo/issues/177)) ([45509b1](https://github.com/expo/vscode-expo/commit/45509b1065a4ddd1acb7daef9792706f4a033baf))
 
 ### Other chores
 
