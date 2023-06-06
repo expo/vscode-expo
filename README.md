@@ -7,29 +7,17 @@
 </h1>
 
 <p align="center">
-  <a href="https://github.com/expo/vscode-expo/releases" title="Latest release">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=49505A">
-      <img alt="Latest release" src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=D1D5DA" />
-    </picture>
+  <a aria-label="Latest release" href="https://github.com/expo/vscode-expo/releases" target="_blank">
+    <img alt="Latest release" src="https://img.shields.io/github/package-json/v/expo/vscode-expo?style=flat-square&color=0366D6&labelColor=49505A" />
   </a>
-  <a href="https://github.com/expo/vscode-expo/actions" title="Workflow status">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=49505A">
-      <img alt="Workflow status" src="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=D1D5DA" />
-    </picture>
+  <a aria-label="Workflow status"  href="https://github.com/expo/vscode-expo/actions" target="_blank">
+    <img alt="Workflow status" src="https://img.shields.io/github/actions/workflow/status/expo/vscode-expo/test.yml?branch=main&style=flat-square&labelColor=49505A" />
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools" title="Install from VS Code Marketplace">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code">
-      <img alt="Install from vscode marketplace" src="https://img.shields.io/badge/vscode-marketplace-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Visual%20Studio%20Code" />
-    </picture>
+  <a aria-label="Install from VS Code Marketplace" href="https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools" target="_blank">
+    <img alt="Install from VS Code Marketplace" src="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code" />
   </a>
-  <a href="https://open-vsx.org/extension/expo/vscode-expo" title="Install from open vsx">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/vscode-open%20vsx-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Eclipse%20IDE" />
-      <img alt="Install from open vsx" src="https://img.shields.io/badge/vscode-open%20vsx-6C737C?style=flat-square&label=%20&logoColor=595F68&labelColor=D1D5DA&logo=Eclipse%20IDE" />
-    </picture>
+  <a aria-label="Install from Open VSX" href="https://open-vsx.org/extension/expo/vscode-expo" target="_blank">
+    <img alt="Install from Open VSX" src="https://img.shields.io/badge/vscode-open%20vsx-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Eclipse%20IDE" />
   </a>
 </p>
 
