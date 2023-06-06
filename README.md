@@ -1,9 +1,9 @@
 <h1 align="center">
   <a href="https://docs.expo.dev">
-    <img width="150" alt="Expo for vscode" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" />
+    <img width="150" alt="Expo Tools" src="https://raw.githubusercontent.com/expo/vscode-expo/main/images/logo-repository.png" />
   </a>
   <br />
-  Expo for vscode
+  Expo Tools
 </h1>
 
 <p align="center">
@@ -44,7 +44,7 @@
 
 <br />
 
-Expo for vscode adds suggestions and docs for all Expo config. It also shows live previews for native files from prebuild, right in your editor!
+Expo Tools adds suggestions and docs for all Expo config. It also shows live previews for native files from prebuild, right in your editor!
 
 <br />
 
@@ -68,7 +68,7 @@ Get suggestions and docs where you need them the most.
 Debug your app, without leaving your editor. The built-in `expo` debugger can connect directly to your simulator or phone, giving you complete insights into what your app is doing.
 
 - `Expo: Debug ...` → Start debugging with the default settings, with just a single command.
-- **.vscode/launch.json** → Fully configure the `expo` debugger through [vscode launch scripts](https://code.visualstudio.com/docs/editor/debugging).
+- **.vscode/launch.json** → Fully configure the `expo` debugger through [VS Code launch scripts](https://code.visualstudio.com/docs/editor/debugging).
 
 <br />
 
