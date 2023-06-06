@@ -16,7 +16,7 @@
   <a aria-label="Install from VS Code Marketplace" href="https://marketplace.visualstudio.com/items?itemName=expo.vscode-expo-tools" target="_blank">
     <img alt="Install from VS Code Marketplace" src="https://img.shields.io/badge/vscode-marketplace-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Visual%20Studio%20Code" />
   </a>
-  <a aria-label="Install from Open VSX" href="https://open-vsx.org/extension/expo/vscode-expo" target="_blank">
+  <a aria-label="Install from Open VSX" href="https://open-vsx.org/extension/expo/vscode-expo-tools" target="_blank">
     <img alt="Install from Open VSX" src="https://img.shields.io/badge/vscode-open%20vsx-25292E?style=flat-square&label=%20&logoColor=BCC3CD&labelColor=49505A&logo=Eclipse%20IDE" />
   </a>
 </p>
