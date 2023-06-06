@@ -103,7 +103,7 @@ Preview the generated manifests for your app. You can do this for the different 
 
 - **prebuild** - The local app manifest when running `npx expo prebuild`.
 - **introspect** - The evaluated app manifest result when running `npx expo prebuild`.
-- **public** - The hosted manifest when using OTA updates.
+- **public** - The hosted manifest when using Expo Updates.
 
 <div align="center">
   <br />
