@@ -1,8 +1,7 @@
-import { AndroidConfig, XML } from '@expo/config-plugins';
-import plist from '@expo/plist';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import { loadExpoPlist, loadExpoConfigPlugins } from '../expo/packages';
 import { getProjectRoot } from '../expo/project';
 import { debug } from '../utils/debug';
 import { resetModulesFrom } from '../utils/module';
@@ -110,13 +109,19 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
     switch (language) {
       case 'json':
         return JSON.stringify(results, null, 2);
-      case 'xml':
+      case 'xml': {
+        const { XML } = loadExpoConfigPlugins(this.projectRoot);
         return XML.format(results);
+      }
       case 'plist':
-      case 'entitlements':
+      case 'entitlements': {
+        const { default: plist } = loadExpoPlist(this.projectRoot);
         return plist.build(results);
-      case 'properties':
+      }
+      case 'properties': {
+        const { AndroidConfig } = loadExpoConfigPlugins(this.projectRoot);
         return AndroidConfig.Properties.propertiesListToString(results);
+      }
       default:
         throw new Error('Unknown language: ' + language);
     }

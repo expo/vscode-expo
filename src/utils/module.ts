@@ -58,3 +58,9 @@ export function resetModulesFrom(dir: string) {
 
   return cachedIds;
 }
+
+/** Load a module or file from a specific folder */
+export function loadModuleFrom<T>(dir: string, moduleOrFile: string): T {
+  const moduleOrFilePath = require.resolve(moduleOrFile, { paths: [dir] });
+  return require(/* webpackIgnore: true */ moduleOrFilePath);
+}

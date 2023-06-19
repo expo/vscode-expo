@@ -1,8 +1,7 @@
-import { getConfig } from '@expo/config';
-import { compileModsAsync } from '@expo/config-plugins';
-import { getPrebuildConfigAsync } from '@expo/prebuild-config';
 import * as vscode from 'vscode';
 
+import { loadExpoConfig, loadExpoConfigPlugins, loadExpoPrebuildConfig } from '../expo/packages';
+import { withWorkingDirectory } from '../utils/process';
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 
 export enum ExpoConfigType {
@@ -44,13 +43,20 @@ export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   async getExpoConfigAsync() {
-    return await getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
-      (config) => config.exp
+    const { getPrebuildConfigAsync } = loadExpoPrebuildConfig(this.projectRoot);
+
+    // NOTE(cedric): `expo-modules-autolinking` is using `process.cwd()` as project root
+    return await withWorkingDirectory(this.projectRoot, () =>
+      getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
+        (config) => config.exp
+      )
     );
   }
 
   async getFileContents() {
+    const { compileModsAsync } = loadExpoConfigPlugins(this.projectRoot);
     const config = await this.getExpoConfigAsync();
+
     return await compileModsAsync(config, {
       projectRoot: this.projectRoot,
       introspect: true,
@@ -65,6 +71,8 @@ export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   getExpoConfigAsync() {
+    const { getConfig } = loadExpoConfig(this.projectRoot);
+
     return Promise.resolve(
       getConfig(this.projectRoot, {
         isPublicConfig: true,
@@ -80,8 +88,13 @@ export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   async getExpoConfigAsync() {
-    return await getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
-      (config) => config.exp
+    const { getPrebuildConfigAsync } = loadExpoPrebuildConfig(this.projectRoot);
+
+    // NOTE(cedric): `expo-modules-autolinking` is using `process.cwd()` as project root
+    return await withWorkingDirectory(this.projectRoot, () =>
+      getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
+        (config) => config.exp
+      )
     );
   }
 }
