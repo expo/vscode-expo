@@ -1,0 +1,43 @@
+diff --git a/node_modules/@expo/prebuild-config/build/importExpoModulesAutolinking.js b/node_modules/@expo/prebuild-config/build/importExpoModulesAutolinking.js
+index 86a6a5b..a60e69f 100644
+--- a/node_modules/@expo/prebuild-config/build/importExpoModulesAutolinking.js
++++ b/node_modules/@expo/prebuild-config/build/importExpoModulesAutolinking.js
+@@ -6,24 +6,26 @@ Object.defineProperty(exports, "__esModule", {
+ exports.importExpoModulesAutolinking = importExpoModulesAutolinking;
+ // NOTE: Keep these types in-sync with expo-modules-autolinking
+ 
++const autolinking = require('expo-modules-autolinking');
++
+ /**
+  * Imports the `expo-modules-autolinking` package installed in the project at the given path.
+  */
+-function importExpoModulesAutolinking(projectRoot) {
+-  const autolinking = tryRequireExpoModulesAutolinking(projectRoot);
++function importExpoModulesAutolinking(_projectRoot) {
+   assertAutolinkingCompatibility(autolinking);
+   return autolinking;
+ }
+-function tryRequireExpoModulesAutolinking(projectRoot) {
+-  try {
+-    const resolvedAutolinkingPath = require.resolve('expo-modules-autolinking/build/autolinking', {
+-      paths: [projectRoot]
+-    });
+-    return require(resolvedAutolinkingPath);
+-  } catch {
+-    throw new Error("Cannot find 'expo-modules-autolinking' package in your project, make sure that you have 'expo' package installed");
+-  }
+-}
++// Note(cedric): we just want to import the autolinking package instead of resolving from project
++// function tryRequireExpoModulesAutolinking(projectRoot) {
++//   try {
++//     const resolvedAutolinkingPath = require.resolve('expo-modules-autolinking/build/autolinking', {
++//       paths: [projectRoot]
++//     });
++//     return require(resolvedAutolinkingPath);
++//   } catch {
++//     throw new Error("Cannot find 'expo-modules-autolinking' package in your project, make sure that you have 'expo' package installed");
++//   }
++// }
+ function assertAutolinkingCompatibility(autolinking) {
+   if ('resolveSearchPathsAsync' in autolinking && 'findModulesAsync' in autolinking) {
+     return;
