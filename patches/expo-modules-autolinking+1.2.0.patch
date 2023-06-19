@@ -1,0 +1,1007 @@
+diff --git a/node_modules/expo-modules-autolinking/.DS_Store b/node_modules/expo-modules-autolinking/.DS_Store
+new file mode 100644
+index 0000000..2bc880a
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/.DS_Store differ
+diff --git a/node_modules/expo-modules-autolinking/build/.DS_Store b/node_modules/expo-modules-autolinking/build/.DS_Store
+new file mode 100644
+index 0000000..f459ad1
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/build/.DS_Store differ
+diff --git a/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js b/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js
+index d3f25b9..0241838 100644
+--- a/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js
++++ b/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js
+@@ -1,6 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.requireAndResolveExpoModuleConfig = exports.ExpoModuleConfig = void 0;
++const _vscode_expo_1 = require("./_vscode-expo");
+ function arrayize(value) {
+     if (Array.isArray(value)) {
+         return value;
+@@ -92,7 +93,7 @@ exports.ExpoModuleConfig = ExpoModuleConfig;
+ function requireAndResolveExpoModuleConfig(path) {
+     // TODO: Validate the raw config against a schema.
+     // TODO: Support for `*.js` files, not only static `*.json`.
+-    return new ExpoModuleConfig(require(path));
++    return new ExpoModuleConfig((0, _vscode_expo_1.requireModule)(path));
+ }
+ exports.requireAndResolveExpoModuleConfig = requireAndResolveExpoModuleConfig;
+ //# sourceMappingURL=ExpoModuleConfig.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js.map b/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js.map
+index 7e59248..a807bd7 100644
+--- a/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js.map
++++ b/node_modules/expo-modules-autolinking/build/ExpoModuleConfig.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"ExpoModuleConfig.js","sourceRoot":"","sources":["../src/ExpoModuleConfig.ts"],"names":[],"mappings":";;;AAEA,SAAS,QAAQ,CAAI,KAA0B;IAC7C,IAAI,KAAK,CAAC,OAAO,CAAC,KAAK,CAAC,EAAE;QACxB,OAAO,KAAK,CAAC;KACd;IACD,OAAO,KAAK,IAAI,IAAI,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC;AACtC,CAAC;AAED;;GAEG;AACH,MAAa,gBAAgB;IAC3B,YAAqB,SAA8B;QAA9B,cAAS,GAAT,SAAS,CAAqB;IAAG,CAAC;IAEvD;;OAEG;IACH,gBAAgB,CAAC,QAA2B;QAC1C,OAAO,IAAI,CAAC,SAAS,CAAC,SAAS,EAAE,QAAQ,CAAC,QAAQ,CAAC,IAAI,KAAK,CAAC;IAC/D,CAAC;IAED;;OAEG;IACH,UAAU;QACR,MAAM,SAAS,GAAG,IAAI,CAAC,SAAS,CAAC,GAAG,CAAC;QAErC,4DAA4D;QAC5D,OAAO,SAAS,EAAE,OAAO,IAAI,SAAS,EAAE,iBAAiB,IAAI,EAAE,CAAC;IAClE,CAAC;IAED;;OAEG;IACH,yBAAyB;QACvB,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,sBAAsB,IAAI,EAAE,CAAC;IAC1D,CAAC;IAED;;OAEG;IACH,wBAAwB;QACtB,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,qBAAqB,IAAI,EAAE,CAAC;IACzD,CAAC;IAED;;OAEG;IACH,eAAe;QACb,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,WAAW,CAAC,CAAC;IACnD,CAAC;IAED;;OAEG;IACH,mBAAmB;QACjB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,eAAe,CAAC,CAAC;IACvD,CAAC;IAED;;OAEG;IACH,YAAY;QACV,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,SAAS,IAAI,KAAK,CAAC;IAChD,CAAC;IAED;;OAEG;IACH,cAAc;QACZ,MAAM,aAAa,GAAG,IAAI,CAAC,SAAS,CAAC,OAAO,CAAC;QAE7C,4DAA4D;QAC5D,OAAO,aAAa,EAAE,OAAO,IAAI,aAAa,EAAE,iBAAiB,IAAI,EAAE,CAAC;IAC1E,CAAC;IAED;;OAEG;IACH,kBAAkB;QAChB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,OAAO,EAAE,UAAU,IAAI,EAAE,CAAC,CAAC;IAC5D,CAAC;IAED;;OAEG;IACH,oBAAoB;QAClB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,OAAO,EAAE,aAAa,IAAI,EAAE,CAAC,CAAC;IAC/D,CAAC;IAED;;OAEG;IACH,MAAM;QACJ,OAAO,IAAI,CAAC,SAAS,CAAC;IACxB,CAAC;CACF;AArFD,4CAqFC;AAED;;GAEG;AACH,SAAgB,iCAAiC,CAAC,IAAY;IAC5D,kDAAkD;IAClD,4DAA4D;IAC5D,OAAO,IAAI,gBAAgB,CAAC,OAAO,CAAC,IAAI,CAAwB,CAAC,CAAC;AACpE,CAAC;AAJD,8EAIC","sourcesContent":["import { AndroidGradlePluginDescriptor, RawExpoModuleConfig, SupportedPlatform } from './types';\n\nfunction arrayize<T>(value: T[] | T | undefined): T[] {\n  if (Array.isArray(value)) {\n    return value;\n  }\n  return value != null ? [value] : [];\n}\n\n/**\n * A class that wraps the raw config (`expo-module.json` or `unimodule.json`).\n */\nexport class ExpoModuleConfig {\n  constructor(readonly rawConfig: RawExpoModuleConfig) {}\n\n  /**\n   * Whether the module supports given platform.\n   */\n  supportsPlatform(platform: SupportedPlatform): boolean {\n    return this.rawConfig.platforms?.includes(platform) ?? false;\n  }\n\n  /**\n   * Returns a list of names of Swift native modules classes to put to the generated modules provider file.\n   */\n  iosModules() {\n    const iosConfig = this.rawConfig.ios;\n\n    // `modulesClassNames` is a legacy name for the same config.\n    return iosConfig?.modules ?? iosConfig?.modulesClassNames ?? [];\n  }\n\n  /**\n   * Returns a list of names of Swift classes that receives AppDelegate life-cycle events.\n   */\n  iosAppDelegateSubscribers(): string[] {\n    return this.rawConfig.ios?.appDelegateSubscribers ?? [];\n  }\n\n  /**\n   * Returns a list of names of Swift classes that implement `ExpoReactDelegateHandler`.\n   */\n  iosReactDelegateHandlers(): string[] {\n    return this.rawConfig.ios?.reactDelegateHandlers ?? [];\n  }\n\n  /**\n   * Returns podspec paths defined by the module author.\n   */\n  iosPodspecPaths(): string[] {\n    return arrayize(this.rawConfig.ios?.podspecPath);\n  }\n\n  /**\n   * Returns the product module names, if defined by the module author.\n   */\n  iosSwiftModuleNames(): string[] {\n    return arrayize(this.rawConfig.ios?.swiftModuleName);\n  }\n\n  /**\n   * Returns whether this module will be added only to the debug configuration\n   */\n  iosDebugOnly(): boolean {\n    return this.rawConfig.ios?.debugOnly ?? false;\n  }\n\n  /**\n   * Returns a list of names of Kotlin native modules classes to put to the generated package provider file.\n   */\n  androidModules() {\n    const androidConfig = this.rawConfig.android;\n\n    // `modulesClassNames` is a legacy name for the same config.\n    return androidConfig?.modules ?? androidConfig?.modulesClassNames ?? [];\n  }\n\n  /**\n   * Returns build.gradle file paths defined by the module author.\n   */\n  androidGradlePaths(): string[] {\n    return arrayize(this.rawConfig.android?.gradlePath ?? []);\n  }\n\n  /**\n   * Returns gradle plugins descriptors defined by the module author.\n   */\n  androidGradlePlugins(): AndroidGradlePluginDescriptor[] {\n    return arrayize(this.rawConfig.android?.gradlePlugins ?? []);\n  }\n\n  /**\n   * Returns serializable raw config.\n   */\n  toJSON(): RawExpoModuleConfig {\n    return this.rawConfig;\n  }\n}\n\n/**\n * Reads the config at given path and returns the config wrapped by `ExpoModuleConfig` class.\n */\nexport function requireAndResolveExpoModuleConfig(path: string): ExpoModuleConfig {\n  // TODO: Validate the raw config against a schema.\n  // TODO: Support for `*.js` files, not only static `*.json`.\n  return new ExpoModuleConfig(require(path) as RawExpoModuleConfig);\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"ExpoModuleConfig.js","sourceRoot":"","sources":["../src/ExpoModuleConfig.ts"],"names":[],"mappings":";;;AAAA,iDAA+C;AAG/C,SAAS,QAAQ,CAAI,KAA0B;IAC7C,IAAI,KAAK,CAAC,OAAO,CAAC,KAAK,CAAC,EAAE;QACxB,OAAO,KAAK,CAAC;KACd;IACD,OAAO,KAAK,IAAI,IAAI,CAAC,CAAC,CAAC,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC;AACtC,CAAC;AAED;;GAEG;AACH,MAAa,gBAAgB;IAC3B,YAAqB,SAA8B;QAA9B,cAAS,GAAT,SAAS,CAAqB;IAAG,CAAC;IAEvD;;OAEG;IACH,gBAAgB,CAAC,QAA2B;QAC1C,OAAO,IAAI,CAAC,SAAS,CAAC,SAAS,EAAE,QAAQ,CAAC,QAAQ,CAAC,IAAI,KAAK,CAAC;IAC/D,CAAC;IAED;;OAEG;IACH,UAAU;QACR,MAAM,SAAS,GAAG,IAAI,CAAC,SAAS,CAAC,GAAG,CAAC;QAErC,4DAA4D;QAC5D,OAAO,SAAS,EAAE,OAAO,IAAI,SAAS,EAAE,iBAAiB,IAAI,EAAE,CAAC;IAClE,CAAC;IAED;;OAEG;IACH,yBAAyB;QACvB,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,sBAAsB,IAAI,EAAE,CAAC;IAC1D,CAAC;IAED;;OAEG;IACH,wBAAwB;QACtB,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,qBAAqB,IAAI,EAAE,CAAC;IACzD,CAAC;IAED;;OAEG;IACH,eAAe;QACb,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,WAAW,CAAC,CAAC;IACnD,CAAC;IAED;;OAEG;IACH,mBAAmB;QACjB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,eAAe,CAAC,CAAC;IACvD,CAAC;IAED;;OAEG;IACH,YAAY;QACV,OAAO,IAAI,CAAC,SAAS,CAAC,GAAG,EAAE,SAAS,IAAI,KAAK,CAAC;IAChD,CAAC;IAED;;OAEG;IACH,cAAc;QACZ,MAAM,aAAa,GAAG,IAAI,CAAC,SAAS,CAAC,OAAO,CAAC;QAE7C,4DAA4D;QAC5D,OAAO,aAAa,EAAE,OAAO,IAAI,aAAa,EAAE,iBAAiB,IAAI,EAAE,CAAC;IAC1E,CAAC;IAED;;OAEG;IACH,kBAAkB;QAChB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,OAAO,EAAE,UAAU,IAAI,EAAE,CAAC,CAAC;IAC5D,CAAC;IAED;;OAEG;IACH,oBAAoB;QAClB,OAAO,QAAQ,CAAC,IAAI,CAAC,SAAS,CAAC,OAAO,EAAE,aAAa,IAAI,EAAE,CAAC,CAAC;IAC/D,CAAC;IAED;;OAEG;IACH,MAAM;QACJ,OAAO,IAAI,CAAC,SAAS,CAAC;IACxB,CAAC;CACF;AArFD,4CAqFC;AAED;;GAEG;AACH,SAAgB,iCAAiC,CAAC,IAAY;IAC5D,kDAAkD;IAClD,4DAA4D;IAC5D,OAAO,IAAI,gBAAgB,CAAC,IAAA,4BAAa,EAAC,IAAI,CAAwB,CAAC,CAAC;AAC1E,CAAC;AAJD,8EAIC","sourcesContent":["import { requireModule } from './_vscode-expo';\nimport { AndroidGradlePluginDescriptor, RawExpoModuleConfig, SupportedPlatform } from './types';\n\nfunction arrayize<T>(value: T[] | T | undefined): T[] {\n  if (Array.isArray(value)) {\n    return value;\n  }\n  return value != null ? [value] : [];\n}\n\n/**\n * A class that wraps the raw config (`expo-module.json` or `unimodule.json`).\n */\nexport class ExpoModuleConfig {\n  constructor(readonly rawConfig: RawExpoModuleConfig) {}\n\n  /**\n   * Whether the module supports given platform.\n   */\n  supportsPlatform(platform: SupportedPlatform): boolean {\n    return this.rawConfig.platforms?.includes(platform) ?? false;\n  }\n\n  /**\n   * Returns a list of names of Swift native modules classes to put to the generated modules provider file.\n   */\n  iosModules() {\n    const iosConfig = this.rawConfig.ios;\n\n    // `modulesClassNames` is a legacy name for the same config.\n    return iosConfig?.modules ?? iosConfig?.modulesClassNames ?? [];\n  }\n\n  /**\n   * Returns a list of names of Swift classes that receives AppDelegate life-cycle events.\n   */\n  iosAppDelegateSubscribers(): string[] {\n    return this.rawConfig.ios?.appDelegateSubscribers ?? [];\n  }\n\n  /**\n   * Returns a list of names of Swift classes that implement `ExpoReactDelegateHandler`.\n   */\n  iosReactDelegateHandlers(): string[] {\n    return this.rawConfig.ios?.reactDelegateHandlers ?? [];\n  }\n\n  /**\n   * Returns podspec paths defined by the module author.\n   */\n  iosPodspecPaths(): string[] {\n    return arrayize(this.rawConfig.ios?.podspecPath);\n  }\n\n  /**\n   * Returns the product module names, if defined by the module author.\n   */\n  iosSwiftModuleNames(): string[] {\n    return arrayize(this.rawConfig.ios?.swiftModuleName);\n  }\n\n  /**\n   * Returns whether this module will be added only to the debug configuration\n   */\n  iosDebugOnly(): boolean {\n    return this.rawConfig.ios?.debugOnly ?? false;\n  }\n\n  /**\n   * Returns a list of names of Kotlin native modules classes to put to the generated package provider file.\n   */\n  androidModules() {\n    const androidConfig = this.rawConfig.android;\n\n    // `modulesClassNames` is a legacy name for the same config.\n    return androidConfig?.modules ?? androidConfig?.modulesClassNames ?? [];\n  }\n\n  /**\n   * Returns build.gradle file paths defined by the module author.\n   */\n  androidGradlePaths(): string[] {\n    return arrayize(this.rawConfig.android?.gradlePath ?? []);\n  }\n\n  /**\n   * Returns gradle plugins descriptors defined by the module author.\n   */\n  androidGradlePlugins(): AndroidGradlePluginDescriptor[] {\n    return arrayize(this.rawConfig.android?.gradlePlugins ?? []);\n  }\n\n  /**\n   * Returns serializable raw config.\n   */\n  toJSON(): RawExpoModuleConfig {\n    return this.rawConfig;\n  }\n}\n\n/**\n * Reads the config at given path and returns the config wrapped by `ExpoModuleConfig` class.\n */\nexport function requireAndResolveExpoModuleConfig(path: string): ExpoModuleConfig {\n  // TODO: Validate the raw config against a schema.\n  // TODO: Support for `*.js` files, not only static `*.json`.\n  return new ExpoModuleConfig(requireModule(path) as RawExpoModuleConfig);\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/_vscode-expo.d.ts b/node_modules/expo-modules-autolinking/build/_vscode-expo.d.ts
+new file mode 100644
+index 0000000..0ff23aa
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/build/_vscode-expo.d.ts
+@@ -0,0 +1,11 @@
++import { SearchOptions } from './types';
++/**
++ * This method is protected against webpack "interfering".
++ * It includes the magic JS comment to exclude it from modifications.
++ */
++export declare function requireModule<T = any>(moduleName: string): T;
++/**
++ * Try to resolve the project's package.json location.
++ * If it's found, it gets cached until the process exits.
++ */
++export declare function findProjectPackageJson(options?: Pick<SearchOptions, 'searchPaths'>): string;
+diff --git a/node_modules/expo-modules-autolinking/build/_vscode-expo.js b/node_modules/expo-modules-autolinking/build/_vscode-expo.js
+new file mode 100644
+index 0000000..5e78e9a
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/build/_vscode-expo.js
+@@ -0,0 +1,36 @@
++"use strict";
++var __importDefault = (this && this.__importDefault) || function (mod) {
++    return (mod && mod.__esModule) ? mod : { "default": mod };
++};
++Object.defineProperty(exports, "__esModule", { value: true });
++exports.findProjectPackageJson = exports.requireModule = void 0;
++const find_up_1 = __importDefault(require("find-up"));
++/**
++ * This method is protected against webpack "interfering".
++ * It includes the magic JS comment to exclude it from modifications.
++ */
++function requireModule(moduleName) {
++    return require(/* webpackIgnore: true */ moduleName);
++}
++exports.requireModule = requireModule;
++/** The project package location "cache" */
++let projectPackageJsonPath;
++/**
++ * Try to resolve the project's package.json location.
++ * If it's found, it gets cached until the process exits.
++ */
++function findProjectPackageJson(options) {
++    if (projectPackageJsonPath) {
++        return projectPackageJsonPath;
++    }
++    for (const searchPath of options?.searchPaths || []) {
++        projectPackageJsonPath = find_up_1.default.sync('package.json', { cwd: searchPath });
++        if (projectPackageJsonPath) {
++            return projectPackageJsonPath;
++        }
++    }
++    const searchedPaths = (options?.searchPaths || []).join('\n- ');
++    throw new Error(`Couldn't find "package.json" up from any of the paths:\n- "${searchedPaths}"`);
++}
++exports.findProjectPackageJson = findProjectPackageJson;
++//# sourceMappingURL=_vscode-expo.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/_vscode-expo.js.map b/node_modules/expo-modules-autolinking/build/_vscode-expo.js.map
+new file mode 100644
+index 0000000..b81effe
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/build/_vscode-expo.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"_vscode-expo.js","sourceRoot":"","sources":["../src/_vscode-expo.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA6B;AAI7B;;;GAGG;AACH,SAAgB,aAAa,CAAU,UAAkB;IACvD,OAAO,OAAO,CAAC,yBAAyB,CAAC,UAAU,CAAC,CAAC;AACvD,CAAC;AAFD,sCAEC;AAED,2CAA2C;AAC3C,IAAI,sBAA0C,CAAC;AAE/C;;;GAGG;AACH,SAAgB,sBAAsB,CAAC,OAA4C;IACjF,IAAI,sBAAsB,EAAE;QAC1B,OAAO,sBAAsB,CAAC;KAC/B;IAED,KAAK,MAAM,UAAU,IAAI,OAAO,EAAE,WAAW,IAAI,EAAE,EAAE;QACnD,sBAAsB,GAAG,iBAAM,CAAC,IAAI,CAAC,cAAc,EAAE,EAAE,GAAG,EAAE,UAAU,EAAE,CAAC,CAAC;QAC1E,IAAI,sBAAsB,EAAE;YAC1B,OAAO,sBAAsB,CAAC;SAC/B;KACF;IAED,MAAM,aAAa,GAAG,CAAC,OAAO,EAAE,WAAW,IAAI,EAAE,CAAC,CAAC,IAAI,CAAC,MAAM,CAAC,CAAC;IAChE,MAAM,IAAI,KAAK,CAAC,8DAA8D,aAAa,GAAG,CAAC,CAAC;AAClG,CAAC;AAdD,wDAcC","sourcesContent":["import findUp from 'find-up';\n\nimport { SearchOptions } from './types';\n\n/**\n * This method is protected against webpack \"interfering\".\n * It includes the magic JS comment to exclude it from modifications.\n */\nexport function requireModule<T = any>(moduleName: string): T {\n  return require(/* webpackIgnore: true */ moduleName);\n}\n\n/** The project package location \"cache\" */\nlet projectPackageJsonPath: string | undefined;\n\n/**\n * Try to resolve the project's package.json location.\n * If it's found, it gets cached until the process exits.\n */\nexport function findProjectPackageJson(options?: Pick<SearchOptions, 'searchPaths'>) {\n  if (projectPackageJsonPath) {\n    return projectPackageJsonPath;\n  }\n\n  for (const searchPath of options?.searchPaths || []) {\n    projectPackageJsonPath = findUp.sync('package.json', { cwd: searchPath });\n    if (projectPackageJsonPath) {\n      return projectPackageJsonPath;\n    }\n  }\n\n  const searchedPaths = (options?.searchPaths || []).join('\\n- ');\n  throw new Error(`Couldn't find \"package.json\" up from any of the paths:\\n- \"${searchedPaths}\"`);\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/autolinking/findModules.js b/node_modules/expo-modules-autolinking/build/autolinking/findModules.js
+index 8468bb8..e1f432b 100644
+--- a/node_modules/expo-modules-autolinking/build/autolinking/findModules.js
++++ b/node_modules/expo-modules-autolinking/build/autolinking/findModules.js
+@@ -10,6 +10,7 @@ const fs_extra_1 = __importDefault(require("fs-extra"));
+ const module_1 = require("module");
+ const path_1 = __importDefault(require("path"));
+ const ExpoModuleConfig_1 = require("../ExpoModuleConfig");
++const _vscode_expo_1 = require("../_vscode-expo");
+ const mergeLinkingOptions_1 = require("./mergeLinkingOptions");
+ // Names of the config files. From lowest to highest priority.
+ const EXPO_MODULE_CONFIG_FILENAMES = ['unimodule.json', 'expo-module.config.json'];
+@@ -129,7 +130,7 @@ async function findPackagesConfigPathsAsync(searchPath) {
+  */
+ function resolvePackageNameAndVersion(packagePath, { fallbackToDirName } = {}) {
+     try {
+-        const { name, version } = require(path_1.default.join(packagePath, 'package.json'));
++        const { name, version } = (0, _vscode_expo_1.requireModule)(path_1.default.join(packagePath, 'package.json'));
+         return { name, version: version || 'UNVERSIONED' };
+     }
+     catch (e) {
+@@ -161,7 +162,7 @@ function filterToProjectDependencies(results, options = {}) {
+     }
+     // Helper for traversing the dependency hierarchy.
+     function visitPackage(packageJsonPath) {
+-        const packageJson = require(packageJsonPath);
++        const packageJson = (0, _vscode_expo_1.requireModule)(packageJsonPath);
+         // Prevent getting into the recursive loop.
+         if (visitedPackages.has(packageJson.name)) {
+             return;
+@@ -181,6 +182,7 @@ function filterToProjectDependencies(results, options = {}) {
+                         /**
+                          * Custom `require` that resolves from the current working dir instead of this script path.
+                          * **Requires Node v12.2.0**
++                         * @todo cedric: check if we need to escape this special `createRequire`
+                          */
+                         const projectRequire = (0, module_1.createRequire)(packageJsonPath);
+                         dependencyPackageJsonPath = projectRequire.resolve(`${dependencyName}/package.json`);
+@@ -201,7 +203,9 @@ function filterToProjectDependencies(results, options = {}) {
+         }
+     }
+     // Visit project's package.
+-    visitPackage(mergeLinkingOptions_1.projectPackageJsonPath);
++    // NOTE(cedric): this is kind of risky, in this case, `mergeLinkingOptions` MUST be called first,
++    // else there won't be a project package path stored in the cache. But looking at the code, it _should_ work.
++    visitPackage((0, _vscode_expo_1.findProjectPackageJson)());
+     return filteredResults;
+ }
+ //# sourceMappingURL=findModules.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/autolinking/findModules.js.map b/node_modules/expo-modules-autolinking/build/autolinking/findModules.js.map
+index 2bc104f..cc1ea2f 100644
+--- a/node_modules/expo-modules-autolinking/build/autolinking/findModules.js.map
++++ b/node_modules/expo-modules-autolinking/build/autolinking/findModules.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"findModules.js","sourceRoot":"","sources":["../../src/autolinking/findModules.ts"],"names":[],"mappings":"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","sourcesContent":["import chalk from 'chalk';\nimport glob from 'fast-glob';\nimport fs from 'fs-extra';\nimport { createRequire } from 'module';\nimport path from 'path';\n\nimport { requireAndResolveExpoModuleConfig } from '../ExpoModuleConfig';\nimport { PackageRevision, SearchOptions, SearchResults } from '../types';\nimport { mergeLinkingOptionsAsync, projectPackageJsonPath } from './mergeLinkingOptions';\n\n// Names of the config files. From lowest to highest priority.\nconst EXPO_MODULE_CONFIG_FILENAMES = ['unimodule.json', 'expo-module.config.json'];\n\n/**\n * Searches for modules to link based on given config.\n */\nexport async function findModulesAsync(providedOptions: SearchOptions): Promise<SearchResults> {\n  const options = await mergeLinkingOptionsAsync(providedOptions);\n  const results: Map<string, PackageRevision> = new Map();\n\n  const nativeModuleNames = new Set<string>();\n\n  // custom native modules should be resolved first so that they can override other modules\n  const searchPaths =\n    options.nativeModulesDir && fs.existsSync(options.nativeModulesDir)\n      ? [options.nativeModulesDir, ...options.searchPaths]\n      : options.searchPaths;\n\n  for (const searchPath of searchPaths) {\n    const isNativeModulesDir = searchPath === options.nativeModulesDir;\n\n    const packageConfigPaths = await findPackagesConfigPathsAsync(searchPath);\n\n    for (const packageConfigPath of packageConfigPaths) {\n      const packagePath = await fs.realpath(path.join(searchPath, path.dirname(packageConfigPath)));\n      const expoModuleConfig = requireAndResolveExpoModuleConfig(\n        path.join(packagePath, path.basename(packageConfigPath))\n      );\n\n      const { name, version } = resolvePackageNameAndVersion(packagePath, {\n        fallbackToDirName: isNativeModulesDir,\n      });\n\n      // we ignore the `exclude` option for custom native modules\n      if (\n        (!isNativeModulesDir && options.exclude?.includes(name)) ||\n        !expoModuleConfig.supportsPlatform(options.platform)\n      ) {\n        continue;\n      }\n\n      // add the current revision to the results\n      const currentRevision: PackageRevision = {\n        path: packagePath,\n        version,\n        config: expoModuleConfig,\n      };\n      addRevisionToResults(results, name, currentRevision);\n\n      // if the module is a native module, we need to add it to the nativeModuleNames set\n      if (isNativeModulesDir && !nativeModuleNames.has(name)) {\n        nativeModuleNames.add(name);\n      }\n    }\n  }\n\n  const searchResults: SearchResults = Object.fromEntries(results.entries());\n\n  // It doesn't make much sense to strip modules if there is only one search path.\n  // (excluding custom native modules path)\n  // Workspace root usually doesn't specify all its dependencies (see Expo Go),\n  // so in this case we should link everything.\n  if (options.searchPaths.length <= 1) {\n    return searchResults;\n  }\n\n  return filterToProjectDependencies(searchResults, {\n    ...providedOptions,\n    // Custom native modules are not filtered out\n    // when they're not specified in package.json dependencies.\n    alwaysIncludedPackagesNames: nativeModuleNames,\n  });\n}\n\n/**\n * Returns the priority of the config at given path. Higher number means higher priority.\n */\nfunction configPriority(fullpath: string): number {\n  return EXPO_MODULE_CONFIG_FILENAMES.indexOf(path.basename(fullpath));\n}\n\n/**\n * Adds {@link revision} to the {@link results} map\n * or to package duplicates if it already exists.\n * @param results [mutable] yet resolved packages map\n * @param name resolved package name\n * @param revision resolved package revision\n */\nfunction addRevisionToResults(\n  results: Map<string, PackageRevision>,\n  name: string,\n  revision: PackageRevision\n): void {\n  if (!results.has(name)) {\n    // The revision that was found first will be the main one.\n    // An array of duplicates and the config are needed only here.\n    results.set(name, {\n      ...revision,\n      duplicates: [],\n    });\n  } else if (\n    results.get(name)?.path !== revision.path &&\n    results.get(name)?.duplicates?.every(({ path }) => path !== revision.path)\n  ) {\n    const { config, duplicates, ...duplicateEntry } = revision;\n    results.get(name)?.duplicates?.push(duplicateEntry);\n  }\n}\n\n/**\n * Returns paths to the highest priority config files, relative to the {@link searchPath}.\n * @example\n * ```\n * // Given the following file exists: /foo/myapp/modules/mymodule/expo-module.config.json\n * await findPackagesConfigPathsAsync('/foo/myapp/modules');\n * // returns ['mymodule/expo-module.config.json']\n *\n * await findPackagesConfigPathsAsync('/foo/myapp/modules/mymodule');\n * // returns ['expo-module.config.json']\n * ```\n */\nasync function findPackagesConfigPathsAsync(searchPath: string): Promise<string[]> {\n  const bracedFilenames = '{' + EXPO_MODULE_CONFIG_FILENAMES.join(',') + '}';\n  const paths = await glob(\n    [`*/${bracedFilenames}`, `@*/*/${bracedFilenames}`, `./${bracedFilenames}`],\n    {\n      cwd: searchPath,\n    }\n  );\n\n  // If the package has multiple configs (e.g. `unimodule.json` and `expo-module.config.json` during the transition time)\n  // then we want to give `expo-module.config.json` the priority.\n  return Object.values(\n    paths.reduce<Record<string, string>>((acc, configPath) => {\n      const dirname = path.dirname(configPath);\n\n      if (!acc[dirname] || configPriority(configPath) > configPriority(acc[dirname])) {\n        acc[dirname] = configPath;\n      }\n      return acc;\n    }, {})\n  );\n}\n\n/**\n * Resolves package name and version for the given {@link packagePath} from its `package.json`.\n * if {@link fallbackToDirName} is true, it returns the dir name when `package.json` doesn't exist.\n * @returns object with `name` and `version` properties. `version` falls back to `UNVERSIONED` if cannot be resolved.\n */\nfunction resolvePackageNameAndVersion(\n  packagePath: string,\n  { fallbackToDirName }: { fallbackToDirName?: boolean } = {}\n): { name: string; version: string } {\n  try {\n    const { name, version } = require(path.join(packagePath, 'package.json'));\n    return { name, version: version || 'UNVERSIONED' };\n  } catch (e) {\n    if (fallbackToDirName) {\n      // we don't have the package.json name, so we'll use the directory name\n      return {\n        name: path.basename(packagePath),\n        version: 'UNVERSIONED',\n      };\n    } else {\n      throw e;\n    }\n  }\n}\n\n/**\n * Filters out packages that are not the dependencies of the project.\n */\nfunction filterToProjectDependencies(\n  results: SearchResults,\n  options: Pick<SearchOptions, 'silent'> & { alwaysIncludedPackagesNames?: Set<string> } = {}\n) {\n  const filteredResults: SearchResults = {};\n  const visitedPackages = new Set<string>();\n\n  // iterate through always included package names and add them to the visited packages\n  // if the results contains them\n  for (const name of options.alwaysIncludedPackagesNames ?? []) {\n    if (results[name] && !visitedPackages.has(name)) {\n      filteredResults[name] = results[name];\n      visitedPackages.add(name);\n    }\n  }\n\n  // Helper for traversing the dependency hierarchy.\n  function visitPackage(packageJsonPath: string) {\n    const packageJson = require(packageJsonPath);\n\n    // Prevent getting into the recursive loop.\n    if (visitedPackages.has(packageJson.name)) {\n      return;\n    }\n    visitedPackages.add(packageJson.name);\n\n    // Iterate over the dependencies to find transitive modules.\n    for (const dependencyName in packageJson.dependencies) {\n      const dependencyResult = results[dependencyName];\n\n      if (!filteredResults[dependencyName]) {\n        let dependencyPackageJsonPath: string;\n\n        if (dependencyResult) {\n          filteredResults[dependencyName] = dependencyResult;\n          dependencyPackageJsonPath = path.join(dependencyResult.path, 'package.json');\n        } else {\n          try {\n            /**\n             * Custom `require` that resolves from the current working dir instead of this script path.\n             * **Requires Node v12.2.0**\n             */\n            const projectRequire = createRequire(packageJsonPath);\n            dependencyPackageJsonPath = projectRequire.resolve(`${dependencyName}/package.json`);\n          } catch (error: any) {\n            // Some packages don't include package.json in its `exports` field,\n            // but none of our packages do that, so it seems fine to just ignore that type of error.\n            // Related issue: https://github.com/react-native-community/cli/issues/1168\n            if (!options.silent && error.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') {\n              console.warn(\n                chalk.yellow(`⚠️  Cannot resolve the path to \"${dependencyName}\" package.`)\n              );\n            }\n            continue;\n          }\n        }\n\n        // Visit the dependency package.\n        visitPackage(dependencyPackageJsonPath);\n      }\n    }\n  }\n\n  // Visit project's package.\n  visitPackage(projectPackageJsonPath);\n\n  return filteredResults;\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"findModules.js","sourceRoot":"","sources":["../../src/autolinking/findModules.ts"],"names":[],"mappings":"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","sourcesContent":["import chalk from 'chalk';\nimport glob from 'fast-glob';\nimport fs from 'fs-extra';\nimport { createRequire } from 'module';\nimport path from 'path';\n\nimport { requireAndResolveExpoModuleConfig } from '../ExpoModuleConfig';\nimport { findProjectPackageJson, requireModule } from '../_vscode-expo';\nimport { PackageRevision, SearchOptions, SearchResults } from '../types';\nimport { mergeLinkingOptionsAsync } from './mergeLinkingOptions';\n\n// Names of the config files. From lowest to highest priority.\nconst EXPO_MODULE_CONFIG_FILENAMES = ['unimodule.json', 'expo-module.config.json'];\n\n/**\n * Searches for modules to link based on given config.\n */\nexport async function findModulesAsync(providedOptions: SearchOptions): Promise<SearchResults> {\n  const options = await mergeLinkingOptionsAsync(providedOptions);\n  const results: Map<string, PackageRevision> = new Map();\n\n  const nativeModuleNames = new Set<string>();\n\n  // custom native modules should be resolved first so that they can override other modules\n  const searchPaths =\n    options.nativeModulesDir && fs.existsSync(options.nativeModulesDir)\n      ? [options.nativeModulesDir, ...options.searchPaths]\n      : options.searchPaths;\n\n  for (const searchPath of searchPaths) {\n    const isNativeModulesDir = searchPath === options.nativeModulesDir;\n\n    const packageConfigPaths = await findPackagesConfigPathsAsync(searchPath);\n\n    for (const packageConfigPath of packageConfigPaths) {\n      const packagePath = await fs.realpath(path.join(searchPath, path.dirname(packageConfigPath)));\n      const expoModuleConfig = requireAndResolveExpoModuleConfig(\n        path.join(packagePath, path.basename(packageConfigPath))\n      );\n\n      const { name, version } = resolvePackageNameAndVersion(packagePath, {\n        fallbackToDirName: isNativeModulesDir,\n      });\n\n      // we ignore the `exclude` option for custom native modules\n      if (\n        (!isNativeModulesDir && options.exclude?.includes(name)) ||\n        !expoModuleConfig.supportsPlatform(options.platform)\n      ) {\n        continue;\n      }\n\n      // add the current revision to the results\n      const currentRevision: PackageRevision = {\n        path: packagePath,\n        version,\n        config: expoModuleConfig,\n      };\n      addRevisionToResults(results, name, currentRevision);\n\n      // if the module is a native module, we need to add it to the nativeModuleNames set\n      if (isNativeModulesDir && !nativeModuleNames.has(name)) {\n        nativeModuleNames.add(name);\n      }\n    }\n  }\n\n  const searchResults: SearchResults = Object.fromEntries(results.entries());\n\n  // It doesn't make much sense to strip modules if there is only one search path.\n  // (excluding custom native modules path)\n  // Workspace root usually doesn't specify all its dependencies (see Expo Go),\n  // so in this case we should link everything.\n  if (options.searchPaths.length <= 1) {\n    return searchResults;\n  }\n\n  return filterToProjectDependencies(searchResults, {\n    ...providedOptions,\n    // Custom native modules are not filtered out\n    // when they're not specified in package.json dependencies.\n    alwaysIncludedPackagesNames: nativeModuleNames,\n  });\n}\n\n/**\n * Returns the priority of the config at given path. Higher number means higher priority.\n */\nfunction configPriority(fullpath: string): number {\n  return EXPO_MODULE_CONFIG_FILENAMES.indexOf(path.basename(fullpath));\n}\n\n/**\n * Adds {@link revision} to the {@link results} map\n * or to package duplicates if it already exists.\n * @param results [mutable] yet resolved packages map\n * @param name resolved package name\n * @param revision resolved package revision\n */\nfunction addRevisionToResults(\n  results: Map<string, PackageRevision>,\n  name: string,\n  revision: PackageRevision\n): void {\n  if (!results.has(name)) {\n    // The revision that was found first will be the main one.\n    // An array of duplicates and the config are needed only here.\n    results.set(name, {\n      ...revision,\n      duplicates: [],\n    });\n  } else if (\n    results.get(name)?.path !== revision.path &&\n    results.get(name)?.duplicates?.every(({ path }) => path !== revision.path)\n  ) {\n    const { config, duplicates, ...duplicateEntry } = revision;\n    results.get(name)?.duplicates?.push(duplicateEntry);\n  }\n}\n\n/**\n * Returns paths to the highest priority config files, relative to the {@link searchPath}.\n * @example\n * ```\n * // Given the following file exists: /foo/myapp/modules/mymodule/expo-module.config.json\n * await findPackagesConfigPathsAsync('/foo/myapp/modules');\n * // returns ['mymodule/expo-module.config.json']\n *\n * await findPackagesConfigPathsAsync('/foo/myapp/modules/mymodule');\n * // returns ['expo-module.config.json']\n * ```\n */\nasync function findPackagesConfigPathsAsync(searchPath: string): Promise<string[]> {\n  const bracedFilenames = '{' + EXPO_MODULE_CONFIG_FILENAMES.join(',') + '}';\n  const paths = await glob(\n    [`*/${bracedFilenames}`, `@*/*/${bracedFilenames}`, `./${bracedFilenames}`],\n    {\n      cwd: searchPath,\n    }\n  );\n\n  // If the package has multiple configs (e.g. `unimodule.json` and `expo-module.config.json` during the transition time)\n  // then we want to give `expo-module.config.json` the priority.\n  return Object.values(\n    paths.reduce<Record<string, string>>((acc, configPath) => {\n      const dirname = path.dirname(configPath);\n\n      if (!acc[dirname] || configPriority(configPath) > configPriority(acc[dirname])) {\n        acc[dirname] = configPath;\n      }\n      return acc;\n    }, {})\n  );\n}\n\n/**\n * Resolves package name and version for the given {@link packagePath} from its `package.json`.\n * if {@link fallbackToDirName} is true, it returns the dir name when `package.json` doesn't exist.\n * @returns object with `name` and `version` properties. `version` falls back to `UNVERSIONED` if cannot be resolved.\n */\nfunction resolvePackageNameAndVersion(\n  packagePath: string,\n  { fallbackToDirName }: { fallbackToDirName?: boolean } = {}\n): { name: string; version: string } {\n  try {\n    const { name, version } = requireModule(path.join(packagePath, 'package.json'));\n    return { name, version: version || 'UNVERSIONED' };\n  } catch (e) {\n    if (fallbackToDirName) {\n      // we don't have the package.json name, so we'll use the directory name\n      return {\n        name: path.basename(packagePath),\n        version: 'UNVERSIONED',\n      };\n    } else {\n      throw e;\n    }\n  }\n}\n\n/**\n * Filters out packages that are not the dependencies of the project.\n */\nfunction filterToProjectDependencies(\n  results: SearchResults,\n  options: Pick<SearchOptions, 'silent'> & { alwaysIncludedPackagesNames?: Set<string> } = {}\n) {\n  const filteredResults: SearchResults = {};\n  const visitedPackages = new Set<string>();\n\n  // iterate through always included package names and add them to the visited packages\n  // if the results contains them\n  for (const name of options.alwaysIncludedPackagesNames ?? []) {\n    if (results[name] && !visitedPackages.has(name)) {\n      filteredResults[name] = results[name];\n      visitedPackages.add(name);\n    }\n  }\n\n  // Helper for traversing the dependency hierarchy.\n  function visitPackage(packageJsonPath: string) {\n    const packageJson = requireModule(packageJsonPath);\n\n    // Prevent getting into the recursive loop.\n    if (visitedPackages.has(packageJson.name)) {\n      return;\n    }\n    visitedPackages.add(packageJson.name);\n\n    // Iterate over the dependencies to find transitive modules.\n    for (const dependencyName in packageJson.dependencies) {\n      const dependencyResult = results[dependencyName];\n\n      if (!filteredResults[dependencyName]) {\n        let dependencyPackageJsonPath: string;\n\n        if (dependencyResult) {\n          filteredResults[dependencyName] = dependencyResult;\n          dependencyPackageJsonPath = path.join(dependencyResult.path, 'package.json');\n        } else {\n          try {\n            /**\n             * Custom `require` that resolves from the current working dir instead of this script path.\n             * **Requires Node v12.2.0**\n             * @todo cedric: check if we need to escape this special `createRequire`\n             */\n            const projectRequire = createRequire(packageJsonPath);\n            dependencyPackageJsonPath = projectRequire.resolve(`${dependencyName}/package.json`);\n          } catch (error: any) {\n            // Some packages don't include package.json in its `exports` field,\n            // but none of our packages do that, so it seems fine to just ignore that type of error.\n            // Related issue: https://github.com/react-native-community/cli/issues/1168\n            if (!options.silent && error.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') {\n              console.warn(\n                chalk.yellow(`⚠️  Cannot resolve the path to \"${dependencyName}\" package.`)\n              );\n            }\n            continue;\n          }\n        }\n\n        // Visit the dependency package.\n        visitPackage(dependencyPackageJsonPath);\n      }\n    }\n  }\n\n  // Visit project's package.\n  // NOTE(cedric): this is kind of risky, in this case, `mergeLinkingOptions` MUST be called first,\n  // else there won't be a project package path stored in the cache. But looking at the code, it _should_ work.\n  visitPackage(findProjectPackageJson());\n\n  return filteredResults;\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.d.ts b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.d.ts
+index 7952995..9f48dca 100644
+--- a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.d.ts
++++ b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.d.ts
+@@ -1,8 +1,4 @@
+ import { SearchOptions } from '../types';
+-/**
+- * Path to the `package.json` of the closest project in the current working dir.
+- */
+-export declare const projectPackageJsonPath: string;
+ /**
+  * Merges autolinking options from different sources (the later the higher priority)
+  * - options defined in package.json's `expo.autolinking` field
+diff --git a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js
+index ea57f10..fe061a3 100644
+--- a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js
++++ b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js
+@@ -3,18 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+     return (mod && mod.__esModule) ? mod : { "default": mod };
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.resolveSearchPathsAsync = exports.mergeLinkingOptionsAsync = exports.projectPackageJsonPath = void 0;
++exports.resolveSearchPathsAsync = exports.mergeLinkingOptionsAsync = void 0;
+ const find_up_1 = __importDefault(require("find-up"));
+ const fs_extra_1 = __importDefault(require("fs-extra"));
+ const path_1 = __importDefault(require("path"));
+-/**
+- * Path to the `package.json` of the closest project in the current working dir.
+- */
+-exports.projectPackageJsonPath = find_up_1.default.sync('package.json', { cwd: process.cwd() });
+-// This won't happen in usual scenarios, but we need to unwrap the optional path :)
+-if (!exports.projectPackageJsonPath) {
+-    throw new Error(`Couldn't find "package.json" up from path "${process.cwd()}"`);
+-}
++const _vscode_expo_1 = require("../_vscode-expo");
+ /**
+  * Merges autolinking options from different sources (the later the higher priority)
+  * - options defined in package.json's `expo.autolinking` field
+@@ -22,7 +15,7 @@ if (!exports.projectPackageJsonPath) {
+  * - options provided to the CLI command
+  */
+ async function mergeLinkingOptionsAsync(providedOptions) {
+-    const packageJson = require(exports.projectPackageJsonPath);
++    const packageJson = (0, _vscode_expo_1.requireModule)((0, _vscode_expo_1.findProjectPackageJson)(providedOptions));
+     const baseOptions = packageJson.expo?.autolinking;
+     const platformOptions = providedOptions.platform && baseOptions?.[providedOptions.platform];
+     const finalOptions = Object.assign({}, baseOptions, platformOptions, providedOptions);
+diff --git a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js.map b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js.map
+index ec538df..8b630a3 100644
+--- a/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js.map
++++ b/node_modules/expo-modules-autolinking/build/autolinking/mergeLinkingOptions.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"mergeLinkingOptions.js","sourceRoot":"","sources":["../../src/autolinking/mergeLinkingOptions.ts"],"names":[],"mappings":"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","sourcesContent":["import findUp from 'find-up';\nimport fs from 'fs-extra';\nimport path from 'path';\n\nimport { SearchOptions } from '../types';\n\n/**\n * Path to the `package.json` of the closest project in the current working dir.\n */\nexport const projectPackageJsonPath = findUp.sync('package.json', { cwd: process.cwd() }) as string;\n\n// This won't happen in usual scenarios, but we need to unwrap the optional path :)\nif (!projectPackageJsonPath) {\n  throw new Error(`Couldn't find \"package.json\" up from path \"${process.cwd()}\"`);\n}\n\n/**\n * Merges autolinking options from different sources (the later the higher priority)\n * - options defined in package.json's `expo.autolinking` field\n * - platform-specific options from the above (e.g. `expo.autolinking.ios`)\n * - options provided to the CLI command\n */\nexport async function mergeLinkingOptionsAsync<OptionsType extends SearchOptions>(\n  providedOptions: OptionsType\n): Promise<OptionsType> {\n  const packageJson = require(projectPackageJsonPath);\n  const baseOptions = packageJson.expo?.autolinking;\n  const platformOptions = providedOptions.platform && baseOptions?.[providedOptions.platform];\n  const finalOptions = Object.assign(\n    {},\n    baseOptions,\n    platformOptions,\n    providedOptions\n  ) as OptionsType;\n\n  // Makes provided paths absolute or falls back to default paths if none was provided.\n  finalOptions.searchPaths = await resolveSearchPathsAsync(finalOptions.searchPaths, process.cwd());\n\n  finalOptions.nativeModulesDir = await resolveNativeModulesDirAsync(\n    finalOptions.nativeModulesDir,\n    process.cwd()\n  );\n\n  return finalOptions;\n}\n\n/**\n * Resolves autolinking search paths. If none is provided, it accumulates all node_modules when\n * going up through the path components. This makes workspaces work out-of-the-box without any configs.\n */\nexport async function resolveSearchPathsAsync(\n  searchPaths: string[] | null,\n  cwd: string\n): Promise<string[]> {\n  return searchPaths && searchPaths.length > 0\n    ? searchPaths.map((searchPath) => path.resolve(cwd, searchPath))\n    : await findDefaultPathsAsync(cwd);\n}\n\n/**\n * Looks up for workspace's `node_modules` paths.\n */\nasync function findDefaultPathsAsync(cwd: string): Promise<string[]> {\n  const paths = [];\n  let dir = cwd;\n  let pkgJsonPath: string | undefined;\n\n  while ((pkgJsonPath = await findUp('package.json', { cwd: dir }))) {\n    dir = path.dirname(path.dirname(pkgJsonPath));\n    paths.push(path.join(pkgJsonPath, '..', 'node_modules'));\n\n    // This stops the infinite loop when the package.json is placed at the root dir.\n    if (path.dirname(dir) === dir) {\n      break;\n    }\n  }\n  return paths;\n}\n\n/**\n * Finds the real path to custom native modules directory.\n * - When {@link cwd} is inside the project directory, the path is searched relatively\n * to the project root (directory with the `package.json` file).\n * - When {@link cwd} is outside project directory (no `package.json` found), it is relative to\n * the current working directory (the {@link cwd} param).\n *\n * @param nativeModulesDir path to custom native modules directory. Defaults to `\"./modules\"` if null.\n * @param cwd current working directory\n * @returns resolved native modules directory or `null` if it is not found or doesn't exist.\n */\nasync function resolveNativeModulesDirAsync(\n  nativeModulesDir: string | null | undefined,\n  cwd: string\n): Promise<string | null> {\n  const packageJsonPath = await findUp('package.json', { cwd });\n  const projectRoot = packageJsonPath != null ? path.join(packageJsonPath, '..') : cwd;\n  const resolvedPath = path.resolve(projectRoot, nativeModulesDir || 'modules');\n  return fs.existsSync(resolvedPath) ? resolvedPath : null;\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"mergeLinkingOptions.js","sourceRoot":"","sources":["../../src/autolinking/mergeLinkingOptions.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA6B;AAC7B,wDAA0B;AAC1B,gDAAwB;AAExB,kDAAwE;AAGxE;;;;;GAKG;AACI,KAAK,UAAU,wBAAwB,CAC5C,eAA4B;IAE5B,MAAM,WAAW,GAAG,IAAA,4BAAa,EAAC,IAAA,qCAAsB,EAAC,eAAe,CAAC,CAAC,CAAC;IAC3E,MAAM,WAAW,GAAG,WAAW,CAAC,IAAI,EAAE,WAAW,CAAC;IAClD,MAAM,eAAe,GAAG,eAAe,CAAC,QAAQ,IAAI,WAAW,EAAE,CAAC,eAAe,CAAC,QAAQ,CAAC,CAAC;IAC5F,MAAM,YAAY,GAAG,MAAM,CAAC,MAAM,CAChC,EAAE,EACF,WAAW,EACX,eAAe,EACf,eAAe,CACD,CAAC;IAEjB,qFAAqF;IACrF,YAAY,CAAC,WAAW,GAAG,MAAM,uBAAuB,CAAC,YAAY,CAAC,WAAW,EAAE,OAAO,CAAC,GAAG,EAAE,CAAC,CAAC;IAElG,YAAY,CAAC,gBAAgB,GAAG,MAAM,4BAA4B,CAChE,YAAY,CAAC,gBAAgB,EAC7B,OAAO,CAAC,GAAG,EAAE,CACd,CAAC;IAEF,OAAO,YAAY,CAAC;AACtB,CAAC;AAtBD,4DAsBC;AAED;;;GAGG;AACI,KAAK,UAAU,uBAAuB,CAC3C,WAA4B,EAC5B,GAAW;IAEX,OAAO,WAAW,IAAI,WAAW,CAAC,MAAM,GAAG,CAAC;QAC1C,CAAC,CAAC,WAAW,CAAC,GAAG,CAAC,CAAC,UAAU,EAAE,EAAE,CAAC,cAAI,CAAC,OAAO,CAAC,GAAG,EAAE,UAAU,CAAC,CAAC;QAChE,CAAC,CAAC,MAAM,qBAAqB,CAAC,GAAG,CAAC,CAAC;AACvC,CAAC;AAPD,0DAOC;AAED;;GAEG;AACH,KAAK,UAAU,qBAAqB,CAAC,GAAW;IAC9C,MAAM,KAAK,GAAG,EAAE,CAAC;IACjB,IAAI,GAAG,GAAG,GAAG,CAAC;IACd,IAAI,WAA+B,CAAC;IAEpC,OAAO,CAAC,WAAW,GAAG,MAAM,IAAA,iBAAM,EAAC,cAAc,EAAE,EAAE,GAAG,EAAE,GAAG,EAAE,CAAC,CAAC,EAAE;QACjE,GAAG,GAAG,cAAI,CAAC,OAAO,CAAC,cAAI,CAAC,OAAO,CAAC,WAAW,CAAC,CAAC,CAAC;QAC9C,KAAK,CAAC,IAAI,CAAC,cAAI,CAAC,IAAI,CAAC,WAAW,EAAE,IAAI,EAAE,cAAc,CAAC,CAAC,CAAC;QAEzD,gFAAgF;QAChF,IAAI,cAAI,CAAC,OAAO,CAAC,GAAG,CAAC,KAAK,GAAG,EAAE;YAC7B,MAAM;SACP;KACF;IACD,OAAO,KAAK,CAAC;AACf,CAAC;AAED;;;;;;;;;;GAUG;AACH,KAAK,UAAU,4BAA4B,CACzC,gBAA2C,EAC3C,GAAW;IAEX,MAAM,eAAe,GAAG,MAAM,IAAA,iBAAM,EAAC,cAAc,EAAE,EAAE,GAAG,EAAE,CAAC,CAAC;IAC9D,MAAM,WAAW,GAAG,eAAe,IAAI,IAAI,CAAC,CAAC,CAAC,cAAI,CAAC,IAAI,CAAC,eAAe,EAAE,IAAI,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC;IACrF,MAAM,YAAY,GAAG,cAAI,CAAC,OAAO,CAAC,WAAW,EAAE,gBAAgB,IAAI,SAAS,CAAC,CAAC;IAC9E,OAAO,kBAAE,CAAC,UAAU,CAAC,YAAY,CAAC,CAAC,CAAC,CAAC,YAAY,CAAC,CAAC,CAAC,IAAI,CAAC;AAC3D,CAAC","sourcesContent":["import findUp from 'find-up';\nimport fs from 'fs-extra';\nimport path from 'path';\n\nimport { findProjectPackageJson, requireModule } from '../_vscode-expo';\nimport { SearchOptions } from '../types';\n\n/**\n * Merges autolinking options from different sources (the later the higher priority)\n * - options defined in package.json's `expo.autolinking` field\n * - platform-specific options from the above (e.g. `expo.autolinking.ios`)\n * - options provided to the CLI command\n */\nexport async function mergeLinkingOptionsAsync<OptionsType extends SearchOptions>(\n  providedOptions: OptionsType\n): Promise<OptionsType> {\n  const packageJson = requireModule(findProjectPackageJson(providedOptions));\n  const baseOptions = packageJson.expo?.autolinking;\n  const platformOptions = providedOptions.platform && baseOptions?.[providedOptions.platform];\n  const finalOptions = Object.assign(\n    {},\n    baseOptions,\n    platformOptions,\n    providedOptions\n  ) as OptionsType;\n\n  // Makes provided paths absolute or falls back to default paths if none was provided.\n  finalOptions.searchPaths = await resolveSearchPathsAsync(finalOptions.searchPaths, process.cwd());\n\n  finalOptions.nativeModulesDir = await resolveNativeModulesDirAsync(\n    finalOptions.nativeModulesDir,\n    process.cwd()\n  );\n\n  return finalOptions;\n}\n\n/**\n * Resolves autolinking search paths. If none is provided, it accumulates all node_modules when\n * going up through the path components. This makes workspaces work out-of-the-box without any configs.\n */\nexport async function resolveSearchPathsAsync(\n  searchPaths: string[] | null,\n  cwd: string\n): Promise<string[]> {\n  return searchPaths && searchPaths.length > 0\n    ? searchPaths.map((searchPath) => path.resolve(cwd, searchPath))\n    : await findDefaultPathsAsync(cwd);\n}\n\n/**\n * Looks up for workspace's `node_modules` paths.\n */\nasync function findDefaultPathsAsync(cwd: string): Promise<string[]> {\n  const paths = [];\n  let dir = cwd;\n  let pkgJsonPath: string | undefined;\n\n  while ((pkgJsonPath = await findUp('package.json', { cwd: dir }))) {\n    dir = path.dirname(path.dirname(pkgJsonPath));\n    paths.push(path.join(pkgJsonPath, '..', 'node_modules'));\n\n    // This stops the infinite loop when the package.json is placed at the root dir.\n    if (path.dirname(dir) === dir) {\n      break;\n    }\n  }\n  return paths;\n}\n\n/**\n * Finds the real path to custom native modules directory.\n * - When {@link cwd} is inside the project directory, the path is searched relatively\n * to the project root (directory with the `package.json` file).\n * - When {@link cwd} is outside project directory (no `package.json` found), it is relative to\n * the current working directory (the {@link cwd} param).\n *\n * @param nativeModulesDir path to custom native modules directory. Defaults to `\"./modules\"` if null.\n * @param cwd current working directory\n * @returns resolved native modules directory or `null` if it is not found or doesn't exist.\n */\nasync function resolveNativeModulesDirAsync(\n  nativeModulesDir: string | null | undefined,\n  cwd: string\n): Promise<string | null> {\n  const packageJsonPath = await findUp('package.json', { cwd });\n  const projectRoot = packageJsonPath != null ? path.join(packageJsonPath, '..') : cwd;\n  const resolvedPath = path.resolve(projectRoot, nativeModulesDir || 'modules');\n  return fs.existsSync(resolvedPath) ? resolvedPath : null;\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-modules-autolinking/src/.DS_Store b/node_modules/expo-modules-autolinking/src/.DS_Store
+new file mode 100644
+index 0000000..9b6c3bc
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/src/.DS_Store differ
+diff --git a/node_modules/expo-modules-autolinking/src/ExpoModuleConfig.ts b/node_modules/expo-modules-autolinking/src/ExpoModuleConfig.ts
+index 31ff4b3..e70984c 100644
+--- a/node_modules/expo-modules-autolinking/src/ExpoModuleConfig.ts
++++ b/node_modules/expo-modules-autolinking/src/ExpoModuleConfig.ts
+@@ -1,3 +1,4 @@
++import { requireModule } from './_vscode-expo';
+ import { AndroidGradlePluginDescriptor, RawExpoModuleConfig, SupportedPlatform } from './types';
+ 
+ function arrayize<T>(value: T[] | T | undefined): T[] {
+@@ -103,5 +104,5 @@ export class ExpoModuleConfig {
+ export function requireAndResolveExpoModuleConfig(path: string): ExpoModuleConfig {
+   // TODO: Validate the raw config against a schema.
+   // TODO: Support for `*.js` files, not only static `*.json`.
+-  return new ExpoModuleConfig(require(path) as RawExpoModuleConfig);
++  return new ExpoModuleConfig(requireModule(path) as RawExpoModuleConfig);
+ }
+diff --git a/node_modules/expo-modules-autolinking/src/__tests__/ReactImportsPatcher-test.ts b/node_modules/expo-modules-autolinking/src/__tests__/ReactImportsPatcher-test.ts
+new file mode 100644
+index 0000000..43bfc11
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/__tests__/ReactImportsPatcher-test.ts
+@@ -0,0 +1,76 @@
++import fs from 'fs-extra';
++
++import { patchFileAsync } from '../ReactImportsPatcher';
++
++jest.mock('fs-extra');
++
++describe(patchFileAsync, () => {
++  let mockFsReadFile;
++  let mockFsWriteFile;
++
++  beforeAll(() => {
++    // suppress logging
++    global.console.log = jest.fn();
++  });
++
++  beforeEach(() => {
++    jest.resetAllMocks();
++    mockFsReadFile = fs.readFile as jest.MockedFunction<typeof fs.readFile>;
++    mockFsWriteFile = fs.writeFile as jest.MockedFunction<typeof fs.writeFile>;
++  });
++
++  it('should transform double-quoted import', async () => {
++    const headerSet = new Set(['RCTBridge.h']);
++    mockFsReadFile.mockResolvedValue(`\
++#if __has_include("RCTBridge.h")
++#import "RCTBridge.h"
++#elif __has_include("React/RCTBridge.h")
++#import "React/RCTBridge.h"
++#else
++#import <React/RCTBridge.h>
++#endif
++`);
++
++    await patchFileAsync(headerSet, 'someFile.h', /* dryRun */ false);
++    expect(mockFsWriteFile.mock.calls[0][1]).toBe(`\
++#if __has_include(<React/RCTBridge.h>)
++#import <React/RCTBridge.h>
++#elif __has_include(<React/RCTBridge.h>)
++#import <React/RCTBridge.h>
++#else
++#import <React/RCTBridge.h>
++#endif
++`);
++  });
++
++  it('should not transform non-React-Core headers', async () => {
++    const headerSet = new Set(['UIView+React.h']);
++    mockFsReadFile.mockResolvedValue(`\
++#if __has_include("UIView+React.h")
++#import "UIView+React.h"
++#endif
++
++#if __has_include("UIView+ThirdPartyCategory.h")
++#import "UIView+ThirdPartyCategory.h"
++#endif
++`);
++
++    await patchFileAsync(headerSet, 'someFile.h', /* dryRun */ false);
++    expect(mockFsWriteFile.mock.calls[0][1]).toBe(`\
++#if __has_include(<React/UIView+React.h>)
++#import <React/UIView+React.h>
++#endif
++
++#if __has_include("UIView+ThirdPartyCategory.h")
++#import "UIView+ThirdPartyCategory.h"
++#endif
++`);
++  });
++
++  it('should not write changes when `dryRun` is true', async () => {
++    const headerSet = new Set(['RCTBridge.h']);
++    mockFsReadFile.mockResolvedValue(`#import "RCTBridge.h"`);
++    await patchFileAsync(headerSet, 'someFile.h', /* dryRun */ true);
++    expect(mockFsWriteFile.mock.calls[0]).toBeUndefined();
++  });
++});
+diff --git a/node_modules/expo-modules-autolinking/src/__tests__/mockHelpers.ts b/node_modules/expo-modules-autolinking/src/__tests__/mockHelpers.ts
+new file mode 100644
+index 0000000..23f531d
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/__tests__/mockHelpers.ts
+@@ -0,0 +1,30 @@
++import minimatch from 'minimatch';
++import path from 'path';
++
++export function registerGlobMock(globFunction: Function, files: string[], cwd: string) {
++  (globFunction as jest.MockedFunction<any>).mockImplementation((patterns, inputOptions) => {
++    const inputCwd: string = inputOptions?.cwd ?? process.cwd();
++
++    // Simple implementation of cwd matching.
++    // E.g. inputCwd='/path/to/expo' and cwd='/path/to',
++    // -> `prefix`: 'expo/'
++    // -> glob pattern would like something like `expo/*/*`
++    const prefix = path.relative(inputCwd, cwd);
++
++    const patternList = Array.isArray(patterns) ? patterns : [patterns];
++    return files
++      .map((file) => {
++        for (const pattern of patternList) {
++          if (minimatch(file, `${prefix}${pattern}`)) {
++            return file.substring(prefix.length);
++          }
++        }
++        return undefined;
++      })
++      .filter(Boolean);
++  });
++}
++
++export function registerRequireMock(filePath: string, content: object) {
++  jest.doMock(filePath, () => content, { virtual: true });
++}
+diff --git a/node_modules/expo-modules-autolinking/src/_vscode-expo.ts b/node_modules/expo-modules-autolinking/src/_vscode-expo.ts
+new file mode 100644
+index 0000000..acb4543
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/_vscode-expo.ts
+@@ -0,0 +1,34 @@
++import findUp from 'find-up';
++
++import { SearchOptions } from './types';
++
++/**
++ * This method is protected against webpack "interfering".
++ * It includes the magic JS comment to exclude it from modifications.
++ */
++export function requireModule<T = any>(moduleName: string): T {
++  return require(/* webpackIgnore: true */ moduleName);
++}
++
++/** The project package location "cache" */
++let projectPackageJsonPath: string | undefined;
++
++/**
++ * Try to resolve the project's package.json location.
++ * If it's found, it gets cached until the process exits.
++ */
++export function findProjectPackageJson(options?: Pick<SearchOptions, 'searchPaths'>) {
++  if (projectPackageJsonPath) {
++    return projectPackageJsonPath;
++  }
++
++  for (const searchPath of options?.searchPaths || []) {
++    projectPackageJsonPath = findUp.sync('package.json', { cwd: searchPath });
++    if (projectPackageJsonPath) {
++      return projectPackageJsonPath;
++    }
++  }
++
++  const searchedPaths = (options?.searchPaths || []).join('\n- ');
++  throw new Error(`Couldn't find "package.json" up from any of the paths:\n- "${searchedPaths}"`);
++}
+diff --git a/node_modules/expo-modules-autolinking/src/autolinking/__tests__/findModules-test.ts b/node_modules/expo-modules-autolinking/src/autolinking/__tests__/findModules-test.ts
+new file mode 100644
+index 0000000..37a690b
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/autolinking/__tests__/findModules-test.ts
+@@ -0,0 +1,252 @@
++import glob from 'fast-glob';
++import findUp from 'find-up';
++import fs from 'fs-extra';
++import path from 'path';
++
++import { registerGlobMock, registerRequireMock } from '../../__tests__/mockHelpers';
++import type { findModulesAsync as findModulesAsyncType } from '../findModules';
++
++const expoRoot = path.join(__dirname, '..', '..', '..', '..', '..');
++
++jest.mock('fast-glob');
++jest.mock('find-up');
++jest.mock('fs-extra');
++
++// mock findUp.sync to fix `mergeLinkingOptions` package.json resolution when requiring `findModules`.
++(findUp.sync as jest.MockedFunction<any>).mockReturnValueOnce(path.join(expoRoot, 'package.json'));
++const mockProjectPackageJsonPath = jest.fn();
++jest.mock('../mergeLinkingOptions', () => {
++  const actualModule = jest.requireActual('../mergeLinkingOptions');
++  return {
++    ...actualModule,
++    get projectPackageJsonPath() {
++      return mockProjectPackageJsonPath();
++    },
++  };
++});
++
++const {
++  findModulesAsync,
++}: { findModulesAsync: typeof findModulesAsyncType } = require('../findModules');
++
++describe(findModulesAsync, () => {
++  let globMockedPathMap: Record<string, string[]>;
++
++  beforeEach(() => {
++    globMockedPathMap = {};
++    (fs.realpath as jest.MockedFunction<any>).mockImplementation((path) => Promise.resolve(path));
++  });
++
++  afterEach(() => {
++    jest.resetModules();
++    jest.resetAllMocks();
++  });
++
++  function addMockedModule(
++    name: string,
++    options: {
++      globCwd: string;
++      nodeModulesRoot?: string;
++      pkgVersion?: string;
++      pkgDependencies?: Record<string, string>;
++    }
++  ) {
++    const nodeModulesRoot = options.nodeModulesRoot ?? path.join(expoRoot, 'node_modules');
++    const pkgDir = path.join(nodeModulesRoot, name);
++
++    // mock require() call to module's package.json
++    registerRequireMock(path.join(pkgDir, 'package.json'), {
++      name,
++      version: options.pkgVersion ?? '0.0.1',
++      dependencies: options.pkgDependencies ?? {},
++    });
++
++    // mock glob call to return expo-module.config.json
++    if (!globMockedPathMap[options.globCwd]) {
++      globMockedPathMap[options.globCwd] = [];
++    }
++    globMockedPathMap[options.globCwd].push(`${name}/expo-module.config.json`);
++    registerGlobMock(glob, globMockedPathMap[options.globCwd], options.globCwd);
++
++    // mock require() call to module's expo-module.config.json
++    registerRequireMock(path.join(pkgDir, 'expo-module.config.json'), {
++      platforms: ['ios'],
++    });
++  }
++
++  /**
++   * /app
++   *   └── /app/node_modules/react-native-third-party
++   */
++  it('should link top level package', async () => {
++    const searchPath = path.join(expoRoot, 'node_modules');
++    addMockedModule('react-native-third-party', { globCwd: searchPath });
++
++    const result = await findModulesAsync({
++      searchPaths: [searchPath],
++      platform: 'ios',
++    });
++    expect(result['react-native-third-party']).not.toBeUndefined();
++  });
++
++  /**
++   * /app
++   *   ├── /app/node_modules/react-native-third-party
++   *   └── /app/node_modules/@expo/expo-test
++   */
++  it('should link scoped level package', async () => {
++    const searchPath = path.join(expoRoot, 'node_modules');
++    const mockedModules = ['react-native-third-party', '@expo/expo-test'];
++    for (const mockedModule of mockedModules) {
++      addMockedModule(mockedModule, { globCwd: searchPath });
++    }
++
++    const result = await findModulesAsync({
++      searchPaths: [searchPath],
++      platform: 'ios',
++    });
++    expect(Object.keys(result).length).toBe(2);
++  });
++
++  /**
++   * /workspace
++   *   │ ╚══ /workspace/packages/app
++   *   │
++   *   └── /workspace/node_modules/pkg
++   */
++  [
++    'should link hoisted package in workspace',
++    'should not link hoisted package which are not in app project dependencies',
++  ].forEach((testCaseName) => {
++    it(testCaseName, async () => {
++      const isNegativeTest = testCaseName.search('not');
++      const appPackageJsonPath = path.join(expoRoot, 'packages', 'app', 'package.json');
++      const appNodeModules = path.join(expoRoot, 'packages', 'app', 'node_modules');
++
++      // mock app project package.json
++      const appDependencies = isNegativeTest ? {} : { pkg: '*' };
++      mockProjectPackageJsonPath.mockReturnValue(appPackageJsonPath);
++      registerRequireMock(appPackageJsonPath, {
++        name: 'app',
++        version: '0.0.1',
++        dependencies: appDependencies,
++      });
++
++      // add mocked pkg
++      const workspaceNodeModules = path.join(expoRoot, 'node_modules');
++      const searchPaths = [appNodeModules, workspaceNodeModules];
++      addMockedModule('pkg', {
++        globCwd: workspaceNodeModules,
++        nodeModulesRoot: workspaceNodeModules,
++      });
++
++      const result = await findModulesAsync({
++        searchPaths,
++        platform: 'ios',
++      });
++      if (isNegativeTest) {
++        expect(result['pkg']).toBeUndefined();
++      } else {
++        expect(result['pkg']).not.toBeUndefined();
++      }
++    });
++  });
++
++  /**
++   * /workspace
++   *   │ ╚══ /workspace/packages/app
++   *   │
++   *   ├── /workspace/node_modules/dep-pkg
++   *   └── /workspace/node_modules/pkg
++   */
++  [
++    'should link packages which are in app project transitive dependencies',
++    'should not link packages which are not in app project transitive dependencies',
++  ].forEach((testCaseName) => {
++    it(testCaseName, async () => {
++      const isNegativeTest = testCaseName.search('not');
++      const appPackageJsonPath = path.join(expoRoot, 'packages', 'app', 'package.json');
++      const appNodeModules = path.join(expoRoot, 'packages', 'app', 'node_modules');
++
++      // mock app project package.json
++
++      const appDependencies = isNegativeTest ? {} : { 'dpk-pkg': '*' };
++      mockProjectPackageJsonPath.mockReturnValue(appPackageJsonPath);
++      registerRequireMock(appPackageJsonPath, {
++        name: 'app',
++        version: '0.0.1',
++        dependencies: appDependencies,
++      });
++
++      // add mocked pkgs
++      const workspaceNodeModules = path.join(expoRoot, 'node_modules');
++      const searchPaths = [appNodeModules, workspaceNodeModules];
++      addMockedModule('pkg', {
++        globCwd: workspaceNodeModules,
++        nodeModulesRoot: workspaceNodeModules,
++        pkgVersion: '0.0.0',
++      });
++      addMockedModule('dep-pkg', {
++        globCwd: workspaceNodeModules,
++        nodeModulesRoot: workspaceNodeModules,
++        pkgVersion: '0.0.1',
++        pkgDependencies: {
++          pkg: '*',
++        },
++      });
++
++      const result = await findModulesAsync({
++        searchPaths,
++        platform: 'ios',
++      });
++      if (isNegativeTest) {
++        expect(result['pkg']).toBeUndefined();
++      } else {
++        expect(result['pkg']).not.toBeUndefined();
++      }
++    });
++  });
++
++  /**
++   * /workspace
++   *   │ ╚══ /workspace/packages/app
++   *   │       └── /workspace/packages/app/node_modules/pkg@1.0.0
++   *   │
++   *   └── /workspace/node_modules/pkg@0.0.0
++   */
++  it('should link non-hoisted package first if there are multiple versions', async () => {
++    const appPackageJsonPath = path.join(expoRoot, 'packages', 'app', 'package.json');
++    const appNodeModules = path.join(expoRoot, 'packages', 'app', 'node_modules');
++
++    // mock app project package.json
++    mockProjectPackageJsonPath.mockReturnValue(appPackageJsonPath);
++    registerRequireMock(appPackageJsonPath, {
++      name: 'app',
++      version: '0.0.1',
++      dependencies: {
++        pkg: '1.0.0',
++      },
++    });
++
++    // add mocked pkgs
++    const workspaceNodeModules = path.join(expoRoot, 'node_modules');
++    const searchPaths = [appNodeModules, workspaceNodeModules];
++    addMockedModule('pkg', {
++      globCwd: workspaceNodeModules,
++      nodeModulesRoot: workspaceNodeModules,
++      pkgVersion: '0.0.0',
++    });
++    addMockedModule('pkg', {
++      globCwd: appNodeModules,
++      nodeModulesRoot: appNodeModules,
++      pkgVersion: '1.0.0',
++    });
++
++    const result = await findModulesAsync({
++      searchPaths,
++      platform: 'ios',
++    });
++    expect(result['pkg']).not.toBeUndefined();
++    expect(result['pkg'].version).toEqual('1.0.0');
++  });
++});
+diff --git a/node_modules/expo-modules-autolinking/src/autolinking/findModules.ts b/node_modules/expo-modules-autolinking/src/autolinking/findModules.ts
+index 7b86a14..446d365 100644
+--- a/node_modules/expo-modules-autolinking/src/autolinking/findModules.ts
++++ b/node_modules/expo-modules-autolinking/src/autolinking/findModules.ts
+@@ -5,8 +5,9 @@ import { createRequire } from 'module';
+ import path from 'path';
+ 
+ import { requireAndResolveExpoModuleConfig } from '../ExpoModuleConfig';
++import { findProjectPackageJson, requireModule } from '../_vscode-expo';
+ import { PackageRevision, SearchOptions, SearchResults } from '../types';
+-import { mergeLinkingOptionsAsync, projectPackageJsonPath } from './mergeLinkingOptions';
++import { mergeLinkingOptionsAsync } from './mergeLinkingOptions';
+ 
+ // Names of the config files. From lowest to highest priority.
+ const EXPO_MODULE_CONFIG_FILENAMES = ['unimodule.json', 'expo-module.config.json'];
+@@ -162,7 +163,7 @@ function resolvePackageNameAndVersion(
+   { fallbackToDirName }: { fallbackToDirName?: boolean } = {}
+ ): { name: string; version: string } {
+   try {
+-    const { name, version } = require(path.join(packagePath, 'package.json'));
++    const { name, version } = requireModule(path.join(packagePath, 'package.json'));
+     return { name, version: version || 'UNVERSIONED' };
+   } catch (e) {
+     if (fallbackToDirName) {
+@@ -198,7 +199,7 @@ function filterToProjectDependencies(
+ 
+   // Helper for traversing the dependency hierarchy.
+   function visitPackage(packageJsonPath: string) {
+-    const packageJson = require(packageJsonPath);
++    const packageJson = requireModule(packageJsonPath);
+ 
+     // Prevent getting into the recursive loop.
+     if (visitedPackages.has(packageJson.name)) {
+@@ -221,6 +222,7 @@ function filterToProjectDependencies(
+             /**
+              * Custom `require` that resolves from the current working dir instead of this script path.
+              * **Requires Node v12.2.0**
++             * @todo cedric: check if we need to escape this special `createRequire`
+              */
+             const projectRequire = createRequire(packageJsonPath);
+             dependencyPackageJsonPath = projectRequire.resolve(`${dependencyName}/package.json`);
+@@ -244,7 +246,9 @@ function filterToProjectDependencies(
+   }
+ 
+   // Visit project's package.
+-  visitPackage(projectPackageJsonPath);
++  // NOTE(cedric): this is kind of risky, in this case, `mergeLinkingOptions` MUST be called first,
++  // else there won't be a project package path stored in the cache. But looking at the code, it _should_ work.
++  visitPackage(findProjectPackageJson());
+ 
+   return filteredResults;
+ }
+diff --git a/node_modules/expo-modules-autolinking/src/autolinking/mergeLinkingOptions.ts b/node_modules/expo-modules-autolinking/src/autolinking/mergeLinkingOptions.ts
+index 76080dd..de38fe9 100644
+--- a/node_modules/expo-modules-autolinking/src/autolinking/mergeLinkingOptions.ts
++++ b/node_modules/expo-modules-autolinking/src/autolinking/mergeLinkingOptions.ts
+@@ -2,18 +2,9 @@ import findUp from 'find-up';
+ import fs from 'fs-extra';
+ import path from 'path';
+ 
++import { findProjectPackageJson, requireModule } from '../_vscode-expo';
+ import { SearchOptions } from '../types';
+ 
+-/**
+- * Path to the `package.json` of the closest project in the current working dir.
+- */
+-export const projectPackageJsonPath = findUp.sync('package.json', { cwd: process.cwd() }) as string;
+-
+-// This won't happen in usual scenarios, but we need to unwrap the optional path :)
+-if (!projectPackageJsonPath) {
+-  throw new Error(`Couldn't find "package.json" up from path "${process.cwd()}"`);
+-}
+-
+ /**
+  * Merges autolinking options from different sources (the later the higher priority)
+  * - options defined in package.json's `expo.autolinking` field
+@@ -23,7 +14,7 @@ if (!projectPackageJsonPath) {
+ export async function mergeLinkingOptionsAsync<OptionsType extends SearchOptions>(
+   providedOptions: OptionsType
+ ): Promise<OptionsType> {
+-  const packageJson = require(projectPackageJsonPath);
++  const packageJson = requireModule(findProjectPackageJson(providedOptions));
+   const baseOptions = packageJson.expo?.autolinking;
+   const platformOptions = providedOptions.platform && baseOptions?.[providedOptions.platform];
+   const finalOptions = Object.assign(
+diff --git a/node_modules/expo-modules-autolinking/src/platforms/__tests__/android-test.ts b/node_modules/expo-modules-autolinking/src/platforms/__tests__/android-test.ts
+new file mode 100644
+index 0000000..bde4191
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/platforms/__tests__/android-test.ts
+@@ -0,0 +1,85 @@
++import glob from 'fast-glob';
++import path from 'path';
++
++import { ExpoModuleConfig } from '../../ExpoModuleConfig';
++import { registerGlobMock } from '../../__tests__/mockHelpers';
++import { convertPackageNameToProjectName, resolveModuleAsync } from '../android';
++
++jest.mock('fast-glob');
++
++describe(resolveModuleAsync, () => {
++  afterEach(() => {
++    jest.resetAllMocks();
++  });
++
++  it('should resolve android/build.gradle', async () => {
++    const name = 'react-native-third-party';
++    const pkgDir = path.join('node_modules', name);
++
++    registerGlobMock(glob, ['android/build.gradle'], pkgDir);
++
++    const result = await resolveModuleAsync(name, {
++      path: pkgDir,
++      version: '0.0.1',
++      config: new ExpoModuleConfig({ platforms: ['android'] }),
++    });
++    expect(result).toEqual({
++      packageName: 'react-native-third-party',
++      projects: [
++        {
++          name: 'react-native-third-party',
++          sourceDir: 'node_modules/react-native-third-party/android',
++        },
++      ],
++      modules: [],
++    });
++  });
++
++  it('should resolve multiple gradle files', async () => {
++    const name = 'react-native-third-party';
++    const pkgDir = path.join('node_modules', name);
++
++    registerGlobMock(glob, ['android/build.gradle', 'subproject/build.gradle'], pkgDir);
++
++    const result = await resolveModuleAsync(name, {
++      path: pkgDir,
++      version: '0.0.1',
++      config: new ExpoModuleConfig({ platforms: ['android'] }),
++    });
++    expect(result).toEqual({
++      packageName: 'react-native-third-party',
++      projects: [
++        {
++          name: 'react-native-third-party',
++          sourceDir: 'node_modules/react-native-third-party/android',
++        },
++        {
++          name: 'react-native-third-party$subproject',
++          sourceDir: 'node_modules/react-native-third-party/subproject',
++        },
++      ],
++      modules: [],
++    });
++  });
++});
++
++describe(convertPackageNameToProjectName, () => {
++  it('should convert scoped package name to dash', () => {
++    expect(convertPackageNameToProjectName('@expo/expo-test', 'android/build.gradle')).toBe(
++      'expo-expo-test'
++    );
++  });
++
++  it('should have differentiated name for multiple projects', () => {
++    expect(convertPackageNameToProjectName('expo-test', 'android/build.gradle')).toBe('expo-test');
++    expect(convertPackageNameToProjectName('expo-test', 'subproject/build.gradle')).toBe(
++      'expo-test$subproject'
++    );
++  });
++
++  it('should support expo adapter name', () => {
++    expect(
++      convertPackageNameToProjectName('react-native-third-party', 'expo/android/build.gradle')
++    ).toBe('react-native-third-party$expo-android');
++  });
++});
+diff --git a/node_modules/expo-modules-autolinking/src/platforms/__tests__/ios-test.ts b/node_modules/expo-modules-autolinking/src/platforms/__tests__/ios-test.ts
+new file mode 100644
+index 0000000..f00f270
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/src/platforms/__tests__/ios-test.ts
+@@ -0,0 +1,167 @@
++import glob from 'fast-glob';
++import path from 'path';
++
++import { ExpoModuleConfig } from '../../ExpoModuleConfig';
++import { registerGlobMock } from '../../__tests__/mockHelpers';
++import { formatArrayOfReactDelegateHandler, getSwiftModuleNames, resolveModuleAsync } from '../ios';
++
++jest.mock('fast-glob');
++
++describe(formatArrayOfReactDelegateHandler, () => {
++  it('should output empty array when no one specify `reactDelegateHandlers`', () => {
++    const modules = [
++      {
++        packageName: 'expo-constants',
++        packageVersion: '10.0.1',
++        pods: [
++          {
++            podName: 'EXConstants',
++            podspecDir: '/path/to/expo/packages/expo-constants/ios',
++          },
++        ],
++        flags: { inhibit_warnings: false },
++        modules: [],
++        swiftModuleNames: [],
++        appDelegateSubscribers: [],
++        reactDelegateHandlers: [],
++        debugOnly: false,
++      },
++    ];
++    expect(formatArrayOfReactDelegateHandler(modules)).toBe(`[
++    ]`);
++  });
++
++  it('should output array of `(packageName, handler)` tuple', () => {
++    const modules = [
++      {
++        packageName: 'expo-constants',
++        packageVersion: '10.0.1',
++        pods: [
++          {
++            podName: 'EXConstants',
++            podspecDir: '/path/to/expo/packages/expo-constants/ios',
++          },
++        ],
++        flags: { inhibit_warnings: false },
++        modules: [],
++        swiftModuleNames: [],
++        appDelegateSubscribers: [],
++        reactDelegateHandlers: ['ConstantsReactDelegateHandler', 'ConstantsReactDelegateHandler2'],
++        debugOnly: false,
++      },
++      {
++        packageName: 'expo-device',
++        packageVersion: '4.0.1',
++        pods: [
++          {
++            podName: 'EXDevice',
++            podspecDir: '/path/to/expo/packages/expo-device/ios',
++          },
++        ],
++        flags: { inhibit_warnings: false },
++        modules: [],
++        swiftModuleNames: [],
++        appDelegateSubscribers: [],
++        reactDelegateHandlers: ['DeviceReactDelegateHandler'],
++        debugOnly: false,
++      },
++    ];
++    expect(formatArrayOfReactDelegateHandler(modules)).toBe(`[
++      (packageName: "expo-constants", handler: ConstantsReactDelegateHandler.self),
++      (packageName: "expo-constants", handler: ConstantsReactDelegateHandler2.self),
++      (packageName: "expo-device", handler: DeviceReactDelegateHandler.self)
++    ]`);
++  });
++});
++
++describe(getSwiftModuleNames, () => {
++  it('should use value from module config when it exists', () => {
++    const pods = [{ podName: 'expotest', podspecDir: '/path/to/pod' }];
++    expect(getSwiftModuleNames(pods, ['EXTest'])).toEqual(['EXTest']);
++    expect(getSwiftModuleNames(pods, undefined)).toEqual(['expotest']);
++  });
++
++  it('should replace non-alphanumeric values with _', () => {
++    const pods = [{ podName: 'expo-test.2', podspecDir: '/path/to/pod' }];
++    expect(getSwiftModuleNames(pods, undefined)).toEqual(['expo_test_2']);
++  });
++});
++
++describe(resolveModuleAsync, () => {
++  afterEach(() => {
++    jest.resetAllMocks();
++  });
++
++  const expoRoot = path.join(__dirname, '..', '..', '..', '..', '..');
++
++  it('should resolve podspec in ios/ folder', async () => {
++    const name = 'react-native-third-party';
++    const podName = 'RNThirdParty';
++    const pkgDir = path.join('node_modules', name);
++
++    registerGlobMock(glob, [`ios/${podName}.podspec`], pkgDir);
++
++    const result = await resolveModuleAsync(
++      name,
++      {
++        path: pkgDir,
++        version: '0.0.1',
++        config: new ExpoModuleConfig({ platforms: ['ios'] }),
++      },
++      { searchPaths: [expoRoot], platform: 'ios' }
++    );
++    expect(result).toEqual({
++      packageName: 'react-native-third-party',
++      pods: [
++        {
++          podName: 'RNThirdParty',
++          podspecDir: 'node_modules/react-native-third-party/ios',
++        },
++      ],
++      swiftModuleNames: ['RNThirdParty'],
++      flags: undefined,
++      modules: [],
++      appDelegateSubscribers: [],
++      reactDelegateHandlers: [],
++      debugOnly: false,
++    });
++  });
++
++  it('should resolve multiple podspecs', async () => {
++    const name = 'react-native-third-party';
++    const podName = 'RNThirdParty';
++    const podName2 = 'RNThirdParty2';
++    const pkgDir = path.join('node_modules', name);
++
++    registerGlobMock(glob, [`ios/${podName}.podspec`, `pod2/${podName2}.podspec`], pkgDir);
++
++    const result = await resolveModuleAsync(
++      name,
++      {
++        path: pkgDir,
++        version: '0.0.1',
++        config: new ExpoModuleConfig({ platforms: ['ios'] }),
++      },
++      { searchPaths: [expoRoot], platform: 'ios' }
++    );
++    expect(result).toEqual({
++      packageName: 'react-native-third-party',
++      pods: [
++        {
++          podName: 'RNThirdParty',
++          podspecDir: 'node_modules/react-native-third-party/ios',
++        },
++        {
++          podName: 'RNThirdParty2',
++          podspecDir: 'node_modules/react-native-third-party/pod2',
++        },
++      ],
++      swiftModuleNames: ['RNThirdParty', 'RNThirdParty2'],
++      flags: undefined,
++      modules: [],
++      appDelegateSubscribers: [],
++      reactDelegateHandlers: [],
++      debugOnly: false,
++    });
++  });
++});
