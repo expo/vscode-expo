@@ -1,8 +1,9 @@
-import { compileModsAsync, ModPlatform } from '@expo/config-plugins';
-import { getPrebuildConfigAsync } from '@expo/prebuild-config';
+import { ModPlatform } from '@expo/config-plugins';
 import assert from 'assert';
 import * as vscode from 'vscode';
 
+import { loadExpoConfigPlugins, loadExpoPrebuildConfig } from '../expo/packages';
+import { withWorkingDirectory } from '../utils/process';
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
 
 class IntrospectCodeProvider extends CodeProvider {
@@ -22,12 +23,16 @@ class IntrospectCodeProvider extends CodeProvider {
   }
 
   async getExpoConfigAsync() {
-    return await getPrebuildConfigAsync(this.projectRoot, {
-      platforms: [this.getModPlatform()],
-    }).then((config) => config.exp);
+    const { getPrebuildConfigAsync } = loadExpoPrebuildConfig(this.projectRoot);
+    return await withWorkingDirectory(this.projectRoot, () =>
+      getPrebuildConfigAsync(this.projectRoot, { platforms: [this.getModPlatform()] }).then(
+        (config) => config.exp
+      )
+    );
   }
 
   async getFileContents() {
+    const { compileModsAsync } = loadExpoConfigPlugins(this.projectRoot);
     const config = await compileModsAsync(await this.getExpoConfigAsync(), {
       projectRoot: this.projectRoot,
       introspect: true,

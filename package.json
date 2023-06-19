@@ -27,7 +27,6 @@
   },
   "main": "./out/src/extension.js",
   "scripts": {
-    "postinstall": "patch-package",
     "vscode:prepublish": "yarn clean && yarn build:production",
     "start": "tsc -watch -p ./",
     "build": "tsc -p ./",
@@ -74,7 +73,6 @@
     "node-fetch": "^2.6.7",
     "ovsx": "^0.8.0",
     "parent-module": "^2.0.0",
-    "patch-package": "^6.4.7",
     "prettier": "^2.8.1",
     "raw-loader": "^4.0.2",
     "semantic-release": "^19.0.3",

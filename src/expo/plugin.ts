@@ -1,4 +1,4 @@
-import {
+import type {
   resolveConfigPluginFunction,
   resolveConfigPluginFunctionWithInfo,
 } from '@expo/config-plugins/build/utils/plugin-resolver';
@@ -6,6 +6,7 @@ import { findNodeAtLocation, getNodeValue, Node, Range } from 'jsonc-parser';
 
 import { truthy } from '../utils/array';
 import { resetModuleFrom } from '../utils/module';
+import { loadExpoConfigPluginsResolver } from './packages';
 import { ExpoProject } from './project';
 
 export type PluginDefiniton = {
@@ -42,11 +43,12 @@ export function getPluginDefinition(plugin: Node): PluginDefiniton {
  * This resets previously imported modules to reload this information.
  * When it fails to resolve the config plugin, undefined is returned.
  */
-export function resolvePluginInfo(dir: string, name: string): PluginInfo | undefined {
-  resetModuleFrom(dir, name);
+export function resolvePluginInfo(projectRoot: string, name: string): PluginInfo | undefined {
+  resetModuleFrom(projectRoot, name);
 
   try {
-    return resolveConfigPluginFunctionWithInfo(dir, name);
+    const { resolveConfigPluginFunctionWithInfo } = loadExpoConfigPluginsResolver(projectRoot);
+    return resolveConfigPluginFunctionWithInfo(projectRoot, name);
   } catch {
     return undefined;
   }
@@ -56,8 +58,9 @@ export function resolvePluginInfo(dir: string, name: string): PluginInfo | undef
  * Try to resolve the actual config plugin function.
  * When it fails to resolve the config plugin, an error is thrown.
  */
-export function resolvePluginFunctionUnsafe(dir: string, name: string): PluginFunction {
-  return resolveConfigPluginFunction(dir, name);
+export function resolvePluginFunctionUnsafe(projectRoot: string, name: string): PluginFunction {
+  const { resolveConfigPluginFunction } = loadExpoConfigPluginsResolver(projectRoot);
+  return resolveConfigPluginFunction(projectRoot, name);
 }
 
 /**
