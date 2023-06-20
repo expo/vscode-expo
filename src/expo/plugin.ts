@@ -1,7 +1,3 @@
-import type {
-  resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
-} from '@expo/config-plugins/build/utils/plugin-resolver';
 import { findNodeAtLocation, getNodeValue, Node, Range } from 'jsonc-parser';
 
 import { truthy } from '../utils/array';
@@ -14,8 +10,15 @@ export type PluginDefiniton = {
   nameRange: Range;
 };
 
-export type PluginInfo = NonNullable<ReturnType<typeof resolveConfigPluginFunctionWithInfo>>;
-export type PluginFunction = ReturnType<typeof resolveConfigPluginFunction>;
+export type PluginFunction = ReturnType<
+  typeof import('@expo/config-plugins/build/utils/plugin-resolver')['resolveConfigPluginFunction']
+>;
+
+export type PluginInfo = NonNullable<
+  ReturnType<
+    typeof import('@expo/config-plugins/build/utils/plugin-resolver')['resolveConfigPluginFunctionWithInfo']
+  >
+>;
 
 /**
  * Get the plugin definition from manifest node.
