@@ -1,6 +1,3 @@
-// These packages are loaded from the user's project.
-// This means that these packages have to be marked as external in Webpack.
-
 /** Load the `@expo/config` package from the project directory */
 export function loadExpoConfig(projectRoot: string): typeof import('@expo/config') {
   return require(/* webpackIgnore: true */ require.resolve('@expo/config', {
