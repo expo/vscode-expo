@@ -38,7 +38,7 @@
     "install:fixture": "yarn install --cwd ./test/fixture"
   },
   "devDependencies": {
-    "@expo/config-plugins": "^6.0.2",
+    "@expo/config-plugins": "file:./expo-config-plugins-7.2.0.tgz",
     "@expo/json-file": "^8.2.37",
     "@expo/prebuild-config": "^6.0.1",
     "@semantic-release/changelog": "^6.0.1",
