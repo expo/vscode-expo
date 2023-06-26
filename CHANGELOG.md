@@ -1,3 +1,29 @@
+## [1.0.2](https://github.com/expo/vscode-expo/compare/1.0.1...1.0.2) (2023-06-26)
+
+
+### Bug fixes
+
+* replace unreliable workflow detection with multiple connection attempts ([#188](https://github.com/expo/vscode-expo/issues/188)) ([24b358c](https://github.com/expo/vscode-expo/commit/24b358cae7a1bd08ae458c83a152ec9c2d27bcd6))
+
+
+### Other chores
+
+* bump @sideway/formula from 3.0.0 to 3.0.1 in /test/fixture ([#169](https://github.com/expo/vscode-expo/issues/169)) ([1950dcb](https://github.com/expo/vscode-expo/commit/1950dcb747c2b2ed8e53bbb7bf3cf2ba2e40fabc))
+* bump @xmldom/xmldom from 0.7.5 to 0.7.11 ([#184](https://github.com/expo/vscode-expo/issues/184)) ([ac4b5fb](https://github.com/expo/vscode-expo/commit/ac4b5fb680f1a520b05954cb6bbba5abb5c53a1e))
+* bump @xmldom/xmldom from 0.7.5 to 0.7.11 in /test/fixture ([#182](https://github.com/expo/vscode-expo/issues/182)) ([9c2ec33](https://github.com/expo/vscode-expo/commit/9c2ec3369c913a8bc152b4138d9dcb4dbcb7f1dc))
+* bump semver from 7.3.7 to 7.5.2 ([#187](https://github.com/expo/vscode-expo/issues/187)) ([1607e59](https://github.com/expo/vscode-expo/commit/1607e59e85658c629e403a6acebdf6d1ff41dbbd))
+* enable `contents` for drafting releases in release process ([022a753](https://github.com/expo/vscode-expo/commit/022a7530fe87b857e6febb6754b071e42c095891))
+* fix broken link in changelog ([e89b3f0](https://github.com/expo/vscode-expo/commit/e89b3f03f0b8fd885b19f8ad3434ae4467ca828b))
+* revert back to single `expo-bot` token ([493b93b](https://github.com/expo/vscode-expo/commit/493b93bbbdfd88234a670923b9bb4398a40a1340))
+* separate `expo-bot` and automatic tokens in release process ([23b93ce](https://github.com/expo/vscode-expo/commit/23b93ce1ce3be65d4d4636f1123b245b68826bec))
+* use `expo-bot` when cloning during release process ([d9cdd74](https://github.com/expo/vscode-expo/commit/d9cdd74f9f6991fe37a14084c0bb5eaada267ed0))
+* use `expo-bot` when releasing new versions ([ed510c2](https://github.com/expo/vscode-expo/commit/ed510c2270e34d3404c80a4b5058f69c69cae654))
+
+
+### Documentation changes
+
+* update link to `open-vsx.org` ([957fce0](https://github.com/expo/vscode-expo/commit/957fce0f60faa2f29757f3e4c5507b0807a9dc5b))
+
 ## [1.0.1](https://github.com/expo/vscode-expo/compare/1.0.0...1.0.1) (2023-06-06)
 
 ### New features
