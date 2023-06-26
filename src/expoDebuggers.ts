@@ -1,6 +1,11 @@
 import vscode from 'vscode';
 
-import { fetchDevicesToInspect, askDeviceByName, inferDevicePlatform } from './expo/bundler';
+import {
+  fetchDevicesToInspect,
+  askDeviceByName,
+  inferDevicePlatform,
+  fetchDevicesToInspectFromUnknownWorkflow,
+} from './expo/bundler';
 import { ExpoProjectCache, ExpoProject, findProjectFromWorkspaces } from './expo/project';
 import { debug } from './utils/debug';
 import { featureTelemetry } from './utils/telemetry';
@@ -79,7 +84,6 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
 
   provideDebugConfigurations(workspace?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
     const project = findProjectFromWorkspaces(this.projects);
-    const workflow = project?.resolveWorkflow();
 
     return [
       {
@@ -88,7 +92,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
         name: 'Inspect Expo app',
         projectRoot: project?.root ?? '${workspaceFolder}',
         bundlerHost: '127.0.0.1',
-        bundlerPort: workflow === 'managed' ? '19000' : '8081',
+        bundlerPort: undefined,
       },
     ];
   }
@@ -142,7 +146,6 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     token?: vscode.CancellationToken
   ) {
     const project = this.projects.maybeFromRoot(config.projectRoot);
-    const workflow = project?.resolveWorkflow();
 
     if (!project) {
       featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'no-project' });
@@ -154,12 +157,12 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
 
     // Infer the bundler address from project workflow
     config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
-    config.bundlerPort = config.bundlerPort ?? (workflow === 'managed' ? '19000' : '8081');
+    config.bundlerPort = config.bundlerPort ?? undefined;
 
     // Resolve the target device config to inspect
-    const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
+    const { platform, workflow, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
-    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, workflow: workflow ?? 'unknown' });
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, workflow });
 
     return { ...config, ...deviceConfig };
   }
@@ -174,6 +177,7 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
 
   return {
     platform: inferDevicePlatform(device) ?? 'unknown',
+    workflow: device._workflow,
 
     // The address of the device to connect to
     websocketAddress: device.webSocketDebuggerUrl,
@@ -203,11 +207,16 @@ async function waitForDevice(config: ExpoDebugConfig) {
 }
 
 async function pickDevice(config: ExpoDebugConfig) {
-  const devices = await fetchDevicesToInspect(
-    `http://${config.bundlerHost}:${config.bundlerPort}`
-  ).catch(() => {
-    throw new Error(`waiting for bundler on ${config.bundlerHost}:${config.bundlerPort}...`);
-  });
+  const bundlerHost = config.bundlerHost ?? '127.0.0.1';
+
+  // Either fetch from user-specified port, or try both `19000` and `8081`.
+  const devices = config.bundlerPort
+    ? await fetchDevicesToInspect({ host: bundlerHost, port: config.bundlerPort }).catch(() => {
+        throw new Error(`waiting for bundler on ${config.bundlerHost}:${config.bundlerPort}...`);
+      })
+    : await fetchDevicesToInspectFromUnknownWorkflow({ host: bundlerHost }).catch(() => {
+        throw new Error(`waiting for bundler on ${config.bundlerHost}...`);
+      });
 
   if (devices.length === 1) {
     log('Picking only device available:', devices[0].deviceName ?? 'Unknown device');
