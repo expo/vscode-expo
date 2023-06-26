@@ -38,6 +38,8 @@ module.exports = {
       message: 'chore: create new release ${nextRelease.version}\n\n${nextRelease.notes}',
       assets: ['package.json', 'CHANGELOG.md'],
     }],
-    '@semantic-release/github',
+    ['@semantic-release/github', {
+      draftRelease: true,
+    }],
   ],
 };
