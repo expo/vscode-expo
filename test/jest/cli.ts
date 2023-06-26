@@ -16,6 +16,7 @@ runTests({
     '--disable-gpu',
     '--disable-workspace-trust',
     '--no-sandbox',
+    '--disable-gpu-sandbox',
     '--no-xshm',
     path.resolve(rootDir, './test/fixture'),
   ],
