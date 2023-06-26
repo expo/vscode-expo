@@ -32,10 +32,14 @@ jobs:
   publish:
     if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
         with:
+          # Authenticate `git` with the expo-bot account
           token: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
 
       - name: 🏗 Setup project
@@ -44,7 +48,8 @@ jobs:
       - name: 📋 Release code
         run: yarn semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
+          # Use the automatic token for adding comments to issues and pull requests
+          GITHUB_TOKEN: ${{ github.token }}
           GIT_AUTHOR_NAME: Expo CI
           GIT_AUTHOR_EMAIL: support+ci@expo.io
           GIT_COMMITTER_NAME: Expo CI
