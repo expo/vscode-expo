@@ -17,7 +17,6 @@ runTests({
     '--disable-workspace-trust',
     '--no-sandbox',
     '--disable-gpu-sandbox',
-    '--no-xshm',
     path.resolve(rootDir, './test/fixture'),
   ],
   version: process.env.VSCODE_VERSION,
