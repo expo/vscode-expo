@@ -33,8 +33,9 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
     runs-on: ubuntu-latest
     permissions:
-      issues: write
-      pull-requests: write
+      contents: write # Draft a new release
+      issues: write # Add "released" comments to fixed issues
+      pull-requests: write # Add "released" comments to merged pull requests
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
