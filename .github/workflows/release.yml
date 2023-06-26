@@ -42,4 +42,4 @@ jobs:
       - name: 📋 Release code
         run: yarn semantic-release
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
