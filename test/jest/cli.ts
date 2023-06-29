@@ -18,10 +18,11 @@ runTests({
     // '--skip-release-notes',
     // // Disable internal vscode limitations
     // '--disable-workspace-trust',
-    // '--disable-extensions',
-    // // '--disable-gpu',
+    '--disable-extensions',
+    '--disable-gpu',
     // // '--disable-gpu-sandbox',
     // // '--no-sandbox',
+    '--log', 'debug', '--verbose',
     // Load the fixtures as workspace
     path.resolve(rootDir, './test/fixture'),
   ],
