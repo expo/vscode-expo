@@ -26,11 +26,11 @@ runTests({
   ],
   version: process.env.VSCODE_VERSION,
   // Reporter is disabled in CI because it's super slow
-  reporter: process.env.CI ? new SilentReporter() : undefined,
+  // reporter: process.env.CI ? new SilentReporter() : undefined,
 })
   .then(() => console.log('✅ All tests passed!'))
   .catch((error) => {
-    console.error('❌ Some tests failed.');
+    console.error('❌ Tests failed.');
     console.error(error);
     process.exit(1);
   });

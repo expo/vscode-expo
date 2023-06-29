@@ -33,4 +33,8 @@ export async function run() {
   if (failures.length > 0) {
     throw new Error(`${failures.length} failed tests`);
   }
+
+  if (results.testResults.length <= 0) {
+    throw new Error(`No test results found`);
+  }
 }
