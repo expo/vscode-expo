@@ -1,11 +1,10 @@
 {
   "private": true,
   "name": "fixture",
-  "workspaces": [
-    "eas-app",
-    "expo-app",
-    "expo-module",
-    "manifest-diagnostics",
-    "manifest-links"
-  ]
+  "workspaces": {
+    "nohoist": ["**"],
+    "packages": [
+      "./*"
+    ]
+  }
 }
