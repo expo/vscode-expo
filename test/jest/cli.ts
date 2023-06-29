@@ -12,10 +12,16 @@ runTests({
     VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
   },
   launchArgs: [
-    '--disable-extensions',
-    '--disable-gpu',
-    '--disable-workspace-trust',
-    '--no-xshm',
+    // Skip default vscode behaviors
+    // '--skip-welcome',
+    // '--skip-release-notes',
+    // // Disable internal vscode limitations
+    // '--disable-workspace-trust',
+    // '--disable-extensions',
+    // // '--disable-gpu',
+    // // '--disable-gpu-sandbox',
+    // // '--no-sandbox',
+    // Load the fixtures as workspace
     path.resolve(rootDir, './test/fixture'),
   ],
   version: process.env.VSCODE_VERSION,
