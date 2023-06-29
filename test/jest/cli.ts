@@ -1,5 +1,6 @@
-import { runTests, SilentReporter } from '@vscode/test-electron';
+import { runTests } from '@vscode/test-electron';
 import path from 'path';
+import semver from 'semver';
 
 // This file is executed from `./out/test/jest`
 const rootDir = path.resolve(__dirname, '../../../');
@@ -24,7 +25,7 @@ runTests({
     // Load the fixtures as workspace
     path.resolve(rootDir, './test/fixture'),
   ],
-  version: process.env.VSCODE_VERSION,
+  version: resolveVscodeVersion(),
   // Reporter is disabled in CI because it's super slow
   // reporter: process.env.CI ? new SilentReporter() : undefined,
 })
@@ -34,3 +35,22 @@ runTests({
     console.error(error);
     process.exit(1);
   });
+
+/**
+ * Resolve the vscode version from environment variable.
+ * Whenever `oldest` is used, it uses the minimum supported version from `package.json`.
+ */
+function resolveVscodeVersion() {
+  let version = process.env.VSCODE_VERSION;
+
+  if (version === 'oldest') {
+    const { engines } = require(path.resolve(rootDir, 'package.json'));
+    version = String(semver.minVersion(engines.vscode));
+  }
+
+  if (!version) {
+    throw new Error('VSCODE_VERSION is not defined');
+  }
+
+  return version;
+}

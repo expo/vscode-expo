@@ -50,6 +50,9 @@ jobs:
         with:
           with-fixture: true
 
+      - name: 🏗 Setup vscode headless
+        uses: ./.github/actions/setup-vscode-headless
+
       - name: 👷 Build tests
         run: yarn build
 
@@ -62,9 +65,7 @@ jobs:
         run: yarn remove sucrase
 
       - name: 🧪 Test project
-        uses: ./.github/actions/vscode-test
-        with:
-          command: yarn test:vscode
+        run: yarn test:vscode
         env:
           VSCODE_VERSION: stable
 
@@ -84,22 +85,13 @@ jobs:
         with:
           with-fixture: true
 
+      - name: 🏗 Setup vscode headless
+        uses: ./.github/actions/setup-vscode-headless
+
       - name: 👷 Build project
         run: yarn build
 
-      # This handles the "oldest" vscode version by looking up our "oldest supported version"
-      - name: 🕵️ Set vscode version
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { engines } = require('./package.json')
-            const vscode = '${{ matrix.vscode }}'
-            const target = vscode === 'oldest'
-                ? engines.vscode.substring(1)
-                : vscode
-            core.exportVariable('VSCODE_VERSION', target)
-
       - name: 🧪 Test project
-        uses: ./.github/actions/vscode-test
-        with:
-          command: yarn test:vscode
+        run: yarn test:vscode
+        env:
+          VSCODE_VERSION: ${{ matrix.vscode }}
