@@ -87,7 +87,7 @@
   "publisher": "expo",
   "icon": "images/logo-marketplace.png",
   "engines": {
-    "vscode": "^1.67.0"
+    "vscode": "^1.78.0"
   },
   "categories": [
     "Debuggers",
