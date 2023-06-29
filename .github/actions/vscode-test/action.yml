@@ -1,0 +1,29 @@
+name: VS Code test
+description: Prepare and run headless VS Code tests
+
+inputs:
+  command:
+    description: The test command to execute
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # - name: 🏗 Setup Linux xvfb
+    #   if: ${{ runner.os == 'Linux' }}
+    #   run: sudo apt-get install -y xvfb x11-xserver-utils
+    #   shell: bash
+
+    # - name: 🖥️ Start Linux xvfb
+    #   if: ${{ runner.os == 'Linux' }}
+    #   run: /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 & echo "Started xvfb"
+    #   shell: bash
+
+    # - name: 👷 Configure Linux display
+    #   if: ${{ runner.os == 'Linux' }}
+    #   run: echo "DISPLAY=:99.0" >> $GITHUB_ENV
+    #   shell: bash
+
+    - name: 🧪 Run tests
+      run: ${{ inputs.command }}
+      shell: bash
