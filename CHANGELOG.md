@@ -1,3 +1,16 @@
+## [1.0.3](https://github.com/expo/vscode-expo/compare/1.0.2...1.0.3) (2023-06-30)
+
+
+### Bug fixes
+
+* mute `react-devtools-core` sourcemap missing error ([#194](https://github.com/expo/vscode-expo/issues/194)) ([a4ffd16](https://github.com/expo/vscode-expo/commit/a4ffd1683999429b62d2c088458bae51954b7aa8))
+
+
+### Other chores
+
+* simplify and automate publish workflow ([56645de](https://github.com/expo/vscode-expo/commit/56645dec85f843509351e3bd7821da433bc08058))
+* treat all fixtures as non-monorepo projects ([#192](https://github.com/expo/vscode-expo/issues/192)) ([ca83156](https://github.com/expo/vscode-expo/commit/ca83156cc9918b2edaf185921a157e7ca90dee7a))
+
 ## [1.0.2](https://github.com/expo/vscode-expo/compare/1.0.1...1.0.2) (2023-06-26)
 
 
