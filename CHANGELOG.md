@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/expo/vscode-expo/compare/1.0.3...1.0.4) (2023-06-30)
+
+
+### Bug fixes
+
+* add missing `ms-vscode.js-debug` dependency and activate in expo monorepos ([#196](https://github.com/expo/vscode-expo/issues/196)) ([27b5550](https://github.com/expo/vscode-expo/commit/27b5550b7aa4ed3d384ce0a0a07e19162108ca2f)), closes [#L2-L5](https://github.com/expo/vscode-expo/issues/L2-L5)
+* filter duplicate devices on first occurence ([#195](https://github.com/expo/vscode-expo/issues/195)) ([4e47403](https://github.com/expo/vscode-expo/commit/4e47403d72a0d3c9908f1497e0a5a3a5c89833d9))
+
 ## [1.0.3](https://github.com/expo/vscode-expo/compare/1.0.2...1.0.3) (2023-06-30)
 
 
