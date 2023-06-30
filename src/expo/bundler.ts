@@ -1,6 +1,8 @@
 import fetch from 'node-fetch';
 import vscode from 'vscode';
 
+import { uniqueBy } from '../utils/array';
+
 const INSPECTABLE_DEVICE_TITLE = 'React Native Experimental (Improved Chrome Reloads)';
 
 export interface InspectableDevice {
@@ -31,6 +33,7 @@ export async function fetchDevicesToInspect({ host, port }: { host: string; port
     .then((devices: InspectableDevice[]): InspectableDevice[] =>
       devices
         .filter((device) => device.title === INSPECTABLE_DEVICE_TITLE)
+        .filter(uniqueBy((device) => device.title))
         .map((device) => ({ ...device, _workflow: port === '19000' ? 'managed' : 'generic' }))
     );
 }
