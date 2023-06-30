@@ -125,7 +125,11 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       // Enable source-loading for `node_modules`, when using `expo/AppEntry.js`
       outFiles: [],
       // But disable certain attempts to resolve non-existing source code
-      resolveSourceMapLocations: ['!**/__prelude__', '!webpack:**'],
+      resolveSourceMapLocations: [
+        '!**/__prelude__/**',
+        '!webpack:**',
+        '!**/node_modules/react-devtools-core/**',
+      ],
       // Disable some internal webpack source-mapping, mostly for React DevTools Backend
       sourceMapPathOverrides: {},
 
