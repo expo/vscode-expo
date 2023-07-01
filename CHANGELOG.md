@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/expo/vscode-expo/compare/1.0.4...1.0.5) (2023-07-01)
+
+
+### Other chores
+
+* update debugging snippet using `8081` as default port ([#197](https://github.com/expo/vscode-expo/issues/197)) ([523beb2](https://github.com/expo/vscode-expo/commit/523beb22a71b304cda753c12d37c13c53d110d65))
+
 ## [1.0.4](https://github.com/expo/vscode-expo/compare/1.0.3...1.0.4) (2023-06-30)
 
 
