@@ -231,7 +231,7 @@
               "request": "attach",
               "name": "Debug Expo app",
               "projectRoot": "^\"\\${workspaceFolder}\"${1}",
-              "bundlerPort": "${2:19000}",
+              "bundlerPort": "${2:8081}",
               "bundlerHost": "${3:127.0.0.1}"
             }
           }
