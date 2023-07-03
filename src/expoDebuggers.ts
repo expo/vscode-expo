@@ -184,7 +184,7 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
     workflow: device._workflow,
 
     // The address of the device to connect to
-    websocketAddress: device.webSocketDebuggerUrl,
+    websocketAddress: `${device.webSocketDebuggerUrl}&type=vscode`,
 
     // Define the required root paths to resolve source maps
     localRoot: project.root,
