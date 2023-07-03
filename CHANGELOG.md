@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/expo/vscode-expo/compare/1.0.5...1.0.6) (2023-07-03)
+
+
+### Bug fixes
+
+* send the debugger type to inspector proxy ([#198](https://github.com/expo/vscode-expo/issues/198)) ([07fa7e5](https://github.com/expo/vscode-expo/commit/07fa7e54d594922ea23d4b2ff79c5522da306cf6))
+
 ## [1.0.5](https://github.com/expo/vscode-expo/compare/1.0.4...1.0.5) (2023-07-01)
 
 
