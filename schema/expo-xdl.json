@@ -1,7 +1,7 @@
 {
   "type": "object",
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "48.0.0",
+  "version": "49.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
   "definitions": {
@@ -895,6 +895,15 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
+        "output": {
+          "description": "Sets the rendering method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. Defaults to `single`.",
+          "enum": [
+            "single",
+            "static"
+          ],
+          "type": "string",
+          "markdownDescription": "Sets the rendering method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. Defaults to `single`."
+        },
         "favicon": {
           "description": "Relative path of an image to use for your app's favicon.",
           "type": "string",
@@ -1457,7 +1466,7 @@
           "markdownDescription": "Settings that apply specifically to running this app in a development client"
         },
         "scheme": {
-          "description": "**Custom Builds Only**. URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
+          "description": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
           "oneOf": [
             {
               "type": "string",
@@ -1476,7 +1485,7 @@
             "standaloneOnly": true,
             "bareWorkflow": "To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
           },
-          "markdownDescription": "**Custom Builds Only**. URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
+          "markdownDescription": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
         },
         "extra": {
           "description": "Any extra fields you want to pass to your experience. Values are accessible via `Constants.expoConfig.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))",
@@ -1495,13 +1504,15 @@
               "markdownDescription": "If set to false, your standalone app will never download any code, and will only use code bundled locally on the device. In that case, all updates to your app must be submitted through app store review. Defaults to true. (Note: This will not work out of the box with ExpoKit projects)"
             },
             "checkAutomatically": {
-              "description": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Must be one of `ON_LOAD` or `ON_ERROR_RECOVERY`",
+              "description": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to completely disable automatic checking. Must be one of `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, or `NEVER`",
               "enum": [
                 "ON_ERROR_RECOVERY",
-                "ON_LOAD"
+                "ON_LOAD",
+                "WIFI_ONLY",
+                "NEVER"
               ],
               "type": "string",
-              "markdownDescription": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Must be one of `ON_LOAD` or `ON_ERROR_RECOVERY`"
+              "markdownDescription": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to completely disable automatic checking. Must be one of `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, or `NEVER`"
             },
             "fallbackToCacheTimeout": {
               "description": "How long (in ms) to allow for fetching OTA updates before falling back to a cached version of the app. Defaults to 0. Must be between 0 and 300000 (5 minutes).",
@@ -1546,6 +1557,11 @@
               "type": "object",
               "additionalProperties": true,
               "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers."
+            },
+            "useClassicUpdates": {
+              "description": "Whether to use deprecated Classic Updates when developing with the local Expo CLI and creating builds. Omitting this or setting it to false affects the behavior of APIs like `Constants.manifest`. SDK 49 is the last SDK version that supports Classic Updates.",
+              "type": "boolean",
+              "markdownDescription": "Whether to use deprecated Classic Updates when developing with the local Expo CLI and creating builds. Omitting this or setting it to false affects the behavior of APIs like `Constants.manifest`. SDK 49 is the last SDK version that supports Classic Updates."
             }
           },
           "additionalProperties": false,
@@ -1652,6 +1668,18 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "tsconfigPaths": {
+              "description": "Enable tsconfig/jsconfig `compilerOptions.paths` and `compilerOptions.baseUrl` support for import aliases in Metro.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Enable tsconfig/jsconfig `compilerOptions.paths` and `compilerOptions.baseUrl` support for import aliases in Metro."
+            },
+            "typedRoutes": {
+              "description": "Enable support for statically typed links in Expo Router. This feature requires TypeScript be set up in your Expo Router v2 project.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Enable support for statically typed links in Expo Router. This feature requires TypeScript be set up in your Expo Router v2 project."
+            },
             "turboModules": {
               "description": "Enables Turbo Modules, which are a type of native modules that use a different way of communicating between JS and platform code. When installing a Turbo Module you will need to enable this experimental option (the library still needs to be a part of Expo SDK already, like react-native-reanimated v2). Turbo Modules do not support remote debugging and enabling this option will disable remote debugging.",
               "type": "boolean",
