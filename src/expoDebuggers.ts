@@ -188,7 +188,7 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
 
     // Define the required root paths to resolve source maps
     localRoot: project.root,
-    remoteRoot: `http://${config.bundlerHost}:${config.bundlerPort}`,
+    remoteRoot: `http://${config.bundlerHost}:${config.bundlerPort ?? 8081}`,
   };
 }
 
