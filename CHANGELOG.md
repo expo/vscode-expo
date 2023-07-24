@@ -1,3 +1,18 @@
+## [1.0.7](https://github.com/expo/vscode-expo/compare/1.0.6...1.0.7) (2023-07-24)
+
+
+### Bug fixes
+
+* add missing `bundlerPort` for `remoteRoot` when debugging apps ([#204](https://github.com/expo/vscode-expo/issues/204)) ([ef670d3](https://github.com/expo/vscode-expo/commit/ef670d36d0fe7c182efb9335d9e6958802180453))
+
+
+### Other chores
+
+* bump semver from 5.7.1 to 5.7.2 in /test/fixture ([#201](https://github.com/expo/vscode-expo/issues/201)) ([1d890b8](https://github.com/expo/vscode-expo/commit/1d890b854930139a46fbfa48ee26de66bf1dc500))
+* bump tough-cookie from 4.1.2 to 4.1.3 ([#200](https://github.com/expo/vscode-expo/issues/200)) ([05f5905](https://github.com/expo/vscode-expo/commit/05f59057ffd8c7f9b3e4ab650dfba3f8189c1cee))
+* bump word-wrap from 1.2.3 to 1.2.4 ([#202](https://github.com/expo/vscode-expo/issues/202)) ([4a663d9](https://github.com/expo/vscode-expo/commit/4a663d984c4bb43b22b47a9c796d8ebb1444ab57))
+* bump word-wrap from 1.2.3 to 1.2.4 in /test/fixture ([#203](https://github.com/expo/vscode-expo/issues/203)) ([16743d4](https://github.com/expo/vscode-expo/commit/16743d4f345476c487cdd490f74ec51d4b6bbf42))
+
 ## [1.0.6](https://github.com/expo/vscode-expo/compare/1.0.5...1.0.6) (2023-07-03)
 
 
