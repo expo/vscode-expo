@@ -18,9 +18,9 @@ jobs:
     if: ${{ github.ref != 'refs/heads/main' || github.event.inputs.release != 'release' }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      issues: write
-      pull-requests: write
+      contents: write
+      issues: read
+      pull-requests: read
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
