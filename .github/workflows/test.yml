@@ -85,6 +85,12 @@ jobs:
           - os: ubuntu
             vscode: stable
             experimental: true
+          - os: macos
+            vscode: stable
+            experimental: true
+          - os: windows
+            vscode: stable
+            experimental: true
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
