@@ -109,5 +109,5 @@ jobs:
         run: xvfb-run -a yarn test:vscode
 
       - name: 🧪 Test project (MacOS/Windows)
-        if: ${{ runner.os == 'Linux' }}
+        if: ${{ runner.os != 'Linux' }}
         run: yarn test:vscode
