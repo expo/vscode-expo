@@ -1400,10 +1400,10 @@
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@tsconfig/node16@^16.1.1":
-  version "16.1.1"
-  resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-16.1.1.tgz#b9322bcacf7b7a487ab4e078f88455bde47f3780"
-  integrity sha512-+pio93ejHN4nINX4pXqfnR/fPLRtJBaT4ORaa5RH0Oc1zoYmo2B2koG+M328CQhHKn1Wj6FcOxCDFXAot9NhvA==
+"@tsconfig/node18@^18.2.1":
+  version "18.2.1"
+  resolved "https://registry.npmjs.org/@tsconfig/node18/-/node18-18.2.1.tgz#ebf5e6b8d94e9de072e712bc197d6441a325ed61"
+  integrity sha512-RDDZFuofwkcKpl8Vpj5wFbY+H53xOtqK7ckEL1sXsbPwvKwDdjQf3LkHbtt9sxIHn9nWIEwkmCwBRZ6z5TKU2A==
 
 "@tufjs/canonical-json@1.0.0":
   version "1.0.0"
@@ -1561,10 +1561,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-18.7.14.tgz#0fe081752a3333392d00586d815485a17c2cf3c9"
   integrity sha512-6bbDaETVi8oyIARulOE9qF1/Qdi/23z6emrUh0fNJRUmjznqrixD4MpGDdgOFk5Xb0m2H6Xu42JGdvAxaJR/wA==
 
-"@types/node@^16.11.56":
-  version "16.11.56"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.11.56.tgz#dcbb617669481e158e0f1c6204d1c768cd675901"
-  integrity sha512-aFcUkv7EddxxOa/9f74DINReQ/celqH8DiB3fRYgVDM2Xm5QJL8sl80QKuAnGvwAsMn+H3IFA6WCrQh1CY7m1A==
+"@types/node@^18.17.12":
+  version "18.17.12"
+  resolved "https://registry.npmjs.org/@types/node/-/node-18.17.12.tgz#c6bd7413a13e6ad9cfb7e97dd5c4e904c1821e50"
+  integrity sha512-d6xjC9fJ/nSnfDeU0AMDsaJyb1iHsqCSOdi84w4u+SlN/UgQdY5tRhpMzaFYsI4mnpvgTivEaQd0yOUhAtOnEQ==
 
 "@types/normalize-package-data@^2.4.0", "@types/normalize-package-data@^2.4.1":
   version "2.4.1"
@@ -9477,10 +9477,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.9.4:
-  version "4.9.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
-  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
+typescript@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
+  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"

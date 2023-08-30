@@ -4,12 +4,12 @@ description: Prepare the project for any CI action
 inputs:
   node-version:
     description: Version of Node to install
-    default: 16.x
+    default: 18.x
 
   with-fixture:
     description: If the setup should install the test/fixture files
     type: boolean
-  
+
   without-cache:
     description: If the Yarn cache should not be used
     type: boolean
