@@ -1,6 +1,6 @@
 import { uniqueBy } from '../array';
 
-describe(uniqueBy, () => {
+describe('uniqueBy', () => {
   it('returns unique numbers', () => {
     expect([1, 2, 3, 3].filter(uniqueBy(String))).toStrictEqual([1, 2, 3]);
   });

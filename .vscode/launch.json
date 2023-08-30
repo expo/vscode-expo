@@ -49,7 +49,7 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/jest/mocha-runner",
         "--disable-extensions"
       ],
       "env": {

@@ -4,9 +4,8 @@ import { DiagnosticSeverity, languages, TextEditor, window } from 'vscode';
 
 import { findContentRange, getWorkspaceUri, storeOriginalContent } from './utils/vscode';
 import { waitFor } from './utils/wait';
-import { ManifestDiagnosticsProvider } from '../manifestDiagnostics';
 
-describe(ManifestDiagnosticsProvider, () => {
+describe('ManifestDiagnosticsProvider', () => {
   // Based on: https://github.com/microsoft/vscode-extension-samples/blob/fdd3bb95ce8e38ffe58fc9158797239fdf5017f1/lsp-sample/client/src/test/diagnostics.test.ts#L31
 
   let app: TextEditor;

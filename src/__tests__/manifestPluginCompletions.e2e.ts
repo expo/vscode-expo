@@ -1,9 +1,8 @@
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
 import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
-import { ManifestPluginCompletionsProvider } from '../manifestPluginCompletions';
 
-describe(ManifestPluginCompletionsProvider, () => {
+describe('ManifestPluginCompletionsProvider', () => {
   let app: TextEditor;
 
   beforeEach(async () => {

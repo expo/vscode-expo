@@ -1,7 +1,6 @@
 import * as json from 'jsonc-parser';
 import { commands, TextEditor, window } from 'vscode';
 
-import { CodeProvider } from '../../preview/CodeProvider';
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
 import {
   closeAllEditors,
@@ -12,7 +11,7 @@ import {
 } from '../utils/vscode';
 import { waitForFalse, waitForTrue } from '../utils/wait';
 
-describe(CodeProvider, () => {
+describe('CodeProvider', () => {
   let app: TextEditor;
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 

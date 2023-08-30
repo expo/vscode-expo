@@ -6,7 +6,7 @@ const rootDir = path.resolve(__dirname, '../../../');
 
 runTests({
   extensionDevelopmentPath: rootDir,
-  extensionTestsPath: path.resolve(__dirname, './runner'),
+  extensionTestsPath: path.resolve(__dirname, './mocha-runner'),
   extensionTestsEnv: {
     VSCODE_EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
     VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
