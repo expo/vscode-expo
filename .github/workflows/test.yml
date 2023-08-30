@@ -59,7 +59,7 @@ jobs:
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
       - name: 🧹 Remove Sucrase
-        run: yarn remove sucrase
+        run: yarn remove node-fetch jsonc-parser && yarn
 
       - name: 🧪 Test project
         uses: coactions/setup-xvfb@v1
