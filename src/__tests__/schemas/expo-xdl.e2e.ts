@@ -1,15 +1,28 @@
-import { commands, CompletionList, window } from 'vscode';
+import { commands, CompletionList, TextEditor, window } from 'vscode';
 
-import { closeAllEditors, findContentRange, getWorkspaceUri } from '../utils/vscode';
+import {
+  closeAllEditors,
+  findContentRange,
+  getWorkspaceUri,
+  storeOriginalContent,
+} from '../utils/vscode';
 import { waitForTrue } from '../utils/wait';
 
 describe('expo-xdl', () => {
-  afterEach(async () => {
+  let app: TextEditor;
+  let restoreContent: ReturnType<typeof storeOriginalContent>;
+
+  before(async () => {
+    app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    restoreContent = storeOriginalContent(app);
+  });
+
+  after(async () => {
+    await restoreContent();
     await closeAllEditors();
   });
 
   it('provides autocomplete for app.json `expo.android`', async () => {
-    const app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
     const range = findContentRange(app, 'android');
 
     await app.edit((builder) => builder.replace(range, 'andr'));

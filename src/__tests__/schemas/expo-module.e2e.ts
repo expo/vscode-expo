@@ -1,17 +1,28 @@
-import { commands, CompletionList, window } from 'vscode';
+import { commands, CompletionList, TextEditor, window } from 'vscode';
 
-import { closeAllEditors, findContentRange, getWorkspaceUri } from '../utils/vscode';
+import {
+  closeAllEditors,
+  findContentRange,
+  getWorkspaceUri,
+  storeOriginalContent,
+} from '../utils/vscode';
 import { waitForTrue } from '../utils/wait';
 
 describe('expo-module', () => {
-  afterEach(async () => {
+  let app: TextEditor;
+  let restoreContent: ReturnType<typeof storeOriginalContent>;
+
+  before(async () => {
+    app = await window.showTextDocument(getWorkspaceUri('expo-module/expo-module.config.json'));
+    restoreContent = storeOriginalContent(app);
+  });
+
+  after(async () => {
+    await restoreContent();
     await closeAllEditors();
   });
 
   it('provides autocomplete for expo-module.config.json `ios.debugOnly`', async () => {
-    const app = await window.showTextDocument(
-      getWorkspaceUri('expo-module/expo-module.config.json')
-    );
     const range = findContentRange(app, 'debugOnly');
 
     await app.edit((builder) => builder.replace(range, 'debug'));
