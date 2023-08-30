@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import { commands, DocumentLink, window } from 'vscode';
 
-import { ManifestLinksProvider } from '../manifestLinks';
 import {
   closeAllEditors,
   findContentRange,
@@ -8,7 +8,7 @@ import {
   waitForActiveTabNameOpen,
 } from './utils/vscode';
 
-describe(ManifestLinksProvider, () => {
+describe('ManifestLinksProvider', () => {
   // Based on: https://github.com/microsoft/vscode/blob/6cf68a1f23ee09d13e7e2bc4f7e8e2de1c5ef714/extensions/markdown-language-features/src/test/documentLink.test.ts#L171
 
   describe('assets', () => {
@@ -27,7 +27,7 @@ describe(ManifestLinksProvider, () => {
       const link = links.find((link) => link.range.contains(range));
 
       await commands.executeCommand('vscode.open', link?.target);
-      await expect(waitForActiveTabNameOpen('icon.png')).resolves.toBe(true);
+      expect(await waitForActiveTabNameOpen('icon.png')).to.equal(true);
     });
   });
 
@@ -43,7 +43,7 @@ describe(ManifestLinksProvider, () => {
       const link = links.find((link) => link.range.contains(range));
 
       await commands.executeCommand('vscode.open', link?.target);
-      await expect(waitForActiveTabNameOpen('app.plugin.js')).resolves.toBe(true);
+      expect(await waitForActiveTabNameOpen('app.plugin.js')).to.equal(true);
     });
 
     it('opens valid plugin from package with options', async () => {
@@ -57,7 +57,7 @@ describe(ManifestLinksProvider, () => {
       const link = links.find((link) => link.range.contains(range));
 
       await commands.executeCommand('vscode.open', link?.target);
-      await expect(waitForActiveTabNameOpen('app.plugin.js')).resolves.toBe(true);
+      expect(await waitForActiveTabNameOpen('app.plugin.js')).to.equal(true);
     });
 
     it('opens valid plugin from local file', async () => {
@@ -71,7 +71,7 @@ describe(ManifestLinksProvider, () => {
       const link = links.find((link) => link.range.contains(range));
 
       await commands.executeCommand('vscode.open', link?.target);
-      await expect(waitForActiveTabNameOpen('valid.js')).resolves.toBe(true);
+      expect(await waitForActiveTabNameOpen('valid.js')).to.equal(true);
     });
   });
 });

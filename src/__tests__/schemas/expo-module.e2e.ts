@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { commands, CompletionList, window } from 'vscode';
 
 import { closeAllEditors, findContentRange, getWorkspaceUri } from '../utils/vscode';
@@ -16,17 +17,17 @@ describe('expo-module', () => {
 
     await app.edit((builder) => builder.replace(range, 'debug'));
 
-    await expect(
-      // Retry the suggestions a couple of times, the schema might still need to be downloaded
-      waitForTrue(async () => {
-        const suggestions = await commands.executeCommand<CompletionList>(
-          'vscode.executeCompletionItemProvider',
-          app.document.uri,
-          range.start
-        );
+    // Retry the suggestions a couple of times, the schema might still need to be downloaded
+    const result = await waitForTrue(async () => {
+      const suggestions = await commands.executeCommand<CompletionList>(
+        'vscode.executeCompletionItemProvider',
+        app.document.uri,
+        range.start
+      );
 
-        return suggestions.items.some((item) => item.label === 'debugOnly');
-      })
-    ).resolves.toBe(true);
+      return suggestions.items.some((item) => item.label === 'debugOnly');
+    });
+
+    expect(result).to.equal(true);
   });
 });

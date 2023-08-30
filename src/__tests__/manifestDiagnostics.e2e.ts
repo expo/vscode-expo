@@ -1,18 +1,18 @@
+import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
 import { DiagnosticSeverity, languages, TextEditor, window } from 'vscode';
 
-import { ManifestDiagnosticsProvider } from '../manifestDiagnostics';
 import { findContentRange, getWorkspaceUri, storeOriginalContent } from './utils/vscode';
 import { waitFor } from './utils/wait';
 
-describe(ManifestDiagnosticsProvider, () => {
+describe('ManifestDiagnosticsProvider', () => {
   // Based on: https://github.com/microsoft/vscode-extension-samples/blob/fdd3bb95ce8e38ffe58fc9158797239fdf5017f1/lsp-sample/client/src/test/diagnostics.test.ts#L31
 
   let app: TextEditor;
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
-  beforeAll(async () => {
+  before(async () => {
     app = await window.showTextDocument(getWorkspaceUri('manifest-diagnostics/app.json'));
     restoreContent = storeOriginalContent(app);
   });
@@ -29,8 +29,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const diagnostics = await languages.getDiagnostics(app.document.uri);
 
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
+    expect(diagnostics).to.have.length(1);
+    expect(diagnostics[0]).contain({
       code: 'FILE_NOT_FOUND',
       message: 'File not found: ./assets/doesnt-exist.png',
       severity: DiagnosticSeverity.Warning,
@@ -45,8 +45,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const diagnostics = await languages.getDiagnostics(app.document.uri);
 
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
+    expect(diagnostics).to.have.length(1);
+    expect(diagnostics[0]).contain({
       code: 'FILE_IS_DIRECTORY',
       message: 'File is a directory: ./assets',
       severity: DiagnosticSeverity.Warning,
@@ -61,8 +61,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const diagnostics = await languages.getDiagnostics(app.document.uri);
 
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
+    expect(diagnostics).to.have.length(1);
+    expect(diagnostics[0]).contain({
       code: 'PLUGIN_NOT_FOUND',
       message: 'Plugin not found: doesnt-exists',
       severity: DiagnosticSeverity.Warning,
@@ -77,8 +77,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const diagnostics = await languages.getDiagnostics(app.document.uri);
 
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
+    expect(diagnostics).to.have.length(1);
+    expect(diagnostics[0]).contain({
       code: `PLUGIN_DEFINITION_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
       severity: DiagnosticSeverity.Warning,
@@ -93,8 +93,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const diagnostics = await languages.getDiagnostics(app.document.uri);
 
-    expect(diagnostics).toHaveLength(1);
-    expect(diagnostics[0]).toMatchObject({
+    expect(diagnostics).to.have.length(1);
+    expect(diagnostics[0]).contain({
       code: `PLUGIN_DEFINITION_INVALID`,
       message: 'Plugin definition is empty, expected a file or dependency name',
       severity: DiagnosticSeverity.Warning,
@@ -115,8 +115,8 @@ describe(ManifestDiagnosticsProvider, () => {
     await waitFor();
     const preInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
 
-    expect(preInstallDiagnostic).toHaveLength(1);
-    expect(preInstallDiagnostic[0]).toMatchObject({
+    expect(preInstallDiagnostic).to.have.length(1);
+    expect(preInstallDiagnostic[0]).contain({
       code: 'PLUGIN_NOT_FOUND',
       message: 'Plugin not found: ./.expo/new-plugin.js',
       severity: DiagnosticSeverity.Warning,
@@ -140,7 +140,7 @@ describe(ManifestDiagnosticsProvider, () => {
 
     await waitFor();
     const postInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
-    expect(postInstallDiagnostic).toHaveLength(0);
+    expect(postInstallDiagnostic).to.have.length(0);
 
     fs.rmSync(pluginFile, { force: true });
   });

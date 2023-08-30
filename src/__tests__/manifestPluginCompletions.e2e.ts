@@ -1,9 +1,9 @@
+import { expect } from 'chai';
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
-import { ManifestPluginCompletionsProvider } from '../manifestPluginCompletions';
 import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
 
-describe(ManifestPluginCompletionsProvider, () => {
+describe('ManifestPluginCompletionsProvider', () => {
   let app: TextEditor;
 
   beforeEach(async () => {
@@ -24,12 +24,10 @@ describe(ManifestPluginCompletionsProvider, () => {
       range.start
     );
 
-    expect(suggestions.items).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ label: 'expo-camera' }),
-        expect.objectContaining({ label: 'expo-system-ui' }),
-      ])
-    );
+    expect(suggestions.items).to.containSubset([
+      { label: 'expo-camera' },
+      { label: 'expo-system-ui' },
+    ]);
   });
 
   it('suggests folders from local project', async () => {
@@ -42,19 +40,11 @@ describe(ManifestPluginCompletionsProvider, () => {
       range.start
     );
 
-    expect(suggestions.items).toEqual(
-      expect.arrayContaining([
-        // `node_modules` are disabled by default in `src/settings.ts`
-        expect.objectContaining({
-          label: 'assets/',
-          command: expect.objectContaining({ command: 'editor.action.triggerSuggest' }),
-        }),
-        expect.objectContaining({
-          label: 'plugins/',
-          command: expect.objectContaining({ command: 'editor.action.triggerSuggest' }),
-        }),
-      ])
-    );
+    expect(suggestions.items).to.containSubset([
+      // `node_modules` are disabled by default in `src/settings.ts`
+      { label: 'assets/', command: { command: 'editor.action.triggerSuggest' } },
+      { label: 'plugins/', command: { command: 'editor.action.triggerSuggest' } },
+    ]);
   });
 
   it('suggests plugins from local project', async () => {
@@ -67,8 +57,6 @@ describe(ManifestPluginCompletionsProvider, () => {
       range.start
     );
 
-    expect(suggestions.items).toEqual(
-      expect.arrayContaining([expect.objectContaining({ label: 'valid.js' })])
-    );
+    expect(suggestions.items).to.containSubset([{ label: 'valid.js' }]);
   });
 });

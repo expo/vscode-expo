@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+import 'mocha-chai-jest-snapshot';
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
@@ -21,7 +23,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -34,7 +36,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -47,7 +49,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('gradle.properties.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -60,7 +62,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -73,7 +75,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('strings.xml.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -86,7 +88,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('styles.xml.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -99,7 +101,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('Example.entitlements.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -112,7 +114,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('Expo.plist.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -125,7 +127,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('Info.plist.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -138,7 +140,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     const preview = await waitForEditorOpen('Podfile.properties.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 });

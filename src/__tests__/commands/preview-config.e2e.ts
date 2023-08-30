@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+import 'mocha-chai-jest-snapshot';
 import { commands, window } from 'vscode';
 
 import { ExpoConfigType } from '../../preview/ExpoConfigCodeProvider';
@@ -19,7 +21,7 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('_app.config.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -29,7 +31,7 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('_app.config.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -39,7 +41,7 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     const preview = await waitForEditorOpen('exp.json');
     const content = removeAbsolutePaths(preview?.document.getText());
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 

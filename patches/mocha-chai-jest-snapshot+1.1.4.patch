@@ -1,0 +1,26 @@
+diff --git a/node_modules/mocha-chai-jest-snapshot/dist/helper.js b/node_modules/mocha-chai-jest-snapshot/dist/helper.js
+index ea59a3c..8ac2b7f 100644
+--- a/node_modules/mocha-chai-jest-snapshot/dist/helper.js
++++ b/node_modules/mocha-chai-jest-snapshot/dist/helper.js
+@@ -5,14 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.readJestConfig = exports.snapshotOptions = void 0;
+ const path_1 = __importDefault(require("path"));
+-const yargs_1 = __importDefault(require("yargs"));
++// const yargs_1 = __importDefault(require("yargs"));
+ const ARGV_CI = !!process.env.CI;
+-const ARGV_UPDATE_SNAPSHOT = !!process.env.UPDATE_SNAPSHOT ||
+-    yargs_1.default
+-        .options({
+-        update: { type: "boolean", default: false },
+-    })
+-        .parseSync().update;
++const ARGV_UPDATE_SNAPSHOT = !!process.env.UPDATE_SNAPSHOT// ||
++    // yargs_1.default
++    //     .options({
++    //     update: { type: "boolean", default: false },
++    // })
++    //     .parseSync().update;
+ exports.snapshotOptions = {
+     updateSnapshot: ARGV_CI && !ARGV_UPDATE_SNAPSHOT
+         ? "none"
