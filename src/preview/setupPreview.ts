@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 
-import { reporter, TelemetryEvent } from '../utils/telemetry';
 import { CodeProvider } from './CodeProvider';
 import {
   ExpoConfigType,
@@ -20,6 +19,7 @@ import {
   InfoPlistCodeProvider,
   PodfilePropertiesCodeProvider,
 } from './IntrospectCodeProvider';
+import { reporter, TelemetryEvent } from '../utils/telemetry';
 
 export enum PreviewCommand {
   OpenExpoFilePrebuild = 'expo.config.prebuild.preview',

@@ -1,7 +1,7 @@
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
-import { ManifestPluginCompletionsProvider } from '../manifestPluginCompletions';
 import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
+import { ManifestPluginCompletionsProvider } from '../manifestPluginCompletions';
 
 describe(ManifestPluginCompletionsProvider, () => {
   let app: TextEditor;

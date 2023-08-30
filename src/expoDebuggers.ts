@@ -26,7 +26,10 @@ interface ExpoDebugConfig extends vscode.DebugConfiguration {
 }
 
 export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider {
-  constructor(extension: vscode.ExtensionContext, protected projects: ExpoProjectCache) {
+  constructor(
+    extension: vscode.ExtensionContext,
+    protected projects: ExpoProjectCache
+  ) {
     extension.subscriptions.push(
       vscode.debug.registerDebugConfigurationProvider(
         DEBUG_TYPE,

@@ -1,12 +1,12 @@
 import { commands, DocumentLink, window } from 'vscode';
 
-import { ManifestLinksProvider } from '../manifestLinks';
 import {
   closeAllEditors,
   findContentRange,
   getWorkspaceUri,
   waitForActiveTabNameOpen,
 } from './utils/vscode';
+import { ManifestLinksProvider } from '../manifestLinks';
 
 describe(ManifestLinksProvider, () => {
   // Based on: https://github.com/microsoft/vscode/blob/6cf68a1f23ee09d13e7e2bc4f7e8e2de1c5ef714/extensions/markdown-language-features/src/test/documentLink.test.ts#L171
