@@ -104,7 +104,10 @@ jobs:
                 : vscode
             core.exportVariable('VSCODE_VERSION', target)
 
-      - name: 🧪 Test project
-        uses: coactions/setup-xvfb@v1
-        with:
-          run: yarn test:vscode
+      - name: 🧪 Test project (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: xvfb-run -a yarn test:vscode
+
+      - name: 🧪 Test project (MacOS/Windows)
+        if: ${{ runner.os == 'Linux' }}
+        run: yarn test:vscode
