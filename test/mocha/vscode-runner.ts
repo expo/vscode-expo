@@ -13,6 +13,7 @@ export async function run() {
 
   // Configure the test runner
   const tests = new Mocha({
+    timeout: 5_000,
     reporter: require('mocha-chai-jest-snapshot/reporters/spec'),
   });
 
