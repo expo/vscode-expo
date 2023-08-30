@@ -59,10 +59,7 @@ jobs:
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
       - name: 🧹 Remove bundled dependencies
-        run: |
-          rm -rf \
-            node_modules/jsonc-parser \
-            node_modules/node-fetch
+        run: rm -rf node_modules/sucrase
 
       - name: 🧪 Test project
         run: xvfb-run -a yarn test:vscode

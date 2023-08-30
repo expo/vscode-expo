@@ -1,4 +1,3 @@
-import 'mocha-chai-jest-snapshot';
 import { expect } from 'chai';
 import { commands, window } from 'vscode';
 

@@ -1,4 +1,3 @@
-import chai from 'chai';
 import { glob } from 'glob';
 import Mocha from 'mocha';
 import path from 'path';
@@ -19,13 +18,7 @@ export async function run() {
 
   // Globally initialize the test environment
   tests.globalSetup(async () => {
-    // Configure Chai extensions
-    chai.use(require('chai-subset'));
-    chai.use(
-      require('mocha-chai-jest-snapshot').jestSnapshotPlugin({
-        snapshotResolver: path.resolve(__dirname, './snapshots'),
-      })
-    );
+    require('./setup');
 
     // Wait until the extension is fully activated
     await require('../../src/__tests__/utils/vscode').waitForExtension();

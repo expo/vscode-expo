@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import 'mocha-chai-jest-snapshot';
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
