@@ -78,15 +78,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
-        # See: https://github.com/microsoft/vscode/issues/152938
         vscode: [oldest, stable]
-        # Instead of failing the whole workflow, we keep testing on stable to see when it's fixed
-        experimental: [false]
-        include:
-          - os: ubuntu
-            vscode: stable
-            experimental: true
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
@@ -114,6 +106,5 @@ jobs:
 
       - name: 🧪 Test project
         uses: coactions/setup-xvfb@v1
-        continue-on-error: ${{ matrix.experimental }}
         with:
           run: yarn test:vscode
