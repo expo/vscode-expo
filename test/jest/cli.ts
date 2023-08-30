@@ -1,4 +1,4 @@
-import { runTests, SilentReporter } from '@vscode/test-electron';
+import { runTests } from '@vscode/test-electron';
 import path from 'path';
 
 // This file is executed from `./out/test/jest`
@@ -11,10 +11,14 @@ runTests({
     VSCODE_EXPO_DEBUG: 'vscode-expo*', // always enable the debugger
     VSCODE_EXPO_TELEMETRY_KEY: '', // always disable telemetry in tests
   },
-  launchArgs: ['--disable-extensions', path.resolve(rootDir, './test/fixture')],
+  launchArgs: [
+    '--disable-extensions',
+    '--disable-chromium-sandbox',
+    path.resolve(rootDir, './test/fixture'),
+  ],
   version: process.env.VSCODE_VERSION,
   // Reporter is disabled in CI because it's super slow
-  reporter: process.env.CI ? new SilentReporter() : undefined,
+  // reporter: process.env.CI ? new SilentReporter() : undefined,
 })
   .then(() => console.log('✅ All tests passed!'))
   .catch((error) => {
