@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { commands, DocumentLink, window } from 'vscode';
 
 import {

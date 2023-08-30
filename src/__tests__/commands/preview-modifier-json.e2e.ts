@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import * as json from 'jsonc-parser';
 import { commands, TextEditor, window } from 'vscode';
 

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { extensions } from 'vscode';
 
 import { EXTENSION_ID } from './utils/vscode';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { commands, CompletionList, window } from 'vscode';
 
 import { closeAllEditors, findContentRange, getWorkspaceUri } from '../utils/vscode';
