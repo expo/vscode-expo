@@ -3,7 +3,7 @@ import NodeEnvironment from 'jest-environment-node';
 class VSCodeEnvironment extends NodeEnvironment {
   public async setup() {
     await super.setup();
-    this.global.vscode = await import('vscode');
+    this.global.vscode = require('vscode');
   }
 
   public async teardown() {
