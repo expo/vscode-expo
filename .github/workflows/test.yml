@@ -59,7 +59,9 @@ jobs:
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
       - name: 🧹 Remove Sucrase
-        run: yarn remove node-fetch jsonc-parser && yarn
+        run: yarn remove node-fetch jsonc-parser
+      - name: 📦 Reinstall packages
+        run: rm -rf node_modules && yarn
 
       - name: 🧪 Test project
         uses: coactions/setup-xvfb@v1
@@ -68,7 +70,7 @@ jobs:
         env:
           # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
           # See: https://github.com/microsoft/vscode/issues/152938
-          VSCODE_VERSION: 1.77.3
+          VSCODE_VERSION: stable
 
   vscode:
     runs-on: ${{ matrix.os }}-latest
@@ -78,7 +80,7 @@ jobs:
         os: [ubuntu, macos, windows]
         # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
         # See: https://github.com/microsoft/vscode/issues/152938
-        vscode: [oldest, 1.77.3]
+        vscode: [oldest, stable]
         # Instead of failing the whole workflow, we keep testing on stable to see when it's fixed
         experimental: [false]
         include:
