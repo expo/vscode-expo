@@ -55,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "@vscode/extension-telemetry": "^0.7.7",
-    "@vscode/test-electron": "^2.3.2",
+    "@vscode/test-electron": "^2.3.4",
     "@vscode/vsce": "^2.20.1",
     "arg": "^5.0.2",
     "conventional-changelog-conventionalcommits": "^7.0.1",
