@@ -45,7 +45,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sucrase/webpack-loader": "^2.0.0",
-    "@tsconfig/node16": "^1.0.3",
+    "@tsconfig/node16": "^16.1.1",
     "@types/debug": "^4.1.7",
     "@types/jest": "^26.0.23",
     "@types/minimatch": "^3.0.5",
