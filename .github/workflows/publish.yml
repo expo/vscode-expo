@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: npx vsce package --npm
+        run: npx vsce package --no-dependencies
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 
@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🚀 Publish to marketplace
-        run: npx vsce publish --npm
+        run: npx vsce publish --no-dependencies
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
@@ -52,11 +52,11 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: npx vsce package --npm --out ./vscode-expo.vsix
+        run: npx vsce package --no-dependencies --out ./vscode-expo.vsix
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 
       - name: 🚀 Publish to open-vsx
-        run: npx ovsx publish ./vscode-expo.vsix
+        run: npx ovsx publish --no-dependencies ./vscode-expo.vsix
         env:
           OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}

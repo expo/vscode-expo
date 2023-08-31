@@ -4,12 +4,7 @@ import { getPrebuildConfigAsync } from '@expo/prebuild-config';
 import * as vscode from 'vscode';
 
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
-
-export enum ExpoConfigType {
-  PREBUILD = 'prebuild',
-  INTROSPECT = 'introspect',
-  PUBLIC = 'public',
-}
+import { ExpoConfigType } from './constants';
 
 export class ExpoConfigCodeProvider extends CodeProvider {
   readonly defaultLanguage: CodeProviderLanguage = 'json';
