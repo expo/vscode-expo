@@ -1,9 +1,9 @@
-import { compileModsAsync, ModPlatform } from '@expo/config-plugins';
-import { getPrebuildConfigAsync } from '@expo/prebuild-config';
 import assert from 'assert';
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
+import { type ModPlatform, compileModsAsync } from '../packages/config-plugins';
+import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 
 class IntrospectCodeProvider extends CodeProvider {
   getModName(): string {

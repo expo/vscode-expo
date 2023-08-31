@@ -1,10 +1,10 @@
-import {
-  resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
-} from '@expo/config-plugins/build/utils/plugin-resolver';
 import { findNodeAtLocation, getNodeValue, Node, Range } from 'jsonc-parser';
 
 import { ExpoProject } from './project';
+import {
+  resolveConfigPluginFunction,
+  resolveConfigPluginFunctionWithInfo,
+} from '../packages/config-plugins';
 import { truthy } from '../utils/array';
 import { resetModuleFrom } from '../utils/module';
 

@@ -1,10 +1,9 @@
-import { propertiesListToString as formatAndroidProperties } from '@expo/config-plugins/build/android/Properties';
-import { format as formatXml } from '@expo/config-plugins/build/utils/XML';
-import plist from '@expo/plist';
-import * as path from 'path';
-import * as vscode from 'vscode';
+import path from 'path';
+import vscode from 'vscode';
 
 import { getProjectRoot } from '../expo/project';
+import { formatGradleProperties, formatXml } from '../packages/config-plugins';
+import { formatPlist } from '../packages/plist';
 import { debug } from '../utils/debug';
 import { resetModulesFrom } from '../utils/module';
 
@@ -118,9 +117,9 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
         return formatXml(results);
       case 'plist':
       case 'entitlements':
-        return plist.build(results);
+        return formatPlist(results);
       case 'properties':
-        return formatAndroidProperties(results);
+        return formatGradleProperties(results);
       default:
         throw new Error('Unknown language: ' + language);
     }
