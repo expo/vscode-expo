@@ -25,7 +25,7 @@
     {
       "label": "install-fixtures",
       "type": "shell",
-      "command": "yarn install --frozen-lockfile --cwd ${workspaceFolder}/test/fixture",
+      "command": "npm install --cwd ${workspaceFolder}/test/fixture",
       "presentation": {
         "reveal": "never"
       }
@@ -53,7 +53,7 @@
     {
       "label": "build-extension",
       "type": "shell",
-      "command": "yarn vsce package",
+      "command": "npx vsce package",
       "group": "build"
     },
     {

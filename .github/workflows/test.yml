@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: ✅ Lint project
-        run: yarn lint --max-warnings 0
+        run: npm run lint -- --max-warnings 0
 
   scripts:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: ✅ Test scripts
-        run: yarn test:scripts
+        run: npm run test:scripts
 
   bundled:
     # This extension is bundled before publishing to the stores,
@@ -51,10 +51,10 @@ jobs:
           with-fixture: true
 
       - name: 👷 Build tests
-        run: yarn build
+        run: npm run build
 
       - name: 📦 Bundle extension
-        run: yarn build:production
+        run: npm run build:production
 
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
@@ -62,7 +62,7 @@ jobs:
         run: rm -rf node_modules/sucrase
 
       - name: 🧪 Test project
-        run: xvfb-run -a yarn test:vscode
+        run: xvfb-run -a npm run test:vscode
         env:
           VSCODE_VERSION: stable
 
@@ -83,7 +83,7 @@ jobs:
           with-fixture: true
 
       - name: 👷 Build project
-        run: yarn build
+        run: npm run build
 
       # This handles the "oldest" vscode version by looking up our "oldest supported version"
       - name: 🕵️ Set vscode version
@@ -99,8 +99,8 @@ jobs:
 
       - name: 🧪 Test project (Linux)
         if: ${{ runner.os == 'Linux' }}
-        run: xvfb-run -a yarn test:vscode
+        run: xvfb-run -a npm run test:vscode
 
       - name: 🧪 Test project (MacOS/Windows)
         if: ${{ runner.os != 'Linux' }}
-        run: yarn test:vscode
+        run: npm run test:vscode

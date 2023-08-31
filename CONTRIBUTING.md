@@ -5,8 +5,8 @@
 1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device. (`git remote add upstream git@github.com:expo/vscode-expo.git` 😉)
 2. Make sure you have the following packages globally installed on your system:
    - [node](https://nodejs.org/) (active Node LTS or higher is recommended)
-   - [yarn](https://yarnpkg.com/)
-3. Install the Node packages (`yarn install`)
+   - [npm](https://npmjs.com/)
+3. Install the Node packages (`npm install`)
 
 ## 🚗 Start the plugin in development mode
 
@@ -47,9 +47,9 @@ refactor: update loading icon
 
 To help keep CI green, please make sure of the following:
 
-- Run `yarn lint --fix` to fix the formatting of the code. Ensure that `yarn lint` succeeds without errors or warnings.
-- Run `yarn build` to ensure the build runs correctly and without errors or warnings.
-- Run `yarn build:production` to ensure the build runs correctly and without errors or warnings, in production mode.
+- Run `npm run lint -- --fix` to fix the formatting of the code. Ensure that `npm run lint` succeeds without errors or warnings.
+- Run `npm run build` to ensure the build runs correctly and without errors or warnings.
+- Run `npm run build:production` to ensure the build runs correctly and without errors or warnings, in production mode.
 
 ## 🚀 Releasing a new version
 
