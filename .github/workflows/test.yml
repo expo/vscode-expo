@@ -66,7 +66,7 @@ jobs:
       - name: 🧪 Test project
         run: xvfb-run -a npm run test:vscode
         env:
-          DISPLAY: :0
+          DBUS_SESSION_BUS_ADDRESS: null
           VSCODE_VERSION: stable
 
   vscode:
@@ -104,7 +104,7 @@ jobs:
         if: ${{ runner.os == 'Linux' }}
         run: xvfb-run -a npm run test:vscode
         env:
-          DISPLAY: :0
+          DBUS_SESSION_BUS_ADDRESS: null
 
       - name: 🧪 Test project (MacOS/Windows)
         if: ${{ runner.os != 'Linux' }}
