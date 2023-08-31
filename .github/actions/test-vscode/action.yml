@@ -1,0 +1,25 @@
+name: Test VS Code
+description: Run the integration tests within VS Code
+
+inputs:
+  command:
+    description: The test command to execute with xvfb-run
+    required: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: 🧪 Test on Linux
+      if: ${{ runner.os == 'Linux' }}
+      run: xvfb-run -a ${{ inputs.command }}
+      shell: bash
+      env:
+        # Unset wrong Electron setting,
+        # see: https://github.com/microsoft/vscode-test/issues/127
+        DBUS_SESSION_BUS_ADDRESS: null
+
+    - name: 🧪 Test on MacOS/Windows
+      if: ${{ runner.os != 'Linux' }}
+      run: ${{ inputs.command }}
+      shell: bash

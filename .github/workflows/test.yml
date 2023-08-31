@@ -33,7 +33,7 @@ jobs:
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
 
-      - name: ✅ Test scripts
+      - name: 🧪 Test scripts
         run: npm run test:scripts
 
   bundled:
@@ -64,7 +64,9 @@ jobs:
           npm install --no-package-lock --ignore-scripts
 
       - name: 🧪 Test project
-        run: xvfb-run -a npm run test:vscode
+        uses: ./.github/actions/test-vscode
+        with:
+          command: npm run test:vscode
         env:
           VSCODE_VERSION: stable
 
@@ -99,10 +101,7 @@ jobs:
                 : vscode
             core.exportVariable('VSCODE_VERSION', target)
 
-      - name: 🧪 Test project (Linux)
-        if: ${{ runner.os == 'Linux' }}
-        run: xvfb-run -a npm run test:vscode
-
-      - name: 🧪 Test project (MacOS/Windows)
-        if: ${{ runner.os != 'Linux' }}
-        run: npm run test:vscode
+      - name: 🧪 Test project
+        uses: ./.github/actions/test-vscode
+        with:
+          command: npm run test:vscode
