@@ -29,9 +29,13 @@ export async function activate(context: vscode.ExtensionContext) {
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);
   } catch (error) {
-    reporter?.sendTelemetryException(error);
     vscode.window.showErrorMessage(
       `Oops, looks like we can't fully activate Expo Tools: ${error.message}`
     );
+
+    reporter?.sendTelemetryErrorEvent(TelemetryEvent.ACTIVATED, {
+      message: error.message,
+      stack: error.stack,
+    });
   }
 }

@@ -41,28 +41,11 @@ export function setupTelemetry(context: ExtensionContext) {
   return reporter;
 }
 
-/**
- * Wrap a block inside an error telemetry reporter.
- * This will re-throw the error after reporting it.
- */
-export async function withErrorTelemetry<T>(
-  action: () => T | Promise<T>,
-  properties?: TelemetryEventProperties,
-  measurements?: TelemetryEventMeasurements
-): Promise<T> {
-  try {
-    return await action();
-  } catch (error) {
-    reporter?.sendTelemetryException(error, properties, measurements);
-    throw error;
-  }
-}
-
 export function featureTelemetry(
   feature: 'command' | 'debugger',
   command: string,
   properties?: TelemetryEventProperties,
   measurements?: TelemetryEventMeasurements
 ) {
-  return reporter?.sendTelemetryEvent(`${feature}/${command}`, properties);
+  return reporter?.sendTelemetryEvent(`${feature}/${command}`, properties, measurements);
 }
