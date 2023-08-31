@@ -71,7 +71,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos, windows]
+        os: [ubuntu, macos] # Windows is temporarily disabled due to issues on CI with previewing
         vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
@@ -81,7 +81,6 @@ jobs:
         uses: ./.github/actions/setup-project
         with:
           with-fixture: true
-          without-cache: ${{ matrix.os == 'windows' }}
 
       - name: 👷 Build project
         run: yarn build
