@@ -14,9 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 
-# test fixtures
-!/test/fixture/yarn.lock
-
 # editors
 .idea
 
