@@ -1,4 +1,5 @@
-import { AndroidConfig, XML } from '@expo/config-plugins';
+import { propertiesListToString as formatAndroidProperties } from '@expo/config-plugins/build/android/Properties';
+import { format as formatXml } from '@expo/config-plugins/build/utils/XML';
 import plist from '@expo/plist';
 import * as path from 'path';
 import * as vscode from 'vscode';
@@ -114,12 +115,12 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
       case 'json':
         return JSON.stringify(results, null, 2);
       case 'xml':
-        return XML.format(results);
+        return formatXml(results);
       case 'plist':
       case 'entitlements':
         return plist.build(results);
       case 'properties':
-        return AndroidConfig.Properties.propertiesListToString(results);
+        return formatAndroidProperties(results);
       default:
         throw new Error('Unknown language: ' + language);
     }
