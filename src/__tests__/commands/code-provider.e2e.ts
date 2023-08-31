@@ -1,7 +1,7 @@
 import * as json from 'jsonc-parser';
 import { commands, TextEditor, window } from 'vscode';
 
-import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
+import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
 import {
   closeAllEditors,
   getWorkspaceUri,
