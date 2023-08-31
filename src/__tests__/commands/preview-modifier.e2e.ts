@@ -1,6 +1,6 @@
 import { commands, window } from 'vscode';
 
-import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
+import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
 import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoFilePrebuild, () => {

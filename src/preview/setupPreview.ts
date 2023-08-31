@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 
 import { CodeProvider } from './CodeProvider';
 import {
-  ExpoConfigType,
   IntrospectExpoConfigCodeProvider,
   PrebuildExpoConfigCodeProvider,
   PublicExpoConfigCodeProvider,
@@ -19,26 +18,8 @@ import {
   InfoPlistCodeProvider,
   PodfilePropertiesCodeProvider,
 } from './IntrospectCodeProvider';
+import { ExpoConfigType, PreviewCommand, PreviewModProvider } from './constants';
 import { reporter, TelemetryEvent } from '../utils/telemetry';
-
-export enum PreviewCommand {
-  OpenExpoFilePrebuild = 'expo.config.prebuild.preview',
-  OpenExpoFileJsonPrebuild = 'expo.config.prebuild.preview.json',
-  OpenExpoConfigPrebuild = 'expo.config.preview',
-}
-
-export enum PreviewModProvider {
-  iosInfoPlist = 'ios.infoPlist',
-  iosEntitlements = 'ios.entitlements',
-  iosExpoPlist = 'ios.expoPlist',
-  iosPodfileProperties = 'ios.podfileProperties',
-  androidManifest = 'android.manifest',
-  androidStrings = 'android.strings',
-  androidColors = 'android.colors',
-  androidColorsNight = 'android.colorsNight',
-  androidStyles = 'android.styles',
-  androidGradleProperties = 'android.gradleProperties',
-}
 
 export const ModProviders: Record<string, typeof CodeProvider> = {
   [PreviewModProvider.iosInfoPlist]: InfoPlistCodeProvider,

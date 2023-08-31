@@ -1,7 +1,6 @@
 import { commands, window } from 'vscode';
 
-import { ExpoConfigType } from '../../preview/ExpoConfigCodeProvider';
-import { PreviewCommand } from '../../preview/setupPreview';
+import { ExpoConfigType, PreviewCommand } from '../../preview/constants';
 import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
