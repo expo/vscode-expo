@@ -57,7 +57,7 @@ jobs:
         run: npm run build:production
 
       # When bundled, these dependencies aren't available in normal environments.
-      # This kind-of fakes such environments, while keeping the required dev packages.
+      # This drops all "dependencies" from the project, to only rely on the bundle itself.
       - name: 🧹 Remove bundled dependencies
         run: |
           echo "$(jq 'del(.dependencies)' package.json)" > package.json
