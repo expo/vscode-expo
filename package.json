@@ -75,7 +75,6 @@
     "mocha-chai-jest-snapshot": "^1.1.4",
     "node-fetch": "^2.6.7",
     "ovsx": "^0.8.3",
-    "parent-module": "^2.0.0",
     "patch-package": "^6.4.7",
     "prettier": "^3.0.3",
     "raw-loader": "^4.0.2",
