@@ -66,6 +66,7 @@ jobs:
       - name: 🧪 Test project
         run: xvfb-run -a npm run test:vscode
         env:
+          DISPLAY: :0
           VSCODE_VERSION: stable
 
   vscode:
@@ -102,6 +103,8 @@ jobs:
       - name: 🧪 Test project (Linux)
         if: ${{ runner.os == 'Linux' }}
         run: xvfb-run -a npm run test:vscode
+        env:
+          DISPLAY: :0
 
       - name: 🧪 Test project (MacOS/Windows)
         if: ${{ runner.os != 'Linux' }}
