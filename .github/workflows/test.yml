@@ -58,33 +58,21 @@ jobs:
 
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
-      - name: 🧹 Remove Sucrase
-        run: yarn remove sucrase
+      - name: 🧹 Remove bundled dependencies
+        run: rm -rf node_modules/sucrase
 
       - name: 🧪 Test project
-        uses: coactions/setup-xvfb@v1
-        with:
-          run: yarn test:vscode
+        run: xvfb-run -a yarn test:vscode
         env:
-          # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
-          # See: https://github.com/microsoft/vscode/issues/152938
-          VSCODE_VERSION: 1.77.3
+          VSCODE_VERSION: stable
 
   vscode:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos, windows]
-        # There is a testing issue in the latest vscode, instead of stable, we pin to the latest working version
-        # See: https://github.com/microsoft/vscode/issues/152938
-        vscode: [oldest, 1.77.3]
-        # Instead of failing the whole workflow, we keep testing on stable to see when it's fixed
-        experimental: [false]
-        include:
-          - os: ubuntu
-            vscode: stable
-            experimental: true
+        os: [ubuntu, macos] # Windows is temporarily disabled due to issues on CI with previewing
+        vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v3
@@ -93,7 +81,6 @@ jobs:
         uses: ./.github/actions/setup-project
         with:
           with-fixture: true
-          without-cache: ${{ matrix.os == 'windows' }}
 
       - name: 👷 Build project
         run: yarn build
@@ -110,8 +97,10 @@ jobs:
                 : vscode
             core.exportVariable('VSCODE_VERSION', target)
 
-      - name: 🧪 Test project
-        uses: coactions/setup-xvfb@v1
-        continue-on-error: ${{ matrix.experimental }}
-        with:
-          run: yarn test:vscode
+      - name: 🧪 Test project (Linux)
+        if: ${{ runner.os == 'Linux' }}
+        run: xvfb-run -a yarn test:vscode
+
+      - name: 🧪 Test project (MacOS/Windows)
+        if: ${{ runner.os != 'Linux' }}
+        run: yarn test:vscode

@@ -49,7 +49,7 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
         "--disable-extensions"
       ],
       "env": {
@@ -69,7 +69,7 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
         "--disable-extensions"
       ],
       "env": {
@@ -90,7 +90,7 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
         "--disable-extensions"
       ],
       "env": {
@@ -110,7 +110,7 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
         "--disable-extensions"
       ],
       "env": {
@@ -129,13 +129,13 @@
       "args": [
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/jest/runner",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
         "--disable-extensions"
       ],
       "env": {
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
-        "JEST_UPDATE_SNAPSHOTS": "true"
+        "mocha_UPDATE_SNAPSHOTS": "true"
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"

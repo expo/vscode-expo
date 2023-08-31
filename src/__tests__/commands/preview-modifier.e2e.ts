@@ -21,7 +21,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -34,7 +34,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('colors.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -47,7 +47,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('gradle.properties');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -60,7 +60,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -73,7 +73,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('strings.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -86,7 +86,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('styles.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -99,7 +99,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Example.entitlements');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -112,7 +112,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Expo.plist');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -125,7 +125,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Info.plist');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -138,7 +138,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     const preview = await waitForEditorOpen('Podfile.properties.json');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 });
@@ -158,7 +158,7 @@ describe('dynamic configs', () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -172,7 +172,7 @@ describe('dynamic configs', () => {
     const preview = await waitForEditorOpen('Info.plist');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 
@@ -186,7 +186,7 @@ describe('dynamic configs', () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml');
     const content = preview?.document.getText();
 
-    expect(content).toBeDefined();
+    expect(content).to.exist;
     expect(content).toMatchSnapshot();
   });
 });

@@ -1,0 +1,4 @@
+{
+  // Turn off the parent workspace prompt
+  "git.openRepositoryInParentFolders": "never"
+}

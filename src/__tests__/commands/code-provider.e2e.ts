@@ -1,7 +1,6 @@
 import * as json from 'jsonc-parser';
 import { commands, TextEditor, window } from 'vscode';
 
-import { CodeProvider } from '../../preview/CodeProvider';
 import { PreviewCommand, PreviewModProvider } from '../../preview/setupPreview';
 import {
   closeAllEditors,
@@ -12,16 +11,16 @@ import {
 } from '../utils/vscode';
 import { waitForFalse, waitForTrue } from '../utils/wait';
 
-describe(CodeProvider, () => {
+describe('CodeProvider', () => {
   let app: TextEditor;
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
-  beforeAll(async () => {
+  before(async () => {
     app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
     restoreContent = storeOriginalContent(app);
   });
 
-  afterAll(async () => {
+  after(async () => {
     await restoreContent();
     await closeAllEditors();
   });
@@ -47,7 +46,7 @@ describe(CodeProvider, () => {
       preview?.document.getText().includes('android.permission.CAMERA')
     );
 
-    expect(includesChange).toBe(true);
+    expect(includesChange).to.equal(true);
 
     const removal = json.modify(
       app.document.getText(),
@@ -63,6 +62,6 @@ describe(CodeProvider, () => {
       preview?.document.getText().includes('android.permission.CAMERA')
     );
 
-    expect(excludesChange).toBe(true);
+    expect(excludesChange).to.equal(true);
   });
 });

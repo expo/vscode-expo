@@ -1,9 +1,8 @@
 import { commands, CompletionList, TextEditor, window } from 'vscode';
 
-import { ManifestAssetCompletionsProvider } from '../manifestAssetCompletions';
 import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
 
-describe(ManifestAssetCompletionsProvider, () => {
+describe('ManifestAssetCompletionsProvider', () => {
   let app: TextEditor;
 
   beforeEach(async () => {
@@ -25,13 +24,8 @@ describe(ManifestAssetCompletionsProvider, () => {
     );
 
     // Make sure only these two folders are suggested, it might trigger false positives
-    expect(suggestions.items).toHaveLength(2);
-    expect(suggestions.items).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ label: 'assets/' }),
-        expect.objectContaining({ label: 'plugins/' }),
-      ])
-    );
+    expect(suggestions.items).to.have.length(2);
+    expect(suggestions.items).to.containSubset([{ label: 'assets/' }, { label: 'plugins/' }]);
   });
 
   it('suggests image asset files from project', async () => {
@@ -45,15 +39,13 @@ describe(ManifestAssetCompletionsProvider, () => {
     );
 
     // Make sure only these files are suggested, it might trigger false positives
-    expect(suggestions.items).toHaveLength(4);
-    expect(suggestions.items).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ label: 'adaptive-icon.png' }),
-        expect.objectContaining({ label: 'favicon.png' }),
-        expect.objectContaining({ label: 'icon.png' }),
-        expect.objectContaining({ label: 'splash.png' }),
-      ])
-    );
+    expect(suggestions.items).to.have.length(4);
+    expect(suggestions.items).to.containSubset([
+      { label: 'adaptive-icon.png' },
+      { label: 'favicon.png' },
+      { label: 'icon.png' },
+      { label: 'splash.png' },
+    ]);
   });
 
   it('does not suggest for non-asset key properties', async () => {
@@ -66,8 +58,6 @@ describe(ManifestAssetCompletionsProvider, () => {
       range.start
     );
 
-    expect(suggestions.items).not.toEqual(
-      expect.arrayContaining([expect.objectContaining({ label: 'assets/' })])
-    );
+    expect(suggestions.items).to.not.include.deep.property('label', 'assets/');
   });
 });

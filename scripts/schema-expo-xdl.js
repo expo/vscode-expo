@@ -10,8 +10,8 @@ const { major } = require('semver');
 const SCHEMA_PREFIX = 'expo-xdl';
 const SCHEMA_DIR = path.resolve(__dirname, '../schema');
 
-// Execute when not running in Jest
-if (!process.env.JEST_WORKER_ID) {
+// Execute when running in CI
+if (process.env.CI) {
   generate(
     arg({
       '--sdk-version': Number,
