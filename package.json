@@ -39,9 +39,9 @@
     "install:fixture": "cd ./test/fixture; npm install"
   },
   "devDependencies": {
-    "@expo/config-plugins": "^4.1.5",
+    "@expo/config-plugins": "^7.2.5",
     "@expo/json-file": "^8.2.36",
-    "@expo/prebuild-config": "^4.0.3",
+    "@expo/prebuild-config": "^6.2.6",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@sucrase/webpack-loader": "^2.0.0",
