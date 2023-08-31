@@ -37,7 +37,10 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
 
   readonly defaultLanguage: CodeProviderLanguage = 'json';
 
-  constructor(public _document: vscode.TextDocument, public options: CodeProviderOptions) {
+  constructor(
+    public _document: vscode.TextDocument,
+    public options: CodeProviderOptions
+  ) {
     this.scheme = `expo-config-${this.options.type}`;
     this.projectRoot = getProjectRoot(this._document.fileName) ?? this._document.fileName;
     if (this.projectRoot === this._document.fileName) {

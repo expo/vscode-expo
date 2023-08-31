@@ -42,8 +42,8 @@ describe('CodeProvider', () => {
     await replaceEditorContent(app, json.applyEdits(app.document.getText(), addition));
     await app.document.save();
 
-    const includesChange = await waitForTrue(() =>
-      preview?.document.getText().includes('android.permission.CAMERA')
+    const includesChange = await waitForTrue(
+      () => preview?.document.getText().includes('android.permission.CAMERA')
     );
 
     expect(includesChange).to.equal(true);
@@ -58,8 +58,8 @@ describe('CodeProvider', () => {
     await replaceEditorContent(app, json.applyEdits(app.document.getText(), removal));
     await app.document.save();
 
-    const excludesChange = await waitForFalse(() =>
-      preview?.document.getText().includes('android.permission.CAMERA')
+    const excludesChange = await waitForFalse(
+      () => preview?.document.getText().includes('android.permission.CAMERA')
     );
 
     expect(excludesChange).to.equal(true);
