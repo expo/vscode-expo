@@ -47,7 +47,7 @@ refactor: update loading icon
 
 To help keep CI green, please make sure of the following:
 
-- Run `npm run lint --fix` to fix the formatting of the code. Ensure that `npm run lint` succeeds without errors or warnings.
+- Run `npm run lint -- --fix` to fix the formatting of the code. Ensure that `npm run lint` succeeds without errors or warnings.
 - Run `npm run build` to ensure the build runs correctly and without errors or warnings.
 - Run `npm run build:production` to ensure the build runs correctly and without errors or warnings, in production mode.
 

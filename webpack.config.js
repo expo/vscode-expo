@@ -21,7 +21,7 @@ module.exports = {
   externals: [
     { vscode: 'commonjs vscode' },
     // Dirty workaround to prevent modules being bundled,
-    // run `npm run webpack --mode development --stats-error-details` to update.
+    // run `npm run webpack -- --mode development --stats-error-details` to update.
     '@babel/helper-regex',
     '@expo/dev-server',
     'babel-preset-expo',

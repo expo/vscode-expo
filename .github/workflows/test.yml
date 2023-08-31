@@ -22,7 +22,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: ✅ Lint project
-        run: npm run lint --max-warnings 0
+        run: npm run lint -- --max-warnings 0
 
   scripts:
     runs-on: ubuntu-latest
