@@ -59,7 +59,9 @@ jobs:
       # When bundled, these dependencies aren't available in normal environments.
       # This kind-of fakes such environments, while keeping the required dev packages.
       - name: 🧹 Remove bundled dependencies
-        run: rm -rf node_modules/sucrase
+        run: |
+          echo "$(jq 'del(.dependencies)' package.json)" > package.json
+          npm install --no-package-lock --ignore-scripts
 
       - name: 🧪 Test project
         run: xvfb-run -a npm run test:vscode
