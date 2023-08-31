@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: yarn vsce package --yarn
+        run: npx vsce package --npm
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 
@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🚀 Publish to marketplace
-        run: yarn vsce publish --yarn
+        run: npx vsce publish --npm
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
@@ -52,7 +52,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: yarn vsce package --yarn --out ./vscode-expo.vsix
+        run: npx vsce package --npm --out ./vscode-expo.vsix
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 

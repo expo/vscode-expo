@@ -28,7 +28,7 @@
   "main": "./out/src/extension.js",
   "scripts": {
     "postinstall": "patch-package",
-    "vscode:prepublish": "yarn clean && yarn build:production",
+    "vscode:prepublish": "npm run clean && npm run build:production",
     "start": "tsc -watch -p ./",
     "build": "tsc -p ./",
     "build:production": "webpack --mode production",
@@ -36,7 +36,7 @@
     "test:vscode": "node ./out/test/mocha/vscode.js",
     "test:scripts": "node ./scripts/mocha.js",
     "lint": "eslint .",
-    "install:fixture": "yarn install --cwd ./test/fixture"
+    "install:fixture": "cd ./test/fixture; npm install"
   },
   "devDependencies": {
     "@expo/config-plugins": "^4.1.5",
