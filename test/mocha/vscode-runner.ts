@@ -41,9 +41,14 @@ export async function run() {
     ignore: 'node_modules/**',
   });
 
+  // Check for test pattern
+  const testPattern = process.env.VSCODE_EXPO_TEST_PATTERN;
+
   // Add all tests
   for (const file of files) {
-    tests.addFile(file);
+    if (!testPattern || file.includes(testPattern)) {
+      tests.addFile(file);
+    }
   }
 
   // Execute the tests
