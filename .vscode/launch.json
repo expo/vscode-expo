@@ -135,7 +135,7 @@
       "env": {
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
-        "mocha_UPDATE_SNAPSHOTS": "true"
+        "UPDATE_SNAPSHOT": "true"
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
