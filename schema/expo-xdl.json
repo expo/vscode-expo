@@ -1,9 +1,7 @@
 {
-  "type": "object",
   "description": "The Expo manifest (app.json) validation and documentation.",
   "version": "49.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": true,
   "definitions": {
     "Android": {
       "description": "Configuration that is specific to the Android platform.",
@@ -1187,10 +1185,8 @@
           "$ref": "#/definitions/RuntimeVersionSDKVersionPolicy"
         }
       ]
-    }
-  },
-  "properties": {
-    "expo": {
+    },
+    "VscodeExpoXdl": {
       "type": "object",
       "properties": {
         "name": {
@@ -1694,7 +1690,26 @@
       "required": [
         "name",
         "slug"
-      ]
+      ],
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v49.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v49.0.0/config/app/)"
     }
-  }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "expo"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "expo": {
+          "$ref": "#/definitions/VscodeExpoXdl"
+        }
+      }
+    },
+    {
+      "$ref": "#/definitions/VscodeExpoXdl"
+    }
+  ]
 }
