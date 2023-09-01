@@ -1,7 +1,17 @@
+/* eslint-disable import/first,import/order */
+
 /**
  * Use a bundled version of the Expo Config package.
  * This is used to retrieve the app manifest from a project.
  *
- * @TODO Try to use the project's `@expo/config` package, since this could change per SDK version.
+ * @note This can get out of date and should be loaded from the project where possible.
  */
-export { getConfig } from '@expo/config/build/Config';
+import { getConfig } from '@expo/config/build/Config';
+
+/**
+ * Use the project's `@expo/config` loader, or fallback to the bundled one.
+ * The bundled one is an older version and will likely have less functionality.
+ */
+export function loadConfig(projectRoot: string): { getConfig: typeof getConfig } {
+  return { getConfig };
+}
