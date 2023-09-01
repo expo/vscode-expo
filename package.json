@@ -34,7 +34,7 @@
     "build:production": "webpack --mode production",
     "clean": "git clean -xdf ./out ./.vscode-test *tsbuildinfo",
     "test:vscode": "node ./out/test/mocha/vscode.js",
-    "test:scripts": "node ./scripts/mocha.js",
+    "test:scripts": "node ./scripts/__tests__/utils/mocha-runner.js",
     "lint": "eslint .",
     "install:fixture": "cd ./test/fixture; npm install"
   },

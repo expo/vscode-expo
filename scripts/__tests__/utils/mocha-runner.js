@@ -1,12 +1,13 @@
 const chai = require('chai');
 const { glob } = require('glob');
 const Mocha = require('mocha');
+const path = require('path');
 
 async function run() {
   // Find all test files
   const files = await glob('**/__tests__/**/*.{e2e,test}.{js,ts}', {
     absolute: true,
-    cwd: __dirname,
+    cwd: path.resolve(__dirname, '../..'),
     ignore: 'node_modules/**',
   });
 

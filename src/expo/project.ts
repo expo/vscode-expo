@@ -137,7 +137,8 @@ export class ExpoProject {
       return this.manifestFile;
     }
 
-    const file = parseJsonFile(content, ['expo']);
+    // Allow `expo.*` properties, or `*` as root properties
+    const file = parseJsonFile(content, ['expo']) ?? parseJsonFile(content);
     if (file) {
       this.manifestFile = file;
     }
