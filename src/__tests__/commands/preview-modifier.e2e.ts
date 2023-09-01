@@ -1,6 +1,7 @@
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
+import { sanitizeSnapshotValues } from '../utils/snapshot';
 import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoFilePrebuild, () => {
@@ -19,7 +20,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -32,7 +33,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -45,7 +46,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('gradle.properties');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -58,7 +59,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -71,7 +72,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('strings.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -84,7 +85,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('styles.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -97,7 +98,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Example.entitlements');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -110,7 +111,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Expo.plist');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -123,7 +124,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -136,7 +137,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Podfile.properties.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -156,7 +157,7 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -170,7 +171,7 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -184,7 +185,7 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
