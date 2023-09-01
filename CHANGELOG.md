@@ -1,3 +1,37 @@
+## [1.1.0](https://github.com/expo/vscode-expo/compare/1.0.7...1.1.0) (2023-09-01)
+
+
+### New features
+
+* allow `expo.*` properties as root properties without `expo` definition ([#217](https://github.com/expo/vscode-expo/issues/217)) ([c71ccbc](https://github.com/expo/vscode-expo/commit/c71ccbce468b8139767e7caf687333d3b615fb14))
+
+
+### Bug fixes
+
+* downgrade conventional commit preset for semantic release ([d392f89](https://github.com/expo/vscode-expo/commit/d392f8981b3d5edcc9721f85e3354ce206ccf6af))
+* replace yarn with npm due to issues with `@isaacs/cliui` ([#209](https://github.com/expo/vscode-expo/issues/209)) ([f046f1d](https://github.com/expo/vscode-expo/commit/f046f1d10ea25d7c3d8bdf5267d114b958778179))
+
+
+### Code changes
+
+* bump minimum vscode version to `1.78.2` ([#211](https://github.com/expo/vscode-expo/issues/211)) ([602946c](https://github.com/expo/vscode-expo/commit/602946c774f9b2abac604fbc311850bd46fee790))
+* consolidate the testing fixtures ([#218](https://github.com/expo/vscode-expo/issues/218)) ([fe00632](https://github.com/expo/vscode-expo/commit/fe00632b43bfe08386e4ff8debe82f58c67c917c))
+* use mocha instead of jest to avoid crashes and other issues ([#208](https://github.com/expo/vscode-expo/issues/208)) ([92352ac](https://github.com/expo/vscode-expo/commit/92352ac29a5cc2fdb43c4a3c8ed41a934167a8cb))
+* use proper `dependencies` instead of `devDependencies` only ([#214](https://github.com/expo/vscode-expo/issues/214)) ([d0f60eb](https://github.com/expo/vscode-expo/commit/d0f60ebfc14980184cdbc5a46697bfd87c2ffc02))
+
+
+### Other chores
+
+* add missing `permissions` to github workflow when dry-running release ([#205](https://github.com/expo/vscode-expo/issues/205)) ([7a78a92](https://github.com/expo/vscode-expo/commit/7a78a927b008cf9c45069651e856facd36088e07))
+* add prerelease support in publish workflow ([6f8240e](https://github.com/expo/vscode-expo/commit/6f8240efad150fbd1b5594d5cef1f0aa4737744c))
+* allow dry-run to test push verification in release workflow ([a9b6c92](https://github.com/expo/vscode-expo/commit/a9b6c92ad9f3781ae01cebc7621a84f6bf3c4aec))
+* clean up log-clutter in test output ([#215](https://github.com/expo/vscode-expo/issues/215)) ([9f03f24](https://github.com/expo/vscode-expo/commit/9f03f24fbb0b36d6016484dd5d41132b15fd7ca2))
+* clean up typo in `.gitignore` ([3bb248d](https://github.com/expo/vscode-expo/commit/3bb248d0bec51157320dbb03591c376960b8c098))
+* clean up yarn-specific workarounds ([36093a0](https://github.com/expo/vscode-expo/commit/36093a083f16c2175f6e24b3bbd0a9a4d9e37875))
+* emphasize the creation of a release instead of publish ([0eed055](https://github.com/expo/vscode-expo/commit/0eed055c3872ca90dbe5e3076f15b3fcf1d586f5))
+* upgrade tooling to latest versions ([#212](https://github.com/expo/vscode-expo/issues/212)) ([0324b10](https://github.com/expo/vscode-expo/commit/0324b1099087626a42c0d92b1b1546959c867784))
+* use authenticated Expo bot user for schema updates ([c91af9c](https://github.com/expo/vscode-expo/commit/c91af9cbf535ce7a8d87925da8747a4c4f756471))
+
 ## [1.0.7](https://github.com/expo/vscode-expo/compare/1.0.6...1.0.7) (2023-07-24)
 
 
