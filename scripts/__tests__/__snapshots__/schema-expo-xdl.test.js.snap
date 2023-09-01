@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`vscodeSchema creates expected SDK 39 schema 1`] = `
+exports[`createVscodeSchema creates expected SDK 39 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
@@ -1806,7 +1806,7 @@ The runtime version associated with this manifest for bare workflow projects. If
 }
 `;
 
-exports[`vscodeSchema creates expected SDK 41 schema 1`] = `
+exports[`createVscodeSchema creates expected SDK 41 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
@@ -3580,7 +3580,7 @@ The runtime version associated with this manifest for bare workflow projects. If
 }
 `;
 
-exports[`vscodeSchema creates expected SDK 45 schema 1`] = `
+exports[`createVscodeSchema creates expected SDK 45 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": true,
