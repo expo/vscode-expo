@@ -16,7 +16,7 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
@@ -54,7 +54,7 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
@@ -77,7 +77,9 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
 `;
 
 exports[`dynamic configs runs ios.infoPlist for app.config.js 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+"<
+xml version=\\"1.0\\" encoding=\\"UTF-8\\"
+>
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
@@ -98,7 +100,11 @@ exports[`dynamic configs runs ios.infoPlist for app.config.js 1`] = `
     <key>CFBundleShortVersionString</key>
     <string>1.0.0</string>
     <key>CFBundleSignature</key>
-    <string>????</string>
+    <string>
+
+
+
+</string>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
@@ -188,7 +194,7 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
@@ -232,7 +238,9 @@ exports[`expo.config.prebuild.preview runs for android.styles 1`] = `
 `;
 
 exports[`expo.config.prebuild.preview runs for ios.entitlements 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+"<
+xml version=\\"1.0\\" encoding=\\"UTF-8\\"
+>
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
@@ -243,7 +251,9 @@ exports[`expo.config.prebuild.preview runs for ios.entitlements 1`] = `
 `;
 
 exports[`expo.config.prebuild.preview runs for ios.expoPlist 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+"<
+xml version=\\"1.0\\" encoding=\\"UTF-8\\"
+>
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
@@ -256,13 +266,15 @@ exports[`expo.config.prebuild.preview runs for ios.expoPlist 1`] = `
     <key>EXUpdatesSDKVersion</key>
     <string>49.0.0</string>
     <key>EXUpdatesURL</key>
-    <string>https://exp.host/@bycedric/preview</string>
+    <string>https://exp.host/@anonymous/preview</string>
   </dict>
 </plist>"
 `;
 
 exports[`expo.config.prebuild.preview runs for ios.infoPlist 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+"<
+xml version=\\"1.0\\" encoding=\\"UTF-8\\"
+>
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
@@ -283,7 +295,11 @@ exports[`expo.config.prebuild.preview runs for ios.infoPlist 1`] = `
     <key>CFBundleShortVersionString</key>
     <string>1.0.0</string>
     <key>CFBundleSignature</key>
-    <string>????</string>
+    <string>
+
+
+
+</string>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>

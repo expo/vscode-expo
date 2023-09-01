@@ -1,8 +1,10 @@
-const absoluteProperties = [
+const DISALLOWED_LINES = [
   'projectRoot',
   'dynamicConfigPath',
   'staticConfigPath',
   'packageJsonPath',
+  'currentFullName',
+  'originalFullName',
 ];
 
 /**
@@ -18,9 +20,9 @@ export function sanitizeSnapshotValues(content = '') {
   const lines = content
     .split(/[\n\r?]/)
     // Filter absolute path properties
-    .filter((line) => !absoluteProperties.some((property) => line.includes(property)))
+    .filter((line) => !DISALLOWED_LINES.some((property) => line.includes(property)))
     // Remove account name from other properties
-    .map((line) => line.replace(/(["/])@([^//]+)\//i, '$1@anonymous/'));
+    .map((line) => line.replace(/https:\/\/exp.host\/@([^/]+)\//i, 'https://exp.host/@anonymous/'));
 
   return lines.join('\n');
 }

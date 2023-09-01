@@ -119,7 +119,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
           {
             \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATE_URL\\",
-              \\"android:value\\": \\"https://exp.host/@bycedric/preview\\"
+              \\"android:value\\": \\"https://exp.host/@anonymous/preview\\"
             }
           },
           {
@@ -324,7 +324,7 @@ exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format
   \\"EXUpdatesEnabled\\": true,
   \\"EXUpdatesLaunchWaitMs\\": 0,
   \\"EXUpdatesSDKVersion\\": \\"49.0.0\\",
-  \\"EXUpdatesURL\\": \\"https://exp.host/@bycedric/preview\\"
+  \\"EXUpdatesURL\\": \\"https://exp.host/@anonymous/preview\\"
 }"
 `;
 
@@ -338,7 +338,11 @@ exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format
   \\"CFBundleName\\": \\"$(PRODUCT_NAME)\\",
   \\"CFBundlePackageType\\": \\"$(PRODUCT_BUNDLE_PACKAGE_TYPE)\\",
   \\"CFBundleShortVersionString\\": \\"1.0.0\\",
-  \\"CFBundleSignature\\": \\"????\\",
+  \\"CFBundleSignature\\": \\"
+
+
+
+\\",
   \\"CFBundleURLTypes\\": [
     {
       \\"CFBundleURLSchemes\\": [
