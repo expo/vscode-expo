@@ -5,7 +5,7 @@ import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vs
 
 describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
   });
 
   afterEach(async () => {
@@ -149,7 +149,7 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.json`, async () => {
-    await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
@@ -163,7 +163,7 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.iosInfoPlist} for app.config.js`, async () => {
-    await window.showTextDocument(getWorkspaceUri('config-js-app/app.config.js'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.config.js'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosInfoPlist
@@ -177,7 +177,7 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.config.ts`, async () => {
-    await window.showTextDocument(getWorkspaceUri('config-ts-app/app.config.ts'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.config.ts'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest

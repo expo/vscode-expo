@@ -16,7 +16,7 @@ describe('CodeProvider', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    app = await window.showTextDocument(getWorkspaceUri('preview/app.json'));
     restoreContent = storeOriginalContent(app);
   });
 

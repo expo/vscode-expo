@@ -5,7 +5,7 @@ import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vs
 
 describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
   });
 
   afterEach(async () => {
