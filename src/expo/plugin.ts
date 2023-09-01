@@ -2,8 +2,8 @@ import { findNodeAtLocation, getNodeValue, Node, Range } from 'jsonc-parser';
 
 import { ExpoProject } from './project';
 import {
-  resolveConfigPluginFunction,
-  resolveConfigPluginFunctionWithInfo,
+  loadConfigPluginsInfoResolver,
+  loadConfigPluginsResolver,
 } from '../packages/config-plugins';
 import { truthy } from '../utils/array';
 import { resetModuleFrom } from '../utils/module';
@@ -13,8 +13,15 @@ export type PluginDefiniton = {
   nameRange: Range;
 };
 
-export type PluginInfo = NonNullable<ReturnType<typeof resolveConfigPluginFunctionWithInfo>>;
-export type PluginFunction = ReturnType<typeof resolveConfigPluginFunction>;
+export type PluginInfo = NonNullable<
+  ReturnType<
+    ReturnType<typeof loadConfigPluginsInfoResolver>['resolveConfigPluginFunctionWithInfo']
+  >
+>;
+
+export type PluginFunction = ReturnType<
+  ReturnType<typeof loadConfigPluginsResolver>['resolveConfigPluginFunction']
+>;
 
 /**
  * Get the plugin definition from manifest node.
@@ -42,11 +49,12 @@ export function getPluginDefinition(plugin: Node): PluginDefiniton {
  * This resets previously imported modules to reload this information.
  * When it fails to resolve the config plugin, undefined is returned.
  */
-export function resolvePluginInfo(dir: string, name: string): PluginInfo | undefined {
-  resetModuleFrom(dir, name);
+export function resolvePluginInfo(projectRoot: string, name: string): PluginInfo | undefined {
+  resetModuleFrom(projectRoot, name);
 
   try {
-    return resolveConfigPluginFunctionWithInfo(dir, name);
+    const { resolveConfigPluginFunctionWithInfo } = loadConfigPluginsInfoResolver(projectRoot);
+    return resolveConfigPluginFunctionWithInfo(projectRoot, name);
   } catch {
     return undefined;
   }
@@ -56,8 +64,9 @@ export function resolvePluginInfo(dir: string, name: string): PluginInfo | undef
  * Try to resolve the actual config plugin function.
  * When it fails to resolve the config plugin, an error is thrown.
  */
-export function resolvePluginFunctionUnsafe(dir: string, name: string): PluginFunction {
-  return resolveConfigPluginFunction(dir, name);
+export function resolvePluginFunctionUnsafe(projectRoot: string, name: string): PluginFunction {
+  const { resolveConfigPluginFunction } = loadConfigPluginsResolver(projectRoot);
+  return resolveConfigPluginFunction(projectRoot, name);
 }
 
 /**
