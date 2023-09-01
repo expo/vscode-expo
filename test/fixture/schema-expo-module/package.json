@@ -1,0 +1,23 @@
+{
+  "name": "expo-module",
+  "version": "0.0.0",
+  "description": "This fixture was created for Expo Modules JSON Schema tasks",
+  "main": "build/ExampleModule.js",
+  "types": "build/ExampleModule.d.ts",
+  "keywords": ["react-native", "expo", "module", "ExampleModule"],
+  "repository": "https://github.com/expo/vscode-expo",
+  "bugs": {
+    "url": "https://github.com/expo/vscode-expo/issues"
+  },
+  "author": "bycedric",
+  "license": "MIT",
+  "homepage": "https://github.com/expo/vscode-expo#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "expo-module-scripts": "^2.0.0",
+    "expo-modules-core": "^0.9.0"
+  },
+  "peerDependencies": {
+    "expo": "*"
+  }
+}

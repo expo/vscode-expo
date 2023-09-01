@@ -1,11 +1,12 @@
 import { commands, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
+import { sanitizeSnapshotValues } from '../utils/snapshot';
 import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vscode';
 
 describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
   });
 
   afterEach(async () => {
@@ -19,7 +20,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -32,7 +33,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -45,7 +46,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('gradle.properties.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -58,7 +59,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -71,7 +72,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('strings.xml.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -84,7 +85,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('styles.xml.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -97,7 +98,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Example.entitlements.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -110,7 +111,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Expo.plist.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -123,7 +124,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();
@@ -136,7 +137,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Podfile.properties.json');
-    const content = preview?.document.getText();
+    const content = sanitizeSnapshotValues(preview?.document.getText());
 
     expect(content).to.exist;
     expect(content).toMatchSnapshot();

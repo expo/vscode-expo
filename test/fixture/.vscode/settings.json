@@ -1,4 +1,6 @@
 {
   // Turn off the parent workspace prompt
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "never",
+  // Never save or remember the opened/edited files
+  "files.hotExit": "off"
 }

@@ -8,7 +8,7 @@ exports[`expo.config.prebuild.preview.json runs for android.colors in json forma
         \\"$\\": {
           \\"name\\": \\"iconBackground\\"
         },
-        \\"_\\": \\"#FFFFFF\\"
+        \\"_\\": \\"#ffffff\\"
       },
       {
         \\"$\\": {
@@ -72,6 +72,16 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
         \\"$\\": {
           \\"android:name\\": \\"android.permission.WRITE_EXTERNAL_STORAGE\\"
         }
+      },
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.CAMERA\\"
+        }
+      },
+      {
+        \\"$\\": {
+          \\"android:name\\": \\"android.permission.RECORD_AUDIO\\"
+        }
       }
     ],
     \\"queries\\": [
@@ -109,13 +119,13 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
           {
             \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATE_URL\\",
-              \\"android:value\\": \\"https://exp.host/@bycedric/expo-app\\"
+              \\"android:value\\": \\"https://exp.host/@anonymous/preview\\"
             }
           },
           {
             \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
-              \\"android:value\\": \\"45.0.0\\"
+              \\"android:value\\": \\"49.0.0\\"
             }
           },
           {
@@ -188,7 +198,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
                 \\"data\\": [
                   {
                     \\"$\\": {
-                      \\"android:scheme\\": \\"com.placeholder.appid\\"
+                      \\"android:scheme\\": \\"dev.expo.configtsapp\\"
                     }
                   }
                 ]
@@ -214,7 +224,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
     ],
     \\"$\\": {
       \\"xmlns:android\\": \\"http://schemas.android.com/apk/res/android\\",
-      \\"package\\": \\"com.placeholder.appid\\"
+      \\"package\\": \\"dev.expo.configtsapp\\"
     }
   }
 }"
@@ -228,7 +238,7 @@ exports[`expo.config.prebuild.preview.json runs for android.strings in json form
         \\"$\\": {
           \\"name\\": \\"app_name\\"
         },
-        \\"_\\": \\"expo-app\\"
+        \\"_\\": \\"preview\\"
       },
       {
         \\"$\\": {
@@ -313,22 +323,26 @@ exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format
   \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
   \\"EXUpdatesEnabled\\": true,
   \\"EXUpdatesLaunchWaitMs\\": 0,
-  \\"EXUpdatesSDKVersion\\": \\"45.0.0\\",
-  \\"EXUpdatesURL\\": \\"https://exp.host/@bycedric/expo-app\\"
+  \\"EXUpdatesSDKVersion\\": \\"49.0.0\\",
+  \\"EXUpdatesURL\\": \\"https://exp.host/@anonymous/preview\\"
 }"
 `;
 
 exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format 1`] = `
 "{
   \\"CFBundleDevelopmentRegion\\": \\"$(DEVELOPMENT_LANGUAGE)\\",
-  \\"CFBundleDisplayName\\": \\"expo-app\\",
+  \\"CFBundleDisplayName\\": \\"preview\\",
   \\"CFBundleExecutable\\": \\"$(EXECUTABLE_NAME)\\",
   \\"CFBundleIdentifier\\": \\"$(PRODUCT_BUNDLE_IDENTIFIER)\\",
   \\"CFBundleInfoDictionaryVersion\\": \\"6.0\\",
   \\"CFBundleName\\": \\"$(PRODUCT_NAME)\\",
   \\"CFBundlePackageType\\": \\"$(PRODUCT_BUNDLE_PACKAGE_TYPE)\\",
   \\"CFBundleShortVersionString\\": \\"1.0.0\\",
-  \\"CFBundleSignature\\": \\"????\\",
+  \\"CFBundleSignature\\": \\"
+
+
+
+\\",
   \\"CFBundleURLTypes\\": [
     {
       \\"CFBundleURLSchemes\\": [
@@ -346,6 +360,8 @@ exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format
       }
     }
   },
+  \\"NSCameraUsageDescription\\": \\"This tests the multiple variants of defining plugins\\",
+  \\"NSMicrophoneUsageDescription\\": \\"Allow $(PRODUCT_NAME) to access your microphone\\",
   \\"UILaunchStoryboardName\\": \\"SplashScreen\\",
   \\"UIRequiredDeviceCapabilities\\": [
     \\"armv7\\"

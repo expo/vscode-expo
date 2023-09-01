@@ -16,7 +16,7 @@ describe('CodeProvider', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    app = await window.showTextDocument(getWorkspaceUri('preview/app.json'));
     restoreContent = storeOriginalContent(app);
   });
 
@@ -34,32 +34,32 @@ describe('CodeProvider', () => {
     const preview = await waitForEditorOpen('AndroidManifest.xml');
     const addition = json.modify(
       app.document.getText(),
-      ['expo', 'android', 'permissions'],
-      ['CAMERA'],
+      ['expo', 'updates', 'url'],
+      'https://example.com/updates/url',
       { formattingOptions: { insertSpaces: true } }
     );
+
+    const EXPECTED_UPDATES_URL =
+      '<meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://example.com/updates/url"/>';
 
     await replaceEditorContent(app, json.applyEdits(app.document.getText(), addition));
     await app.document.save();
 
     const includesChange = await waitForTrue(
-      () => preview?.document.getText().includes('android.permission.CAMERA')
+      () => preview?.document.getText().includes(EXPECTED_UPDATES_URL)
     );
 
     expect(includesChange).to.equal(true);
 
-    const removal = json.modify(
-      app.document.getText(),
-      ['expo', 'android', 'permissions'],
-      undefined,
-      { formattingOptions: { insertSpaces: true } }
-    );
+    const removal = json.modify(app.document.getText(), ['expo', 'updates'], undefined, {
+      formattingOptions: { insertSpaces: true },
+    });
 
     await replaceEditorContent(app, json.applyEdits(app.document.getText(), removal));
     await app.document.save();
 
     const excludesChange = await waitForFalse(
-      () => preview?.document.getText().includes('android.permission.CAMERA')
+      () => preview?.document.getText().includes(EXPECTED_UPDATES_URL)
     );
 
     expect(excludesChange).to.equal(true);

@@ -6,7 +6,7 @@ describe('ManifestAssetCompletionsProvider', () => {
   let app: TextEditor;
 
   beforeEach(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
+    app = await window.showTextDocument(getWorkspaceUri('manifest/app.json'));
   });
 
   afterEach(async () => {

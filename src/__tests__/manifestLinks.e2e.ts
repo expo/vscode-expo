@@ -1,4 +1,4 @@
-import { commands, DocumentLink, window } from 'vscode';
+import { commands, DocumentLink, TextEditor, window } from 'vscode';
 
 import {
   closeAllEditors,
@@ -10,13 +10,18 @@ import {
 describe('ManifestLinksProvider', () => {
   // Based on: https://github.com/microsoft/vscode/blob/6cf68a1f23ee09d13e7e2bc4f7e8e2de1c5ef714/extensions/markdown-language-features/src/test/documentLink.test.ts#L171
 
-  describe('assets', () => {
-    afterEach(async () => {
-      await closeAllEditors();
-    });
+  let app: TextEditor;
 
+  beforeEach(async () => {
+    app = await window.showTextDocument(getWorkspaceUri('manifest/app.json'));
+  });
+
+  afterEach(async () => {
+    await closeAllEditors();
+  });
+
+  describe('assets', () => {
     it('opens valid asset link', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -32,7 +37,6 @@ describe('ManifestLinksProvider', () => {
 
   describe('plugins', () => {
     it('opens valid plugin from package', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -46,7 +50,6 @@ describe('ManifestLinksProvider', () => {
     });
 
     it('opens valid plugin from package with options', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
@@ -60,7 +63,6 @@ describe('ManifestLinksProvider', () => {
     });
 
     it('opens valid plugin from local file', async () => {
-      const app = await window.showTextDocument(getWorkspaceUri('manifest-links/app.json'));
       const links = await commands.executeCommand<DocumentLink[]>(
         'vscode.executeLinkProvider',
         app.document.uri
