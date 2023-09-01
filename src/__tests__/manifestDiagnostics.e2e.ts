@@ -104,14 +104,20 @@ describe('ManifestDiagnosticsProvider', () => {
       });
 
       it('re-diagnoses newly installed plugins', async () => {
-        const pluginFile = getWorkspaceUri('manifest/.expo/new-plugin.js').fsPath;
+        // Use different names to avoid IO issues
+        const pluginName =
+          manifestFile === 'app.json'
+            ? '.expo/temporary-plugin.js'
+            : '.expo/temporary-config-plugin.js';
+
+        const pluginFile = getWorkspaceUri(`manifest/${pluginName}`).fsPath;
 
         // Force-remove the new plugin, to ensure it's not installed
         // Also use a gitignored folder to make sure its never committed
         fs.rmSync(pluginFile, { force: true });
 
         const preRange = findContentRange(app, '"expo-system-ui",');
-        await app.edit((builder) => builder.replace(preRange, '"./.expo/new-plugin.js",'));
+        await app.edit((builder) => builder.replace(preRange, `"./${pluginName}",`));
         await app.document.save();
 
         await waitFor();
@@ -120,7 +126,7 @@ describe('ManifestDiagnosticsProvider', () => {
         expect(preInstallDiagnostic).to.have.length(1);
         expect(preInstallDiagnostic[0]).contain({
           code: 'PLUGIN_NOT_FOUND',
-          message: 'Plugin not found: ./.expo/new-plugin.js',
+          message: `Plugin not found: ./${pluginName}`,
           severity: DiagnosticSeverity.Warning,
         });
 
@@ -133,10 +139,7 @@ describe('ManifestDiagnosticsProvider', () => {
 
         // Force an update in the manifest file, reset the existing diagnostics
         await app.edit((builder) =>
-          builder.replace(
-            findContentRange(app, '"./.expo/new-plugin.js",'),
-            '"./.expo/new-plugin.js" ,'
-          )
+          builder.replace(findContentRange(app, `"./${pluginName}",`), `"./${pluginName}" ,`)
         );
         await app.document.save();
 
