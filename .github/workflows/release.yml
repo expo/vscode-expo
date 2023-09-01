@@ -33,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-  publish:
+  create:
     if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.release == 'release' }}
     runs-on: ubuntu-latest
     steps:
