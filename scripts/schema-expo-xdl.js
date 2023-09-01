@@ -56,22 +56,36 @@ function createVscodeSchema(xdlVersion, xdlSchema) {
   );
 
   // note: we need to move over definitions from the schema and put them into root
-  const { definitions } = xdlSchema;
-  if (definitions) {
+  const definitions = xdlSchema.definitions ?? {};
+  if (xdlSchema.definitions) {
     delete xdlSchema.definitions;
   }
 
+  // Create the root definition
+  definitions.VscodeExpoXdl = xdlSchema;
+  // Add root descriptions to the schema, with links to the docs
+  definitions.VscodeExpoXdl.description = `All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v${xdlVersion}.0.0/config/app/`;
+  definitions.VscodeExpoXdl.markdownDescription = `All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v${xdlVersion}.0.0/config/app/)`;
+
   return {
-    type: 'object',
     description: 'The Expo manifest (app.json) validation and documentation.',
     version: `${xdlVersion}.0.0`,
     $schema: 'http://json-schema.org/draft-07/schema#',
-    // Do not warn about additional properties for plain React Native apps
-    additionalProperties: true,
     definitions,
-    properties: {
-      expo: xdlSchema,
-    },
+    // Allow everything under `expo.*` to also be defined at the root level.
+    // This is supported in `@expo/config`, if `expo` is NOT defined.
+    oneOf: [
+      {
+        type: 'object',
+        required: ['expo'],
+        // Do not warn about additional properties for plain React Native apps
+        additionalProperties: true,
+        properties: {
+          expo: { $ref: '#/definitions/VscodeExpoXdl' },
+        },
+      },
+      { $ref: '#/definitions/VscodeExpoXdl' },
+    ],
   };
 }
 
