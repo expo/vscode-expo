@@ -13,7 +13,7 @@ describe('eas-metadata', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('eas-app/store.config.json'));
+    app = await window.showTextDocument(getWorkspaceUri('schema-eas/store.config.json'));
     restoreContent = storeOriginalContent(app);
   });
 

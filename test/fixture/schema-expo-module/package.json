@@ -1,7 +1,7 @@
 {
   "name": "expo-module",
   "version": "0.0.0",
-  "description": "A fixture module for vscode-expo tests",
+  "description": "This fixture was created for Expo Modules JSON Schema tasks",
   "main": "build/ExampleModule.js",
   "types": "build/ExampleModule.d.ts",
   "keywords": ["react-native", "expo", "module", "ExampleModule"],

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "owner": "bycedric",
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "schema-expo-xdl",
+    "slug": "schema-expo-xdl",
+    "description": "This fixture was created for Expo XDL JSON Schema tasks",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,6 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,11 +21,16 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2b52944f-d05c-49c5-bfbe-715bc129bd92"
+      }
     }
   }
 }

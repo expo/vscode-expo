@@ -13,7 +13,7 @@ describe('expo-xdl', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('expo-app/app.json'));
+    app = await window.showTextDocument(getWorkspaceUri('schema-expo-xdl/app.json'));
     restoreContent = storeOriginalContent(app);
   });
 

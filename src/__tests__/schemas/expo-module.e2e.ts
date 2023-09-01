@@ -13,7 +13,9 @@ describe('expo-module', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('expo-module/expo-module.config.json'));
+    app = await window.showTextDocument(
+      getWorkspaceUri('schema-expo-module/expo-module.config.json')
+    );
     restoreContent = storeOriginalContent(app);
   });
 

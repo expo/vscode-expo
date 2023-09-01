@@ -13,7 +13,7 @@ describe('eas', () => {
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('eas-app/eas.json'));
+    app = await window.showTextDocument(getWorkspaceUri('schema-eas/eas.json'));
     restoreContent = storeOriginalContent(app);
   });
 
