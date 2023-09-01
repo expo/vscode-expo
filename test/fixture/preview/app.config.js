@@ -1,5 +1,5 @@
 module.exports = function ({ config }) {
-  config.android.package = 'com.bycedric.configjsapp';
-  config.ios.package = 'com.bycedric.configjsapp';
+  config.android.package = 'dev.expo.configjsapp';
+  config.ios.package = 'dev.expo.configjsapp';
   return config;
 }

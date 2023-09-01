@@ -1,11 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
   <uses-permission android:name=\\"android.permission.WRITE_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.CAMERA\\"/>
+  <uses-permission android:name=\\"android.permission.RECORD_AUDIO\\"/>
   <queries>
     <intent>
       <action android:name=\\"android.intent.action.VIEW\\"/>
@@ -14,8 +16,8 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/expo-app\\"/>
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"45.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -28,7 +30,7 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"com.placeholder.appid\\"/>
+        <data android:scheme=\\"dev.expo.configtsapp\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -37,11 +39,13 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
 `;
 
 exports[`dynamic configs runs android.manifest for app.json 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
   <uses-permission android:name=\\"android.permission.WRITE_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.CAMERA\\"/>
+  <uses-permission android:name=\\"android.permission.RECORD_AUDIO\\"/>
   <queries>
     <intent>
       <action android:name=\\"android.intent.action.VIEW\\"/>
@@ -50,8 +54,8 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/expo-app\\"/>
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"45.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -64,7 +68,7 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"com.placeholder.appid\\"/>
+        <data android:scheme=\\"dev.expo.configtsapp\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -80,7 +84,7 @@ exports[`dynamic configs runs ios.infoPlist for app.config.js 1`] = `
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>expo-app</string>
+    <string>preview</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -121,6 +125,10 @@ exports[`dynamic configs runs ios.infoPlist for app.config.js 1`] = `
         </dict>
       </dict>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>This tests the multiple variants of defining plugins</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
@@ -153,7 +161,7 @@ exports[`dynamic configs runs ios.infoPlist for app.config.js 1`] = `
 
 exports[`expo.config.prebuild.preview runs for android.colors 1`] = `
 "<resources>
-  <color name=\\"iconBackground\\">#FFFFFF</color>
+  <color name=\\"iconBackground\\">#ffffff</color>
   <color name=\\"colorPrimary\\">#023c69</color>
   <color name=\\"colorPrimaryDark\\">#ffffff</color>
   <color name=\\"splashscreen_background\\">#ffffff</color>
@@ -165,11 +173,13 @@ exports[`expo.config.prebuild.preview runs for android.colorsNight 1`] = `"<reso
 exports[`expo.config.prebuild.preview runs for android.gradleProperties 1`] = `""`;
 
 exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
   <uses-permission android:name=\\"android.permission.WRITE_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.CAMERA\\"/>
+  <uses-permission android:name=\\"android.permission.RECORD_AUDIO\\"/>
   <queries>
     <intent>
       <action android:name=\\"android.intent.action.VIEW\\"/>
@@ -178,8 +188,8 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/expo-app\\"/>
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"45.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@bycedric/preview\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -192,7 +202,7 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"com.placeholder.appid\\"/>
+        <data android:scheme=\\"dev.expo.configtsapp\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -202,7 +212,7 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
 
 exports[`expo.config.prebuild.preview runs for android.strings 1`] = `
 "<resources>
-  <string name=\\"app_name\\">expo-app</string>
+  <string name=\\"app_name\\">preview</string>
   <string name=\\"expo_splash_screen_resize_mode\\" translatable=\\"false\\">contain</string>
   <string name=\\"expo_splash_screen_status_bar_translucent\\" translatable=\\"false\\">false</string>
   <string name=\\"expo_system_ui_user_interface_style\\" translatable=\\"false\\">light</string>
@@ -244,9 +254,9 @@ exports[`expo.config.prebuild.preview runs for ios.expoPlist 1`] = `
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
     <key>EXUpdatesSDKVersion</key>
-    <string>45.0.0</string>
+    <string>49.0.0</string>
     <key>EXUpdatesURL</key>
-    <string>https://exp.host/@bycedric/expo-app</string>
+    <string>https://exp.host/@bycedric/preview</string>
   </dict>
 </plist>"
 `;
@@ -259,7 +269,7 @@ exports[`expo.config.prebuild.preview runs for ios.infoPlist 1`] = `
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>expo-app</string>
+    <string>preview</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -300,6 +310,10 @@ exports[`expo.config.prebuild.preview runs for ios.infoPlist 1`] = `
         </dict>
       </dict>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>This tests the multiple variants of defining plugins</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
