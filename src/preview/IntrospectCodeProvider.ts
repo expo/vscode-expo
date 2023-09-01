@@ -2,8 +2,8 @@ import assert from 'assert';
 import vscode from 'vscode';
 
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
-import { type ModPlatform, compileModsAsync } from '../packages/config-plugins';
-import { getPrebuildConfigAsync } from '../packages/prebuild-config';
+import { type ModPlatform, loadConfigPluginsModCompiler } from '../packages/config-plugins';
+import { loadPrebuildConfig } from '../packages/prebuild-config';
 
 class IntrospectCodeProvider extends CodeProvider {
   getModName(): string {
@@ -22,12 +22,14 @@ class IntrospectCodeProvider extends CodeProvider {
   }
 
   async getExpoConfigAsync() {
+    const { getPrebuildConfigAsync } = loadPrebuildConfig(this.projectRoot);
     return await getPrebuildConfigAsync(this.projectRoot, {
       platforms: [this.getModPlatform()],
     }).then((config) => config.exp);
   }
 
   async getFileContents() {
+    const { compileModsAsync } = loadConfigPluginsModCompiler(this.projectRoot);
     const config = await compileModsAsync(await this.getExpoConfigAsync(), {
       projectRoot: this.projectRoot,
       introspect: true,

@@ -2,9 +2,9 @@ import vscode from 'vscode';
 
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 import { ExpoConfigType } from './constants';
-import { getConfig } from '../packages/config';
-import { compileModsAsync } from '../packages/config-plugins';
-import { getPrebuildConfigAsync } from '../packages/prebuild-config';
+import { loadConfig } from '../packages/config';
+import { loadConfigPluginsModCompiler } from '../packages/config-plugins';
+import { loadPrebuildConfig } from '../packages/prebuild-config';
 
 export class ExpoConfigCodeProvider extends CodeProvider {
   readonly defaultLanguage: CodeProviderLanguage = 'json';
@@ -39,12 +39,14 @@ export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   async getExpoConfigAsync() {
+    const { getPrebuildConfigAsync } = loadPrebuildConfig(this.projectRoot);
     return await getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
       (config) => config.exp
     );
   }
 
   async getFileContents() {
+    const { compileModsAsync } = loadConfigPluginsModCompiler(this.projectRoot);
     const config = await this.getExpoConfigAsync();
     return await compileModsAsync(config, {
       projectRoot: this.projectRoot,
@@ -60,6 +62,7 @@ export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   getExpoConfigAsync() {
+    const { getConfig } = loadConfig(this.projectRoot);
     return Promise.resolve(
       getConfig(this.projectRoot, {
         isPublicConfig: true,
@@ -75,6 +78,7 @@ export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   async getExpoConfigAsync() {
+    const { getPrebuildConfigAsync } = loadPrebuildConfig(this.projectRoot);
     return await getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
       (config) => config.exp
     );
