@@ -21,6 +21,12 @@ export enum TelemetryEvent {
   PREVIEW_PREBUILD = 'previewPrebuild',
 }
 
+/** The different telemetry event types, describing failures */
+export enum TelemetryErrorEvent {
+  ACTIVATION = 'activation',
+  MODULE_RESOLUTION = 'moduleResolution',
+}
+
 /**
  * Initialize the telemetry for error reporting and extension improvements.
  * This data is anonymous and does not contain any personal information.
@@ -48,4 +54,34 @@ export function featureTelemetry(
   measurements?: TelemetryEventMeasurements
 ) {
   return reporter?.sendTelemetryEvent(`${feature}/${command}`, properties, measurements);
+}
+
+/**
+ * Convert an (thrown) error to telemetry properties.
+ * This is useful to detect possible bugs in the extension.
+ */
+export function getErrorProperties(error: any) {
+  return {
+    code: error.code ?? undefined,
+    message: error.message ?? undefined,
+    stack: error.stack ?? undefined,
+  };
+}
+
+/**
+ * Execute a function that may throw an error, and report the error to telemetry.
+ * This function will swallow that error, log it, and return `undefined`.
+ */
+export function withErrorTelemetry<T extends any>(
+  errorEvent: TelemetryErrorEvent,
+  action: () => T
+): T | undefined {
+  try {
+    return action();
+  } catch (error) {
+    reporter?.sendTelemetryErrorEvent(errorEvent, getErrorProperties(error));
+    console.error(error.code ? `[${error.code}]: ${error.message}` : error.message);
+  }
+
+  return undefined;
 }

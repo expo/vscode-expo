@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import { ExpoProjectCache } from './expo/project';
 import { ExpoDebuggersProvider } from './expoDebuggers';
@@ -7,13 +7,19 @@ import { ManifestDiagnosticsProvider } from './manifestDiagnostics';
 import { ManifestLinksProvider } from './manifestLinks';
 import { ManifestPluginCompletionsProvider } from './manifestPluginCompletions';
 import { setupPreview } from './preview/setupPreview';
-import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
-
-// The contained provider classes are self-registering required subscriptions.
-// It helps grouping this code and keeping it maintainable, so disable the eslint rule.
-/* eslint-disable no-new */
+import {
+  getErrorProperties,
+  reporter,
+  setupTelemetry,
+  TelemetryErrorEvent,
+  TelemetryEvent,
+} from './utils/telemetry';
 
 export async function activate(context: vscode.ExtensionContext) {
+  // The contained provider classes are self-registering required subscriptions.
+  // It helps grouping this code and keeping it maintainable, so disable the eslint rule.
+  /* eslint-disable no-new */
+
   try {
     const projects = new ExpoProjectCache(context);
 
@@ -33,9 +39,6 @@ export async function activate(context: vscode.ExtensionContext) {
       `Oops, looks like we can't fully activate Expo Tools: ${error.message}`
     );
 
-    reporter?.sendTelemetryErrorEvent(TelemetryEvent.ACTIVATED, {
-      message: error.message,
-      stack: error.stack,
-    });
+    reporter?.sendTelemetryErrorEvent(TelemetryErrorEvent.ACTIVATION, getErrorProperties(error));
   }
 }
