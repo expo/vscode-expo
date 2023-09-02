@@ -43,8 +43,8 @@ exports[`expo.config.prebuild.preview.json runs for android.gradleProperties in 
 "{
   \\"0\\": {
     \\"type\\": \\"property\\",
-    \\"key\\": \\"expo.jsEngine\\",
-    \\"value\\": \\"jsc\\"
+    \\"key\\": \\"hermesEnabled\\",
+    \\"value\\": \\"true\\"
   }
 }"
 `;
@@ -118,12 +118,6 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
         \\"meta-data\\": [
           {
             \\"$\\": {
-              \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATE_URL\\",
-              \\"android:value\\": \\"https://exp.host/@anonymous/preview\\"
-            }
-          },
-          {
-            \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
               \\"android:value\\": \\"49.0.0\\"
             }
@@ -131,7 +125,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
           {
             \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.ENABLED\\",
-              \\"android:value\\": \\"true\\"
+              \\"android:value\\": \\"false\\"
             }
           },
           {
@@ -321,15 +315,15 @@ exports[`expo.config.prebuild.preview.json runs for ios.entitlements in json for
 exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format 1`] = `
 "{
   \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
-  \\"EXUpdatesEnabled\\": true,
+  \\"EXUpdatesEnabled\\": false,
   \\"EXUpdatesLaunchWaitMs\\": 0,
-  \\"EXUpdatesSDKVersion\\": \\"49.0.0\\",
-  \\"EXUpdatesURL\\": \\"https://exp.host/@anonymous/preview\\"
+  \\"EXUpdatesSDKVersion\\": \\"49.0.0\\"
 }"
 `;
 
 exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format 1`] = `
 "{
+  \\"CADisableMinimumFrameDurationOnPhone\\": true,
   \\"CFBundleDevelopmentRegion\\": \\"$(DEVELOPMENT_LANGUAGE)\\",
   \\"CFBundleDisplayName\\": \\"preview\\",
   \\"CFBundleExecutable\\": \\"$(EXECUTABLE_NAME)\\",
@@ -385,6 +379,6 @@ exports[`expo.config.prebuild.preview.json runs for ios.infoPlist in json format
 
 exports[`expo.config.prebuild.preview.json runs for ios.podfileProperties in json format 1`] = `
 "{
-  \\"expo.jsEngine\\": \\"jsc\\"
+  \\"expo.jsEngine\\": \\"hermes\\"
 }"
 `;
