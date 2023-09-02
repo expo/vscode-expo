@@ -1,5 +1,5 @@
 {
-  "name": "expo-module",
+  "name": "schema-expo-module",
   "version": "0.0.0",
   "description": "This fixture was created for Expo Modules JSON Schema tasks",
   "main": "build/ExampleModule.js",
@@ -14,10 +14,10 @@
   "homepage": "https://github.com/expo/vscode-expo#readme",
   "dependencies": {},
   "devDependencies": {
-    "expo-module-scripts": "^2.0.0",
-    "expo-modules-core": "^0.9.0"
+    "expo-module-scripts": "^3.0.11",
+    "expo-modules-core": "1.5.10"
   },
   "peerDependencies": {
-    "expo": "*"
+    "expo": "^49.0.0"
   }
 }
