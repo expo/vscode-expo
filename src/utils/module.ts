@@ -80,7 +80,9 @@ export function loadModuleFromProject<T extends any>(
   const dependencyPath = dependencies.reduce((currentFile, dependency, index) => {
     try {
       return path.dirname(
-        require.resolve(path.join(dependency, 'package.json'), { paths: [currentFile] })
+        require.resolve(/* webpackIgnore: true */ path.join(dependency, 'package.json'), {
+          paths: [currentFile],
+        })
       );
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
