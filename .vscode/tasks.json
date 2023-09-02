@@ -25,7 +25,10 @@
     {
       "label": "install-fixtures",
       "type": "shell",
-      "command": "npm run install:fixture",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/test/fixture"
+      },
       "presentation": {
         "reveal": "never"
       }
