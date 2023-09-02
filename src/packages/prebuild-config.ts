@@ -22,7 +22,7 @@ export function loadPrebuildConfig(projectRoot: string): {
     loadModuleFromProject<typeof import('@expo/prebuild-config/build/getPrebuildConfig')>(
       projectRoot,
       ['expo', '@expo/cli', '@expo/prebuild-config'],
-      'build/Config'
+      'build/getPrebuildConfig'
     )
   );
 
