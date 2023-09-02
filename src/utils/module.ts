@@ -86,7 +86,7 @@ export function loadModuleFromProject<T extends any>(
       );
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
-        const currentChain = dependencies.slice(0, index + 1).join(' → ');
+        const currentChain = dependencies.join(' → ');
         error.message = `Cannot find module '${dependency}/package.json' (${currentChain})`;
       }
 
