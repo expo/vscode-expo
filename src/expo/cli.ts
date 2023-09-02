@@ -14,9 +14,9 @@ export function spawnExpoCli(
     env: {
       ...process.env,
       // Force the Expo CLI into non-interactive mode
-      // CI: 'true',
+      CI: 'true',
       // Keep the process as fast as possible, without waiting for external services
-      // EXPO_NO_TELEMETRY: 'true',
+      EXPO_NO_TELEMETRY: 'true',
     },
   });
 
