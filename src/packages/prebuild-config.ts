@@ -1,3 +1,6 @@
+import { loadModuleFromProject } from '../utils/module';
+import { TelemetryErrorEvent, withErrorTelemetry } from '../utils/telemetry';
+
 /* eslint-disable import/first,import/order */
 
 /**
@@ -15,5 +18,21 @@ import { getPrebuildConfigAsync } from '@expo/prebuild-config/build/getPrebuildC
 export function loadPrebuildConfig(projectRoot: string): {
   getPrebuildConfigAsync: typeof getPrebuildConfigAsync;
 } {
+  const module = withErrorTelemetry(TelemetryErrorEvent.MODULE_RESOLUTION, () =>
+    loadModuleFromProject<typeof import('@expo/prebuild-config/build/getPrebuildConfig')>(
+      projectRoot,
+      ['expo', '@expo/cli', '@expo/prebuild-config'],
+      'build/Config'
+    )
+  );
+
+  if (module) {
+    return module;
+  }
+
+  console.warn(
+    `Falling back to bundled version of '@expo/prebuild-config/build/getPrebuildConfig'`
+  );
+
   return { getPrebuildConfigAsync };
 }

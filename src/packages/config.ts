@@ -1,3 +1,6 @@
+import { loadModuleFromProject } from '../utils/module';
+import { TelemetryErrorEvent, withErrorTelemetry } from '../utils/telemetry';
+
 /* eslint-disable import/first,import/order */
 
 /**
@@ -13,5 +16,19 @@ import { getConfig } from '@expo/config/build/Config';
  * The bundled one is an older version and will likely have less functionality.
  */
 export function loadConfig(projectRoot: string): { getConfig: typeof getConfig } {
+  const module = withErrorTelemetry(TelemetryErrorEvent.MODULE_RESOLUTION, () =>
+    loadModuleFromProject<typeof import('@expo/config/build/Config')>(
+      projectRoot,
+      ['expo', '@expo/config'],
+      'build/Config'
+    )
+  );
+
+  if (module) {
+    return module;
+  }
+
+  console.warn(`Falling back to bundled version of '@expo/config/build/Config'`);
+
   return { getConfig };
 }

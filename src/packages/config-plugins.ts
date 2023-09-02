@@ -1,3 +1,6 @@
+import { loadModuleFromProject } from '../utils/module';
+import { TelemetryErrorEvent, withErrorTelemetry } from '../utils/telemetry';
+
 /* eslint-disable import/first,import/order */
 
 /**
@@ -35,6 +38,22 @@ import { compileModsAsync } from '@expo/config-plugins/build/plugins/mod-compile
 export function loadConfigPluginsModCompiler(projectRoot: string): {
   compileModsAsync: typeof compileModsAsync;
 } {
+  const module = withErrorTelemetry(TelemetryErrorEvent.MODULE_RESOLUTION, () =>
+    loadModuleFromProject<typeof import('@expo/config-plugins/build/plugins/mod-compiler')>(
+      projectRoot,
+      ['expo', '@expo/config-plugins'],
+      'build/plugins/mod-compiler'
+    )
+  );
+
+  if (module) {
+    return module;
+  }
+
+  console.warn(
+    `Falling back to bundled version of '@expo/config-plugins/build/plugins/mod-compiler'`
+  );
+
   return { compileModsAsync };
 }
 
@@ -50,21 +69,28 @@ import {
 } from '@expo/config-plugins/build/utils/plugin-resolver';
 
 /**
- * Use the project's `@expo/config-plugin` plugin resolver (without info), or fallback to the bundled one.
+ * Use the project's `@expo/config-plugin` plugin resolver, or fallback to the bundled one.
  * The bundled one is an older version and will likely have less functionality.
  */
 export function loadConfigPluginsResolver(projectRoot: string): {
   resolveConfigPluginFunction: typeof resolveConfigPluginFunction;
-} {
-  return { resolveConfigPluginFunction };
-}
-
-/**
- * Use the project's `@expo/config-plugin` plugin resolver (with info), or fallback to the bundled one.
- * The bundled one is an older version and will likely have less functionality.
- */
-export function loadConfigPluginsInfoResolver(projectRoot: string): {
   resolveConfigPluginFunctionWithInfo: typeof resolveConfigPluginFunctionWithInfo;
 } {
-  return { resolveConfigPluginFunctionWithInfo };
+  const module = withErrorTelemetry(TelemetryErrorEvent.MODULE_RESOLUTION, () =>
+    loadModuleFromProject<typeof import('@expo/config-plugins/build/utils/plugin-resolver')>(
+      projectRoot,
+      ['expo', '@expo/config-plugins'],
+      'build/utils/plugin-resolver'
+    )
+  );
+
+  if (module) {
+    return module;
+  }
+
+  console.warn(
+    `Falling back to bundled version of '@expo/config-plugins/build/utils/plugin-resolver'`
+  );
+
+  return { resolveConfigPluginFunction, resolveConfigPluginFunctionWithInfo };
 }
