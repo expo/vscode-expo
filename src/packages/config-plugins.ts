@@ -27,35 +27,9 @@ export { format as formatXml } from '@expo/config-plugins/build/utils/XML';
  * Use a bundled version of the Config Plugins mod compiler.
  * This is used to "compile" or run the plugins on a manifest.
  *
- * @note This can get out of date and should be loaded from the project where possible.
+ * @note This package is slightly outdated, attempt to load from `npx expo config` instead.
  */
-import { compileModsAsync } from '@expo/config-plugins/build/plugins/mod-compiler';
-
-/**
- * Use the project's `@expo/config-plugin` mod compiler, or fallback to the bundled one.
- * The bundled one is an older version and will likely have less functionality.
- */
-export function loadConfigPluginsModCompiler(projectRoot: string): {
-  compileModsAsync: typeof compileModsAsync;
-} {
-  const module = withErrorTelemetry(TelemetryErrorEvent.MODULE_RESOLUTION, () =>
-    loadModuleFromProject<typeof import('@expo/config-plugins/build/plugins/mod-compiler')>(
-      projectRoot,
-      ['expo', '@expo/config-plugins'],
-      'build/plugins/mod-compiler'
-    )
-  );
-
-  if (module) {
-    return module;
-  }
-
-  console.warn(
-    `Falling back to bundled version of '@expo/config-plugins/build/plugins/mod-compiler'`
-  );
-
-  return { compileModsAsync };
-}
+export { compileModsAsync } from '@expo/config-plugins/build/plugins/mod-compiler';
 
 /**
  * Use a bundled version of the Config Plugins resolver.

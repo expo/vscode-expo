@@ -2,8 +2,10 @@ import assert from 'assert';
 import vscode from 'vscode';
 
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
-import { type ModPlatform, loadConfigPluginsModCompiler } from '../packages/config-plugins';
-import { loadPrebuildConfig } from '../packages/prebuild-config';
+import { spawnExpoCli } from '../expo/cli';
+import { ExpoConfig } from '../packages/config';
+import { type ModPlatform, compileModsAsync } from '../packages/config-plugins';
+import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 
 class IntrospectCodeProvider extends CodeProvider {
   getModName(): string {
@@ -22,19 +24,32 @@ class IntrospectCodeProvider extends CodeProvider {
   }
 
   async getExpoConfigAsync() {
-    const { getPrebuildConfigAsync } = loadPrebuildConfig(this.projectRoot);
     return await getPrebuildConfigAsync(this.projectRoot, {
       platforms: [this.getModPlatform()],
     }).then((config) => config.exp);
   }
 
   async getFileContents() {
-    const { compileModsAsync } = loadConfigPluginsModCompiler(this.projectRoot);
-    const config = await compileModsAsync(await this.getExpoConfigAsync(), {
-      projectRoot: this.projectRoot,
-      introspect: true,
-      platforms: [this.getModPlatform()],
-    });
+    let config: ExpoConfig;
+
+    try {
+      const result = spawnExpoCli('config', ['--json', '--type', 'introspect'], {
+        cwd: this.projectRoot,
+      });
+
+      config = JSON.parse(result);
+    } catch (error: any) {
+      console.warn(
+        'Cannot load the introspected config from project, using bundled package instead.'
+      );
+      console.warn(`Reason: ${error.message} (${error.code})`);
+
+      config = await compileModsAsync(await this.getExpoConfigAsync(), {
+        projectRoot: this.projectRoot,
+        platforms: ['android', 'ios'],
+        introspect: true,
+      });
+    }
 
     const results = config._internal!.modResults[this.getModPlatform()][this.getModName()];
     return this.sortObject(results);
