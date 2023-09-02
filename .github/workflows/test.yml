@@ -75,7 +75,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, macos] # Windows is temporarily disabled due to issues on CI with previewing
+        os: [ubuntu, macos, windows]
         vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
