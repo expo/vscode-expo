@@ -1,10 +1,7 @@
 import { findNodeAtLocation, getNodeValue, Node, Range } from 'jsonc-parser';
 
 import { ExpoProject } from './project';
-import {
-  loadConfigPluginsInfoResolver,
-  loadConfigPluginsResolver,
-} from '../packages/config-plugins';
+import { loadConfigPluginsResolver } from '../packages/config-plugins';
 import { truthy } from '../utils/array';
 import { resetModuleFrom } from '../utils/module';
 
@@ -14,9 +11,7 @@ export type PluginDefiniton = {
 };
 
 export type PluginInfo = NonNullable<
-  ReturnType<
-    ReturnType<typeof loadConfigPluginsInfoResolver>['resolveConfigPluginFunctionWithInfo']
-  >
+  ReturnType<ReturnType<typeof loadConfigPluginsResolver>['resolveConfigPluginFunctionWithInfo']>
 >;
 
 export type PluginFunction = ReturnType<
@@ -53,7 +48,7 @@ export function resolvePluginInfo(projectRoot: string, name: string): PluginInfo
   resetModuleFrom(projectRoot, name);
 
   try {
-    const { resolveConfigPluginFunctionWithInfo } = loadConfigPluginsInfoResolver(projectRoot);
+    const { resolveConfigPluginFunctionWithInfo } = loadConfigPluginsResolver(projectRoot);
     return resolveConfigPluginFunctionWithInfo(projectRoot, name);
   } catch {
     return undefined;
