@@ -2,7 +2,7 @@ import vscode from 'vscode';
 
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 import { ExpoConfigType } from './constants';
-import { execExpoCli } from '../expo/cli';
+import { spawnExpoCli } from '../expo/cli';
 import { ExpoConfig, getConfig } from '../packages/config';
 import { compileModsAsync } from '../packages/config-plugins';
 import { getPrebuildConfigAsync } from '../packages/prebuild-config';
@@ -48,7 +48,7 @@ export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
     let config: ExpoConfig;
 
     try {
-      const result = execExpoCli('config', ['--json', '--type', 'introspect'], {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'introspect'], {
         cwd: this.projectRoot,
       });
 
@@ -79,7 +79,7 @@ export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
     let config: ExpoConfig;
 
     try {
-      const result = execExpoCli('config', ['--json', '--type', 'public'], {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'public'], {
         cwd: this.projectRoot,
       });
 
@@ -107,7 +107,7 @@ export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
     let config: ExpoConfig;
 
     try {
-      const result = execExpoCli('config', ['--json', '--type', 'prebuild'], {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'prebuild'], {
         cwd: this.projectRoot,
       });
 

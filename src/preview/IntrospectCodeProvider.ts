@@ -2,7 +2,7 @@ import assert from 'assert';
 import vscode from 'vscode';
 
 import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
-import { execExpoCli } from '../expo/cli';
+import { spawnExpoCli } from '../expo/cli';
 import { ExpoConfig } from '../packages/config';
 import { type ModPlatform, compileModsAsync } from '../packages/config-plugins';
 import { getPrebuildConfigAsync } from '../packages/prebuild-config';
@@ -33,7 +33,7 @@ class IntrospectCodeProvider extends CodeProvider {
     let config: ExpoConfig;
 
     try {
-      const result = execExpoCli('config', ['--json', '--type', 'introspect'], {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'introspect'], {
         cwd: this.projectRoot,
       });
 
