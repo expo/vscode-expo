@@ -21,9 +21,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -34,9 +34,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -47,9 +47,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('gradle.properties');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -60,9 +60,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -73,9 +73,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('strings.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -86,9 +86,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('styles.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -99,9 +99,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Example.entitlements');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -112,9 +112,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Expo.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -125,9 +125,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -138,9 +138,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Podfile.properties.json');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 });
@@ -158,9 +158,9 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -172,9 +172,9 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -186,9 +186,9 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 });

@@ -18,9 +18,9 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.INTROSPECT);
 
     const preview = await waitForEditorOpen('_app.config.json');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -28,9 +28,9 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PREBUILD);
 
     const preview = await waitForEditorOpen('_app.config.json');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -38,9 +38,9 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
     await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PUBLIC);
 
     const preview = await waitForEditorOpen('exp.json');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 });

@@ -37,7 +37,8 @@ export function waitForEditorOpen(
   return waitForValue(
     () =>
       vscode.window.visibleTextEditors.find(
-        (editor) => path.basename(editor.document.fileName) === fileName
+        (editor) =>
+          path.basename(editor.document.fileName) === fileName && !!editor.document.getText()
       ),
     options
   );
