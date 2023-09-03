@@ -43,20 +43,22 @@ export async function run() {
 
   // Find all test files
   const files = await glob('**/__tests__/**/*.{e2e,test}.{js,ts}', {
-    absolute: true,
     cwd: path.resolve(__dirname, '../../src'),
     ignore: 'node_modules/**',
+    // absolute: true, // Avoid using `absolute: true` in glob, that modifies the drive letter to upper case on Windows.
   });
 
   // Check for test pattern
   const testPattern = process.env.VSCODE_EXPO_TEST_PATTERN;
 
-  // Add all tests
-  for (const file of files) {
-    if (!testPattern || file.includes(testPattern)) {
-      tests.addFile(file);
-    }
-  }
+  // Manually resolve the paths using `__dirname`, and add them to the test runner
+  files
+    .map((file) => path.resolve(__dirname, '../../src', file))
+    .forEach((file) => {
+      if (!testPattern || file.includes(testPattern)) {
+        tests.addFile(file);
+      }
+    });
 
   // Execute the tests
   return new Promise<void>((resolve, reject) => {
