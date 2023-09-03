@@ -7,7 +7,7 @@ export async function waitFor(delay: number = 500) {
 
 type SyncOrAsync<T> = T | Promise<T>;
 
-type WaitForValueOptions = {
+export type WaitForValueOptions = {
   /** The delay in milliseconds to wait for next attempt */
   delay?: number;
   /** Total retries allowed until returning undefined */
@@ -21,7 +21,7 @@ type WaitForValueOptions = {
  */
 export async function waitForValue<T>(
   action: () => T,
-  { delay = 250, retries = 10, attempts = 0 }: WaitForValueOptions = {}
+  { delay = 250, retries = 25_000 / 250, attempts = 0 }: WaitForValueOptions = {}
 ): Promise<T | undefined> {
   const value = await action();
 
