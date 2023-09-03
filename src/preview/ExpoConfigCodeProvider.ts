@@ -1,10 +1,10 @@
-import { getConfig } from '@expo/config';
-import { compileModsAsync } from '@expo/config-plugins';
-import { getPrebuildConfigAsync } from '@expo/prebuild-config';
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 import { ExpoConfigType } from './constants';
+import { getConfig } from '../packages/config';
+import { compileModsAsync } from '../packages/config-plugins';
+import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 
 export class ExpoConfigCodeProvider extends CodeProvider {
   readonly defaultLanguage: CodeProviderLanguage = 'json';

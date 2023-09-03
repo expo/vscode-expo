@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as json from 'jsonc-parser';
+import * as jsonc from 'jsonc-parser';
 import { commands, TextEditor, window } from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
@@ -33,7 +33,7 @@ describe('CodeProvider', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const addition = json.modify(
+    const addition = jsonc.modify(
       app.document.getText(),
       ['expo', 'updates', 'url'],
       'https://example.com/updates/url',
@@ -43,7 +43,7 @@ describe('CodeProvider', () => {
     const EXPECTED_UPDATES_URL =
       '<meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://example.com/updates/url"/>';
 
-    await replaceEditorContent(app, json.applyEdits(app.document.getText(), addition));
+    await replaceEditorContent(app, jsonc.applyEdits(app.document.getText(), addition));
     await app.document.save();
 
     const includesChange = await waitForTrue(
@@ -52,11 +52,11 @@ describe('CodeProvider', () => {
 
     expect(includesChange).to.equal(true);
 
-    const removal = json.modify(app.document.getText(), ['expo', 'updates'], undefined, {
+    const removal = jsonc.modify(app.document.getText(), ['expo', 'updates'], undefined, {
       formattingOptions: { insertSpaces: true },
     });
 
-    await replaceEditorContent(app, json.applyEdits(app.document.getText(), removal));
+    await replaceEditorContent(app, jsonc.applyEdits(app.document.getText(), removal));
     await app.document.save();
 
     const excludesChange = await waitForFalse(
