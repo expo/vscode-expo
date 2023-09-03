@@ -2,11 +2,12 @@ import vscode from 'vscode';
 
 import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 import { ExpoConfigType } from './constants';
-import { getConfig } from '../packages/config';
+import { spawnExpoCli } from '../expo/cli';
+import { ExpoConfig, getConfig } from '../packages/config';
 import { compileModsAsync } from '../packages/config-plugins';
 import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 
-export class ExpoConfigCodeProvider extends CodeProvider {
+export abstract class ExpoConfigCodeProvider extends CodeProvider {
   readonly defaultLanguage: CodeProviderLanguage = 'json';
 
   constructor(
@@ -20,16 +21,15 @@ export class ExpoConfigCodeProvider extends CodeProvider {
     });
   }
 
+  /** Get the generated contents of the file being previewed */
+  abstract getFileContents(): Promise<string | object>;
+
   getFileName() {
     // TODO: Maybe manifest.json is better?
 
     // Use _app.config.json to disable all features like auto complete and intellisense on the file.
     const name = this.configType === ExpoConfigType.PUBLIC ? 'exp.json' : '_app.config.json';
     return name;
-  }
-
-  async getFileContents(): Promise<any> {
-    return await this.getExpoConfigAsync();
   }
 }
 
@@ -45,12 +45,28 @@ export class IntrospectExpoConfigCodeProvider extends ExpoConfigCodeProvider {
   }
 
   async getFileContents() {
-    const config = await this.getExpoConfigAsync();
-    return await compileModsAsync(config, {
-      projectRoot: this.projectRoot,
-      introspect: true,
-      platforms: ['android', 'ios'],
-    });
+    let config: ExpoConfig;
+
+    try {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'introspect'], {
+        cwd: this.projectRoot,
+      });
+
+      config = JSON.parse(result);
+    } catch (error: any) {
+      console.warn(
+        'Cannot load the introspected config from project, using bundled package instead.'
+      );
+      console.warn(`Reason: ${error.message} (${error.code})`);
+
+      config = await compileModsAsync(await this.getExpoConfigAsync(), {
+        projectRoot: this.projectRoot,
+        platforms: ['android', 'ios'],
+        introspect: true,
+      });
+    }
+
+    return config;
   }
 }
 
@@ -59,13 +75,26 @@ export class PublicExpoConfigCodeProvider extends ExpoConfigCodeProvider {
     super(ExpoConfigType.PUBLIC, document, options);
   }
 
-  getExpoConfigAsync() {
-    return Promise.resolve(
-      getConfig(this.projectRoot, {
+  async getFileContents() {
+    let config: ExpoConfig;
+
+    try {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'public'], {
+        cwd: this.projectRoot,
+      });
+
+      config = JSON.parse(result);
+    } catch (error: any) {
+      console.warn('Cannot load the public config from project, using bundled package instead.');
+      console.warn(`Reason: ${error.message} (${error.code})`);
+
+      config = getConfig(this.projectRoot, {
         isPublicConfig: true,
         skipSDKVersionRequirement: true,
-      }).exp
-    );
+      }).exp;
+    }
+
+    return config;
   }
 }
 
@@ -74,9 +103,24 @@ export class PrebuildExpoConfigCodeProvider extends ExpoConfigCodeProvider {
     super(ExpoConfigType.PREBUILD, document, options);
   }
 
-  async getExpoConfigAsync() {
-    return await getPrebuildConfigAsync(this.projectRoot, { platforms: ['ios', 'android'] }).then(
-      (config) => config.exp
-    );
+  async getFileContents() {
+    let config: ExpoConfig;
+
+    try {
+      const result = await spawnExpoCli('config', ['--json', '--type', 'prebuild'], {
+        cwd: this.projectRoot,
+      });
+
+      config = JSON.parse(result);
+    } catch (error: any) {
+      console.warn('Cannot load the prebuild config from project, using bundled package instead.');
+      console.warn(`Reason: ${error.message} (${error.code})`);
+
+      config = await getPrebuildConfigAsync(this.projectRoot, {
+        platforms: ['ios', 'android'],
+      }).then((prebuildConfig) => prebuildConfig.exp);
+    }
+
+    return config;
   }
 }
