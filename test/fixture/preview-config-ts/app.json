@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "preview-config-ts",
+    "slug": "preview-config-ts",
+    "description": "This fixture was created for all preview related tasks, using `app.config.ts`",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-system-ui",
+      ["expo-camera", {
+        "cameraPermission": "This tests the multiple variants of defining plugins"
+      }]
+    ]
+  }
+}

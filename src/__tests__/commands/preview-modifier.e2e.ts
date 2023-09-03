@@ -164,7 +164,7 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.iosInfoPlist} for app.config.js`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.config.js'));
+    await window.showTextDocument(getWorkspaceUri('preview-config-js/app.config.js'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosInfoPlist
@@ -178,7 +178,7 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.config.ts`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.config.ts'));
+    await window.showTextDocument(getWorkspaceUri('preview-config-ts/app.config.ts'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
