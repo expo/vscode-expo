@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
@@ -16,9 +16,8 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
-    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
+    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
     <activity android:name=\\".MainActivity\\" android:label=\\"@string/app_name\\" android:configChanges=\\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\" android:launchMode=\\"singleTask\\" android:windowSoftInputMode=\\"adjustResize\\" android:theme=\\"@style/Theme.App.SplashScreen\\" android:screenOrientation=\\"portrait\\">
@@ -30,7 +29,7 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"dev.expo.configtsapp\\"/>
+        <data android:scheme=\\"com.placeholder.appid\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -39,7 +38,7 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
 `;
 
 exports[`dynamic configs runs android.manifest for app.json 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
@@ -54,9 +53,8 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
-    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
+    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
     <activity android:name=\\".MainActivity\\" android:label=\\"@string/app_name\\" android:configChanges=\\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\" android:launchMode=\\"singleTask\\" android:windowSoftInputMode=\\"adjustResize\\" android:theme=\\"@style/Theme.App.SplashScreen\\" android:screenOrientation=\\"portrait\\">
@@ -68,7 +66,7 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"dev.expo.configtsapp\\"/>
+        <data android:scheme=\\"com.placeholder.appid\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -83,6 +81,8 @@ xml version=\\"1.0\\" encoding=\\"UTF-8\\"
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
+    <key>CADisableMinimumFrameDurationOnPhone</key>
+    <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
@@ -179,7 +179,7 @@ exports[`expo.config.prebuild.preview runs for android.colorsNight 1`] = `"<reso
 exports[`expo.config.prebuild.preview runs for android.gradleProperties 1`] = `""`;
 
 exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
-"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"dev.expo.configtsapp\\">
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
   <uses-permission android:name=\\"android.permission.INTERNET\\"/>
   <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
   <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
@@ -194,9 +194,8 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATE_URL\\" android:value=\\"https://exp.host/@anonymous/preview\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
-    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"true\\"/>
+    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
     <activity android:name=\\".MainActivity\\" android:label=\\"@string/app_name\\" android:configChanges=\\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\" android:launchMode=\\"singleTask\\" android:windowSoftInputMode=\\"adjustResize\\" android:theme=\\"@style/Theme.App.SplashScreen\\" android:screenOrientation=\\"portrait\\">
@@ -208,7 +207,44 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
         <action android:name=\\"android.intent.action.VIEW\\"/>
         <category android:name=\\"android.intent.category.DEFAULT\\"/>
         <category android:name=\\"android.intent.category.BROWSABLE\\"/>
-        <data android:scheme=\\"dev.expo.configtsapp\\"/>
+        <data android:scheme=\\"com.placeholder.appid\\"/>
+      </intent-filter>
+    </activity>
+    <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
+  </application>
+</manifest>"
+`;
+
+exports[`expo.config.prebuild.preview runs for android.manifest 2`] = `
+"<manifest xmlns:android=\\"http://schemas.android.com/apk/res/android\\" package=\\"com.placeholder.appid\\">
+  <uses-permission android:name=\\"android.permission.INTERNET\\"/>
+  <uses-permission android:name=\\"android.permission.SYSTEM_ALERT_WINDOW\\"/>
+  <uses-permission android:name=\\"android.permission.READ_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.WRITE_EXTERNAL_STORAGE\\"/>
+  <uses-permission android:name=\\"android.permission.CAMERA\\"/>
+  <uses-permission android:name=\\"android.permission.RECORD_AUDIO\\"/>
+  <queries>
+    <intent>
+      <action android:name=\\"android.intent.action.VIEW\\"/>
+      <category android:name=\\"android.intent.category.BROWSABLE\\"/>
+      <data android:scheme=\\"https\\"/>
+    </intent>
+  </queries>
+  <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
+    <activity android:name=\\".MainActivity\\" android:label=\\"@string/app_name\\" android:configChanges=\\"keyboard|keyboardHidden|orientation|screenSize|uiMode\\" android:launchMode=\\"singleTask\\" android:windowSoftInputMode=\\"adjustResize\\" android:theme=\\"@style/Theme.App.SplashScreen\\" android:screenOrientation=\\"portrait\\">
+      <intent-filter>
+        <action android:name=\\"android.intent.action.MAIN\\"/>
+        <category android:name=\\"android.intent.category.LAUNCHER\\"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name=\\"android.intent.action.VIEW\\"/>
+        <category android:name=\\"android.intent.category.DEFAULT\\"/>
+        <category android:name=\\"android.intent.category.BROWSABLE\\"/>
+        <data android:scheme=\\"com.placeholder.appid\\"/>
       </intent-filter>
     </activity>
     <activity android:name=\\"com.facebook.react.devsupport.DevSettingsActivity\\"/>
@@ -260,13 +296,11 @@ xml version=\\"1.0\\" encoding=\\"UTF-8\\"
     <key>EXUpdatesCheckOnLaunch</key>
     <string>ALWAYS</string>
     <key>EXUpdatesEnabled</key>
-    <true/>
+    <false/>
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
     <key>EXUpdatesSDKVersion</key>
     <string>49.0.0</string>
-    <key>EXUpdatesURL</key>
-    <string>https://exp.host/@anonymous/preview</string>
   </dict>
 </plist>"
 `;
@@ -278,6 +312,8 @@ xml version=\\"1.0\\" encoding=\\"UTF-8\\"
 <!DOCTYPE plist PUBLIC \\"-//Apple//DTD PLIST 1.0//EN\\" \\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\\">
 <plist version=\\"1.0\\">
   <dict>
+    <key>CADisableMinimumFrameDurationOnPhone</key>
+    <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
@@ -362,6 +398,6 @@ xml version=\\"1.0\\" encoding=\\"UTF-8\\"
 
 exports[`expo.config.prebuild.preview runs for ios.podfileProperties 1`] = `
 "{
-  \\"expo.jsEngine\\": \\"jsc\\"
+  \\"expo.jsEngine\\": \\"hermes\\"
 }"
 `;
