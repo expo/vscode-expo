@@ -4,12 +4,6 @@ import { glob } from 'glob';
 import Mocha from 'mocha';
 import path from 'path';
 
-// This temporary workaround for Windows avoids the missing Chai extension error
-// Somehow, on Windows, the Chai library gets fully reloaded and loses its extensions
-declare global {
-  const expect: Chai.ExpectStatic;
-}
-
 export async function run() {
   // Configure the test runner
   const tests = new Mocha({
@@ -27,9 +21,6 @@ export async function run() {
         snapshotResolver: path.resolve(__dirname, './snapshots'),
       })
     );
-
-    // @ts-ignore
-    global.expect = Chai.expect;
 
     // Wait until the extension is fully activated
     await require('../../src/__tests__/utils/vscode').waitForExtension();

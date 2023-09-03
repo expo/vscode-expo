@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { commands, window } from 'vscode';
 
 import { ExpoConfigType, PreviewCommand } from '../../preview/constants';

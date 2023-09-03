@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { commands, DocumentLink, TextEditor, window } from 'vscode';
 
 import {
