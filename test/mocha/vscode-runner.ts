@@ -31,7 +31,7 @@ export async function run() {
     // @ts-ignore
     global.expect = Chai.expect;
 
-    // Wait until the extension is fully activated
+    // Wait until the extension is fully activated (testing activation events)
     await require('../../src/__tests__/utils/vscode').waitForExtension();
   });
 
