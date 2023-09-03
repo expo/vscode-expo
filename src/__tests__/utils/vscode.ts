@@ -23,8 +23,8 @@ export function getWorkspaceUri(relativePath: string): vscode.Uri {
 /**
  * Wait until vscode has activated this extension.
  */
-export async function waitForExtension<T>(): Promise<T> {
-  return await vscode.extensions.getExtension(EXTENSION_ID)?.activate();
+export function waitForExtension() {
+  return waitForTrue(() => vscode.extensions.getExtension(EXTENSION_ID)?.isActive);
 }
 
 /**

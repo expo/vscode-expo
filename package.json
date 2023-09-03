@@ -103,7 +103,6 @@
   ],
   "activationEvents": [
     "workspaceContains:node_modules/expo",
-    "workspaceContains:**/node_modules/expo",
     "onDebug",
     "onDebugResolve:expo",
     "onDebugInitialConfigurations",
