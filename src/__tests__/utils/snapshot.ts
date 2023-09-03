@@ -20,9 +20,7 @@ export function sanitizeSnapshotValues(content = '') {
   const lines = content
     .split(/[\n\r?]/)
     // Filter absolute path properties
-    .filter((line) => !DISALLOWED_LINES.some((property) => line.includes(property)))
-    // Remove account name from other properties
-    .map((line) => line.replace(/https:\/\/exp.host\/@([^/]+)\//i, 'https://exp.host/@anonymous/'));
+    .filter((line) => !DISALLOWED_LINES.some((property) => line.includes(property)));
 
   return lines.join('\n');
 }
