@@ -33,7 +33,7 @@ export async function run() {
   });
 
   // Find all test files
-  const files = await glob('**/__tests__/**/*.{e2e,test}.{js,ts}', {
+  let files = await glob('**/__tests__/**/*.{e2e,test}.{js,ts}', {
     // absolute: true, // Avoid using glob's absolute paths, Windows drive letters may be different cased
     cwd: path.resolve(__dirname, '../../src'),
     ignore: 'node_modules/**',
@@ -42,14 +42,17 @@ export async function run() {
   // Check for test pattern
   const testPattern = process.env.VSCODE_EXPO_TEST_PATTERN;
 
-  // Add all tests, or only the ones matching the pattern
-  files
+  // Resolve all test files that should be executed
+  files = files
     .map((file) => path.resolve(__dirname, '../../src', file))
-    .forEach((file) => {
-      if (!testPattern || file.includes(testPattern)) {
-        tests.addFile(file);
-      }
-    });
+    .filter((file) => !testPattern || file.includes(testPattern));
+
+  // Error when test pattern does not match any files
+  if (!files.length) {
+    throw new Error('No test files found.');
+  } else {
+    files.forEach((file) => tests.addFile(file));
+  }
 
   // Execute the tests
   return new Promise<void>((resolve, reject) => {
