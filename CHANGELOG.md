@@ -1,3 +1,32 @@
+## [1.2.0](https://github.com/expo/vscode-expo/compare/1.1.0...1.2.0) (2023-09-04)
+
+
+### New features
+
+* diagnose manifest with dirty or changed documents ([#225](https://github.com/expo/vscode-expo/issues/225)) ([82c8dd3](https://github.com/expo/vscode-expo/commit/82c8dd303d151f917ca68ec50c2a023bfacae0ed))
+* use `npx expo config` to generate preview data ([#223](https://github.com/expo/vscode-expo/issues/223)) ([640de3a](https://github.com/expo/vscode-expo/commit/640de3a23bc1be4f946fadd1d3aa4718a766243e))
+
+
+### Bug fixes
+
+* manually resolve absolute file paths with `__dirname` ([7f4951e](https://github.com/expo/vscode-expo/commit/7f4951eea81469ceea0aaff61d2d7f22b60a55d5))
+* upgrade `schema-expo-module` script to `expo@49` ([#219](https://github.com/expo/vscode-expo/issues/219)) ([a610842](https://github.com/expo/vscode-expo/commit/a61084253234663c96623c5dd11618627fa6815f))
+
+
+### Code changes
+
+* emphasize bundled `@expo/*` packages and limit imports ([#222](https://github.com/expo/vscode-expo/issues/222)) ([0bd601d](https://github.com/expo/vscode-expo/commit/0bd601d974e8b53143718e54ea4a320428266894))
+
+
+### Other chores
+
+* disable `global.expect` workaround for `chai` ([324933c](https://github.com/expo/vscode-expo/commit/324933cea956a822237885d4d891e61be112575c))
+* drop `npm run install:fixture` in favor of vscode task for windows ([6a624da](https://github.com/expo/vscode-expo/commit/6a624daed40d4ee379a4395470ef196a47560e03))
+* fail when no tests are found ([8eda594](https://github.com/expo/vscode-expo/commit/8eda59447cc6efbcee396d02f8b9932377db8a44))
+* re-enable windows tests on ci ([a782b4e](https://github.com/expo/vscode-expo/commit/a782b4ec920acd88898c2a2110d482463086ace3))
+* test activation and remove useless activation event ([#221](https://github.com/expo/vscode-expo/issues/221)) ([b4dec03](https://github.com/expo/vscode-expo/commit/b4dec031f7a964f54109da90899d15e08782ee19))
+* unify snapshot behavior on CI and local testing ([#224](https://github.com/expo/vscode-expo/issues/224)) ([bdd2efe](https://github.com/expo/vscode-expo/commit/bdd2efe6848061022611231f01eac51699f10738))
+
 ## [1.1.0](https://github.com/expo/vscode-expo/compare/1.0.7...1.1.0) (2023-09-01)
 
 
