@@ -1,3 +1,4 @@
+import fs from 'fs';
 import vscode from 'vscode';
 
 import {
@@ -166,6 +167,16 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
     config.bundlerPort = config.bundlerPort ?? undefined;
 
+    // Workaround for Window's drive letter case mismatch with source maps
+    if (process.platform === 'win32') {
+      const projectRoot = await resolveWindowsProjectRoot(config.projectRoot);
+
+      // Replace the project root for all source maps related paths.
+      config.cwd = projectRoot;
+      config.projectRoot = projectRoot;
+      config.rootPath = projectRoot;
+    }
+
     // Resolve the target device config to inspect
     const { platform, workflow, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
@@ -236,4 +247,32 @@ async function pickDevice(config: ExpoDebugConfig) {
   }
 
   throw new Error('waiting for device to connect...');
+}
+
+/**
+ * Resolve the "real path" of the project root.
+ * This workaround is for Window's drive letter casing mismatch within the source maps.
+ * VS Code seems to prefer lower case drive letters, while Metro use upper case drive letters.
+ */
+async function resolveWindowsProjectRoot(projectRoot: string) {
+  if (process.platform !== 'win32') {
+    return projectRoot;
+  }
+
+  return await new Promise<string>((resolve) => {
+    fs.realpath.native(projectRoot, (error, realProjectRoot) => {
+      if (error) {
+        console.warn(
+          `Failed to resolve the real path of the project root, this may break the breakpoints functionality.`
+        );
+        console.warn(`Reason: ${error.message} (${error.code})`);
+        console.warn(
+          `If you run into this issue often, please report it at: https://github.com/expo/vscode-expo/issues/new/choose`
+        );
+        resolve(projectRoot);
+      } else {
+        resolve(realProjectRoot);
+      }
+    });
+  });
 }
