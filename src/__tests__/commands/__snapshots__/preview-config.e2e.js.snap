@@ -19,7 +19,6 @@ exports[`expo.config.preview runs for introspect 1`] = `
   ],
   \\"ios\\": {
     \\"supportsTablet\\": true,
-    \\"package\\": \\"dev.expo.configtsapp\\",
     \\"bundleIdentifier\\": \\"com.placeholder.appid\\",
     \\"infoPlist\\": {
       \\"CFBundleDevelopmentRegion\\": \\"$(DEVELOPMENT_LANGUAGE)\\",
@@ -48,6 +47,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
       ],
       \\"UIViewControllerBasedStatusBarAppearance\\": false,
       \\"UIStatusBarStyle\\": \\"UIStatusBarStyleDefault\\",
+      \\"CADisableMinimumFrameDurationOnPhone\\": true,
       \\"CFBundleShortVersionString\\": \\"1.0.0\\",
       \\"CFBundleVersion\\": \\"1\\",
       \\"CFBundleURLTypes\\": [
@@ -82,14 +82,14 @@ exports[`expo.config.preview runs for introspect 1`] = `
       \\"foregroundImage\\": \\"./assets/adaptive-icon.png\\",
       \\"backgroundColor\\": \\"#ffffff\\"
     },
-    \\"package\\": \\"dev.expo.configtsapp\\",
     \\"permissions\\": [
       \\"android.permission.CAMERA\\",
       \\"android.permission.RECORD_AUDIO\\",
       \\"android.permission.READ_EXTERNAL_STORAGE\\",
       \\"android.permission.WRITE_EXTERNAL_STORAGE\\",
       \\"android.permission.INTERNET\\"
-    ]
+    ],
+    \\"package\\": \\"com.placeholder.appid\\"
   },
   \\"web\\": {
     \\"favicon\\": \\"./assets/favicon.png\\"
@@ -144,10 +144,6 @@ exports[`expo.config.preview runs for introspect 1`] = `
       },
       \\"expo-document-picker\\": {
         \\"name\\": \\"expo-document-picker\\",
-        \\"version\\": \\"UNVERSIONED\\"
-      },
-      \\"expo-facebook\\": {
-        \\"name\\": \\"expo-facebook\\",
         \\"version\\": \\"UNVERSIONED\\"
       },
       \\"expo-splash-screen\\": {
@@ -286,7 +282,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
           \\"manifest\\": {
             \\"$\\": {
               \\"xmlns:android\\": \\"http://schemas.android.com/apk/res/android\\",
-              \\"package\\": \\"dev.expo.configtsapp\\"
+              \\"package\\": \\"com.placeholder.appid\\"
             },
             \\"uses-permission\\": [
               {
@@ -363,12 +359,6 @@ exports[`expo.config.preview runs for introspect 1`] = `
                 \\"meta-data\\": [
                   {
                     \\"$\\": {
-                      \\"android:name\\": \\"expo.modules.updates.EXPO_UPDATE_URL\\",
-                      \\"android:value\\": \\"https://exp.host/@anonymous/preview\\"
-                    }
-                  },
-                  {
-                    \\"$\\": {
                       \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
                       \\"android:value\\": \\"49.0.0\\"
                     }
@@ -376,7 +366,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
                   {
                     \\"$\\": {
                       \\"android:name\\": \\"expo.modules.updates.ENABLED\\",
-                      \\"android:value\\": \\"true\\"
+                      \\"android:value\\": \\"false\\"
                     }
                   },
                   {
@@ -443,7 +433,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
                         \\"data\\": [
                           {
                             \\"$\\": {
-                              \\"android:scheme\\": \\"dev.expo.configtsapp\\"
+                              \\"android:scheme\\": \\"com.placeholder.appid\\"
                             }
                           }
                         ]
@@ -466,8 +456,8 @@ exports[`expo.config.preview runs for introspect 1`] = `
         \\"gradleProperties\\": [
           {
             \\"type\\": \\"property\\",
-            \\"key\\": \\"expo.jsEngine\\",
-            \\"value\\": \\"jsc\\"
+            \\"key\\": \\"hermesEnabled\\",
+            \\"value\\": \\"true\\"
           }
         ]
       },
@@ -499,6 +489,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
           ],
           \\"UIViewControllerBasedStatusBarAppearance\\": false,
           \\"UIStatusBarStyle\\": \\"UIStatusBarStyleDefault\\",
+          \\"CADisableMinimumFrameDurationOnPhone\\": true,
           \\"CFBundleShortVersionString\\": \\"1.0.0\\",
           \\"CFBundleVersion\\": \\"1\\",
           \\"CFBundleURLTypes\\": [
@@ -528,14 +519,297 @@ exports[`expo.config.preview runs for introspect 1`] = `
           \\"aps-environment\\": \\"development\\"
         },
         \\"expoPlist\\": {
-          \\"EXUpdatesEnabled\\": true,
+          \\"EXUpdatesEnabled\\": false,
           \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
           \\"EXUpdatesLaunchWaitMs\\": 0,
-          \\"EXUpdatesURL\\": \\"https://exp.host/@anonymous/preview\\",
           \\"EXUpdatesSDKVersion\\": \\"49.0.0\\"
         },
+        \\"splashScreenStoryboard\\": {
+          \\"document\\": {
+            \\"$\\": {
+              \\"type\\": \\"com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB\\",
+              \\"version\\": \\"3.0\\",
+              \\"toolsVersion\\": \\"16096\\",
+              \\"targetRuntime\\": \\"iOS.CocoaTouch\\",
+              \\"propertyAccessControl\\": \\"none\\",
+              \\"useAutolayout\\": \\"YES\\",
+              \\"launchScreen\\": \\"YES\\",
+              \\"useTraitCollections\\": \\"YES\\",
+              \\"useSafeAreas\\": \\"YES\\",
+              \\"colorMatched\\": \\"YES\\",
+              \\"initialViewController\\": \\"EXPO-VIEWCONTROLLER-1\\"
+            },
+            \\"dependencies\\": [
+              {
+                \\"deployment\\": [
+                  {
+                    \\"$\\": {
+                      \\"identifier\\": \\"iOS\\"
+                    }
+                  }
+                ],
+                \\"plugIn\\": [
+                  {
+                    \\"$\\": {
+                      \\"identifier\\": \\"com.apple.InterfaceBuilder.IBCocoaTouchPlugin\\",
+                      \\"version\\": \\"16087\\"
+                    }
+                  }
+                ],
+                \\"capability\\": [
+                  {
+                    \\"$\\": {
+                      \\"name\\": \\"Safe area layout guides\\",
+                      \\"minToolsVersion\\": \\"9.0\\"
+                    }
+                  },
+                  {
+                    \\"$\\": {
+                      \\"name\\": \\"documents saved in the Xcode 8 format\\",
+                      \\"minToolsVersion\\": \\"8.0\\"
+                    }
+                  }
+                ]
+              }
+            ],
+            \\"scenes\\": [
+              {
+                \\"scene\\": [
+                  {
+                    \\"$\\": {
+                      \\"sceneID\\": \\"EXPO-SCENE-1\\"
+                    },
+                    \\"objects\\": [
+                      {
+                        \\"viewController\\": [
+                          {
+                            \\"$\\": {
+                              \\"storyboardIdentifier\\": \\"SplashScreenViewController\\",
+                              \\"id\\": \\"EXPO-VIEWCONTROLLER-1\\",
+                              \\"sceneMemberID\\": \\"viewController\\"
+                            },
+                            \\"view\\": [
+                              {
+                                \\"$\\": {
+                                  \\"key\\": \\"view\\",
+                                  \\"userInteractionEnabled\\": \\"NO\\",
+                                  \\"contentMode\\": \\"scaleToFill\\",
+                                  \\"insetsLayoutMarginsFromSafeArea\\": \\"NO\\",
+                                  \\"id\\": \\"EXPO-ContainerView\\",
+                                  \\"userLabel\\": \\"ContainerView\\"
+                                },
+                                \\"rect\\": [
+                                  {
+                                    \\"$\\": {
+                                      \\"key\\": \\"frame\\",
+                                      \\"x\\": \\"0.0\\",
+                                      \\"y\\": \\"0.0\\",
+                                      \\"width\\": \\"414\\",
+                                      \\"height\\": \\"736\\"
+                                    }
+                                  }
+                                ],
+                                \\"autoresizingMask\\": [
+                                  {
+                                    \\"$\\": {
+                                      \\"key\\": \\"autoresizingMask\\",
+                                      \\"flexibleMaxX\\": \\"YES\\",
+                                      \\"flexibleMaxY\\": \\"YES\\"
+                                    }
+                                  }
+                                ],
+                                \\"subviews\\": [
+                                  {
+                                    \\"imageView\\": [
+                                      {
+                                        \\"$\\": {
+                                          \\"userInteractionEnabled\\": \\"NO\\",
+                                          \\"contentMode\\": \\"scaleAspectFill\\",
+                                          \\"horizontalHuggingPriority\\": \\"251\\",
+                                          \\"verticalHuggingPriority\\": \\"251\\",
+                                          \\"insetsLayoutMarginsFromSafeArea\\": \\"NO\\",
+                                          \\"image\\": \\"SplashScreenBackground\\",
+                                          \\"translatesAutoresizingMaskIntoConstraints\\": \\"NO\\",
+                                          \\"id\\": \\"EXPO-SplashScreenBackground\\",
+                                          \\"userLabel\\": \\"SplashScreenBackground\\"
+                                        },
+                                        \\"rect\\": [
+                                          {
+                                            \\"$\\": {
+                                              \\"key\\": \\"frame\\",
+                                              \\"x\\": \\"0.0\\",
+                                              \\"y\\": \\"0.0\\",
+                                              \\"width\\": \\"414\\",
+                                              \\"height\\": \\"736\\"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"id\\": \\"EXPO-SplashScreen\\",
+                                          \\"userLabel\\": \\"SplashScreen\\",
+                                          \\"image\\": \\"SplashScreen\\",
+                                          \\"contentMode\\": \\"scaleAspectFit\\",
+                                          \\"horizontalHuggingPriority\\": 251,
+                                          \\"verticalHuggingPriority\\": 251,
+                                          \\"clipsSubviews\\": true,
+                                          \\"userInteractionEnabled\\": false,
+                                          \\"translatesAutoresizingMaskIntoConstraints\\": false
+                                        },
+                                        \\"rect\\": [
+                                          {
+                                            \\"$\\": {
+                                              \\"key\\": \\"frame\\",
+                                              \\"x\\": 0,
+                                              \\"y\\": 0,
+                                              \\"width\\": 414,
+                                              \\"height\\": 736
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ],
+                                \\"color\\": [
+                                  {
+                                    \\"$\\": {
+                                      \\"key\\": \\"backgroundColor\\",
+                                      \\"systemColor\\": \\"systemBackgroundColor\\"
+                                    }
+                                  }
+                                ],
+                                \\"constraints\\": [
+                                  {
+                                    \\"constraint\\": [
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreenBackground\\",
+                                          \\"firstAttribute\\": \\"top\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"top\\",
+                                          \\"id\\": \\"1gX-mQ-vu6\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreenBackground\\",
+                                          \\"firstAttribute\\": \\"leading\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"leading\\",
+                                          \\"id\\": \\"6tX-OG-Sck\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreenBackground\\",
+                                          \\"firstAttribute\\": \\"trailing\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"trailing\\",
+                                          \\"id\\": \\"ABX-8g-7v4\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreenBackground\\",
+                                          \\"firstAttribute\\": \\"bottom\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"bottom\\",
+                                          \\"id\\": \\"jkI-2V-eW5\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreen\\",
+                                          \\"firstAttribute\\": \\"top\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"top\\",
+                                          \\"id\\": \\"83fcb9b545b870ba44c24f0feeb116490c499c52\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreen\\",
+                                          \\"firstAttribute\\": \\"leading\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"leading\\",
+                                          \\"id\\": \\"61d16215e44b98e39d0a2c74fdbfaaa22601b12c\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreen\\",
+                                          \\"firstAttribute\\": \\"trailing\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"trailing\\",
+                                          \\"id\\": \\"f934da460e9ab5acae3ad9987d5b676a108796c1\\"
+                                        }
+                                      },
+                                      {
+                                        \\"$\\": {
+                                          \\"firstItem\\": \\"EXPO-SplashScreen\\",
+                                          \\"firstAttribute\\": \\"bottom\\",
+                                          \\"secondItem\\": \\"EXPO-ContainerView\\",
+                                          \\"secondAttribute\\": \\"bottom\\",
+                                          \\"id\\": \\"d6a0be88096b36fb132659aa90203d39139deda9\\"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ],
+                                \\"viewLayoutGuide\\": [
+                                  {
+                                    \\"$\\": {
+                                      \\"key\\": \\"safeArea\\",
+                                      \\"id\\": \\"EXPO-SafeArea\\"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        \\"placeholder\\": [
+                          {
+                            \\"$\\": {
+                              \\"placeholderIdentifier\\": \\"IBFirstResponder\\",
+                              \\"id\\": \\"EXPO-PLACEHOLDER-1\\",
+                              \\"userLabel\\": \\"First Responder\\",
+                              \\"sceneMemberID\\": \\"firstResponder\\"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            \\"resources\\": [
+              {
+                \\"image\\": [
+                  {
+                    \\"$\\": {
+                      \\"name\\": \\"SplashScreenBackground\\",
+                      \\"width\\": \\"1\\",
+                      \\"height\\": \\"1\\"
+                    }
+                  },
+                  {
+                    \\"$\\": {
+                      \\"name\\": \\"SplashScreen\\",
+                      \\"width\\": 414,
+                      \\"height\\": 736
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
         \\"podfileProperties\\": {
-          \\"expo.jsEngine\\": \\"jsc\\"
+          \\"expo.jsEngine\\": \\"hermes\\"
         }
       }
     }
@@ -574,7 +848,6 @@ exports[`expo.config.preview runs for prebuild 1`] = `
   ],
   \\"ios\\": {
     \\"supportsTablet\\": true,
-    \\"package\\": \\"dev.expo.configtsapp\\",
     \\"bundleIdentifier\\": \\"com.placeholder.appid\\"
   },
   \\"android\\": {
@@ -582,14 +855,14 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       \\"foregroundImage\\": \\"./assets/adaptive-icon.png\\",
       \\"backgroundColor\\": \\"#ffffff\\"
     },
-    \\"package\\": \\"dev.expo.configtsapp\\",
     \\"permissions\\": [
       \\"android.permission.CAMERA\\",
       \\"android.permission.RECORD_AUDIO\\",
       \\"android.permission.READ_EXTERNAL_STORAGE\\",
       \\"android.permission.WRITE_EXTERNAL_STORAGE\\",
       \\"android.permission.INTERNET\\"
-    ]
+    ],
+    \\"package\\": \\"com.placeholder.appid\\"
   },
   \\"web\\": {
     \\"favicon\\": \\"./assets/favicon.png\\"
@@ -644,10 +917,6 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       },
       \\"expo-document-picker\\": {
         \\"name\\": \\"expo-document-picker\\",
-        \\"version\\": \\"UNVERSIONED\\"
-      },
-      \\"expo-facebook\\": {
-        \\"name\\": \\"expo-facebook\\",
         \\"version\\": \\"UNVERSIONED\\"
       },
       \\"expo-splash-screen\\": {
@@ -708,15 +977,13 @@ exports[`expo.config.preview runs for public 1`] = `
     \\"**/*\\"
   ],
   \\"ios\\": {
-    \\"supportsTablet\\": true,
-    \\"package\\": \\"dev.expo.configtsapp\\"
+    \\"supportsTablet\\": true
   },
   \\"android\\": {
     \\"adaptiveIcon\\": {
       \\"foregroundImage\\": \\"./assets/adaptive-icon.png\\",
       \\"backgroundColor\\": \\"#ffffff\\"
     },
-    \\"package\\": \\"dev.expo.configtsapp\\",
     \\"permissions\\": [
       \\"android.permission.CAMERA\\",
       \\"android.permission.RECORD_AUDIO\\"
@@ -738,6 +1005,6 @@ exports[`expo.config.preview runs for public 1`] = `
   \\"platforms\\": [
     \\"ios\\",
     \\"android\\"
-  ],
+  ]
 }"
 `;

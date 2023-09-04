@@ -2,7 +2,7 @@ import assert from 'assert';
 import path from 'path';
 import vscode from 'vscode';
 
-import { waitForTrue, waitForValue } from './wait';
+import { type WaitForValueOptions, waitForTrue, waitForValue } from './wait';
 
 const pkg = require('../../../../package');
 
@@ -32,14 +32,15 @@ export function waitForExtension() {
  */
 export function waitForEditorOpen(
   fileName: string,
-  delay = 500
+  options?: WaitForValueOptions
 ): Promise<vscode.TextEditor | undefined> {
   return waitForValue(
     () =>
       vscode.window.visibleTextEditors.find(
-        (editor) => path.basename(editor.document.fileName) === fileName
+        (editor) =>
+          path.basename(editor.document.fileName) === fileName && !!editor.document.getText()
       ),
-    { delay }
+    options
   );
 }
 

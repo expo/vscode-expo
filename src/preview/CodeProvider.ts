@@ -119,7 +119,9 @@ export class CodeProvider implements vscode.TextDocumentContentProvider {
       case 'entitlements':
         return formatPlist(results);
       case 'properties':
-        return formatGradleProperties(results);
+        return formatGradleProperties(
+          typeof results === 'object' && !Array.isArray(results) ? Object.values(results) : results
+        );
       default:
         throw new Error('Unknown language: ' + language);
     }

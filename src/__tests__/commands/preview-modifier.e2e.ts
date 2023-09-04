@@ -21,9 +21,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -34,9 +34,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('colors.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -47,9 +47,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('gradle.properties');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -60,9 +60,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -73,9 +73,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('strings.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -86,9 +86,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('styles.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -99,9 +99,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Example.entitlements');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -112,9 +112,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Expo.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -125,9 +125,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
@@ -138,9 +138,9 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
     );
 
     const preview = await waitForEditorOpen('Podfile.properties.json');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 });
@@ -158,37 +158,37 @@ describe('dynamic configs', () => {
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
   it(`runs ${PreviewModProvider.iosInfoPlist} for app.config.js`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.config.js'));
+    await window.showTextDocument(getWorkspaceUri('preview-config-js/app.config.js'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosInfoPlist
     );
 
     const preview = await waitForEditorOpen('Info.plist');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.config.ts`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.config.ts'));
+    await window.showTextDocument(getWorkspaceUri('preview-config-ts/app.config.ts'));
     await commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
     );
 
     const preview = await waitForEditorOpen('AndroidManifest.xml');
-    const content = sanitizeSnapshotValues(preview?.document.getText());
+    expect(preview).to.exist;
 
-    expect(content).to.exist;
+    const content = sanitizeSnapshotValues(preview!.document.getText());
     expect(content).toMatchSnapshot();
   });
 });
