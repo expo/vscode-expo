@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/expo/vscode-expo/compare/1.2.0...1.2.1) (2023-09-04)
+
+
+### Bug fixes
+
+* resolve the project "realpath" on Windows to avoid drive letter mismatch in sourcemap ([#227](https://github.com/expo/vscode-expo/issues/227)) ([f20d7b7](https://github.com/expo/vscode-expo/commit/f20d7b7c6bd4760c2bfcdb876401879f0267f5d3))
+
 ## [1.2.0](https://github.com/expo/vscode-expo/compare/1.1.0...1.2.0) (2023-09-04)
 
 
