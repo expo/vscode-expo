@@ -21,7 +21,7 @@ export function debounce<T extends (...args: any) => any>(action: T, delay = 500
   };
 
   const debounced = (...args: any[]) => {
-    cancel();
+    if (timerId) clearTimeout(timerId);
     timerId = setTimeout(() => action(...args), delay);
   };
 
