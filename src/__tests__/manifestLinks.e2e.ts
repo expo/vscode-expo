@@ -20,9 +20,7 @@ describe('ManifestLinksProvider', () => {
         app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
       });
 
-      afterEach(async () => {
-        await closeAllEditors();
-      });
+      afterEach(() => closeAllEditors());
 
       describe('assets', () => {
         it('opens valid asset link', async () => {

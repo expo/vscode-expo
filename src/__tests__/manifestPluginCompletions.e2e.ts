@@ -13,9 +13,7 @@ describe('ManifestPluginCompletionsProvider', () => {
         app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
       });
 
-      afterEach(async () => {
-        await closeActiveEditor();
-      });
+      afterEach(() => closeActiveEditor());
 
       it('suggests plugins from installed packages', async () => {
         const range = findContentRange(app, 'expo-system-ui');

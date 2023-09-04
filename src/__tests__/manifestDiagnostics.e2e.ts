@@ -3,7 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { DiagnosticSeverity, languages, TextEditor, window } from 'vscode';
 
-import { findContentRange, getWorkspaceUri, storeOriginalContent } from './utils/vscode';
+import {
+  closeAllEditors,
+  findContentRange,
+  getWorkspaceUri,
+  replaceEditorContent,
+} from './utils/vscode';
 import { waitFor } from './utils/wait';
 
 describe('ManifestDiagnosticsProvider', () => {
@@ -13,23 +18,26 @@ describe('ManifestDiagnosticsProvider', () => {
   ['app.json', 'app.config.json'].forEach((manifestFile) => {
     describe(`manifest: ${manifestFile}`, () => {
       let app: TextEditor;
-      let restoreContent: ReturnType<typeof storeOriginalContent>;
+      let content: string;
 
       before(async () => {
-        app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
-        restoreContent = storeOriginalContent(app);
+        content = await window
+          .showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`))
+          .then((editor) => editor.document.getText());
       });
 
-      afterEach(async () => {
-        await restoreContent();
+      beforeEach(async () => {
+        app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
       });
+
+      afterEach(() => replaceEditorContent(app, content));
+      after(() => closeAllEditors());
 
       it('diagnoses non-existing asset file reference', async () => {
         const range = findContentRange(app, './assets/splash.png');
         await app.edit((builder) => builder.replace(range, './assets/doesnt-exist.png'));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const diagnostics = await languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
@@ -43,9 +51,8 @@ describe('ManifestDiagnosticsProvider', () => {
       it('diagnoses asset directory reference', async () => {
         const range = findContentRange(app, './assets/adaptive-icon.png');
         await app.edit((builder) => builder.replace(range, './assets'));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const diagnostics = await languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
@@ -59,9 +66,8 @@ describe('ManifestDiagnosticsProvider', () => {
       it('diagnoses non-existing plugin definition', async () => {
         const range = findContentRange(app, '"expo-system-ui",');
         await app.edit((builder) => builder.replace(range, '"doesnt-exists",'));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const diagnostics = await languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
@@ -75,9 +81,8 @@ describe('ManifestDiagnosticsProvider', () => {
       it('diagnoses empty string plugin definition', async () => {
         const range = findContentRange(app, '"plugins": [');
         await app.edit((builder) => builder.replace(range, `"plugins": ["",`));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const diagnostics = await languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
@@ -91,9 +96,8 @@ describe('ManifestDiagnosticsProvider', () => {
       it('diagnoses empty array plugin definition', async () => {
         const range = findContentRange(app, '"plugins": [');
         await app.edit((builder) => builder.replace(range, `"plugins": [[],`));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const diagnostics = await languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
@@ -119,9 +123,8 @@ describe('ManifestDiagnosticsProvider', () => {
 
         const preRange = findContentRange(app, '"expo-system-ui",');
         await app.edit((builder) => builder.replace(preRange, `"./${pluginName}",`));
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const preInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
 
         expect(preInstallDiagnostic).to.have.length(1);
@@ -142,9 +145,8 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) =>
           builder.replace(findContentRange(app, `"./${pluginName}",`), `"./${pluginName}" ,`)
         );
-        await app.document.save();
+        await waitFor(1000);
 
-        await waitFor();
         const postInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
         expect(postInstallDiagnostic).to.have.length(0);
 
