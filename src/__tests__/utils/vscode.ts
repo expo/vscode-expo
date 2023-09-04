@@ -97,16 +97,3 @@ export async function replaceEditorContent(editor: vscode.TextEditor, content: s
   const range = editor.document.validateRange(new vscode.Range(0, 0, editor.document.lineCount, 0));
   await editor.edit((builder) => builder.replace(range, content));
 }
-
-/**
- * Remember the original content of an editor.
- * This returns a function to restore the original content, even when it was saved.
- */
-export function storeOriginalContent(editor: vscode.TextEditor): () => Promise<void> {
-  const content = editor.document.getText();
-
-  return async function restoreOriginalContent() {
-    await replaceEditorContent(editor, content);
-    await editor.document.save();
-  };
-}
