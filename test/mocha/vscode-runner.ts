@@ -14,6 +14,12 @@ export async function run() {
 
   // Globally initialize the test environment
   tests.globalSetup(async function before() {
+    // Show the snapshot configuration
+    console.log(
+      'Snapshot updates:',
+      require('mocha-chai-jest-snapshot/dist/helper').snapshotOptions.updateSnapshot
+    );
+
     // Configure Chai extensions
     Chai.use(require('chai-subset'));
     Chai.use(
