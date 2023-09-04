@@ -1,5 +1,6 @@
 import vscode from 'vscode';
 
+import { debounce } from './debounce';
 import { ExpoProjectCache } from '../expo/project';
 
 /**
@@ -40,17 +41,34 @@ export abstract class ExpoDiagnosticsProvider {
     diagnosticsName?: string
   ) {
     this.diagnostics = vscode.languages.createDiagnosticCollection(diagnosticsName);
-
     subscriptions.push(this.diagnostics);
-    subscriptions.push(
-      vscode.workspace.onDidSaveTextDocument((document) => this.diagnose(document))
-    );
+    this.listenToEvents(subscriptions);
+  }
+
+  protected listenToEvents(subscriptions: vscode.Disposable[]) {
+    // Listen to active editor changes that should trigger a new diagnosis
     subscriptions.push(
       vscode.window.onDidChangeActiveTextEditor((editor) => this.diagnose(editor?.document))
     );
+
+    // Listen to save events that should trigger a new diagnosis
+    subscriptions.push(
+      vscode.workspace.onDidSaveTextDocument((document) => this.diagnose(document))
+    );
+
+    // Listen to dirty documents of change events that should trigger a new diagnosis, after some delay
+    subscriptions.push(
+      vscode.workspace.onDidChangeTextDocument((document) =>
+        this.debouncedDiagnose(document.document)
+      )
+    );
   }
 
+  public debouncedDiagnose = debounce(this.diagnose.bind(this));
+
   public async diagnose(document?: vscode.TextDocument) {
+    this.debouncedDiagnose.cancel();
+
     if (document && vscode.languages.match(this.selector, document)) {
       this.diagnostics.set(document.uri, await this.provideDiagnostics(document));
     } else if (document) {

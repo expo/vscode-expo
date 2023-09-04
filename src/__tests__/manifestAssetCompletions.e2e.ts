@@ -13,9 +13,7 @@ describe('ManifestAssetCompletionsProvider', () => {
         app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
       });
 
-      afterEach(async () => {
-        await closeActiveEditor();
-      });
+      afterEach(() => closeActiveEditor());
 
       it('suggests folders from project', async () => {
         const range = findContentRange(app, './assets/icon.png');
