@@ -53,6 +53,8 @@
         "--disable-extensions"
       ],
       "env": {
+        "CI": "true", // Force snapshots into "no update" mode
+        "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null
       },
@@ -73,6 +75,8 @@
         "--disable-extensions"
       ],
       "env": {
+        "CI": "true", // Force snapshots into "no update" mode
+        "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
         "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}"
@@ -94,6 +98,8 @@
         "--disable-extensions"
       ],
       "env": {
+        "CI": "true", // Force snapshots into "no update" mode
+        "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null
       },
@@ -114,6 +120,8 @@
         "--disable-extensions"
       ],
       "env": {
+        "CI": "true", // Force snapshots into "no update" mode
+        "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null
       },
@@ -133,9 +141,10 @@
         "--disable-extensions"
       ],
       "env": {
+        "CI": null, // Force snapshots into "update" mode
+        "UPDATE_SNAPSHOT": "true", // Force snapshots into "update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
-        "UPDATE_SNAPSHOT": "true"
       },
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
