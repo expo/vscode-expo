@@ -2,6 +2,10 @@ name: Setup project
 description: Prepare the project for any CI action
 
 inputs:
+  bun-version:
+    description: Version of Bun to install
+    default: 1.x
+
   node-version:
     description: Version of Node to install
     default: 18.x
@@ -17,28 +21,22 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: 🏗 Setup Node with cache
-      if: ${{ inputs.without-cache != 'true' }}
-      uses: actions/setup-node@v3
+    - name: 🏗 Setup Bun
+      uses: oven-sh/setup-bun@v1
       with:
-        node-version: ${{ inputs.node-version }}
-        cache: npm
-        cache-dependency-path: |
-          package-lock.json
-          test/fixture/package-lock.json
+        bun-version: ${{ inputs.bun-version }}
 
     - name: 🏗 Setup Node without cache
-      if: ${{ inputs.without-cache == 'true' }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
 
     - name: 📦 Install dependencies
-      run: npm ci
+      run: bun install --frozen-lockfile
       shell: bash
 
     - name: 📦 Install fixture
       if: ${{ inputs.with-fixture == 'true' }}
-      run: npm ci
+      run: bun install --frozen-lockfile
       working-directory: test/fixture
       shell: bash
