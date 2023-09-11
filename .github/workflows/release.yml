@@ -29,7 +29,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 📋 Dry-running release
-        run: npx semantic-release --dry-run
+        run: bunx semantic-release --dry-run
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -46,7 +46,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 📋 Release code
-        run: npx semantic-release
+        run: bunx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: Expo CI

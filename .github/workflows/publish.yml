@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: npx vsce package --no-dependencies
+        run: bunx vsce package --no-dependencies
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 
@@ -38,14 +38,14 @@ jobs:
 
       - name: 🚀 Publish release to marketplace
         if: ${{ !github.event.release.prerelease }}
-        run: npx vsce publish --no-dependencies
+        run: bunx vsce publish --no-dependencies
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
 
       - name: 🚀 Publish pre-release to marketplace
         if: ${{ github.event.release.prerelease }}
-        run: npx vsce publish --no-dependencies --pre-release
+        run: bunx vsce publish --no-dependencies --pre-release
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
@@ -60,18 +60,18 @@ jobs:
         uses: ./.github/actions/setup-project
 
       - name: 🎁 Package extension
-        run: npx vsce package --no-dependencies --out ./vscode-expo.vsix
+        run: bunx vsce package --no-dependencies --out ./vscode-expo.vsix
         env:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
 
       - name: 🚀 Publish release to open-vsx
         if: ${{ !github.event.release.prerelease }}
-        run: npx ovsx publish --no-dependencies ./vscode-expo.vsix
+        run: bunx ovsx publish --no-dependencies ./vscode-expo.vsix
         env:
           OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
 
       - name: 🚀 Publish pre-release to open-vsx
         if: ${{ github.event.release.prerelease }}
-        run: npx ovsx publish --no-dependencies --pre-release ./vscode-expo.vsix
+        run: bunx ovsx publish --no-dependencies --pre-release ./vscode-expo.vsix
         env:
           OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
