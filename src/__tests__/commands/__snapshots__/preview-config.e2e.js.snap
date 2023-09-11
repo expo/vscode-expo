@@ -112,7 +112,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
       },
       \\"expo-camera\\": {
         \\"name\\": \\"expo-camera\\",
-        \\"version\\": \\"13.4.2\\"
+        \\"version\\": \\"13.4.3\\"
       },
       \\"react-native-maps\\": {
         \\"name\\": \\"react-native-maps\\",
@@ -156,7 +156,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
       },
       \\"expo-file-system\\": {
         \\"name\\": \\"expo-file-system\\",
-        \\"version\\": \\"15.4.3\\"
+        \\"version\\": \\"15.4.4\\"
       }
     },
     \\"autolinkedModules\\": [
@@ -885,7 +885,7 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       },
       \\"expo-camera\\": {
         \\"name\\": \\"expo-camera\\",
-        \\"version\\": \\"13.4.2\\"
+        \\"version\\": \\"13.4.3\\"
       },
       \\"react-native-maps\\": {
         \\"name\\": \\"react-native-maps\\",
@@ -929,7 +929,7 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       },
       \\"expo-file-system\\": {
         \\"name\\": \\"expo-file-system\\",
-        \\"version\\": \\"15.4.3\\"
+        \\"version\\": \\"15.4.4\\"
       }
     },
     \\"autolinkedModules\\": [
