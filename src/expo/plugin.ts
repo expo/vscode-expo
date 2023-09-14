@@ -13,7 +13,10 @@ export type PluginDefiniton = {
   nameRange: Range;
 };
 
-export type PluginInfo = NonNullable<ReturnType<typeof resolveConfigPluginFunctionWithInfo>>;
+// TODO(cedric): move `pluginSchema` to `@expo/config-plugins`
+export type PluginInfo = NonNullable<ReturnType<typeof resolveConfigPluginFunctionWithInfo>> & {
+  pluginSchema?: object;
+};
 export type PluginFunction = ReturnType<typeof resolveConfigPluginFunction>;
 
 /**
@@ -46,7 +49,20 @@ export function resolvePluginInfo(dir: string, name: string): PluginInfo | undef
   resetModuleFrom(dir, name);
 
   try {
-    return resolveConfigPluginFunctionWithInfo(dir, name);
+    // TODO(cedric): move this to `@expo/config-plugins`
+    const info: PluginInfo = {
+      ...resolveConfigPluginFunctionWithInfo(dir, name),
+      pluginSchema: undefined,
+    };
+
+    try {
+      // Attempt to load the schema, if defined
+      info.pluginSchema = require(info.pluginFile).schema;
+    } catch {
+      // pass through
+    }
+
+    return info;
   } catch {
     return undefined;
   }
