@@ -33,12 +33,18 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
+    - name: 🏗 Setup Bun
+      if: ${{ inputs.with-fixture == 'true' }}
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: 1.x
+
     - name: 📦 Install dependencies
       run: npm ci
       shell: bash
 
     - name: 📦 Install fixture
       if: ${{ inputs.with-fixture == 'true' }}
-      run: npm ci
+      run: bun install --yarn --frozen-lockfile
       working-directory: test/fixture
       shell: bash

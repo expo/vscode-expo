@@ -14,6 +14,10 @@ yarn-debug.log*
 yarn-error.log*
 yarn.lock
 
+# Specific to fixtures
+/test/fixture/package-lock.json
+!/test/fixture/yarn.lock
+
 # editors
 .idea
 
