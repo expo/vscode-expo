@@ -1,5 +1,6 @@
 import vscode from 'vscode';
 
+import { ManifestPluginSchemaProvider } from './ManifestPluginSchemaProvider';
 import { ExpoProjectCache } from './expo/project';
 import { ExpoDebuggersProvider } from './expoDebuggers';
 import { ManifestAssetCompletionsProvider } from './manifestAssetCompletions';
@@ -14,9 +15,10 @@ import { reporter, setupTelemetry, TelemetryEvent } from './utils/telemetry';
 /* eslint-disable no-new */
 
 export async function activate(context: vscode.ExtensionContext) {
-  try {
-    const projects = new ExpoProjectCache(context);
+  const projects = new ExpoProjectCache(context);
+  new ManifestPluginSchemaProvider(context, projects);
 
+  try {
     setupTelemetry(context);
     setupPreview(context);
 
@@ -24,7 +26,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
     new ManifestLinksProvider(context, projects);
     new ManifestDiagnosticsProvider(context, projects);
-    new ManifestPluginCompletionsProvider(context, projects);
+    // new ManifestPluginCompletionsProvider(context, projects);
     new ManifestAssetCompletionsProvider(context, projects);
 
     reporter?.sendTelemetryEvent(TelemetryEvent.ACTIVATED);

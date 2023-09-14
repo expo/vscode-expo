@@ -62,4 +62,18 @@ describe('ManifestPluginCompletionsProvider', () => {
       });
     });
   });
+
+  describe('plugin autocomplete and validation', () => {
+    let app: TextEditor;
+
+    beforeEach(async () => {
+      app = await window.showTextDocument(getWorkspaceUri(`manifest/app.json`));
+    });
+
+    afterEach(() => closeActiveEditor());
+
+    it('warns users when plugin config is invalid', async () => {
+
+    });
+  });
 });

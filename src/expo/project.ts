@@ -80,6 +80,12 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
     return project;
   }
 
+  fromUri(uri: vscode.Uri) {
+    const root = getProjectRoot(uri.fsPath);
+    const project = root ? this.fromRoot(root) : undefined;
+    return project;
+  }
+
   maybeFromRoot(root: string) {
     if (this.cache.has(root)) {
       return this.cache.get(root);

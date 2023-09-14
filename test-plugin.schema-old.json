@@ -1,0 +1,210 @@
+{
+  "description": "The Expo manifest (app.json) validation and documentation.",
+  "version": "69.0.0",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["expo"],
+      "additionalProperties": true,
+      "properties": {
+        "expo": {
+          "$ref": "#/$defs/RootExpo"
+        }
+      }
+    },
+    {
+      "$ref": "#/$defs/RootExpo"
+    }
+  ],
+  "$defs": {
+    "RootExpo": {
+      "type": "object",
+      "required": ["plugins"],
+      "additionalItems": false,
+      "properties": {
+        "plugins": {
+          "$ref": "#/$defs/Plugins"
+        }
+      }
+    },
+    "Plugins": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "array",
+            "minItems": 2,
+            "items": [
+              { "enum": ["expo-camera"] },
+              {
+                "type": "object",
+                "properties": {
+                  "cameraPermission": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "array",
+                "prefixItems": [
+                  { "type": "string" },
+                  { "type": "object" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Plugins__WorksButTooStrict": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "anyOf": [
+          {
+            "oneOf": [
+              {
+                "enum": ["some-other"]
+              },
+              {
+                "type": "array",
+                "additionalItems": false,
+                "minItems": 2,
+                "items": [
+                  {
+                    "enum": ["some-other"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "enableFeature": {
+                        "type": "boolean"
+                      },
+                      "stringValue": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["enableFeature", "stringValue"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "enum": ["expo-camera"]
+              },
+              {
+                "type": "array",
+                "additionalItems": false,
+                "minItems": 1,
+                "items": [
+                  {
+                    "enum": ["expo-camera"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "some": {
+                        "type": "string",
+                        "markdownDescription": "This is an **explanation** of `expo-camera` property"
+                      }
+                    },
+                    "required": ["some"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [{ "enum": ["hello-world"] }]
+          },
+          {
+            "oneOf": [
+              {
+                "enum": ["./local-plugin"]
+              },
+              {
+                "type": "array",
+                "additionalItems": false,
+                "minItems": 2,
+                "items": [
+                  {
+                    "enum": ["./local-plugin"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "some": {
+                        "type": "string",
+                        "markdownDescription": "This is an **explanation** of `./local-plugin` property"
+                      }
+                    },
+                    "required": ["some"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^\\./"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\./"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "Plugins__WorksButNotWithDuplicates": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          {
+            "enum": ["expo-camera", "some-other"]
+          },
+          {
+            "type": "array",
+            "additionalItems": false,
+            "minItems": 2,
+            "items": [
+              {
+                "enum": ["some-other"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "enableFeature": {
+                    "type": "boolean"
+                  },
+                  "stringValue": {
+                    "type": "string"
+                  }
+                },
+                "required": ["enableFeature", "stringValue"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

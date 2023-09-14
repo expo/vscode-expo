@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "expo"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "expo": {
+          "$ref": "#/$defs/ExpoRoot"
+        }
+      }
+    },
+    {
+      "$ref": "#/$defs/ExpoRoot"
+    }
+  ],
+  "$defs": {
+    "ExpoRoot": {
+      "type": "object",
+      "required": [
+        "plugins"
+      ],
+      "additionalItems": false,
+      "properties": {
+        "plugins": {
+          "$ref": "#/$defs/ExpoPlugins"
+        }
+      }
+    },
+    "ExpoPlugins": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "oneOf": [
+              {
+                "enum": [
+                  "expo-system-ui"
+                ]
+              },
+              {
+                "type": "array",
+                "additionalItems": true,
+                "minItems": 1,
+                "items": [
+                  {
+                    "enum": [
+                      "expo-system-ui"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "enum": [
+                  "expo-camera"
+                ]
+              },
+              {
+                "type": "array",
+                "additionalItems": true,
+                "minItems": 1,
+                "items": [
+                  {
+                    "enum": [
+                      "expo-camera"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "enum": [
+                  "./plugins/valid"
+                ]
+              },
+              {
+                "type": "array",
+                "additionalItems": true,
+                "minItems": 1,
+                "items": [
+                  {
+                    "enum": [
+                      "./plugins/valid"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "enum": [
+                  "./plugins/schema"
+                ]
+              },
+              {
+                "type": "array",
+                "additionalItems": false,
+                "minItems": 2,
+                "items": [
+                  {
+                    "enum": [
+                      "./plugins/schema"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "enableFeature": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

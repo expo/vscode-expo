@@ -146,6 +146,11 @@
         "category": "Expo",
         "command": "expo.debug.start",
         "title": "Debug Expo app on a device or simulator, using Hermes"
+      },
+      {
+        "category": "Expo",
+        "command": "expo.manifest.plugin-schema",
+        "title": "Open the manifest plugin schema definition"
       }
     ],
     "configuration": {
@@ -248,7 +253,7 @@
           "app.json",
           "app.config.json"
         ],
-        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/expo-xdl.json"
+        "url": "expo-plugin-schema://schemas/plugin-schema.json"
       },
       {
         "fileMatch": "store.config.json",

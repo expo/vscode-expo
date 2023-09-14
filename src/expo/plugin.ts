@@ -16,6 +16,7 @@ export type PluginDefiniton = {
 // TODO(cedric): move `pluginSchema` to `@expo/config-plugins`
 export type PluginInfo = NonNullable<ReturnType<typeof resolveConfigPluginFunctionWithInfo>> & {
   pluginSchema?: object;
+  pluginName: string;
 };
 export type PluginFunction = ReturnType<typeof resolveConfigPluginFunction>;
 
@@ -53,6 +54,7 @@ export function resolvePluginInfo(dir: string, name: string): PluginInfo | undef
     const info: PluginInfo = {
       ...resolveConfigPluginFunctionWithInfo(dir, name),
       pluginSchema: undefined,
+      pluginName: name,
     };
 
     try {

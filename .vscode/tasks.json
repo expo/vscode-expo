@@ -61,7 +61,7 @@
     },
     {
       "label": "launch-start-development",
-      "dependsOn": ["clean", "build-development", "watch"]
+      "dependsOn": ["build-development", "watch"]
     },
     {
       "label": "launch-start-production",

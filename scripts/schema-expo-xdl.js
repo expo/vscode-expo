@@ -70,7 +70,7 @@ function createVscodeSchema(xdlVersion, xdlSchema) {
   return {
     description: 'The Expo manifest (app.json) validation and documentation.',
     version: `${xdlVersion}.0.0`,
-    $schema: 'http://json-schema.org/draft-07/schema#',
+    $schema: 'http://json-schema.org/draft-07/schema',
     definitions,
     // Allow everything under `expo.*` to also be defined at the root level.
     // This is supported in `@expo/config`, if `expo` is NOT defined.

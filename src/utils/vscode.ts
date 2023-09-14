@@ -2,6 +2,7 @@ import vscode from 'vscode';
 
 import { debounce } from './debounce';
 import { ExpoProjectCache } from '../expo/project';
+import { manifestPattern } from '../expo/manifest';
 
 /**
  * Perform an asynchronous task with an "improvised" canellation token.
@@ -99,4 +100,49 @@ export abstract class ExpoCompletionsProvider implements vscode.CompletionItemPr
     token: vscode.CancellationToken,
     context: vscode.CompletionContext
   ): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>>;
+}
+
+export abstract class ExpoTextDocumentContentProvider
+  implements vscode.TextDocumentContentProvider
+{
+  protected _onDidChange = new vscode.EventEmitter<vscode.Uri>();
+
+  constructor(
+    { subscriptions }: vscode.ExtensionContext,
+    protected projects: ExpoProjectCache,
+    protected scheme: string
+  ) {
+    // Self-register the text document provider
+    subscriptions.push(vscode.workspace.registerTextDocumentContentProvider(scheme, this));
+
+    // Register document change listeners
+    subscriptions.push(
+      vscode.workspace.onDidChangeTextDocument((event) => {
+        return this.onDidDocumentChangeDebounced(event.document);
+      })
+    );
+    subscriptions.push(
+      vscode.workspace.onDidChangeTextDocument((event) => {
+        return this.onDidDocumentChangeDebounced(event.document);
+      })
+    );
+  }
+
+  get onDidChange() {
+    return this._onDidChange.event;
+  }
+
+  protected onDidDocumentChange(document: vscode.TextDocument) {
+    if (vscode.languages.match(manifestPattern, document)) {
+      console.log('FIRED DOCUMENT CHANGE FOR', document.uri.toString());
+      this._onDidChange.fire(vscode.Uri.parse('expo-plugin-schema://schemas/plugin-schema.json'));
+    }
+  }
+
+  protected onDidDocumentChangeDebounced = debounce(this.onDidDocumentChange.bind(this));
+
+  abstract provideTextDocumentContent(
+    uri: vscode.Uri,
+    token: vscode.CancellationToken
+  ): vscode.ProviderResult<string>;
 }
