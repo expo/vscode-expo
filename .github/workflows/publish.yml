@@ -19,7 +19,7 @@ jobs:
       - name: 🎁 Package extension
         run: npx vsce package --no-dependencies
         env:
-          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
 
       - name: 📋 Add package to release
         uses: softprops/action-gh-release@v1
@@ -40,15 +40,15 @@ jobs:
         if: ${{ !github.event.release.prerelease }}
         run: npx vsce publish --no-dependencies
         env:
-          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
-          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
+          VSCE_PAT: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
 
       - name: 🚀 Publish pre-release to marketplace
         if: ${{ github.event.release.prerelease }}
         run: npx vsce publish --no-dependencies --pre-release
         env:
-          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
-          VSCE_PAT: ${{ secrets.VSCE_TOKEN }}
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
+          VSCE_PAT: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
 
   open-vsx:
     runs-on: ubuntu-latest
@@ -62,16 +62,16 @@ jobs:
       - name: 🎁 Package extension
         run: npx vsce package --no-dependencies --out ./vscode-expo.vsix
         env:
-          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.TELEMETRY_KEY }}
+          VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
 
       - name: 🚀 Publish release to open-vsx
         if: ${{ !github.event.release.prerelease }}
         run: npx ovsx publish --no-dependencies ./vscode-expo.vsix
         env:
-          OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
+          OVSX_PAT: ${{ secrets.VSCODE_OPENVSX_TOKEN }}
 
       - name: 🚀 Publish pre-release to open-vsx
         if: ${{ github.event.release.prerelease }}
         run: npx ovsx publish --no-dependencies --pre-release ./vscode-expo.vsix
         env:
-          OVSX_PAT: ${{ secrets.OPENVSX_TOKEN }}
+          OVSX_PAT: ${{ secrets.VSCODE_OPENVSX_TOKEN }}
