@@ -144,12 +144,12 @@
           "markdownDescription": "List of permissions to block in the final `AndroidManifest.xml`. This is useful for removing permissions that are added by native package `AndroidManifest.xml` files which are merged into the final manifest. Internally this feature uses the `tools:node=\"remove\"` XML attribute to remove permissions. Not available in Expo Go."
         },
         "googleServicesFile": {
-          "description": "[Firebase Configuration File](https://support.google.com/firebase/answer/7015592) Location of the `GoogleService-Info.plist` file for configuring Firebase. Including this key automatically enables FCM in your standalone app.\n\n**Bare workflow** - Add or edit the file directly at `android/app/google-services.json`",
+          "description": "[Firebase Configuration File](https://support.google.com/firebase/answer/7015592) Location of the `google-services.json` file for configuring Firebase. Including this key automatically enables FCM in your standalone app.\n\n**Bare workflow** - Add or edit the file directly at `android/app/google-services.json`",
           "type": "string",
           "meta": {
             "bareWorkflow": "Add or edit the file directly at `android/app/google-services.json`"
           },
-          "markdownDescription": "[Firebase Configuration File](https://support.google.com/firebase/answer/7015592) Location of the `GoogleService-Info.plist` file for configuring Firebase. Including this key automatically enables FCM in your standalone app.\n\n**Bare workflow** - Add or edit the file directly at `android/app/google-services.json`"
+          "markdownDescription": "[Firebase Configuration File](https://support.google.com/firebase/answer/7015592) Location of the `google-services.json` file for configuring Firebase. Including this key automatically enables FCM in your standalone app.\n\n**Bare workflow** - Add or edit the file directly at `android/app/google-services.json`"
         },
         "config": {
           "type": "object",
