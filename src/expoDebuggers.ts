@@ -203,7 +203,7 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
     websocketAddress:
       device.webSocketDebuggerUrl +
       '&type=vscode' + // Adding the "classic" `type=vscode` query parameter (SDK <=49)
-      `&userAgent=${encodeURIComponent(DEBUG_USER_AGENT)}`, // Adding the modern "userAgent" query parameter (SDK >=50)s
+      `&userAgent=${encodeURIComponent(DEBUG_USER_AGENT)}`, // Adding the modern "userAgent" query parameter (SDK >=50)
 
     // Define the required root paths to resolve source maps
     localRoot: project.root,
