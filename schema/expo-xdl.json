@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "49.0.0",
+  "version": "50.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -894,13 +894,14 @@
       "additionalProperties": true,
       "properties": {
         "output": {
-          "description": "Sets the rendering method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. Defaults to `single`.",
+          "description": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` outputs static HTML, and API Routes for hosting with a custom Node.js server. Defaults to `single`.",
           "enum": [
             "single",
-            "static"
+            "static",
+            "server"
           ],
           "type": "string",
-          "markdownDescription": "Sets the rendering method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. Defaults to `single`."
+          "markdownDescription": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` outputs static HTML, and API Routes for hosting with a custom Node.js server. Defaults to `single`."
         },
         "favicon": {
           "description": "Relative path of an image to use for your app's favicon.",
@@ -1133,13 +1134,13 @@
           "markdownDescription": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)"
         },
         "bundler": {
-          "description": "Sets the bundler to use for the web platform. Only supported in the local CLI `npx expo`.",
+          "description": "Sets the bundler to use for the web platform. Only supported in the local CLI `npx expo`. Defaults to `webpack` if the `@expo/webpack-config` package is installed, if not, it defaults to `metro`.",
           "enum": [
             "webpack",
             "metro"
           ],
-          "fallback": "webpack",
-          "markdownDescription": "Sets the bundler to use for the web platform. Only supported in the local CLI `npx expo`."
+          "fallback": "metro",
+          "markdownDescription": "Sets the bundler to use for the web platform. Only supported in the local CLI `npx expo`. Defaults to `webpack` if the `@expo/webpack-config` package is installed, if not, it defaults to `metro`."
         }
       },
       "markdownDescription": "Configuration that is specific to the web platform."
@@ -1152,7 +1153,8 @@
           "enum": [
             "nativeVersion",
             "sdkVersion",
-            "appVersion"
+            "appVersion",
+            "fingerprintExperimental"
           ]
         }
       },
@@ -1162,7 +1164,7 @@
       "additionalProperties": false
     },
     "RuntimeVersion": {
-      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion' | 'appVersion'; }",
+      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion' | 'appVersion' | 'fingerprintExperimental'; }",
       "oneOf": [
         {
           "type": "string",
@@ -1553,11 +1555,6 @@
               "type": "object",
               "additionalProperties": true,
               "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers."
-            },
-            "useClassicUpdates": {
-              "description": "Whether to use deprecated Classic Updates when developing with the local Expo CLI and creating builds. Omitting this or setting it to false affects the behavior of APIs like `Constants.manifest`. SDK 49 is the last SDK version that supports Classic Updates.",
-              "type": "boolean",
-              "markdownDescription": "Whether to use deprecated Classic Updates when developing with the local Expo CLI and creating builds. Omitting this or setting it to false affects the behavior of APIs like `Constants.manifest`. SDK 49 is the last SDK version that supports Classic Updates."
             }
           },
           "additionalProperties": false,
@@ -1579,12 +1576,15 @@
           "markdownDescription": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode."
         },
         "assetBundlePatterns": {
-          "description": "An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)",
+          "description": "@deprecated Follow [the guide to select and exclude assets](https://docs.expo.dev/eas-update/asset-selection/) for EAS Update instead. An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)",
+          "meta": {
+            "deprecated": true
+          },
           "type": "array",
           "items": {
             "type": "string"
           },
-          "markdownDescription": "An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)"
+          "markdownDescription": "@deprecated Follow [the guide to select and exclude assets](https://docs.expo.dev/eas-update/asset-selection/) for EAS Update instead. An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)"
         },
         "plugins": {
           "description": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/guides/config-plugins/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build",
@@ -1664,10 +1664,22 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "baseUrl": {
+              "description": "Export a website relative to a subpath of a domain. The path will be prepended as-is to links to all bundled resources. Prefix the path with a `/` (recommended) to load all resources relative to the server root. If the path **does not** start with a `/` then resources will be loaded relative to the code that requests them, this could lead to unexpected behavior. Example '/subpath'. Defaults to '' (empty string).",
+              "type": "string",
+              "fallback": "",
+              "markdownDescription": "Export a website relative to a subpath of a domain. The path will be prepended as-is to links to all bundled resources. Prefix the path with a `/` (recommended) to load all resources relative to the server root. If the path **does not** start with a `/` then resources will be loaded relative to the code that requests them, this could lead to unexpected behavior. Example '/subpath'. Defaults to '' (empty string)."
+            },
+            "supportsTVOnly": {
+              "description": "If true, indicates that this project does not support tablets or handsets, and only supports Apple TV and Android TV",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "If true, indicates that this project does not support tablets or handsets, and only supports Apple TV and Android TV"
+            },
             "tsconfigPaths": {
               "description": "Enable tsconfig/jsconfig `compilerOptions.paths` and `compilerOptions.baseUrl` support for import aliases in Metro.",
               "type": "boolean",
-              "fallback": false,
+              "fallback": true,
               "markdownDescription": "Enable tsconfig/jsconfig `compilerOptions.paths` and `compilerOptions.baseUrl` support for import aliases in Metro."
             },
             "typedRoutes": {
@@ -1691,8 +1703,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v49.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v49.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v50.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v50.0.0/config/app/)"
     }
   },
   "oneOf": [
