@@ -2,10 +2,10 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "description": "The Expo modules config (expo-module.config.json) validation and documentation.",
-  "version": "0.9.0",
+  "version": "1.10.2",
   "meta": {
-    "updatedAt": "2022-07-05T18:37:12.417Z",
-    "packageVersion": "0.9.0",
+    "updatedAt": "2024-01-23T18:14:21.793Z",
+    "packageVersion": "1.10.2",
     "packageName": "expo-modules-autolinking",
     "typePath": "./build/types.d.ts",
     "typeName": "RawExpoModuleConfig"
@@ -14,14 +14,25 @@
     "platforms": {
       "type": "array",
       "description": "An array of supported platforms.",
-      "items": { "$ref": "#/definitions/SupportedPlatform" },
+      "items": {
+        "$ref": "#/definitions/SupportedPlatform"
+      },
       "uniqueItems": true
     },
     "android": {
       "$ref": "#/definitions/Android"
     },
+    "apple": {
+      "$ref": "#/definitions/Apple"
+    },
     "ios": {
-      "$ref": "#/definitions/IOS"
+      "$ref": "#/definitions/Apple"
+    },
+    "tvos": {
+      "$ref": "#/definitions/Apple"
+    },
+    "macos": {
+      "$ref": "#/definitions/Apple"
     }
   },
   "definitions": {
@@ -29,7 +40,11 @@
       "enum": [
         "android",
         "ios",
-        "web"
+        "web",
+        "apple",
+        "macos",
+        "tvos",
+        "devtools"
       ]
     },
     "Android": {
@@ -68,7 +83,7 @@
         }
       }
     },
-    "IOS": {
+    "Apple": {
       "type": "object",
       "properties": {
         "modules": {
@@ -80,7 +95,7 @@
         },
         "modulesClassNames": {
           "type": "array",
-          "description": "ames of Swift native modules classes to put to the generated modules provider file.",
+          "description": "Names of Swift native modules classes to put to the generated modules provider file.",
           "markdownDescription": "Full names (package + class name) of Kotlin native modules classes to put to the generated package provider file.",
           "deprecated": true,
           "deprecationMessage": "Deprecated in favor of `modules`. Might be removed in the future releases.",
