@@ -15,9 +15,7 @@ export interface InspectableDevice {
   webSocketDebuggerUrl: string;
   vm: string;
   /** Added in Metro +0.75.x */
-  deviceName?: string;
-  /** Only available in this extension */
-  _workflow: 'generic' | 'managed';
+  deviceName: string;
 }
 
 /** Get a list of unique device names */
@@ -33,8 +31,7 @@ export async function fetchDevicesToInspect({ host, port }: { host: string; port
     .then((devices: InspectableDevice[]): InspectableDevice[] =>
       devices
         .filter((device) => device.title === INSPECTABLE_DEVICE_TITLE)
-        .filter(uniqueBy((device) => device.title))
-        .map((device) => ({ ...device, _workflow: port === '19000' ? 'managed' : 'generic' }))
+        .filter(uniqueBy((device) => device.deviceName))
     );
 }
 
