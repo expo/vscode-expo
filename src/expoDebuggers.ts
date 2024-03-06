@@ -183,9 +183,9 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     }
 
     // Resolve the target device config to inspect
-    const { platform, workflow, ...deviceConfig } = await resolveDeviceConfig(config, project);
+    const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
-    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, workflow });
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform });
 
     return { ...config, ...deviceConfig };
   }
@@ -200,7 +200,6 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
 
   return {
     platform: inferDevicePlatform(device) ?? 'unknown',
-    workflow: device._workflow,
 
     // The address of the device to connect to
     websocketAddress:
@@ -245,7 +244,7 @@ async function pickDevice(config: ExpoDebugConfig) {
       });
 
   if (devices.length === 1) {
-    log('Picking only device available:', devices[0].deviceName ?? 'Unknown device');
+    log('Picking only device available:', devices[0].deviceName);
     return devices[0];
   }
 

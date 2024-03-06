@@ -4,6 +4,11 @@ import { glob } from 'glob';
 import Mocha from 'mocha';
 import path from 'path';
 
+// @ts-expect-error
+Symbol.dispose ??= Symbol('Symbol.dispose');
+// @ts-expect-error
+Symbol.asyncDispose ??= Symbol('Symbol.asyncDispose');
+
 export async function run() {
   // Configure the test runner
   const tests = new Mocha({
@@ -22,6 +27,7 @@ export async function run() {
 
     // Configure Chai extensions
     Chai.use(require('chai-subset'));
+    Chai.use(require('sinon-chai'));
     Chai.use(
       require('mocha-chai-jest-snapshot').jestSnapshotPlugin({
         snapshotResolver: path.resolve(__dirname, './snapshots'),

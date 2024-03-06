@@ -15,9 +15,16 @@ export interface InspectableDevice {
   webSocketDebuggerUrl: string;
   vm: string;
   /** Added in Metro +0.75.x */
-  deviceName?: string;
-  /** Only available in this extension */
-  _workflow: 'generic' | 'managed';
+  deviceName: string;
+  /** Added in React Native 0.74+ */
+  reactNative?: Partial<{
+    logicalDeviceId: string;
+    capabilities: Record<string, boolean>;
+  }>;
+}
+
+function getDeviceName(device: InspectableDevice) {
+  return device.deviceName ?? 'Unknown device';
 }
 
 /** Get a list of unique device names */
@@ -33,8 +40,7 @@ export async function fetchDevicesToInspect({ host, port }: { host: string; port
     .then((devices: InspectableDevice[]): InspectableDevice[] =>
       devices
         .filter((device) => device.title === INSPECTABLE_DEVICE_TITLE)
-        .filter(uniqueBy((device) => device.title))
-        .map((device) => ({ ...device, _workflow: port === '19000' ? 'managed' : 'generic' }))
+        .filter(uniqueBy((device) => device?.reactNative?.logicalDeviceId ?? device.deviceName))
     );
 }
 
@@ -46,15 +52,14 @@ export async function fetchDevicesToInspectFromUnknownWorkflow({ host }: { host:
   ]);
 
   // Prefer data from modern Expo (dev clients)
-  if (classic.status === 'fulfilled') return classic.value;
   if (modern.status === 'fulfilled') return modern.value;
+  if (classic.status === 'fulfilled') return classic.value;
 
   throw new Error(`No bundler found at ${host} on ports 19000 or 8081`);
 }
 
 export function findDeviceByName(devices: InspectableDevice[], deviceName: string) {
-  const deviceId = getDeviceNames(devices).indexOf(deviceName);
-  return devices[deviceId];
+  return devices.find((devices) => getDeviceName(devices) === deviceName);
 }
 
 export async function askDeviceByName(devices: InspectableDevice[]) {
