@@ -63,7 +63,7 @@
     "@types/node-fetch": "^2.6.2",
     "@types/sinon": "^10.0.16",
     "@types/vscode": "^1.78.2",
-    "@vscode/test-electron": "^2.3.2",
+    "@vscode/test-electron": "^2.3.9",
     "@vscode/vsce": "^2.21.0",
     "arg": "^5.0.2",
     "chai": "^4.3.8",
