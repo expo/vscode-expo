@@ -10,11 +10,13 @@ import {
 import { ExpoProjectCache, ExpoProject, findProjectFromWorkspaces } from './expo/project';
 import { debug } from './utils/debug';
 import { featureTelemetry } from './utils/telemetry';
+import { version as extensionVersion } from '../package.json';
 
 const log = debug.extend('expo-debuggers');
 
 const DEBUG_TYPE = 'expo';
 const DEBUG_COMMAND = 'expo.debug.start';
+const DEBUG_USER_AGENT = `vscode/${vscode.version} vscode-expo-tools/${extensionVersion}`;
 
 interface ExpoDebugConfig extends vscode.DebugConfiguration {
   projectRoot: string;
@@ -198,7 +200,10 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
     workflow: device._workflow,
 
     // The address of the device to connect to
-    websocketAddress: `${device.webSocketDebuggerUrl}&type=vscode`,
+    websocketAddress:
+      device.webSocketDebuggerUrl +
+      '&type=vscode' + // Adding the "classic" `type=vscode` query parameter (SDK <=49)
+      `&userAgent=${encodeURIComponent(DEBUG_USER_AGENT)}`, // Adding the modern "userAgent" query parameter (SDK >=50)
 
     // Define the required root paths to resolve source maps
     localRoot: project.root,
