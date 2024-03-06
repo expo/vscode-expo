@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import * as nodeFetch from 'node-fetch';
-import { stub, type SinonStub } from 'sinon';
 
+import { stubFetch, withFetchError, withFetchResponse } from '../../__tests__/utils/fetch';
 import {
   type InspectableDevice,
   fetchDevicesToInspect,
@@ -119,33 +118,6 @@ describe('findDeviceByName', () => {
     expect(findDeviceByName(devices, 'iPhone 15 Pro')).to.equal(target);
   });
 });
-
-/** Mock fetch with a default empty device list response */
-function stubFetch() {
-  const fetch = withFetchResponse(stub(nodeFetch, 'default'), []);
-  // @ts-expect-error
-  fetch[Symbol.dispose] = () => fetch.restore();
-  return fetch as Disposable & typeof fetch;
-}
-
-function withFetchResponse<T extends SinonStub>(fetch: T, response: any) {
-  fetch.returns(
-    Promise.resolve<any>({
-      ok: true,
-      json: () => Promise.resolve(response),
-    })
-  );
-  return fetch;
-}
-
-function withFetchError<T extends SinonStub>(fetch: T, error = new Error('JSON parse error')) {
-  fetch.returns(
-    Promise.resolve<any>({
-      ok: false,
-      json: () => Promise.reject(error),
-    })
-  );
-}
 
 function mockDevice(device: Partial<InspectableDevice>): InspectableDevice {
   return {
