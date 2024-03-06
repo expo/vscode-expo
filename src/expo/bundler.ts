@@ -16,6 +16,11 @@ export interface InspectableDevice {
   vm: string;
   /** Added in Metro +0.75.x */
   deviceName: string;
+  /** Added in React Native 0.74+ */
+  reactNative?: {
+    logicalDeviceId: string;
+    capabilities: Record<string, boolean>;
+  };
 }
 
 /** Get a list of unique device names */
@@ -31,7 +36,7 @@ export async function fetchDevicesToInspect({ host, port }: { host: string; port
     .then((devices: InspectableDevice[]): InspectableDevice[] =>
       devices
         .filter((device) => device.title === INSPECTABLE_DEVICE_TITLE)
-        .filter(uniqueBy((device) => device.deviceName))
+        .filter(uniqueBy((device) => device?.reactNative?.logicalDeviceId ?? device.deviceName))
     );
 }
 
