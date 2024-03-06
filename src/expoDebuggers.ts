@@ -116,7 +116,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     }
 
     return {
-      type: 'pwa-node',
+      type: DEBUG_TYPE,
       request: 'attach',
       name: config.name ?? 'Debug Expo app',
 
@@ -161,6 +161,9 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'no-project' });
       throw new Error('Could not resolve Expo project: ' + config.projectRoot);
     }
+
+    // Reuse the pwa-node debug adapter from vscode.js-debug
+    config.type = 'pwa-node';
 
     // Reuse the validated project root as cwd
     config.cwd = config.projectRoot;
