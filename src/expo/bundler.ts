@@ -17,10 +17,14 @@ export interface InspectableDevice {
   /** Added in Metro +0.75.x */
   deviceName: string;
   /** Added in React Native 0.74+ */
-  reactNative?: {
+  reactNative?: Partial<{
     logicalDeviceId: string;
     capabilities: Record<string, boolean>;
-  };
+  }>;
+}
+
+function getDeviceName(device: InspectableDevice) {
+  return device.deviceName ?? 'Unknown device';
 }
 
 /** Get a list of unique device names */
@@ -48,15 +52,14 @@ export async function fetchDevicesToInspectFromUnknownWorkflow({ host }: { host:
   ]);
 
   // Prefer data from modern Expo (dev clients)
-  if (classic.status === 'fulfilled') return classic.value;
   if (modern.status === 'fulfilled') return modern.value;
+  if (classic.status === 'fulfilled') return classic.value;
 
   throw new Error(`No bundler found at ${host} on ports 19000 or 8081`);
 }
 
 export function findDeviceByName(devices: InspectableDevice[], deviceName: string) {
-  const deviceId = getDeviceNames(devices).indexOf(deviceName);
-  return devices[deviceId];
+  return devices.find((devices) => getDeviceName(devices) === deviceName);
 }
 
 export async function askDeviceByName(devices: InspectableDevice[]) {
