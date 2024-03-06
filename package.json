@@ -78,6 +78,7 @@
     "json5": "^2.2.2",
     "mocha": "^10.2.0",
     "mocha-chai-jest-snapshot": "^1.1.4",
+    "node-fetch": "^2.6.7",
     "ovsx": "^0.8.3",
     "patch-package": "^6.4.7",
     "prettier": "^3.0.3",
