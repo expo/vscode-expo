@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 function onButtonPress() {
+  // Breakpoints should work here
   const hello = 'world';
-  console.log({ hello });
+  console.log('This should be visible in Vscodes debug console', { hello });
   return true;
 }
 
