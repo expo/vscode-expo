@@ -1,6 +1,6 @@
 {
 	"exclude": ["out", "node_modules", ".vscode-test", "test/fixture"],
-  "extends": "@tsconfig/node18",
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "outDir": "out",
     "sourceMap": true,
