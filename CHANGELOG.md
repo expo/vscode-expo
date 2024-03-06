@@ -1,3 +1,21 @@
+## [1.2.2](https://github.com/expo/vscode-expo/compare/1.2.1...1.2.2) (2024-03-06)
+
+
+### Bug fixes
+
+* add `userAgent` query parameter in debugger ([#237](https://github.com/expo/vscode-expo/issues/237)) ([7c978e5](https://github.com/expo/vscode-expo/commit/7c978e537c2e3c625e7b37d819d1b47d66e56a3a))
+* bump `@vscode/test-electron` to `2.3.9` ([913cb7f](https://github.com/expo/vscode-expo/commit/913cb7fb13186eafecae2270004890544c3bd13c))
+* only change to underlying vscode adapter when starting debug session ([#245](https://github.com/expo/vscode-expo/issues/245)) ([7a3190f](https://github.com/expo/vscode-expo/commit/7a3190fa7fbcf45f2b69990c82517d69b5ba54ea)), closes [microsoft/vscode#188979](https://github.com/microsoft/vscode/issues/188979)
+
+
+### Other chores
+
+* bump @babel/traverse from 7.22.11 to 7.23.2 ([#233](https://github.com/expo/vscode-expo/issues/233)) ([2047870](https://github.com/expo/vscode-expo/commit/2047870550beb7e26ab9d02a67af6b7edef5cc62))
+* bump @babel/traverse from 7.22.11 to 7.23.2 in /test/fixture ([#232](https://github.com/expo/vscode-expo/issues/232)) ([51d7292](https://github.com/expo/vscode-expo/commit/51d7292cde8d6fc0001a50b4ce54f2719a039931))
+* bump postcss from 8.4.29 to 8.4.31 in /test/fixture ([#230](https://github.com/expo/vscode-expo/issues/230)) ([a3ecf90](https://github.com/expo/vscode-expo/commit/a3ecf90fef1a07c7354c318ca696d51cc05b5aad))
+* bump react-devtools-core from 4.28.0 to 4.28.4 in /test/fixture ([#234](https://github.com/expo/vscode-expo/issues/234)) ([747d308](https://github.com/expo/vscode-expo/commit/747d308d819956ce27246e00ee5f6056f14a218a))
+* **ci:** rotate and update repository secrets ([#236](https://github.com/expo/vscode-expo/issues/236)) ([3fba51a](https://github.com/expo/vscode-expo/commit/3fba51a22ce8f5d221b32cef324b9dd585393f26))
+
 ## [1.2.1](https://github.com/expo/vscode-expo/compare/1.2.0...1.2.1) (2023-09-04)
 
 
