@@ -1,3 +1,15 @@
+## [1.3.0](https://github.com/expo/vscode-expo/compare/1.2.2...1.3.0) (2024-03-06)
+
+
+### New features
+
+* support React Native `0.74` logical device id when debugging ([#247](https://github.com/expo/vscode-expo/issues/247)) ([97555e7](https://github.com/expo/vscode-expo/commit/97555e7969cb0ca27a29606400275b34a304d413))
+
+
+### Code changes
+
+* **fixtures:** upgrade all fixtures to SDK 50 ([#246](https://github.com/expo/vscode-expo/issues/246)) ([feceea4](https://github.com/expo/vscode-expo/commit/feceea42cc1309cfd0d498f4623ad632bed33a7e))
+
 ## [1.2.2](https://github.com/expo/vscode-expo/compare/1.2.1...1.2.2) (2024-03-06)
 
 
