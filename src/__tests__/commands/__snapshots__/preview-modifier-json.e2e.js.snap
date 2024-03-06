@@ -119,7 +119,7 @@ exports[`expo.config.prebuild.preview.json runs for android.manifest in json for
           {
             \\"$\\": {
               \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
-              \\"android:value\\": \\"49.0.0\\"
+              \\"android:value\\": \\"50.0.0\\"
             }
           },
           {
@@ -317,7 +317,7 @@ exports[`expo.config.prebuild.preview.json runs for ios.expoPlist in json format
   \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
   \\"EXUpdatesEnabled\\": false,
   \\"EXUpdatesLaunchWaitMs\\": 0,
-  \\"EXUpdatesSDKVersion\\": \\"49.0.0\\"
+  \\"EXUpdatesSDKVersion\\": \\"50.0.0\\"
 }"
 `;
 
