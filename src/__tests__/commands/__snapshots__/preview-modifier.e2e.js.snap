@@ -16,7 +16,7 @@ exports[`dynamic configs runs android.manifest for app.config.ts 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"50.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -53,7 +53,7 @@ exports[`dynamic configs runs android.manifest for app.json 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"50.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -194,7 +194,7 @@ exports[`expo.config.prebuild.preview runs for android.manifest 1`] = `
     </intent>
   </queries>
   <application android:name=\\".MainApplication\\" android:label=\\"@string/app_name\\" android:icon=\\"@mipmap/ic_launcher\\" android:roundIcon=\\"@mipmap/ic_launcher_round\\" android:allowBackup=\\"true\\" android:theme=\\"@style/AppTheme\\" android:usesCleartextTraffic=\\"true\\">
-    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"49.0.0\\"/>
+    <meta-data android:name=\\"expo.modules.updates.EXPO_SDK_VERSION\\" android:value=\\"50.0.0\\"/>
     <meta-data android:name=\\"expo.modules.updates.ENABLED\\" android:value=\\"false\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH\\" android:value=\\"ALWAYS\\"/>
     <meta-data android:name=\\"expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS\\" android:value=\\"0\\"/>
@@ -263,7 +263,7 @@ xml version=\\"1.0\\" encoding=\\"UTF-8\\"
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
     <key>EXUpdatesSDKVersion</key>
-    <string>49.0.0</string>
+    <string>50.0.0</string>
   </dict>
 </plist>"
 `;

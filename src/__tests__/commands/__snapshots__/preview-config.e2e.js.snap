@@ -108,11 +108,11 @@ exports[`expo.config.preview runs for introspect 1`] = `
     \\"pluginHistory\\": {
       \\"expo-system-ui\\": {
         \\"name\\": \\"expo-system-ui\\",
-        \\"version\\": \\"2.4.0\\"
+        \\"version\\": \\"2.9.3\\"
       },
       \\"expo-camera\\": {
         \\"name\\": \\"expo-camera\\",
-        \\"version\\": \\"13.4.2\\"
+        \\"version\\": \\"14.0.5\\"
       },
       \\"react-native-maps\\": {
         \\"name\\": \\"react-native-maps\\",
@@ -138,10 +138,6 @@ exports[`expo.config.preview runs for introspect 1`] = `
         \\"name\\": \\"expo-updates\\",
         \\"version\\": \\"UNVERSIONED\\"
       },
-      \\"expo-branch\\": {
-        \\"name\\": \\"expo-branch\\",
-        \\"version\\": \\"UNVERSIONED\\"
-      },
       \\"expo-document-picker\\": {
         \\"name\\": \\"expo-document-picker\\",
         \\"version\\": \\"UNVERSIONED\\"
@@ -156,12 +152,11 @@ exports[`expo.config.preview runs for introspect 1`] = `
       },
       \\"expo-file-system\\": {
         \\"name\\": \\"expo-file-system\\",
-        \\"version\\": \\"15.4.3\\"
+        \\"version\\": \\"16.0.7\\"
       }
     },
     \\"autolinkedModules\\": [
       \\"expo\\",
-      \\"expo-application\\",
       \\"expo-camera\\",
       \\"expo-constants\\",
       \\"expo-file-system\\",
@@ -360,7 +355,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
                   {
                     \\"$\\": {
                       \\"android:name\\": \\"expo.modules.updates.EXPO_SDK_VERSION\\",
-                      \\"android:value\\": \\"49.0.0\\"
+                      \\"android:value\\": \\"50.0.0\\"
                     }
                   },
                   {
@@ -522,7 +517,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
           \\"EXUpdatesEnabled\\": false,
           \\"EXUpdatesCheckOnLaunch\\": \\"ALWAYS\\",
           \\"EXUpdatesLaunchWaitMs\\": 0,
-          \\"EXUpdatesSDKVersion\\": \\"49.0.0\\"
+          \\"EXUpdatesSDKVersion\\": \\"50.0.0\\"
         },
         \\"splashScreenStoryboard\\": {
           \\"document\\": {
@@ -814,7 +809,7 @@ exports[`expo.config.preview runs for introspect 1`] = `
       }
     }
   },
-  \\"sdkVersion\\": \\"49.0.0\\",
+  \\"sdkVersion\\": \\"50.0.0\\",
   \\"platforms\\": [
     \\"ios\\",
     \\"android\\"
@@ -881,11 +876,11 @@ exports[`expo.config.preview runs for prebuild 1`] = `
     \\"pluginHistory\\": {
       \\"expo-system-ui\\": {
         \\"name\\": \\"expo-system-ui\\",
-        \\"version\\": \\"2.4.0\\"
+        \\"version\\": \\"2.9.3\\"
       },
       \\"expo-camera\\": {
         \\"name\\": \\"expo-camera\\",
-        \\"version\\": \\"13.4.2\\"
+        \\"version\\": \\"14.0.5\\"
       },
       \\"react-native-maps\\": {
         \\"name\\": \\"react-native-maps\\",
@@ -911,10 +906,6 @@ exports[`expo.config.preview runs for prebuild 1`] = `
         \\"name\\": \\"expo-updates\\",
         \\"version\\": \\"UNVERSIONED\\"
       },
-      \\"expo-branch\\": {
-        \\"name\\": \\"expo-branch\\",
-        \\"version\\": \\"UNVERSIONED\\"
-      },
       \\"expo-document-picker\\": {
         \\"name\\": \\"expo-document-picker\\",
         \\"version\\": \\"UNVERSIONED\\"
@@ -929,12 +920,11 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       },
       \\"expo-file-system\\": {
         \\"name\\": \\"expo-file-system\\",
-        \\"version\\": \\"15.4.3\\"
+        \\"version\\": \\"16.0.7\\"
       }
     },
     \\"autolinkedModules\\": [
       \\"expo\\",
-      \\"expo-application\\",
       \\"expo-camera\\",
       \\"expo-constants\\",
       \\"expo-file-system\\",
@@ -944,7 +934,7 @@ exports[`expo.config.preview runs for prebuild 1`] = `
       \\"expo-system-ui\\"
     ]
   },
-  \\"sdkVersion\\": \\"49.0.0\\",
+  \\"sdkVersion\\": \\"50.0.0\\",
   \\"platforms\\": [
     \\"ios\\",
     \\"android\\"
@@ -1001,7 +991,7 @@ exports[`expo.config.preview runs for public 1`] = `
       }
     ]
   ],
-  \\"sdkVersion\\": \\"49.0.0\\",
+  \\"sdkVersion\\": \\"50.0.0\\",
   \\"platforms\\": [
     \\"ios\\",
     \\"android\\"

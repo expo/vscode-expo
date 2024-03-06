@@ -1,10 +1,12 @@
 {
   "private": true,
   "name": "fixture",
-  "workspaces": {
-    "nohoist": ["**"],
-    "packages": [
-      "./*"
-    ]
+  "workspaces": [
+    "./*"
+  ],
+  "overrides": {
+    "expo": "50.0.8",
+    "react": "18.2.0",
+    "react-native": "0.73.4"
   }
 }

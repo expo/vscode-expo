@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "preview",
+  "name": "debugging",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,7 @@
   },
   "dependencies": {
     "expo": "~50.0.8",
-    "expo-camera": "~14.0.5",
     "expo-status-bar": "~1.11.1",
-    "expo-system-ui": "~2.9.3",
     "react": "18.2.0",
     "react-native": "0.73.4"
   },

@@ -1,7 +1,8 @@
 {
+  "private": true,
   "name": "preview-config-js",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,15 +10,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~49.0.8",
-    "expo-camera": "~13.4.2",
-    "expo-status-bar": "~1.6.0",
-    "expo-system-ui": "~2.4.0",
+    "expo": "~50.0.8",
+    "expo-camera": "~14.0.5",
+    "expo-status-bar": "~1.11.1",
+    "expo-system-ui": "~2.9.3",
     "react": "18.2.0",
-    "react-native": "0.72.4"
+    "react-native": "0.73.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
-  },
-  "private": true
+  }
 }
