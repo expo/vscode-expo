@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import picomatch from 'picomatch';
 
+import { type ExpoConfig } from '../../packages/config';
 import { manifestPattern, getFileReferences } from '../manifest';
 
 describe('manifestPattern', () => {
@@ -23,25 +24,29 @@ describe('manifestPattern', () => {
 
 describe('getFileReferences', () => {
   it('returns all local file references from manifest', () => {
-    const manifest = {
-      expo: {
-        name: 'my-app',
-        slug: 'my-app',
-        icon: './assets/icon.png',
-        splash: '../assets/splash.png',
-        android: {
-          adaptiveIcon: {
-            foregroundImage: './assets/adaptive-icon.png',
-            backgroundColor: '#FFFFFF',
-          },
+    const manifest: ExpoConfig = {
+      name: 'my-app',
+      slug: 'my-app',
+      icon: './assets/icon.png',
+      splash: {
+        image: '../assets/splash.png',
+        backgroundColor: '#FFFFFF',
+        resizeMode: 'cover',
+      },
+      android: {
+        adaptiveIcon: {
+          foregroundImage: './assets/adaptive-icon.png',
+          backgroundColor: '#FFFFFF',
         },
       },
+      plugins: ['./plugins/local-plugin.js'],
     };
 
-    expect(getFileReferences(JSON.stringify(manifest, null, 2))).to.deep.include.members([
-      { filePath: './assets/icon.png', fileRange: { offset: 71, length: 17 } },
-      { filePath: '../assets/splash.png', fileRange: { offset: 106, length: 20 } },
-      { filePath: './assets/adaptive-icon.png', fileRange: { offset: 198, length: 26 } },
+    expect(getFileReferences(JSON.stringify({ expo: manifest }, null, 2))).to.deep.include.members([
+      { filePath: './assets/icon.png', fileRange: { length: 17, offset: 71 } },
+      { filePath: '../assets/splash.png', fileRange: { length: 20, offset: 123 } },
+      { filePath: './assets/adaptive-icon.png', fileRange: { length: 26, offset: 286 } },
+      { filePath: './plugins/local-plugin.js', fileRange: { length: 25, offset: 391 } },
     ]);
   });
 });
