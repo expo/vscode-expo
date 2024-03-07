@@ -50,6 +50,7 @@
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
+    "@expo/spawn-async": "^1.7.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@sucrase/webpack-loader": "^2.0.0",
