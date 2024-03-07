@@ -12,7 +12,7 @@ import picomatch from 'picomatch';
 export function getDirectoryPath(filePath: string) {
   const dir = path.dirname(filePath);
   if (dir === '.') {
-    if (dir.length > 2 && filePath.endsWith('/')) {
+    if (filePath.endsWith('/')) {
       return path.basename(filePath);
     }
     return null;

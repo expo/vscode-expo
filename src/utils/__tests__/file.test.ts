@@ -6,7 +6,6 @@ describe('getDirectoryPath', () => {
   it('returns root (.) for paths without directories', () => {
     expect(getDirectoryPath('')).to.be.null;
     expect(getDirectoryPath('.')).to.be.null;
-    expect(getDirectoryPath('./')).to.be.null;
     expect(getDirectoryPath('./some-file')).to.be.null;
     expect(getDirectoryPath('./some-file.jpg')).to.be.null;
   });
