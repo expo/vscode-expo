@@ -1,5 +1,5 @@
-import minimatch from 'minimatch';
 import path from 'path';
+import picomatch from 'picomatch';
 
 /**
  * Get the directory path from a user-provided file path.
@@ -12,7 +12,7 @@ import path from 'path';
 export function getDirectoryPath(filePath: string) {
   const dir = path.dirname(filePath);
   if (dir === '.') {
-    if (filePath.endsWith('/')) {
+    if (dir.length > 2 && filePath.endsWith('/')) {
       return path.basename(filePath);
     }
     return null;
@@ -30,6 +30,6 @@ export function fileIsExcluded(filePath: string, filesExcluded?: Record<string, 
   }
 
   return Object.entries(filesExcluded).some(
-    ([pattern, isExcluded]) => isExcluded && minimatch(filePath, pattern)
+    ([pattern, isExcluded]) => isExcluded && picomatch(pattern)(filePath)
   );
 }
