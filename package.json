@@ -65,7 +65,7 @@
     "@types/picomatch": "^2.3.3",
     "@types/sinon": "^10.0.16",
     "@types/sinon-chai": "^3.2.12",
-    "@types/vscode": "^1.78.2",
+    "@types/vscode": "^1.86.0",
     "@vscode/test-electron": "^2.3.9",
     "@vscode/vsce": "^2.21.0",
     "arg": "^5.0.2",
@@ -98,7 +98,7 @@
   "publisher": "expo",
   "icon": "images/logo-marketplace.png",
   "engines": {
-    "vscode": "^1.78.0"
+    "vscode": "^1.86.0"
   },
   "categories": [
     "Debuggers",
