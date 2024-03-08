@@ -1,11 +1,11 @@
 import findUp from 'find-up';
-import fs from 'fs';
 import * as jsonc from 'jsonc-parser';
 import path from 'path';
 import vscode from 'vscode';
 
 import { MapCacheProvider } from '../utils/cache';
 import { debug } from '../utils/debug';
+import { readWorkspaceFile, relativeUri } from '../utils/file';
 
 const log = debug.extend('project');
 
@@ -22,11 +22,11 @@ export function getProjectRoot(filePath: string) {
  * Try to get the project root from any of the current workspaces.
  * This will iterate and try to detect an Expo project for each open workspaces.
  */
-export function findProjectFromWorkspaces(projects: ExpoProjectCache, relativePath?: string) {
+export async function findProjectFromWorkspaces(projects: ExpoProjectCache, relativePath?: string) {
   const workspaces = vscode.workspace.workspaceFolders ?? [];
 
   for (const workspace of workspaces) {
-    const project = findProjectFromWorkspace(projects, workspace, relativePath);
+    const project = await findProjectFromWorkspace(projects, workspace, relativePath);
     if (project) return project;
   }
 
@@ -43,8 +43,8 @@ export function findProjectFromWorkspace(
   relativePath?: string
 ) {
   return relativePath
-    ? projects.maybeFromRoot(path.join(workspace.uri.fsPath, relativePath))
-    : projects.maybeFromRoot(workspace.uri.fsPath);
+    ? projects.fromRoot(relativeUri(workspace.uri, relativePath))
+    : projects.fromRoot(workspace.uri);
 }
 
 /**
@@ -55,70 +55,59 @@ export function findProjectFromWorkspace(
  * You can use `fromManifest` or `fromPackage` when providing document links or diagnostics.
  */
 export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
-  fromRoot(root: string) {
-    if (!this.cache.has(root)) {
-      const packageFile = parseJsonFile(fs.readFileSync(path.join(root, 'package.json'), 'utf-8'));
-
-      if (packageFile) {
-        this.cache.set(root, new ExpoProject(root, packageFile));
-      }
-    }
-
-    return this.cache.get(root);
-  }
-
-  fromPackage(pkg: vscode.TextDocument) {
-    const project = this.fromRoot(path.dirname(pkg.fileName));
+  async fromPackage(pkg: vscode.TextDocument) {
+    const project = await this.fromRoot(vscode.Uri.file(path.dirname(pkg.fileName)));
     project?.setPackage(pkg.getText());
     return project;
   }
 
-  fromManifest(manifest: vscode.TextDocument) {
+  async fromManifest(manifest: vscode.TextDocument) {
     const root = getProjectRoot(manifest.fileName);
-    const project = root ? this.fromRoot(root) : undefined;
+    const project = root ? await this.fromRoot(vscode.Uri.file(root)) : undefined;
     project?.setManifest(manifest.getText());
     return project;
   }
 
-  maybeFromRoot(root: string) {
-    if (this.cache.has(root)) {
-      return this.cache.get(root);
+  async fromRoot(projectPath: vscode.Uri) {
+    const cacheKey = projectPath.toString();
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
     }
 
-    // Check if there is a `package.json` file
-    if (!fs.existsSync(path.join(root, 'package.json'))) {
+    const packagePath = relativeUri(projectPath, 'package.json');
+
+    // Ensure the project has a `package.json` file
+    const packageInfo = await vscode.workspace.fs.stat(packagePath);
+    if (packageInfo.type !== vscode.FileType.File) {
       return undefined;
     }
 
-    // Check if that `package.json` file contains `"expo"` as dependency
-    const packageFile = parseJsonFile(fs.readFileSync(path.join(root, 'package.json'), 'utf-8'));
-    if (!packageFile?.content.includes('"expo"')) {
+    // Ensure the project has `expo` as dependency
+    const packageFile = parseJsonFile(await readWorkspaceFile(packagePath));
+    if (!packageFile || !jsonc.findNodeAtLocation(packageFile.tree, ['dependencies', 'expo'])) {
       return undefined;
     }
 
-    const project = new ExpoProject(root, packageFile);
+    const project = new ExpoProject(projectPath, packageFile);
 
-    // Check if there is a `app.json` or `app.config.json` file
-    const hasAppJson = fs.existsSync(path.join(root, 'app.json'));
-    const hasAppConfigJson = fs.existsSync(path.join(root, 'app.config.json'));
-
-    if (hasAppJson || hasAppConfigJson) {
-      project.setManifest(
-        fs.readFileSync(
-          hasAppJson ? path.join(root, 'app.json') : path.join(root, 'app.config.json'),
-          'utf-8'
-        )
-      );
+    // Load the `app.json` or `app.config.json` file, if available
+    for (const appFileName of ['app.json', 'app.config.json']) {
+      const filePath = relativeUri(projectPath, appFileName);
+      const fileStat = await vscode.workspace.fs.stat(filePath);
+      if (fileStat.type === vscode.FileType.File) {
+        project.setManifest(await readWorkspaceFile(filePath));
+        break;
+      }
     }
 
-    this.cache.set(root, project);
+    this.cache.set(cacheKey, project);
     return project;
   }
 }
 
 export class ExpoProject {
   constructor(
-    public readonly root: string,
+    public readonly root: vscode.Uri,
     private packageFile: JsonFile,
     private manifestFile?: JsonFile
   ) {
