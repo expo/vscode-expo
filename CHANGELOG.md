@@ -1,3 +1,23 @@
+## [1.4.0](https://github.com/expo/vscode-expo/compare/1.3.0...1.4.0) (2024-03-08)
+
+
+### New features
+
+* use `vscode.workspace.fs` API to load Expo projects ([#252](https://github.com/expo/vscode-expo/issues/252)) ([5a596d1](https://github.com/expo/vscode-expo/commit/5a596d1415b225b69036fb4d8d1ffd99330e8722))
+
+
+### Code changes
+
+* add tests and replace minimatch with picomatch ([#248](https://github.com/expo/vscode-expo/issues/248)) ([519d179](https://github.com/expo/vscode-expo/commit/519d179991700ad84369f15240e02347577f69f9))
+
+
+### Other chores
+
+* bump all workflow actions to latest versions ([#250](https://github.com/expo/vscode-expo/issues/250)) ([5a4bf25](https://github.com/expo/vscode-expo/commit/5a4bf257705e9b0de13d8dcaedef47f798f4416c))
+* bump minimal required vscode version ([#249](https://github.com/expo/vscode-expo/issues/249)) ([6c789b8](https://github.com/expo/vscode-expo/commit/6c789b8f749946118ced0cd66adc7c5bb0e32e3d))
+* enable tests for vscode insiders versions ([#253](https://github.com/expo/vscode-expo/issues/253)) ([036af2b](https://github.com/expo/vscode-expo/commit/036af2bf33f7f77b6b02cb142e659218f9e78cba))
+* use composite action to resolve exact npm package version ([#251](https://github.com/expo/vscode-expo/issues/251)) ([2d0efa6](https://github.com/expo/vscode-expo/commit/2d0efa620bc9b75cfad27a07fe5572d6b8e93b3a))
+
 ## [1.3.0](https://github.com/expo/vscode-expo/compare/1.2.2...1.3.0) (2024-03-06)
 
 
