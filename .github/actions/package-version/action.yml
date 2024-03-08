@@ -1,0 +1,29 @@
+name: Package version
+description: Resolve the exact npm package version, using a semver
+
+inputs:
+  name:
+    description: Package name to resolve
+    required: true
+
+  semver:
+    description: Semver version to resolve the exact version of (e.g. "latest" or "^1.0.0")
+    default: 'latest'
+
+outputs:
+  exact: 
+    description: The exact version of the package, resolved from semver
+    value: ${{ steps.resolve.outputs.exact }}
+
+runs:
+  using: composite
+  steps:
+    - name: 🌐 Resolve version
+      id: resolve
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const packageRequest = '${{ inputs.name }}@${{ inputs.semver }}'
+          const { stdout: exactVersion } = await exec.getExecOutput('npm', ['show', packageRequest, 'version']);
+          core.setOutput('exact', exactVersion.trim());
+          console.log('✅ Resolved version for ${{ inputs.name }}', { packageRequest, exactVersion: exactVersion.trim() });
