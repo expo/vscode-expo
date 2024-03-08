@@ -26,12 +26,12 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
     );
   }
 
-  provideDocumentLinks(document: vscode.TextDocument, token: vscode.CancellationToken) {
+  async provideDocumentLinks(document: vscode.TextDocument, token: vscode.CancellationToken) {
     const links: vscode.DocumentLink[] = [];
 
     if (!this.isEnabled) return links;
 
-    const project = this.projects.fromManifest(document);
+    const project = await this.projects.fromManifest(document);
     if (!project?.manifest) {
       log('Could not resolve project from manifest "%s"', document.fileName);
       return links;
@@ -45,7 +45,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       if (token.isCancellationRequested) return links;
 
       const { nameValue, nameRange } = getPluginDefinition(pluginNode);
-      const plugin = resolvePluginInfo(project.root, nameValue);
+      const plugin = resolvePluginInfo(project.root.fsPath, nameValue);
 
       if (plugin) {
         const link = new vscode.DocumentLink(
@@ -65,7 +65,7 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       const range = getDocumentRange(document, reference.fileRange);
 
       if (!pluginsRange?.contains(range)) {
-        const file = path.resolve(project.root, reference.filePath);
+        const file = path.resolve(project.root.fsPath, reference.filePath);
         const link = new vscode.DocumentLink(range, vscode.Uri.file(file));
 
         link.tooltip = 'Go to asset';

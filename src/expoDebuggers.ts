@@ -7,7 +7,12 @@ import {
   inferDevicePlatform,
   fetchDevicesToInspectFromUnknownWorkflow,
 } from './expo/bundler';
-import { ExpoProjectCache, ExpoProject, findProjectFromWorkspaces } from './expo/project';
+import {
+  ExpoProjectCache,
+  ExpoProject,
+  findProjectFromWorkspaces,
+  findProjectFromWorkspace,
+} from './expo/project';
 import { debug } from './utils/debug';
 import { featureTelemetry } from './utils/telemetry';
 import { version as extensionVersion } from '../package.json';
@@ -47,7 +52,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
   }
 
   async onDebugCommand() {
-    let project = findProjectFromWorkspaces(this.projects);
+    let project = await findProjectFromWorkspaces(this.projects);
     let projectRelativePath: string | undefined = '';
 
     if (!project) {
@@ -63,7 +68,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
         return log('No relative project path entered, aborting...');
       }
 
-      project = findProjectFromWorkspaces(this.projects, projectRelativePath);
+      project = await findProjectFromWorkspaces(this.projects, projectRelativePath);
     }
 
     if (!project) {
@@ -75,7 +80,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       );
     }
 
-    log('Resolved dynamic project configuration for:', project.root);
+    log('Resolved dynamic project configuration for:', project.root.fsPath);
     featureTelemetry('command', DEBUG_COMMAND, {
       path: projectRelativePath ? 'nested' : 'workspace',
     });
@@ -84,12 +89,17 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       type: DEBUG_TYPE,
       request: 'attach',
       name: 'Inspect Expo app',
-      projectRoot: project.root,
+      projectRoot: project.root.fsPath,
     });
   }
 
-  provideDebugConfigurations(workspace?: vscode.WorkspaceFolder, token?: vscode.CancellationToken) {
-    const project = findProjectFromWorkspaces(this.projects);
+  async provideDebugConfigurations(
+    workspace?: vscode.WorkspaceFolder,
+    token?: vscode.CancellationToken
+  ) {
+    const project = workspace
+      ? await findProjectFromWorkspace(this.projects, workspace)
+      : await findProjectFromWorkspaces(this.projects);
 
     return [
       {
@@ -155,7 +165,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     config: ExpoDebugConfig,
     token?: vscode.CancellationToken
   ) {
-    const project = this.projects.maybeFromRoot(config.projectRoot);
+    const project = await this.projects.fromRoot(vscode.Uri.file(config.projectRoot));
 
     if (!project) {
       featureTelemetry('debugger', `${DEBUG_TYPE}/aborted`, { reason: 'no-project' });
@@ -185,7 +195,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     // Resolve the target device config to inspect
     const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
-    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform });
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, expoVersion: project.expoVersion });
 
     return { ...config, ...deviceConfig };
   }

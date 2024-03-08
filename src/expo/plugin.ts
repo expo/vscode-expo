@@ -81,5 +81,5 @@ export function resolveInstalledPluginInfo(
   if (search) dependencies = dependencies.filter((name) => name.startsWith(search));
   if (maxResults !== null) dependencies = dependencies.slice(0, maxResults);
 
-  return dependencies.map((name) => resolvePluginInfo(project.root, name)).filter(truthy);
+  return dependencies.map((name) => resolvePluginInfo(project.root.fsPath, name)).filter(truthy);
 }

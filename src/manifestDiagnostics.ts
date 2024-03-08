@@ -1,5 +1,4 @@
 import { findNodeAtLocation, Node } from 'jsonc-parser';
-import path from 'path';
 import vscode from 'vscode';
 
 import { FileReference, getFileReferences, manifestPattern } from './expo/manifest';
@@ -42,7 +41,7 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
 
     if (!this.isEnabled) return issues;
 
-    const project = this.projects.fromManifest(document);
+    const project = await this.projects.fromManifest(document);
     if (!project?.manifest) {
       log('Could not resolve project from manifest "%s"', document.fileName);
       return issues;
@@ -85,8 +84,8 @@ function diagnosePlugin(document: vscode.TextDocument, project: ExpoProject, plu
   }
 
   try {
-    resetModuleFrom(project.root, nameValue);
-    resolvePluginFunctionUnsafe(project.root, nameValue);
+    resetModuleFrom(project.root.fsPath, nameValue);
+    resolvePluginFunctionUnsafe(project.root.fsPath, nameValue);
   } catch (error) {
     const issue = new vscode.Diagnostic(
       getDocumentRange(document, nameRange),
@@ -115,7 +114,7 @@ async function diagnoseAsset(
   reference: FileReference
 ) {
   try {
-    const uri = vscode.Uri.file(path.join(project.root, reference.filePath));
+    const uri = vscode.Uri.joinPath(project.root, reference.filePath);
     const asset = await vscode.workspace.fs.stat(uri);
 
     if (asset.type === vscode.FileType.Directory) {

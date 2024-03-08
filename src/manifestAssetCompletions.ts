@@ -47,7 +47,7 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
   ) {
     if (!this.isEnabled) return null;
 
-    const project = this.projects.fromManifest(document);
+    const project = await this.projects.fromManifest(document);
     if (!project?.manifest) {
       log('Could not resolve project from manifest "%s"', document.fileName);
       return [];
@@ -75,7 +75,7 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
     // Search entities within the user-provided directory
     const positionDir = getDirectoryPath(positionValue) ?? '';
     const entities = await withCancelToken(token, () =>
-      vscode.workspace.fs.readDirectory(vscode.Uri.file(path.join(project.root, positionDir)))
+      vscode.workspace.fs.readDirectory(vscode.Uri.joinPath(project.root, positionDir))
     );
 
     return entities
