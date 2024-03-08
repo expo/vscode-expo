@@ -4,6 +4,8 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
+      - '.github/actions/**'
+      - .github/workflows/schema-metadata.yml
       - 'scripts/**'
       - package.json
   workflow_dispatch:
@@ -35,23 +37,16 @@ jobs:
 
       - name: 🌐 Resolve version
         id: version
-        uses: actions/github-script@v7
+        uses: ./.github/actions/package-version
         with:
-          script: |
-            const inputVersion = "${{ github.event.inputs.version || 'latest' }}";
-            const { stdout: latestVersion } = await exec.getExecOutput('npm', ['view', 'eas-cli', 'dist-tags.latest']);
-            const resolvedVersion = inputVersion === 'latest'
-              ? latestVersion.trim()
-              : inputVersion.trim();
-
-            core.setOutput('resolved', resolvedVersion);
-            console.log('✅ Resolved versions for eas-cli', { inputVersion, latestVersion, resolvedVersion });
+          name: eas-cli
+          semver: ${{ github.event.inputs.version || 'latest' }}
 
       - name: 👷 Download schema
         run: |
           mkdir -p ./schema
           rm -f ./schema/eas-metadata.json
-          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.resolved }}/packages/eas-cli/schema/metadata-0.json -o ./schema/eas-metadata.json
+          curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.exact }}/packages/eas-cli/schema/metadata-0.json -o ./schema/eas-metadata.json
 
       - name: 📋 Upload schema
         uses: actions/upload-artifact@v4
