@@ -97,6 +97,20 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
     }
 
     const project = new ExpoProject(root, packageFile);
+
+    // Check if there is a `app.json` or `app.config.json` file
+    const hasAppJson = fs.existsSync(path.join(root, 'app.json'));
+    const hasAppConfigJson = fs.existsSync(path.join(root, 'app.config.json'));
+
+    if (hasAppJson || hasAppConfigJson) {
+      project.setManifest(
+        fs.readFileSync(
+          hasAppJson ? path.join(root, 'app.json') : path.join(root, 'app.config.json'),
+          'utf-8'
+        )
+      );
+    }
+
     this.cache.set(root, project);
     return project;
   }
@@ -117,6 +131,11 @@ export class ExpoProject {
 
   get manifest() {
     return this.manifestFile;
+  }
+
+  get expoVersion() {
+    const version = jsonc.findNodeAtLocation(this.packageFile.tree, ['dependencies', 'expo']);
+    return version?.type === 'string' ? version.value : undefined;
   }
 
   setPackage(content: string) {

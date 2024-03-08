@@ -185,7 +185,7 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     // Resolve the target device config to inspect
     const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
-    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform });
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, expoVersion: project.expoVersion });
 
     return { ...config, ...deviceConfig };
   }

@@ -1,5 +1,6 @@
 import path from 'path';
 import picomatch from 'picomatch';
+import vscode from 'vscode';
 
 /**
  * Get the directory path from a user-provided file path.
@@ -32,4 +33,14 @@ export function fileIsExcluded(filePath: string, filesExcluded?: Record<string, 
   return Object.entries(filesExcluded).some(
     ([pattern, isExcluded]) => isExcluded && picomatch(pattern)(filePath)
   );
+}
+
+/** Read a workspace file through vscode's workspace API and return the string equivalent */
+export async function readWorkspaceFile(uri: vscode.Uri) {
+  return Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('utf-8');
+}
+
+/** Create a new relative URI from existing URI */
+export function relativeUri(uri: vscode.Uri, relativePath: string) {
+  return uri.with({ path: path.join(uri.path, relativePath) });
 }
