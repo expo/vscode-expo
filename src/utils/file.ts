@@ -42,5 +42,5 @@ export async function readWorkspaceFile(uri: vscode.Uri) {
 
 /** Create a new relative URI from existing URI */
 export function relativeUri(uri: vscode.Uri, relativePath: string) {
-  return uri.with({ path: path.join(uri.path, relativePath) });
+  return uri.with({ path: path.posix.join(uri.path, relativePath) });
 }
