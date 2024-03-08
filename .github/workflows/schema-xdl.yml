@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -42,7 +42,7 @@ jobs:
         run: node ./scripts/schema-expo-xdl.js --latest
 
       - name: 📋 Upload schema
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           name: schema-xdl
@@ -54,13 +54,13 @@ jobs:
     needs: generate
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: schemas
           token: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
 
       - name: 📋 Download schema
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: schema-xdl
           path: ./schema/

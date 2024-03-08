@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -79,7 +79,7 @@ jobs:
         vscode: [oldest, stable]
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -91,7 +91,7 @@ jobs:
 
       # This handles the "oldest" vscode version by looking up our "oldest supported version"
       - name: 🕵️ Set vscode version
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const { engines } = require('./package.json')

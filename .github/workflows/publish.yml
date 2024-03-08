@@ -11,7 +11,7 @@ jobs:
       contents: write
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
