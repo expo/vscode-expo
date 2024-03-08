@@ -22,10 +22,7 @@ jobs:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
 
       - name: 📋 Add package to release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: vscode-expo-*.vsix
-          tag_name: ${{ github.ref_name }}
+        run: gh release upload ${{ github.ref_name }} vscode-expo-${{ github.ref_name }}.vsix
 
   vscode-marketplace:
     runs-on: ubuntu-latest
