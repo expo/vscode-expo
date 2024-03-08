@@ -76,7 +76,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        vscode: [oldest, stable]
+        vscode: [oldest, stable, insiders]
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v4
