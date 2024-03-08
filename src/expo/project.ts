@@ -5,7 +5,7 @@ import vscode from 'vscode';
 
 import { MapCacheProvider } from '../utils/cache';
 import { debug } from '../utils/debug';
-import { readWorkspaceFile, relativeUri } from '../utils/file';
+import { readWorkspaceFile } from '../utils/file';
 
 const log = debug.extend('project');
 
@@ -43,7 +43,7 @@ export function findProjectFromWorkspace(
   relativePath?: string
 ) {
   return relativePath
-    ? projects.fromRoot(relativeUri(workspace.uri, relativePath))
+    ? projects.fromRoot(vscode.Uri.joinPath(workspace.uri, relativePath))
     : projects.fromRoot(workspace.uri);
 }
 
@@ -74,7 +74,7 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
       return this.cache.get(cacheKey);
     }
 
-    const packagePath = relativeUri(projectPath, 'package.json');
+    const packagePath = vscode.Uri.joinPath(projectPath, 'package.json');
 
     // Ensure the project has a `package.json` file
     const packageInfo = await vscode.workspace.fs.stat(packagePath);
@@ -92,7 +92,7 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
 
     // Load the `app.json` or `app.config.json` file, if available
     for (const appFileName of ['app.json', 'app.config.json']) {
-      const filePath = relativeUri(projectPath, appFileName);
+      const filePath = vscode.Uri.joinPath(projectPath, appFileName);
       const fileStat = await vscode.workspace.fs.stat(filePath);
       if (fileStat.type === vscode.FileType.File) {
         project.setManifest(await readWorkspaceFile(filePath));

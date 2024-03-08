@@ -6,7 +6,6 @@ import { getPluginDefinition, resolvePluginFunctionUnsafe } from './expo/plugin'
 import { ExpoProject, ExpoProjectCache } from './expo/project';
 import { isManifestPluginValidationEnabled } from './settings';
 import { debug } from './utils/debug';
-import { relativeUri } from './utils/file';
 import { getDocumentRange } from './utils/json';
 import { resetModuleFrom } from './utils/module';
 import { ExpoDiagnosticsProvider } from './utils/vscode';
@@ -115,7 +114,7 @@ async function diagnoseAsset(
   reference: FileReference
 ) {
   try {
-    const uri = relativeUri(project.root, reference.filePath);
+    const uri = vscode.Uri.joinPath(project.root, reference.filePath);
     const asset = await vscode.workspace.fs.stat(uri);
 
     if (asset.type === vscode.FileType.Directory) {

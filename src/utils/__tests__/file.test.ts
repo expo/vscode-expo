@@ -1,7 +1,6 @@
 import { expect } from 'chai';
-import vscode from 'vscode';
 
-import { fileIsExcluded, fileIsHidden, getDirectoryPath, relativeUri } from '../file';
+import { fileIsExcluded, fileIsHidden, getDirectoryPath } from '../file';
 
 describe('getDirectoryPath', () => {
   it('returns root (.) for paths without directories', () => {
@@ -47,19 +46,5 @@ describe('fileIsExcluded', () => {
     expect(fileIsExcluded('App.tsx', { 'App.js': true })).to.be.false;
     expect(fileIsExcluded('my-app/package.json', { '**/App.js': true })).to.be.false;
     expect(fileIsExcluded('my-app/package.json', { '**/package.json': false })).to.be.false;
-  });
-});
-
-describe('relativeUri', () => {
-  it('returns new uri instance', () => {
-    const oldUri = vscode.Uri.parse('file:///old/uri');
-    const newUri = relativeUri(oldUri, 'new/uri');
-
-    expect(newUri).to.not.equal(oldUri);
-  });
-
-  it('returns uri with relative path', () => {
-    const uri = relativeUri(vscode.Uri.parse('file:///old/uri'), 'new/uri');
-    expect(uri.path).to.equal('/old/uri/new/uri');
   });
 });

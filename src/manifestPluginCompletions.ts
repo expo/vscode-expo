@@ -11,7 +11,7 @@ import {
 } from './settings';
 import { truthy } from './utils/array';
 import { debug } from './utils/debug';
-import { fileIsExcluded, fileIsHidden, getDirectoryPath, relativeUri } from './utils/file';
+import { fileIsExcluded, fileIsHidden, getDirectoryPath } from './utils/file';
 import { getDocumentRange, isKeyNode } from './utils/json';
 import { ExpoCompletionsProvider, withCancelToken } from './utils/vscode';
 
@@ -76,7 +76,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
     if (positionIsPath && !token.isCancellationRequested) {
       const positionDir = getDirectoryPath(positionValue) ?? '';
       const entities = await withCancelToken(token, () =>
-        vscode.workspace.fs.readDirectory(relativeUri(project.root, positionDir))
+        vscode.workspace.fs.readDirectory(vscode.Uri.joinPath(project.root, positionDir))
       );
 
       return entities

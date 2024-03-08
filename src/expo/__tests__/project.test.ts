@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { findNodeAtLocation } from 'jsonc-parser';
 import vscode from 'vscode';
 
-import { readWorkspaceFile, relativeUri } from '../../utils/file';
+import { readWorkspaceFile } from '../../utils/file';
 import { ExpoProjectCache, findProjectFromWorkspaces } from '../project';
 
 describe('ExpoProjectCache', () => {
@@ -45,7 +45,7 @@ describe('ExpoProject', () => {
 
     const project = await findProjectFromWorkspaces(projects, './manifest');
     const workspace = vscode.workspace.workspaceFolders![0];
-    const packageUri = relativeUri(workspace.uri, 'manifest/package.json');
+    const packageUri = vscode.Uri.joinPath(workspace.uri, 'manifest', 'package.json');
     const packageFile = JSON.parse(await readWorkspaceFile(packageUri));
 
     expect(project?.expoVersion).to.equal(packageFile.dependencies.expo);

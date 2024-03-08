@@ -39,8 +39,3 @@ export function fileIsExcluded(filePath: string, filesExcluded?: Record<string, 
 export async function readWorkspaceFile(uri: vscode.Uri) {
   return Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('utf-8');
 }
-
-/** Create a new relative URI from existing URI */
-export function relativeUri(uri: vscode.Uri, relativePath: string) {
-  return uri.with({ path: path.posix.join(uri.path, relativePath) });
-}
