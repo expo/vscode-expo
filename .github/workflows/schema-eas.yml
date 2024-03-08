@@ -4,6 +4,8 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
+      - '.github/actions/**'
+      - .github/workflows/schema-eas.yml
       - 'scripts/**'
       - package.json
   workflow_dispatch:
