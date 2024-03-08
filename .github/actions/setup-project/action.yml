@@ -4,7 +4,7 @@ description: Prepare the project for any CI action
 inputs:
   node-version:
     description: Version of Node to install
-    default: 18.x
+    default: 20.x
 
   with-fixture:
     description: If the setup should install the test/fixture files
@@ -19,7 +19,7 @@ runs:
   steps:
     - name: 🏗 Setup Node with cache
       if: ${{ inputs.without-cache != 'true' }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: npm
@@ -29,7 +29,7 @@ runs:
 
     - name: 🏗 Setup Node without cache
       if: ${{ inputs.without-cache == 'true' }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
 

@@ -11,7 +11,7 @@ jobs:
       contents: write
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -22,16 +22,13 @@ jobs:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
 
       - name: 📋 Add package to release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: vscode-expo-*.vsix
-          tag_name: ${{ github.ref_name }}
+        run: gh release upload ${{ github.ref_name }} vscode-expo-${{ github.ref_name }}.vsix
 
   vscode-marketplace:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
@@ -54,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo from tag
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project

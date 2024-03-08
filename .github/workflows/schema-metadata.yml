@@ -28,14 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🏗 Setup project
         uses: ./.github/actions/setup-project
 
       - name: 🌐 Resolve version
         id: version
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const inputVersion = "${{ github.event.inputs.version || 'latest' }}";
@@ -54,7 +54,7 @@ jobs:
           curl https://raw.githubusercontent.com/expo/eas-cli/v${{ steps.version.outputs.resolved }}/packages/eas-cli/schema/metadata-0.json -o ./schema/eas-metadata.json
 
       - name: 📋 Upload schema
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           name: schema-metadata
@@ -66,13 +66,13 @@ jobs:
     needs: generate
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: schemas
           token: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
 
       - name: 📋 Download schema
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: schema-metadata
           path: ./schema/
