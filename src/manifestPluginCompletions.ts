@@ -11,7 +11,7 @@ import {
 } from './settings';
 import { truthy } from './utils/array';
 import { debug } from './utils/debug';
-import { fileIsExcluded, fileIsHidden, getDirectoryPath } from './utils/file';
+import { fileIsExcluded, fileIsHidden, getDirectoryPath, relativeUri } from './utils/file';
 import { getDocumentRange, isKeyNode } from './utils/json';
 import { ExpoCompletionsProvider, withCancelToken } from './utils/vscode';
 
@@ -45,7 +45,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
   ) {
     if (!this.isEnabled) return null;
 
-    const project = this.projects.fromManifest(document);
+    const project = await this.projects.fromManifest(document);
     if (!project?.manifest) {
       log('Could not resolve project from manifest "%s"', document.fileName);
       return [];
@@ -76,7 +76,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
     if (positionIsPath && !token.isCancellationRequested) {
       const positionDir = getDirectoryPath(positionValue) ?? '';
       const entities = await withCancelToken(token, () =>
-        vscode.workspace.fs.readDirectory(vscode.Uri.file(path.join(project.root, positionDir)))
+        vscode.workspace.fs.readDirectory(relativeUri(project.root, positionDir))
       );
 
       return entities
@@ -91,7 +91,7 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
 
           if (path.extname(entityName) === '.js') {
             const pluginPath = './' + path.join(positionDir, entityName);
-            const plugin = resolvePluginInfo(project.root, pluginPath);
+            const plugin = resolvePluginInfo(project.root.fsPath, pluginPath);
             if (plugin) {
               return createPluginFile(plugin, entityName);
             }
