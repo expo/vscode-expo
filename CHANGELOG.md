@@ -1,3 +1,15 @@
+## [1.4.1](https://github.com/expo/vscode-expo/compare/1.4.0...1.4.1) (2024-03-09)
+
+
+### Bug fixes
+
+* set `GH_TOKEN` when adding artifact to release ([8ef750e](https://github.com/expo/vscode-expo/commit/8ef750eb5d945e98e722cc354073a87e18925700))
+
+
+### Code changes
+
+* project quality of life improvements ([#254](https://github.com/expo/vscode-expo/issues/254)) ([deeca27](https://github.com/expo/vscode-expo/commit/deeca27cc4290ef02d4f793ce5189dd18cf023ec))
+
 ## [1.4.0](https://github.com/expo/vscode-expo/compare/1.3.0...1.4.0) (2024-03-08)
 
 
