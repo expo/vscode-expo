@@ -14,10 +14,10 @@ export const EXTENSION_ID = `${pkg.publisher}.${pkg.name}`;
 /**
  * Get the URI to a file or folder within the workspace.
  */
-export function getWorkspaceUri(relativePath: string): vscode.Uri {
-  const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-  assert(rootPath, `Workspace root path not found, can't create path to ${relativePath}`);
-  return vscode.Uri.file(path.join(rootPath, relativePath));
+export function getWorkspaceUri(relativePath = '') {
+  const workspace = vscode.workspace.workspaceFolders?.[0];
+  assert(workspace, `(First) workspace not found, can't create path to ${relativePath}`);
+  return vscode.Uri.joinPath(workspace.uri, relativePath);
 }
 
 /**
@@ -30,10 +30,7 @@ export function waitForExtension() {
 /**
  * Wait until vscode has opened a visible file.
  */
-export function waitForEditorOpen(
-  fileName: string,
-  options?: WaitForValueOptions
-): Promise<vscode.TextEditor | undefined> {
+export function waitForEditorOpen(fileName: string, options?: WaitForValueOptions) {
   return waitForValue(
     () =>
       vscode.window.visibleTextEditors.find(
@@ -48,7 +45,7 @@ export function waitForEditorOpen(
  * Wait until the active tab name is opened.
  * This can by any type of file, from text editor to asset.
  */
-export function waitForActiveTabNameOpen(tabName: string, delay = 500): Promise<true | undefined> {
+export function waitForActiveTabNameOpen(tabName: string, delay = 500) {
   return waitForTrue(() => tabName === vscode.window.tabGroups.activeTabGroup.activeTab?.label, {
     delay,
   });
@@ -73,7 +70,7 @@ export function closeActiveEditor() {
 /**
  * Find the editor content position by search string.
  */
-export function findContentPosition(editor: vscode.TextEditor, search: string): vscode.Position {
+export function findContentPosition(editor: vscode.TextEditor, search: string) {
   const content = editor.document.getText();
   const offset = content.indexOf(search);
 
@@ -85,7 +82,7 @@ export function findContentPosition(editor: vscode.TextEditor, search: string): 
 /**
  * Find the editor content range by search string.
  */
-export function findContentRange(editor: vscode.TextEditor, search: string): vscode.Range {
+export function findContentRange(editor: vscode.TextEditor, search: string) {
   const start = findContentPosition(editor, search);
   const end = new vscode.Position(start.line, start.character + search.length);
   return new vscode.Range(start, end);

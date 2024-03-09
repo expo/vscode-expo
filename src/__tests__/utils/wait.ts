@@ -1,7 +1,7 @@
 /**
  * Wait for the total amount of milliseconds.
  */
-export async function waitFor(delay: number = 500) {
+export function waitFor(delay: number = 500) {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
@@ -22,7 +22,7 @@ export type WaitForValueOptions = {
 export async function waitForValue<T>(
   action: () => T,
   { delay = 250, retries = 25_000 / 250, attempts = 0 }: WaitForValueOptions = {}
-): Promise<T | undefined> {
+): Promise<Awaited<T> | undefined> {
   const value = await action();
 
   if (value === undefined && attempts <= retries) {
@@ -33,7 +33,7 @@ export async function waitForValue<T>(
   return value;
 }
 
-export async function waitForTrue<T extends SyncOrAsync<boolean | undefined | null>>(
+export function waitForTrue<T extends SyncOrAsync<boolean | undefined | null>>(
   action: () => T,
   options?: WaitForValueOptions
 ) {

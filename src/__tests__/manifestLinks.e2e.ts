@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, DocumentLink, TextEditor, window } from 'vscode';
+import { commands, type DocumentLink, type TextEditor, window } from 'vscode';
 
 import {
   closeAllEditors,
