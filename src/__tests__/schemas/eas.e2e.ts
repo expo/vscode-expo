@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, CompletionList, TextEditor, window } from 'vscode';
+import vscode from 'vscode';
 
 import {
   closeAllEditors,
@@ -10,11 +10,11 @@ import {
 import { waitForTrue } from '../utils/wait';
 
 describe('eas', () => {
-  let app: TextEditor;
+  let app: vscode.TextEditor;
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('schema-eas/eas.json'));
+    app = await vscode.window.showTextDocument(getWorkspaceUri('schema-eas', 'eas.json'));
     restoreContent = storeOriginalContent(app);
   });
 
@@ -30,7 +30,7 @@ describe('eas', () => {
 
     // Retry the suggestions a couple of times, the schema might still need to be downloaded
     const result = await waitForTrue(async () => {
-      const suggestions = await commands.executeCommand<CompletionList>(
+      const suggestions = await vscode.commands.executeCommand<vscode.CompletionList>(
         'vscode.executeCompletionItemProvider',
         app.document.uri,
         range.start

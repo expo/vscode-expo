@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, window } from 'vscode';
+import vscode from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
 import { sanitizeSnapshotValues } from '../utils/snapshot';
@@ -7,7 +7,7 @@ import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vs
 
 describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
+    await vscode.window.showTextDocument(getWorkspaceUri('preview', 'app.json'));
   });
 
   afterEach(async () => {
@@ -15,7 +15,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidColors}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidColors
     );
@@ -28,7 +28,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidColorsNight}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidColorsNight
     );
@@ -41,7 +41,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidGradleProperties}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidGradleProperties
     );
@@ -54,7 +54,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidManifest}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
     );
@@ -67,7 +67,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidStrings}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidStrings
     );
@@ -80,7 +80,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidStyles}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidStyles
     );
@@ -93,7 +93,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosEntitlements}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosEntitlements
     );
@@ -106,7 +106,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosExpoPlist}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosExpoPlist
     );
@@ -119,7 +119,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosInfoPlist}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosInfoPlist
     );
@@ -132,7 +132,7 @@ describe(PreviewCommand.OpenExpoFilePrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosPodfileProperties}`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosPodfileProperties
     );
@@ -151,8 +151,8 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.json`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
-    await commands.executeCommand(
+    await vscode.window.showTextDocument(getWorkspaceUri('preview', 'app.json'));
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
     );
@@ -165,8 +165,8 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.iosInfoPlist} for app.config.js`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview-config-js/app.config.js'));
-    await commands.executeCommand(
+    await vscode.window.showTextDocument(getWorkspaceUri('preview-config-js', 'app.config.js'));
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.iosInfoPlist
     );
@@ -179,8 +179,8 @@ describe('dynamic configs', () => {
   });
 
   it(`runs ${PreviewModProvider.androidManifest} for app.config.ts`, async () => {
-    await window.showTextDocument(getWorkspaceUri('preview-config-ts/app.config.ts'));
-    await commands.executeCommand(
+    await vscode.window.showTextDocument(getWorkspaceUri('preview-config-ts', 'app.config.ts'));
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
     );

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as jsonc from 'jsonc-parser';
-import { commands, TextEditor, window } from 'vscode';
+import vscode from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
 import {
@@ -13,11 +13,11 @@ import {
 import { waitForFalse, waitForTrue } from '../utils/wait';
 
 describe('CodeProvider', () => {
-  let app: TextEditor;
+  let app: vscode.TextEditor;
   let restoreContent: ReturnType<typeof storeOriginalContent>;
 
   before(async () => {
-    app = await window.showTextDocument(getWorkspaceUri('preview/app.json'));
+    app = await vscode.window.showTextDocument(getWorkspaceUri('preview', 'app.json'));
     restoreContent = storeOriginalContent(app);
   });
 
@@ -27,7 +27,7 @@ describe('CodeProvider', () => {
   });
 
   it('updates preview on added and removed content', async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFilePrebuild,
       PreviewModProvider.androidManifest
     );

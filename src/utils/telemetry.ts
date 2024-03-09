@@ -1,8 +1,8 @@
 import TelemetryReporter, {
-  TelemetryEventMeasurements,
-  TelemetryEventProperties,
+  type TelemetryEventMeasurements,
+  type TelemetryEventProperties,
 } from '@vscode/extension-telemetry';
-import { ExtensionContext } from 'vscode';
+import { type ExtensionContext } from 'vscode';
 
 import { debug } from './debug';
 

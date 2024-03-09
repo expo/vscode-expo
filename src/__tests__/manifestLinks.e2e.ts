@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, type DocumentLink, type TextEditor, window } from 'vscode';
+import vscode from 'vscode';
 
 import {
   closeAllEditors,
@@ -14,17 +14,17 @@ describe('ManifestLinksProvider', () => {
   // Test for both app.json and app.config.json formats
   ['app.json', 'app.config.json'].forEach((manifestFile) => {
     describe(`manifest: ${manifestFile}`, () => {
-      let app: TextEditor;
+      let app: vscode.TextEditor;
 
       beforeEach(async () => {
-        app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
+        app = await vscode.window.showTextDocument(getWorkspaceUri('manifest', manifestFile));
       });
 
       afterEach(() => closeAllEditors());
 
       describe('assets', () => {
         it('opens valid asset link', async () => {
-          const links = await commands.executeCommand<DocumentLink[]>(
+          const links = await vscode.commands.executeCommand<vscode.DocumentLink[]>(
             'vscode.executeLinkProvider',
             app.document.uri
           );
@@ -32,14 +32,14 @@ describe('ManifestLinksProvider', () => {
           const range = findContentRange(app, './assets/icon.png');
           const link = links.find((link) => link.range.contains(range));
 
-          await commands.executeCommand('vscode.open', link?.target);
+          await vscode.commands.executeCommand('vscode.open', link?.target);
           expect(await waitForActiveTabNameOpen('icon.png')).to.equal(true);
         });
       });
 
       describe('plugins', () => {
         it('opens valid plugin from package', async () => {
-          const links = await commands.executeCommand<DocumentLink[]>(
+          const links = await vscode.commands.executeCommand<vscode.DocumentLink[]>(
             'vscode.executeLinkProvider',
             app.document.uri
           );
@@ -47,12 +47,12 @@ describe('ManifestLinksProvider', () => {
           const range = findContentRange(app, 'expo-system-ui');
           const link = links.find((link) => link.range.contains(range));
 
-          await commands.executeCommand('vscode.open', link?.target);
+          await vscode.commands.executeCommand('vscode.open', link?.target);
           expect(await waitForActiveTabNameOpen('app.plugin.js')).to.equal(true);
         });
 
         it('opens valid plugin from package with options', async () => {
-          const links = await commands.executeCommand<DocumentLink[]>(
+          const links = await vscode.commands.executeCommand<vscode.DocumentLink[]>(
             'vscode.executeLinkProvider',
             app.document.uri
           );
@@ -60,12 +60,12 @@ describe('ManifestLinksProvider', () => {
           const range = findContentRange(app, 'expo-camera');
           const link = links.find((link) => link.range.contains(range));
 
-          await commands.executeCommand('vscode.open', link?.target);
+          await vscode.commands.executeCommand('vscode.open', link?.target);
           expect(await waitForActiveTabNameOpen('app.plugin.js')).to.equal(true);
         });
 
         it('opens valid plugin from local file', async () => {
-          const links = await commands.executeCommand<DocumentLink[]>(
+          const links = await vscode.commands.executeCommand<vscode.DocumentLink[]>(
             'vscode.executeLinkProvider',
             app.document.uri
           );
@@ -73,7 +73,7 @@ describe('ManifestLinksProvider', () => {
           const range = findContentRange(app, './plugins/valid');
           const link = links.find((link) => link.range.contains(range));
 
-          await commands.executeCommand('vscode.open', link?.target);
+          await vscode.commands.executeCommand('vscode.open', link?.target);
           expect(await waitForActiveTabNameOpen('valid.js')).to.equal(true);
         });
       });
