@@ -22,7 +22,7 @@ jobs:
           VSCODE_EXPO_TELEMETRY_KEY: ${{ secrets.VSCODE_TELEMETRY_KEY }}
 
       - name: 📋 Add package to release
-        run: gh release upload ${{ github.ref_name }} vscode-expo-${{ github.ref_name }}.vsix
+        run: gh release upload ${{ github.ref_name }} vscode-expo-tools-${{ github.ref_name }}.vsix
         env:
           GH_TOKEN: ${{ github.token }}
 
