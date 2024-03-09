@@ -66,6 +66,7 @@
     "@types/sinon": "^10.0.16",
     "@types/sinon-chai": "^3.2.12",
     "@types/vscode": "^1.86.0",
+    "@types/ws": "^8.5.10",
     "@vscode/test-electron": "^2.3.9",
     "@vscode/vsce": "^2.21.0",
     "arg": "^5.0.2",
@@ -93,7 +94,8 @@
     "sucrase": "^3.20.3",
     "typescript": "^5.2.2",
     "webpack": "^5.76.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "ws": "^8.16.0"
   },
   "publisher": "expo",
   "icon": "images/logo-marketplace.png",
