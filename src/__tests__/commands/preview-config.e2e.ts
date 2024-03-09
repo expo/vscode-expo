@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, window } from 'vscode';
+import vscode from 'vscode';
 
 import { ExpoConfigType, PreviewCommand } from '../../preview/constants';
 import { sanitizeSnapshotValues } from '../utils/snapshot';
@@ -7,7 +7,7 @@ import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vs
 
 describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
+    await vscode.window.showTextDocument(getWorkspaceUri('preview', 'app.json'));
   });
 
   afterEach(async () => {
@@ -15,7 +15,10 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
   });
 
   it(`runs for ${ExpoConfigType.INTROSPECT}`, async () => {
-    await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.INTROSPECT);
+    await vscode.commands.executeCommand(
+      PreviewCommand.OpenExpoConfigPrebuild,
+      ExpoConfigType.INTROSPECT
+    );
 
     const preview = await waitForEditorOpen('_app.config.json');
     expect(preview).to.exist;
@@ -25,7 +28,10 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
   });
 
   it(`runs for ${ExpoConfigType.PREBUILD}`, async () => {
-    await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PREBUILD);
+    await vscode.commands.executeCommand(
+      PreviewCommand.OpenExpoConfigPrebuild,
+      ExpoConfigType.PREBUILD
+    );
 
     const preview = await waitForEditorOpen('_app.config.json');
     expect(preview).to.exist;
@@ -35,7 +41,10 @@ describe(PreviewCommand.OpenExpoConfigPrebuild, () => {
   });
 
   it(`runs for ${ExpoConfigType.PUBLIC}`, async () => {
-    await commands.executeCommand(PreviewCommand.OpenExpoConfigPrebuild, ExpoConfigType.PUBLIC);
+    await vscode.commands.executeCommand(
+      PreviewCommand.OpenExpoConfigPrebuild,
+      ExpoConfigType.PUBLIC
+    );
 
     const preview = await waitForEditorOpen('exp.json');
     expect(preview).to.exist;

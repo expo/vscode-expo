@@ -1,11 +1,11 @@
-import { ConfigurationScope, workspace } from 'vscode';
+import vscode from 'vscode';
 
 /**
  * Determine if we should validate the config plugins within app manifests.
  * This uses the `expo.appManifest.pluginValidation` setting from the configuration scope.
  */
-export function isManifestPluginValidationEnabled(scope?: ConfigurationScope) {
-  return workspace
+export function isManifestPluginValidationEnabled(scope?: vscode.ConfigurationScope) {
+  return vscode.workspace
     .getConfiguration('expo.appManifest', scope)
     .get<boolean>('pluginValidation', true);
 }
@@ -14,8 +14,10 @@ export function isManifestPluginValidationEnabled(scope?: ConfigurationScope) {
  * Determine if we should show file references auto-complete in app manifests.
  * This uses the `expo.appManifest.fileReferences` setting from the configuration scope.
  */
-export function isManifestFileReferencesEnabled(scope?: ConfigurationScope) {
-  return workspace.getConfiguration('expo.appManifest', scope).get<boolean>('fileReferences', true);
+export function isManifestFileReferencesEnabled(scope?: vscode.ConfigurationScope) {
+  return vscode.workspace
+    .getConfiguration('expo.appManifest', scope)
+    .get<boolean>('fileReferences', true);
 }
 
 /**
@@ -24,8 +26,8 @@ export function isManifestFileReferencesEnabled(scope?: ConfigurationScope) {
  *   - `files.exclude` - main vscode file exclusion
  *   - `expo.appManifest.fileReferences.excludeGlobPatterns` - expo-specific file exclusion
  */
-export function getManifestFileReferencesExcludedFiles(scope?: ConfigurationScope) {
-  const config = workspace.getConfiguration(undefined, scope);
+export function getManifestFileReferencesExcludedFiles(scope?: vscode.ConfigurationScope) {
+  const config = vscode.workspace.getConfiguration(undefined, scope);
 
   return {
     ...config.get<Record<string, boolean>>('files.exclude', {}),

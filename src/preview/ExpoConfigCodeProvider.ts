@@ -1,9 +1,9 @@
 import vscode from 'vscode';
 
-import { CodeProvider, BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
+import { CodeProvider, type BasicCodeProviderOptions, CodeProviderLanguage } from './CodeProvider';
 import { ExpoConfigType } from './constants';
 import { spawnExpoCli } from '../expo/cli';
-import { ExpoConfig, getConfig } from '../packages/config';
+import { type ExpoConfig, getConfig } from '../packages/config';
 import { compileModsAsync } from '../packages/config-plugins';
 import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 

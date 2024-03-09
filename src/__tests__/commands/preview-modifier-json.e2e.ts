@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, window } from 'vscode';
+import vscode from 'vscode';
 
 import { PreviewCommand, PreviewModProvider } from '../../preview/constants';
 import { sanitizeSnapshotValues } from '../utils/snapshot';
@@ -7,7 +7,7 @@ import { closeAllEditors, getWorkspaceUri, waitForEditorOpen } from '../utils/vs
 
 describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   beforeEach(async () => {
-    await window.showTextDocument(getWorkspaceUri('preview/app.json'));
+    await vscode.window.showTextDocument(getWorkspaceUri('preview', 'app.json'));
   });
 
   afterEach(async () => {
@@ -15,7 +15,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidColors} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidColors
     );
@@ -28,7 +28,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidColorsNight} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidColorsNight
     );
@@ -41,7 +41,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidGradleProperties} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidGradleProperties
     );
@@ -54,7 +54,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidManifest} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidManifest
     );
@@ -67,7 +67,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidStrings} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidStrings
     );
@@ -80,7 +80,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.androidStyles} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.androidStyles
     );
@@ -93,7 +93,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosEntitlements} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosEntitlements
     );
@@ -106,7 +106,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosExpoPlist} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosExpoPlist
     );
@@ -119,7 +119,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosInfoPlist} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosInfoPlist
     );
@@ -132,7 +132,7 @@ describe(PreviewCommand.OpenExpoFileJsonPrebuild, () => {
   });
 
   it(`runs for ${PreviewModProvider.iosPodfileProperties} in json format`, async () => {
-    await commands.executeCommand(
+    await vscode.commands.executeCommand(
       PreviewCommand.OpenExpoFileJsonPrebuild,
       PreviewModProvider.iosPodfileProperties
     );

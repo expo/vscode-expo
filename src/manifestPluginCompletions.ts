@@ -3,7 +3,7 @@ import path from 'path';
 import vscode from 'vscode';
 
 import { manifestPattern } from './expo/manifest';
-import { PluginInfo, resolveInstalledPluginInfo, resolvePluginInfo } from './expo/plugin';
+import { type PluginInfo, resolveInstalledPluginInfo, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import {
   getManifestFileReferencesExcludedFiles,

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { commands, CompletionList, TextEditor, window } from 'vscode';
+import vscode from 'vscode';
 
 import { closeActiveEditor, findContentRange, getWorkspaceUri } from './utils/vscode';
 
@@ -7,10 +7,10 @@ describe('ManifestAssetCompletionsProvider', () => {
   // Test for both app.json and app.config.json formats
   ['app.json', 'app.config.json'].forEach((manifestFile) => {
     describe(`manifest: ${manifestFile}`, () => {
-      let app: TextEditor;
+      let app: vscode.TextEditor;
 
       beforeEach(async () => {
-        app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
+        app = await vscode.window.showTextDocument(getWorkspaceUri('manifest', manifestFile));
       });
 
       afterEach(() => closeActiveEditor());
@@ -19,7 +19,7 @@ describe('ManifestAssetCompletionsProvider', () => {
         const range = findContentRange(app, './assets/icon.png');
         await app.edit((builder) => builder.replace(range, './'));
 
-        const suggestions = await commands.executeCommand<CompletionList>(
+        const suggestions = await vscode.commands.executeCommand<vscode.CompletionList>(
           'vscode.executeCompletionItemProvider',
           app.document.uri,
           range.start
@@ -34,7 +34,7 @@ describe('ManifestAssetCompletionsProvider', () => {
         const range = findContentRange(app, './assets/icon.png');
         await app.edit((builder) => builder.replace(range, './assets/'));
 
-        const suggestions = await commands.executeCommand<CompletionList>(
+        const suggestions = await vscode.commands.executeCommand<vscode.CompletionList>(
           'vscode.executeCompletionItemProvider',
           app.document.uri,
           range.start
@@ -54,7 +54,7 @@ describe('ManifestAssetCompletionsProvider', () => {
         const range = findContentRange(app, 'portrait');
         await app.edit((builder) => builder.replace(range, './'));
 
-        const suggestions = await commands.executeCommand<CompletionList>(
+        const suggestions = await vscode.commands.executeCommand<vscode.CompletionList>(
           'vscode.executeCompletionItemProvider',
           app.document.uri,
           range.start

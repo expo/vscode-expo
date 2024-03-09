@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { DiagnosticSeverity, languages, TextEditor, window } from 'vscode';
+import vscode from 'vscode';
 
 import {
   closeAllEditors,
@@ -10,6 +10,7 @@ import {
   replaceEditorContent,
 } from './utils/vscode';
 import { waitFor } from './utils/wait';
+import { readWorkspaceFile } from '../utils/file';
 
 describe('ManifestDiagnosticsProvider', () => {
   // Based on: https://github.com/microsoft/vscode-extension-samples/blob/fdd3bb95ce8e38ffe58fc9158797239fdf5017f1/lsp-sample/client/src/test/diagnostics.test.ts#L31
@@ -17,17 +18,15 @@ describe('ManifestDiagnosticsProvider', () => {
   // Test for both app.json and app.config.json formats
   ['app.json', 'app.config.json'].forEach((manifestFile) => {
     describe(`manifest: ${manifestFile}`, () => {
-      let app: TextEditor;
+      let app: vscode.TextEditor;
       let content: string;
 
       before(async () => {
-        content = await window
-          .showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`))
-          .then((editor) => editor.document.getText());
+        content = await readWorkspaceFile(getWorkspaceUri('manifest', manifestFile));
       });
 
       beforeEach(async () => {
-        app = await window.showTextDocument(getWorkspaceUri(`manifest/${manifestFile}`));
+        app = await vscode.window.showTextDocument(getWorkspaceUri('manifest', manifestFile));
       });
 
       afterEach(() => replaceEditorContent(app, content));
@@ -38,13 +37,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(range, './assets/doesnt-exist.png'));
         await waitFor(1000);
 
-        const diagnostics = await languages.getDiagnostics(app.document.uri);
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
         expect(diagnostics[0]).contain({
           code: 'FILE_NOT_FOUND',
           message: 'File not found: ./assets/doesnt-exist.png',
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
       });
 
@@ -53,13 +52,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(range, './assets'));
         await waitFor(1000);
 
-        const diagnostics = await languages.getDiagnostics(app.document.uri);
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
         expect(diagnostics[0]).contain({
           code: 'FILE_IS_DIRECTORY',
           message: 'File is a directory: ./assets',
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
       });
 
@@ -68,13 +67,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(range, '"doesnt-exists",'));
         await waitFor(1000);
 
-        const diagnostics = await languages.getDiagnostics(app.document.uri);
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
         expect(diagnostics[0]).contain({
           code: 'PLUGIN_NOT_FOUND',
           message: 'Plugin not found: doesnt-exists',
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
       });
 
@@ -83,13 +82,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(range, `"plugins": ["",`));
         await waitFor(1000);
 
-        const diagnostics = await languages.getDiagnostics(app.document.uri);
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
         expect(diagnostics[0]).contain({
           code: `PLUGIN_DEFINITION_INVALID`,
           message: 'Plugin definition is empty, expected a file or dependency name',
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
       });
 
@@ -98,13 +97,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(range, `"plugins": [[],`));
         await waitFor(1000);
 
-        const diagnostics = await languages.getDiagnostics(app.document.uri);
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
         expect(diagnostics[0]).contain({
           code: `PLUGIN_DEFINITION_INVALID`,
           message: 'Plugin definition is empty, expected a file or dependency name',
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
       });
 
@@ -115,7 +114,7 @@ describe('ManifestDiagnosticsProvider', () => {
             ? '.expo/temporary-plugin.js'
             : '.expo/temporary-config-plugin.js';
 
-        const pluginFile = getWorkspaceUri(`manifest/${pluginName}`).fsPath;
+        const pluginFile = getWorkspaceUri('manifest', pluginName).fsPath;
 
         // Force-remove the new plugin, to ensure it's not installed
         // Also use a gitignored folder to make sure its never committed
@@ -125,13 +124,13 @@ describe('ManifestDiagnosticsProvider', () => {
         await app.edit((builder) => builder.replace(preRange, `"./${pluginName}",`));
         await waitFor(1000);
 
-        const preInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
+        const preInstallDiagnostic = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(preInstallDiagnostic).to.have.length(1);
         expect(preInstallDiagnostic[0]).contain({
           code: 'PLUGIN_NOT_FOUND',
           message: `Plugin not found: ./${pluginName}`,
-          severity: DiagnosticSeverity.Warning,
+          severity: vscode.DiagnosticSeverity.Warning,
         });
 
         // Create the new plugin file
@@ -147,7 +146,7 @@ describe('ManifestDiagnosticsProvider', () => {
         );
         await waitFor(1000);
 
-        const postInstallDiagnostic = await languages.getDiagnostics(app.document.uri);
+        const postInstallDiagnostic = await vscode.languages.getDiagnostics(app.document.uri);
         expect(postInstallDiagnostic).to.have.length(0);
 
         fs.rmSync(pluginFile, { force: true });

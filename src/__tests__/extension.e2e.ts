@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import { extensions } from 'vscode';
 
-import { EXTENSION_ID } from './utils/vscode';
-
 describe('extension', () => {
   it('is activated', () => {
-    expect(extensions.getExtension(EXTENSION_ID)?.isActive).to.equal(true);
+    expect(extensions.getExtension(process.env.EXTENSION_ID)?.isActive).to.equal(true);
   });
 });

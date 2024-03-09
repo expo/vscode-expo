@@ -1,9 +1,9 @@
 import assert from 'assert';
 import vscode from 'vscode';
 
-import { BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
+import { type BasicCodeProviderOptions, CodeProvider, CodeProviderLanguage } from './CodeProvider';
 import { spawnExpoCli } from '../expo/cli';
-import { ExpoConfig } from '../packages/config';
+import { type ExpoConfig } from '../packages/config';
 import { type ModPlatform, compileModsAsync } from '../packages/config-plugins';
 import { getPrebuildConfigAsync } from '../packages/prebuild-config';
 
