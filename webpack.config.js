@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const pkg = require('./package.json');
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
   target: 'node',
@@ -37,10 +39,15 @@ module.exports = {
   ],
   plugins: [
     new webpack.DefinePlugin({
+      // Pass-through environment variables from current machine
       'process.env.VSCODE_EXPO_DEBUG': JSON.stringify(process.env.VSCODE_EXPO_DEBUG),
       'process.env.VSCODE_EXPO_TELEMETRY_KEY': JSON.stringify(
         process.env.VSCODE_EXPO_TELEMETRY_KEY
       ),
+      // Avoid having to import the package.json in the extension
+      'process.env.EXTENSION_NAME': JSON.stringify(pkg.name),
+      'process.env.EXTENSION_VERSION': JSON.stringify(pkg.version),
+      'process.env.EXTENSION_ID': JSON.stringify(`${pkg.publisher}.${pkg.name}`),
     }),
   ],
   resolve: {

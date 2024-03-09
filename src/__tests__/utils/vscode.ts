@@ -4,13 +4,6 @@ import vscode from 'vscode';
 
 import { type WaitForValueOptions, waitForTrue, waitForValue } from './wait';
 
-const pkg = require('../../../../package');
-
-/**
- * The unique ID of this extension.
- */
-export const EXTENSION_ID = `${pkg.publisher}.${pkg.name}`;
-
 /**
  * Get the URI to a file or folder within the workspace.
  */
@@ -24,7 +17,7 @@ export function getWorkspaceUri(...relativePath: string[]) {
  * Wait until vscode has activated this extension.
  */
 export function waitForExtension() {
-  return waitForTrue(() => vscode.extensions.getExtension(EXTENSION_ID)?.isActive);
+  return waitForTrue(() => vscode.extensions.getExtension(process.env.EXTENSION_ID)?.isActive);
 }
 
 /**

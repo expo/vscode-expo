@@ -9,6 +9,13 @@ Symbol.dispose ??= Symbol('Symbol.dispose');
 // @ts-expect-error
 Symbol.asyncDispose ??= Symbol('Symbol.asyncDispose');
 
+const pkg = require('../../../package.json');
+
+// Define the extension properties
+process.env.EXTENSION_NAME = pkg.name;
+process.env.EXTENSION_VERSION = pkg.version;
+process.env.EXTENSION_ID = `${pkg.publisher}.${pkg.name}`;
+
 export async function run() {
   // Configure the test runner
   const tests = new Mocha({

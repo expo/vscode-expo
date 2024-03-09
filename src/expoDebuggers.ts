@@ -15,13 +15,12 @@ import {
 } from './expo/project';
 import { debug } from './utils/debug';
 import { featureTelemetry } from './utils/telemetry';
-import { version as extensionVersion } from '../package.json';
 
 const log = debug.extend('expo-debuggers');
 
 const DEBUG_TYPE = 'expo';
 const DEBUG_COMMAND = 'expo.debug.start';
-const DEBUG_USER_AGENT = `vscode/${vscode.version} vscode-expo-tools/${extensionVersion}`;
+const DEBUG_USER_AGENT = `vscode/${vscode.version} ${process.env.EXTENSION_NAME}/${process.env.EXTENSION_VERSION}`;
 
 interface ExpoDebugConfig extends vscode.DebugConfiguration {
   projectRoot: string;
