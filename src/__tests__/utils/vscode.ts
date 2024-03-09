@@ -14,10 +14,10 @@ export const EXTENSION_ID = `${pkg.publisher}.${pkg.name}`;
 /**
  * Get the URI to a file or folder within the workspace.
  */
-export function getWorkspaceUri(relativePath = '') {
+export function getWorkspaceUri(...relativePath: string[]) {
   const workspace = vscode.workspace.workspaceFolders?.[0];
   assert(workspace, `(First) workspace not found, can't create path to ${relativePath}`);
-  return vscode.Uri.joinPath(workspace.uri, relativePath);
+  return vscode.Uri.joinPath(workspace.uri, ...relativePath);
 }
 
 /**
