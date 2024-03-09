@@ -1,5 +1,4 @@
 import { findNodeAtLocation } from 'jsonc-parser';
-import path from 'path';
 import vscode from 'vscode';
 
 import { getFileReferences, manifestPattern } from './expo/manifest';
@@ -65,8 +64,10 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
       const range = getDocumentRange(document, reference.fileRange);
 
       if (!pluginsRange?.contains(range)) {
-        const file = path.resolve(project.root.fsPath, reference.filePath);
-        const link = new vscode.DocumentLink(range, vscode.Uri.file(file));
+        const link = new vscode.DocumentLink(
+          range,
+          vscode.Uri.joinPath(project.root, reference.filePath)
+        );
 
         link.tooltip = 'Go to asset';
         links.push(link);
