@@ -4,7 +4,10 @@ import vscode from 'vscode';
 import { type FileReference, getFileReferences, manifestPattern } from './expo/manifest';
 import { getPluginDefinition, resolvePluginFunctionUnsafe } from './expo/plugin';
 import { ExpoProject, ExpoProjectCache } from './expo/project';
-import { isManifestPluginValidationEnabled } from './settings';
+import {
+  changedManifesPluginValidationEnabled,
+  isManifestPluginValidationEnabled,
+} from './settings';
 import { debug } from './utils/debug';
 import { getDocumentRange } from './utils/json';
 import { resetModuleFrom } from './utils/module';
@@ -30,8 +33,10 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     this.isEnabled = isManifestPluginValidationEnabled();
 
     extension.subscriptions.push(
-      vscode.workspace.onDidChangeConfiguration(() => {
-        this.isEnabled = isManifestPluginValidationEnabled();
+      vscode.workspace.onDidChangeConfiguration((event) => {
+        if (changedManifesPluginValidationEnabled(event)) {
+          this.isEnabled = isManifestPluginValidationEnabled();
+        }
       })
     );
   }
