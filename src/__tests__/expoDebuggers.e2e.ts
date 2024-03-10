@@ -67,11 +67,11 @@ describe('ExpoDebuggersProvider', () => {
       await expect(action()).to.eventually.rejected;
     });
 
-    it('starts debug session with device websocket url', async () => {
+    it('starts debug session with device url', async () => {
       await using proxy = await stubInspectorProxy();
       using upgrade = disposedSpy(proxy.sockets, 'handleUpgrade');
 
-      const device = mockDevice({ deviceName: 'Fake inspection target' }, proxy.server);
+      const device = mockDevice({ deviceName: 'Fake target' }, proxy.server);
       using fetch = stubFetch([device]);
 
       await vscode.debug.startDebugging(undefined, {
@@ -94,6 +94,45 @@ describe('ExpoDebuggersProvider', () => {
       expect(request.url).to.include(`?device=${device.id}`);
       expect(request.url).to.include(`&page=`);
       expect(request.url).to.include(`&userAgent=vscode`);
+    });
+
+    it('starts debug session with user-picked device url', async () => {
+      await using proxy = await stubInspectorProxy();
+      using upgrade = disposedSpy(proxy.sockets, 'handleUpgrade');
+
+      using quickPick = disposedStub(vscode.window, 'showQuickPick');
+      using fetch = stubFetch([
+        mockDevice({ deviceName: 'Another target' }, proxy.server),
+        mockDevice({ deviceName: 'Fake target', id: 'the-one' }, proxy.server),
+        mockDevice({ deviceName: 'Yet another target' }, proxy.server),
+      ]);
+
+      // @ts-expect-error - We are using string return values
+      quickPick.returns(Promise.resolve('Fake target'));
+
+      await vscode.debug.startDebugging(undefined, {
+        type: 'expo',
+        request: 'attach',
+        name: 'Inspect Expo app',
+        bundlerHost: 'localhost',
+        projectRoot: getWorkspaceUri('debugging').fsPath,
+      });
+
+      await vscode.commands.executeCommand('workbench.action.debug.stop');
+
+      expect(fetch).to.be.called;
+      expect(upgrade).to.be.called;
+
+      expect(quickPick).to.be.calledWith(
+        match.array.deepEquals(['Another target', 'Fake target', 'Yet another target']),
+        match({
+          placeHolder: 'Select a device to debug',
+        })
+      );
+
+      const request = upgrade.getCall(1).args[0];
+      expect(request.url).to.include('/inspector/debug');
+      expect(request.url).to.include(`?device=the-one`);
     });
   });
 });
