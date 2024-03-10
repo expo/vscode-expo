@@ -11,6 +11,7 @@ export function disposedStub<T extends { [K in P]: (...args: any[]) => any }, P 
   return stub as sinon.SinonStub<Parameters<T[P]>, ReturnType<T[P]>> & Disposable;
 }
 
+/** Create an auto-disposable spy, still executing the implementation, that can be created with `using` */
 export function disposedSpy<T extends { [K in P]: (...args: any[]) => any }, P extends keyof T>(
   api: T,
   method: P
