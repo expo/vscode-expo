@@ -115,6 +115,7 @@
     "ms-vscode.js-debug"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "workspaceContains:node_modules/expo",
     "onDebug",
     "onDebugResolve:expo",
