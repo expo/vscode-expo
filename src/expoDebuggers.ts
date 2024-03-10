@@ -22,7 +22,7 @@ const DEBUG_TYPE = 'expo';
 const DEBUG_COMMAND = 'expo.debug.start';
 const DEBUG_USER_AGENT = `vscode/${vscode.version} ${process.env.EXTENSION_NAME}/${process.env.EXTENSION_VERSION}`;
 
-interface ExpoDebugConfig extends vscode.DebugConfiguration {
+export interface ExpoDebugConfig extends vscode.DebugConfiguration {
   projectRoot: string;
   bundlerHost?: string;
   bundlerPort?: string;

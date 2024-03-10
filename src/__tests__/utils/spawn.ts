@@ -1,13 +1,11 @@
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub } from 'sinon';
 
+import { disposedStub } from './sinon';
 import * as spawn from '../../utils/spawn';
 
 /** Mock spawn with a default empty device list response */
 export function stubSpawn(result?: Partial<spawn.SpawnResult>) {
-  const spawnStub = withSpawnResult(stub(spawn, 'spawn'), result);
-  // @ts-expect-error
-  spawnStub[Symbol.dispose] = () => spawnStub.restore();
-  return spawnStub as Disposable & typeof spawnStub;
+  return withSpawnResult(disposedStub(spawn, 'spawn'), result);
 }
 
 export function withSpawnResult<T extends SinonStub>(

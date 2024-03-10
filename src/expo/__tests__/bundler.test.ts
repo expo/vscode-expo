@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 
+import { mockDevice } from '../../__tests__/utils/debugging';
 import { stubFetch, withFetchError, withFetchResponse } from '../../__tests__/utils/fetch';
 import {
   type InspectableDevice,
@@ -19,7 +20,7 @@ describe('fetchDevicesToInspect', () => {
   });
 
   it('filters by predefined page title', async () => {
-    using _fetch = withFetchResponse(stubFetch(), [
+    using _fetch = stubFetch([
       mockDevice({ deviceName: 'iPhone 15 Pro', title: 'filter' }),
       mockDevice({ deviceName: 'iPhone 15 Pro' }),
     ]);
@@ -31,7 +32,7 @@ describe('fetchDevicesToInspect', () => {
   });
 
   it('filters by device name for React Native <0.73', async () => {
-    using _fetch = withFetchResponse(stubFetch(), [
+    using _fetch = stubFetch([
       mockDevice({ deviceName: 'iPhone 15 Pro' }),
       mockDevice({ deviceName: 'iPhone 15 Pro' }),
     ]);
@@ -45,7 +46,7 @@ describe('fetchDevicesToInspect', () => {
   it('filters by logical device identifier for React Native +0.74', async () => {
     const reactNative: InspectableDevice['reactNative'] = { logicalDeviceId: '1337' };
 
-    using _fetch = withFetchResponse(stubFetch(), [
+    using _fetch = stubFetch([
       mockDevice({ deviceName: 'iPhone 16 Pro', reactNative }),
       mockDevice({ deviceName: 'iPhone 15 Pro', reactNative }),
     ]);
@@ -118,18 +119,3 @@ describe('findDeviceByName', () => {
     expect(findDeviceByName(devices, 'iPhone 15 Pro')).to.equal(target);
   });
 });
-
-function mockDevice(device: Partial<InspectableDevice>): InspectableDevice {
-  return {
-    id: 'device1',
-    description: 'description1',
-    title: 'React Native Experimental (Improved Chrome Reloads)', // Magic title, do not change
-    faviconUrl: 'https://example.com/favicon.ico',
-    devtoolsFrontendUrl: 'devtools://devtools/example',
-    type: 'node',
-    webSocketDebuggerUrl: 'ws://example.com',
-    vm: 'hermes',
-    deviceName: 'iPhone 15 Pro',
-    ...device,
-  };
-}

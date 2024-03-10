@@ -1,12 +1,11 @@
 import * as nodeFetch from 'node-fetch';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub } from 'sinon';
+
+import { disposedStub } from './sinon';
 
 /** Mock fetch with a default empty device list response */
-export function stubFetch() {
-  const fetch = withFetchResponse(stub(nodeFetch, 'default'), []);
-  // @ts-expect-error
-  fetch[Symbol.dispose] = () => fetch.restore();
-  return fetch as Disposable & typeof fetch;
+export function stubFetch(data: any = []) {
+  return withFetchResponse(disposedStub(nodeFetch, 'default'), data);
 }
 
 /** Add a valid response to the stubbed fetch, returning the response as json data */

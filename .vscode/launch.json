@@ -109,6 +109,29 @@
       "preLaunchTask": "launch-test-production"
     },
     {
+      "name": "Test: current file (production)",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "${workspaceFolder}/test/fixture",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
+        "--disable-extensions"
+      ],
+      "env": {
+        "CI": "true", // Force snapshots into "no update" mode
+        "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
+        "VSCODE_EXPO_DEBUG": "vscode-expo*",
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
+        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}"
+      },
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
+      "preLaunchTask": "launch-test-production"
+    },
+    {
       "name": "Test (no-build)",
       "type": "extensionHost",
       "request": "launch",
