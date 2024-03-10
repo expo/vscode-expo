@@ -1,3 +1,16 @@
+## [1.4.2](https://github.com/expo/vscode-expo/compare/1.4.1...1.4.2) (2024-03-10)
+
+
+### Bug fixes
+
+* activate extension after startup is finished ([#257](https://github.com/expo/vscode-expo/issues/257)) ([fd07af8](https://github.com/expo/vscode-expo/commit/fd07af825767591c4e599361b923292057f9722d))
+* use proper vsix file name when adding to github release ([1b88b19](https://github.com/expo/vscode-expo/commit/1b88b194e45abbadffb137e5506b49dc946f823c))
+
+
+### Code changes
+
+* only re-fetch config when affected ([#256](https://github.com/expo/vscode-expo/issues/256)) ([f5a2986](https://github.com/expo/vscode-expo/commit/f5a2986db374869cc53bcf27cb32d23cf1271429))
+
 ## [1.4.1](https://github.com/expo/vscode-expo/compare/1.4.0...1.4.1) (2024-03-09)
 
 
