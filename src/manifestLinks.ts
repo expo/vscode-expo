@@ -4,7 +4,7 @@ import vscode from 'vscode';
 import { getFileReferences, manifestPattern } from './expo/manifest';
 import { getPluginDefinition, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
-import { isManifestFileReferencesEnabled } from './settings';
+import { changedManifestFileReferencesEnabled, isManifestFileReferencesEnabled } from './settings';
 import { debug } from './utils/debug';
 import { getDocumentRange } from './utils/json';
 import { ExpoLinkProvider } from './utils/vscode';
@@ -19,8 +19,10 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
     this.isEnabled = isManifestFileReferencesEnabled();
 
     extension.subscriptions.push(
-      vscode.workspace.onDidChangeConfiguration(() => {
-        this.isEnabled = isManifestFileReferencesEnabled();
+      vscode.workspace.onDidChangeConfiguration((event) => {
+        if (changedManifestFileReferencesEnabled(event)) {
+          this.isEnabled = isManifestFileReferencesEnabled();
+        }
       })
     );
   }

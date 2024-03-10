@@ -5,6 +5,8 @@ import vscode from 'vscode';
 import { manifestPattern } from './expo/manifest';
 import { ExpoProjectCache } from './expo/project';
 import {
+  changedManifestFileReferencesEnabled,
+  changedManifestFileReferencesExcludedFiles,
   getManifestFileReferencesExcludedFiles,
   isManifestFileReferencesEnabled,
 } from './settings';
@@ -34,8 +36,13 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
 
     extension.subscriptions.push(
       vscode.workspace.onDidChangeConfiguration((event) => {
-        this.isEnabled = isManifestFileReferencesEnabled();
-        this.excludedFiles = getManifestFileReferencesExcludedFiles();
+        if (changedManifestFileReferencesEnabled(event)) {
+          this.isEnabled = isManifestFileReferencesEnabled();
+        }
+
+        if (changedManifestFileReferencesExcludedFiles(event)) {
+          this.excludedFiles = getManifestFileReferencesExcludedFiles();
+        }
       })
     );
   }

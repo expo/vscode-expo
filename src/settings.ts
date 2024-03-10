@@ -10,6 +10,10 @@ export function isManifestPluginValidationEnabled(scope?: vscode.ConfigurationSc
     .get<boolean>('pluginValidation', true);
 }
 
+export function changedManifesPluginValidationEnabled(event: vscode.ConfigurationChangeEvent) {
+  return event.affectsConfiguration('expo.appManifest.pluginValidation');
+}
+
 /**
  * Determine if we should show file references auto-complete in app manifests.
  * This uses the `expo.appManifest.fileReferences` setting from the configuration scope.
@@ -18,6 +22,10 @@ export function isManifestFileReferencesEnabled(scope?: vscode.ConfigurationScop
   return vscode.workspace
     .getConfiguration('expo.appManifest', scope)
     .get<boolean>('fileReferences', true);
+}
+
+export function changedManifestFileReferencesEnabled(event: vscode.ConfigurationChangeEvent) {
+  return event.affectsConfiguration('expo.appManifest.fileReferences');
 }
 
 /**
@@ -35,4 +43,11 @@ export function getManifestFileReferencesExcludedFiles(scope?: vscode.Configurat
       '**/node_modules': true,
     }),
   };
+}
+
+export function changedManifestFileReferencesExcludedFiles(event: vscode.ConfigurationChangeEvent) {
+  return (
+    event.affectsConfiguration('files.exclude') ||
+    event.affectsConfiguration('expo.appManifest.fileReferences.excludeGlobPatterns')
+  );
 }
