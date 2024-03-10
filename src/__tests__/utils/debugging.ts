@@ -1,17 +1,27 @@
 import assert from 'assert';
 import http from 'http';
+import { stub, type SinonStub } from 'sinon';
+import { URL } from 'url';
 import { WebSocketServer } from 'ws';
 
 import { type InspectableDevice } from '../../expo/bundler';
 
+type StubInspectorProxyApp = http.RequestListener<
+  typeof http.IncomingMessage,
+  typeof http.ServerResponse
+>;
+
 export type StubInspectorProxy = {
-  server: http.Server;
+  app: SinonStub<Parameters<StubInspectorProxyApp>, ReturnType<StubInspectorProxyApp>>;
   sockets: WebSocketServer;
+  server: http.Server;
+  serverUrl: URL;
 };
 
 /** Create and start a fake inspector proxy server */
 export async function stubInspectorProxy() {
-  const server = http.createServer();
+  const app: StubInspectorProxy['app'] = stub();
+  const server = http.createServer(app);
   const sockets = new WebSocketServer({ server });
 
   return new Promise<StubInspectorProxy & AsyncDisposable>((resolve, reject) => {
@@ -27,9 +37,13 @@ export async function stubInspectorProxy() {
     server.listen(() => {
       server.off('error', reject);
 
+      const serverUrl = new URL(getServerAddress(server));
+
       resolve({
-        server,
+        app,
         sockets,
+        server,
+        serverUrl,
         async [Symbol.asyncDispose]() {
           await new Promise((resolve) => sockets.close(resolve));
           await new Promise((resolve) => server.close(resolve));
@@ -42,12 +56,12 @@ export async function stubInspectorProxy() {
 function getServerAddress(server: http.Server) {
   const address = server.address();
   assert(address && typeof address === 'object' && address.port, 'Server is not listening');
-  return `ws://localhost:${address.port}`;
+  return `http://localhost:${address.port}`;
 }
 
 export function mockDevice(
   properties: Partial<InspectableDevice> = {},
-  server?: http.Server
+  proxy?: Pick<StubInspectorProxy, 'serverUrl'>
 ): InspectableDevice {
   const device: InspectableDevice = {
     id: 'device1',
@@ -62,9 +76,15 @@ export function mockDevice(
     ...properties,
   };
 
-  if (server) {
-    device.webSocketDebuggerUrl =
-      getServerAddress(server) + `/inspector/debug?device=${device.id}&page=1`;
+  if (proxy?.serverUrl) {
+    const url = new URL(proxy.serverUrl.toString());
+
+    url.protocol = 'ws:';
+    url.pathname = '/inspector/debug';
+    url.searchParams.set('device', device.id);
+    url.searchParams.set('page', '1');
+
+    device.webSocketDebuggerUrl = url.toString();
   }
 
   return device;
