@@ -34,6 +34,7 @@ export async function run() {
 
     // Configure Chai extensions
     Chai.use(require('chai-subset'));
+    Chai.use(require('chai-as-promised'));
     Chai.use(require('sinon-chai'));
     Chai.use(
       require('mocha-chai-jest-snapshot').jestSnapshotPlugin({

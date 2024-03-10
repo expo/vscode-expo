@@ -10,3 +10,13 @@ export function disposedStub<T extends { [K in P]: (...args: any[]) => any }, P 
   stub[Symbol.dispose] = () => stub.restore();
   return stub as sinon.SinonStub<Parameters<T[P]>, ReturnType<T[P]>> & Disposable;
 }
+
+export function disposedSpy<T extends { [K in P]: (...args: any[]) => any }, P extends keyof T>(
+  api: T,
+  method: P
+) {
+  const spy = sinon.spy(api, method);
+  // @ts-expect-error
+  spy[Symbol.dispose] = () => spy.restore();
+  return spy as sinon.SinonSpy<Parameters<T[P]>, ReturnType<T[P]>> & Disposable;
+}
