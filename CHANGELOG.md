@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/expo/vscode-expo/compare/1.4.2...1.4.3) (2024-03-12)
+
+
+### Bug fixes
+
+* fallback to device name when platform cant be derrived ([4aa895b](https://github.com/expo/vscode-expo/commit/4aa895b19056da6f24b9c705333e9afd63b25d8c))
+
 ## [1.4.2](https://github.com/expo/vscode-expo/compare/1.4.1...1.4.2) (2024-03-10)
 
 
