@@ -192,9 +192,13 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     }
 
     // Resolve the target device config to inspect
-    const { platform, ...deviceConfig } = await resolveDeviceConfig(config, project);
+    const { platform, deviceName, ...deviceConfig } = await resolveDeviceConfig(config, project);
 
-    featureTelemetry('debugger', `${DEBUG_TYPE}`, { platform, expoVersion: project.expoVersion });
+    featureTelemetry('debugger', `${DEBUG_TYPE}`, {
+      platform,
+      deviceName,
+      expoVersion: project.expoVersion,
+    });
 
     return { ...config, ...deviceConfig };
   }
@@ -207,8 +211,11 @@ async function resolveDeviceConfig(config: ExpoDebugConfig, project: ExpoProject
     throw new Error('Expo debug session aborted.');
   }
 
+  const platform = inferDevicePlatform(device);
+
   return {
-    platform: inferDevicePlatform(device) ?? 'unknown',
+    platform: platform ?? 'unknown',
+    deviceName: platform ? undefined : device.deviceName ?? 'unknown',
 
     // The address of the device to connect to
     websocketAddress:
