@@ -76,9 +76,14 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
 
     const packagePath = vscode.Uri.joinPath(projectPath, 'package.json');
 
-    // Ensure the project has a `package.json` file
-    const packageInfo = await vscode.workspace.fs.stat(packagePath);
-    if (packageInfo.type !== vscode.FileType.File) {
+    try {
+      // Ensure the project has a `package.json` file
+      const packageInfo = await vscode.workspace.fs.stat(packagePath);
+      if (packageInfo.type !== vscode.FileType.File) {
+        return undefined;
+      }
+    } catch (error) {
+      log('Failed to load Expo project "package.json": %s', error.message);
       return undefined;
     }
 
@@ -92,11 +97,15 @@ export class ExpoProjectCache extends MapCacheProvider<ExpoProject> {
 
     // Load the `app.json` or `app.config.json` file, if available
     for (const appFileName of ['app.json', 'app.config.json']) {
-      const filePath = vscode.Uri.joinPath(projectPath, appFileName);
-      const fileStat = await vscode.workspace.fs.stat(filePath);
-      if (fileStat.type === vscode.FileType.File) {
-        project.setManifest(await readWorkspaceFile(filePath));
-        break;
+      try {
+        const filePath = vscode.Uri.joinPath(projectPath, appFileName);
+        const fileStat = await vscode.workspace.fs.stat(filePath);
+        if (fileStat.type === vscode.FileType.File) {
+          project.setManifest(await readWorkspaceFile(filePath));
+          break;
+        }
+      } catch (error) {
+        log('Failed to load Expo project "%s": %s', appFileName, error.message);
       }
     }
 
