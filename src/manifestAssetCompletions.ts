@@ -70,7 +70,7 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
 
     // Abort if the path is not relative, or if there is an extension already
     const positionValue = getNodeValue(positionNode);
-    if (!positionValue || !positionValue.startsWith('.') || path.extname(positionValue)) {
+    if (!positionValue?.startsWith('.') || path.extname(positionValue)) {
       return null;
     }
 
