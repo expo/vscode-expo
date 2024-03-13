@@ -1,3 +1,16 @@
+## [1.5.0](https://github.com/expo/vscode-expo/compare/1.4.3...1.5.0) (2024-03-13)
+
+
+### New features
+
+* add more infers to determine device platform when debugging ([#260](https://github.com/expo/vscode-expo/issues/260)) ([d89a982](https://github.com/expo/vscode-expo/commit/d89a9825fed42aaa086ffbe46104b93701bbb1ce))
+
+
+### Bug fixes
+
+* add `workspace.fs.stat` error handling when files are missing ([#259](https://github.com/expo/vscode-expo/issues/259)) ([a5c6199](https://github.com/expo/vscode-expo/commit/a5c6199e11909ea2003e197563fab69a2ee2f245))
+* use optional chaining when validating relative paths in manifest asset completions ([#258](https://github.com/expo/vscode-expo/issues/258)) ([ee37364](https://github.com/expo/vscode-expo/commit/ee37364b97f39a2f327aea80489feafc0bdfc56d))
+
 ## [1.4.3](https://github.com/expo/vscode-expo/compare/1.4.2...1.4.3) (2024-03-12)
 
 
