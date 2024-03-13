@@ -80,12 +80,19 @@ export async function askDeviceByName(devices: InspectableDevice[]) {
 }
 
 /** Try to infer the device platform, by device name */
-export function inferDevicePlatform(device: InspectableDevice) {
+export function inferDevicePlatform(device: Pick<InspectableDevice, 'deviceName'>) {
   const name = device.deviceName?.toLowerCase();
   if (!name) return null;
   if (name.includes('iphone')) return 'ios';
+  if (name.includes('ipad')) return 'ios';
   if (name.includes('gphone')) return 'android';
   if (name.includes('desktop')) return 'windows';
   if (name.includes('mac')) return 'macos';
+
+  // Android usually adds `XXX API 31` to the device name
+  if (name.match(/api\s+[0-9]+/)) return 'android';
+  // Windows might include the windows name
+  if (name.includes('windows')) return 'windows';
+
   return null;
 }
