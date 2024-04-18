@@ -688,6 +688,90 @@
           "additionalProperties": true,
           "markdownDescription": "Dictionary of arbitrary configuration to add to your standalone app's native *.entitlements (plist). Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store."
         },
+        "privacyManifests": {
+          "description": "Dictionary of privacy manifest definitions to add to your app's native PrivacyInfo.xcprivacy file. [Learn more](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files)",
+          "type": "object",
+          "properties": {
+            "NSPrivacyAccessedAPITypes": {
+              "type": "array",
+              "description": "A list of required reasons of why your app uses restricted API categories. [Learn more](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api)",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "NSPrivacyAccessedAPIType",
+                  "NSPrivacyAccessedAPITypeReasons"
+                ],
+                "properties": {
+                  "NSPrivacyAccessedAPIType": {
+                    "type": "string",
+                    "description": "A string that identifies the category of required reason APIs your app uses",
+                    "markdownDescription": "A string that identifies the category of required reason APIs your app uses"
+                  },
+                  "NSPrivacyAccessedAPITypeReasons": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "description": "A list of reasons for a specific category.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "markdownDescription": "A list of reasons for a specific category."
+                  }
+                }
+              },
+              "markdownDescription": "A list of required reasons of why your app uses restricted API categories. [Learn more](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api)"
+            },
+            "NSPrivacyTrackingDomains": {
+              "type": "array",
+              "uniqueItems": true,
+              "description": "A list of domains that your app uses for tracking.",
+              "items": {
+                "type": "string"
+              },
+              "markdownDescription": "A list of domains that your app uses for tracking."
+            },
+            "NSPrivacyTracking": {
+              "type": "boolean",
+              "description": "A Boolean that indicates whether your app or third-party SDK uses data for tracking.",
+              "markdownDescription": "A Boolean that indicates whether your app or third-party SDK uses data for tracking."
+            },
+            "NSPrivacyCollectedDataTypes": {
+              "description": "A list of collected data types that your app uses.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "NSPrivacyCollectedDataType",
+                  "NSPrivacyCollectedDataTypeLinked",
+                  "NSPrivacyCollectedDataTypeTracking",
+                  "NSPrivacyCollectedDataTypePurposes"
+                ],
+                "properties": {
+                  "NSPrivacyCollectedDataType": {
+                    "type": "string"
+                  },
+                  "NSPrivacyCollectedDataTypeLinked": {
+                    "type": "boolean"
+                  },
+                  "NSPrivacyCollectedDataTypeTracking": {
+                    "type": "boolean"
+                  },
+                  "NSPrivacyCollectedDataTypePurposes": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "markdownDescription": "A list of collected data types that your app uses."
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "Dictionary of privacy manifest definitions to add to your app's native PrivacyInfo.xcprivacy file. [Learn more](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files)"
+        },
         "associatedDomains": {
           "description": "An array that contains Associated Domains for the standalone app. [Learn more](https://developer.apple.com/documentation/safariservices/supporting_associated_domains).\n\n**Bare workflow** - Build with EAS, or use Xcode to enable this capability manually. [Learn more](https://developer.apple.com/documentation/safariservices/supporting_associated_domains).",
           "type": "array",
