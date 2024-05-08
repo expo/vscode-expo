@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "50.0.0",
+  "version": "51.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -470,9 +470,9 @@
           "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
         "runtimeVersion": {
-          "description": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically.",
+          "description": "The runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically."
+          "markdownDescription": "The runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key."
         }
       },
       "additionalProperties": false,
@@ -910,9 +910,9 @@
           "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
         },
         "runtimeVersion": {
-          "description": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically.",
+          "description": "The runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically."
+          "markdownDescription": "The runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key."
         }
       },
       "additionalProperties": false,
@@ -1229,7 +1229,7 @@
       },
       "markdownDescription": "Configuration that is specific to the web platform."
     },
-    "RuntimeVersionSDKVersionPolicy": {
+    "RuntimeVersionPolicy": {
       "type": "object",
       "properties": {
         "policy": {
@@ -1238,7 +1238,7 @@
             "nativeVersion",
             "sdkVersion",
             "appVersion",
-            "fingerprintExperimental"
+            "fingerprint"
           ]
         }
       },
@@ -1248,7 +1248,7 @@
       "additionalProperties": false
     },
     "RuntimeVersion": {
-      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion' | 'appVersion' | 'fingerprintExperimental'; }",
+      "tsType": "string | { policy: 'nativeVersion' | 'sdkVersion' | 'appVersion' | 'fingerprint'; }",
       "oneOf": [
         {
           "type": "string",
@@ -1268,7 +1268,7 @@
           "patternErrorMessage": "An 'exposdk:' prefix followed by the SDK version of your project. Example: \"exposdk:44.0.0\"."
         },
         {
-          "$ref": "#/definitions/RuntimeVersionSDKVersionPolicy"
+          "$ref": "#/definitions/RuntimeVersionPolicy"
         }
       ]
     },
@@ -1318,9 +1318,9 @@
           "markdownDescription": "The Expo sdkVersion to run the project on. This should line up with the version specified in your package.json."
         },
         "runtimeVersion": {
-          "description": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically.",
+          "description": "The runtime version associated with this manifest.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "**Note: Don't use this property unless you are sure what you're doing** \n\nThe runtime version associated with this manifest.\nSet this to `{\"policy\": \"nativeVersion\"}` to generate it automatically."
+          "markdownDescription": "The runtime version associated with this manifest."
         },
         "version": {
           "description": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](https://docs.expo.dev/distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`",
@@ -1723,26 +1723,6 @@
         "web": {
           "$ref": "#/definitions/Web"
         },
-        "hooks": {
-          "description": "Configuration for scripts to run to hook into the publish process",
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "postPublish": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PublishHook"
-              }
-            },
-            "postExport": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PublishHook"
-              }
-            }
-          },
-          "markdownDescription": "Configuration for scripts to run to hook into the publish process"
-        },
         "experiments": {
           "description": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices.",
           "type": "object",
@@ -1777,6 +1757,12 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "Enables Turbo Modules, which are a type of native modules that use a different way of communicating between JS and platform code. When installing a Turbo Module you will need to enable this experimental option (the library still needs to be a part of Expo SDK already, like react-native-reanimated v2). Turbo Modules do not support remote debugging and enabling this option will disable remote debugging."
+            },
+            "reactCanary": {
+              "description": "Experimentally use a vendored canary build of React for testing upcoming features.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Experimentally use a vendored canary build of React for testing upcoming features."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
@@ -1787,8 +1773,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v50.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v50.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v51.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v51.0.0/config/app/)"
     }
   },
   "oneOf": [
