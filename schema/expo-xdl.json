@@ -470,9 +470,9 @@
           "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
         "runtimeVersion": {
-          "description": "The runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key.",
+          "description": "Property indicating compatibility between a Android build's native code and an OTA update for the Android platform. If provided, this will override the value of top level `runtimeVersion` key on Android.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "The runtime version associated with this manifest for the Android platform. If provided, this will override the top level runtimeVersion key."
+          "markdownDescription": "Property indicating compatibility between a Android build's native code and an OTA update for the Android platform. If provided, this will override the value of top level `runtimeVersion` key on Android."
         }
       },
       "additionalProperties": false,
@@ -910,9 +910,9 @@
           "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
         },
         "runtimeVersion": {
-          "description": "The runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key.",
+          "description": "Property indicating compatibility between an iOS build's native code and an OTA update for the iOS platform. If provided, this will override the value of the top level `runtimeVersion` key on iOS.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "The runtime version associated with this manifest for the iOS platform. If provided, this will override the top level runtimeVersion key."
+          "markdownDescription": "Property indicating compatibility between an iOS build's native code and an OTA update for the iOS platform. If provided, this will override the value of the top level `runtimeVersion` key on iOS."
         }
       },
       "additionalProperties": false,
@@ -1318,9 +1318,9 @@
           "markdownDescription": "The Expo sdkVersion to run the project on. This should line up with the version specified in your package.json."
         },
         "runtimeVersion": {
-          "description": "The runtime version associated with this manifest.",
+          "description": "Property indicating compatibility between a build's native code and an OTA update.",
           "$ref": "#/definitions/RuntimeVersion",
-          "markdownDescription": "The runtime version associated with this manifest."
+          "markdownDescription": "Property indicating compatibility between a build's native code and an OTA update."
         },
         "version": {
           "description": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](https://docs.expo.dev/distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`",
@@ -1577,16 +1577,16 @@
           "markdownDescription": "Any extra fields you want to pass to your experience. Values are accessible via `Constants.expoConfig.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))"
         },
         "updates": {
-          "description": "Configuration for how and when the app should request OTA JavaScript updates",
+          "description": "Configuration for the expo-updates library",
           "type": "object",
           "properties": {
             "enabled": {
-              "description": "If set to false, your standalone app will never download any code, and will only use code bundled locally on the device. In that case, all updates to your app must be submitted through app store review. Defaults to true. (Note: This will not work out of the box with ExpoKit projects)",
+              "description": "Whether the updates system will run. Defaults to true. If set to false, builds will only use code and assets bundled at time of build.",
               "type": "boolean",
-              "markdownDescription": "If set to false, your standalone app will never download any code, and will only use code bundled locally on the device. In that case, all updates to your app must be submitted through app store review. Defaults to true. (Note: This will not work out of the box with ExpoKit projects)"
+              "markdownDescription": "Whether the updates system will run. Defaults to true. If set to false, builds will only use code and assets bundled at time of build."
             },
             "checkAutomatically": {
-              "description": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to completely disable automatic checking. Must be one of `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, or `NEVER`",
+              "description": "By default, expo-updates will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to disable automatic checking. Valid values: `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, `NEVER`",
               "enum": [
                 "ON_ERROR_RECOVERY",
                 "ON_LOAD",
@@ -1594,14 +1594,14 @@
                 "NEVER"
               ],
               "type": "string",
-              "markdownDescription": "By default, Expo will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to completely disable automatic checking. Must be one of `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, or `NEVER`"
+              "markdownDescription": "By default, expo-updates will check for updates every time the app is loaded. Set this to `ON_ERROR_RECOVERY` to disable automatic checking unless recovering from an error. Set this to `NEVER` to disable automatic checking. Valid values: `ON_LOAD` (default value), `ON_ERROR_RECOVERY`, `WIFI_ONLY`, `NEVER`"
             },
             "fallbackToCacheTimeout": {
-              "description": "How long (in ms) to allow for fetching OTA updates before falling back to a cached version of the app. Defaults to 0. Must be between 0 and 300000 (5 minutes).",
+              "description": "How long (in ms) to wait for the app to check for and fetch a new update upon launch before falling back to the most recent update already present on the device. Defaults to 0. Must be between 0 and 300000 (5 minutes). If the startup update check takes longer than this value, any update downloaded during the check will be applied upon the next app launch.",
               "type": "number",
               "minimum": 0,
               "maximum": 300000,
-              "markdownDescription": "How long (in ms) to allow for fetching OTA updates before falling back to a cached version of the app. Defaults to 0. Must be between 0 and 300000 (5 minutes)."
+              "markdownDescription": "How long (in ms) to wait for the app to check for and fetch a new update upon launch before falling back to the most recent update already present on the device. Defaults to 0. Must be between 0 and 300000 (5 minutes). If the startup update check takes longer than this value, any update downloaded during the check will be applied upon the next app launch."
             },
             "url": {
               "description": "URL from which expo-updates will fetch update manifests",
@@ -1609,21 +1609,21 @@
               "markdownDescription": "URL from which expo-updates will fetch update manifests"
             },
             "codeSigningCertificate": {
-              "description": "Local path of a PEM-formatted X.509 certificate used for requiring and verifying signed Expo updates",
+              "description": "Local path of a PEM-formatted X.509 certificate used for verifying codesigned updates. When provided, all updates downloaded by expo-updates must be signed.",
               "type": "string",
-              "markdownDescription": "Local path of a PEM-formatted X.509 certificate used for requiring and verifying signed Expo updates"
+              "markdownDescription": "Local path of a PEM-formatted X.509 certificate used for verifying codesigned updates. When provided, all updates downloaded by expo-updates must be signed."
             },
             "codeSigningMetadata": {
               "description": "Metadata for `codeSigningCertificate`",
               "type": "object",
               "properties": {
                 "alg": {
-                  "description": "Algorithm used to generate manifest code signing signature.",
+                  "description": "Algorithm used to generate manifest code signing signature. Valid values: `rsa-v1_5-sha256`",
                   "enum": [
                     "rsa-v1_5-sha256"
                   ],
                   "type": "string",
-                  "markdownDescription": "Algorithm used to generate manifest code signing signature."
+                  "markdownDescription": "Algorithm used to generate manifest code signing signature. Valid values: `rsa-v1_5-sha256`"
                 },
                 "keyid": {
                   "description": "Identifier for the key in the certificate. Used to instruct signing mechanisms when signing or verifying signatures.",
@@ -1635,14 +1635,14 @@
               "markdownDescription": "Metadata for `codeSigningCertificate`"
             },
             "requestHeaders": {
-              "description": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers.",
+              "description": "Extra HTTP headers to include in HTTP requests made by `expo-updates` when fetching manifests or assets. These may override preset headers.",
               "type": "object",
               "additionalProperties": true,
-              "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates`. These may override preset headers."
+              "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates` when fetching manifests or assets. These may override preset headers."
             }
           },
           "additionalProperties": false,
-          "markdownDescription": "Configuration for how and when the app should request OTA JavaScript updates"
+          "markdownDescription": "Configuration for the expo-updates library"
         },
         "locales": {
           "description": "Provide overrides by locale for System Dialog prompts like Permissions Boxes\n\n**Bare workflow** - To add or change language and localization information in your iOS app, you need to use Xcode.",
