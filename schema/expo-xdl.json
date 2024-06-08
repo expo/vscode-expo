@@ -1763,6 +1763,12 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "Experimentally use a vendored canary build of React for testing upcoming features."
+            },
+            "reactCompiler": {
+              "description": "Experimentally enable React Compiler.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Experimentally enable React Compiler."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
