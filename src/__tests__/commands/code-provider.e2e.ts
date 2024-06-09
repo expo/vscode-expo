@@ -46,8 +46,8 @@ describe('CodeProvider', () => {
     await replaceEditorContent(app, jsonc.applyEdits(app.document.getText(), addition));
     await app.document.save();
 
-    const includesChange = await waitForTrue(
-      () => preview?.document.getText().includes(EXPECTED_UPDATES_URL)
+    const includesChange = await waitForTrue(() =>
+      preview?.document.getText().includes(EXPECTED_UPDATES_URL)
     );
 
     expect(includesChange).to.equal(true);
@@ -59,8 +59,8 @@ describe('CodeProvider', () => {
     await replaceEditorContent(app, jsonc.applyEdits(app.document.getText(), removal));
     await app.document.save();
 
-    const excludesChange = await waitForFalse(
-      () => preview?.document.getText().includes(EXPECTED_UPDATES_URL)
+    const excludesChange = await waitForFalse(() =>
+      preview?.document.getText().includes(EXPECTED_UPDATES_URL)
     );
 
     expect(excludesChange).to.equal(true);
