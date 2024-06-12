@@ -1289,10 +1289,10 @@
           "markdownDescription": "A short description of what your app is and why it is great."
         },
         "slug": {
-          "description": "The friendly URL name for publishing. For example, `myAppName` will refer to the `expo.dev/@project-owner/myAppName` project.",
+          "description": "A URL-friendly name for your project that is unique across your account.",
           "type": "string",
           "pattern": "^[a-zA-Z0-9_\\-]+$",
-          "markdownDescription": "The friendly URL name for publishing. For example, `myAppName` will refer to the `expo.dev/@project-owner/myAppName` project."
+          "markdownDescription": "A URL-friendly name for your project that is unique across your account."
         },
         "owner": {
           "description": "The name of the Expo account that owns the project. This is useful for teams collaborating on a project. If not provided, the owner defaults to the username of the current user.",
