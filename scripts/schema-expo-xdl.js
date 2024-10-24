@@ -13,7 +13,7 @@ const SCHEMA_DIR = path.resolve(__dirname, '../schema');
 if (process.env.CI) {
   generate(
     arg({
-      '--sdk-version': Number,
+      '--sdk-version': String,
       '--latest': Boolean,
     })
   ).then((schemaPath) => console.log(`✓ Generated XDL schema!\n  ${schemaPath}`));
