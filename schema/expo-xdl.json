@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "51.0.0",
+  "version": "52.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -54,7 +54,7 @@
           "markdownDescription": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`. Requires `expo-system-ui` be installed in your project to work on Android."
         },
         "icon": {
-          "description": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo app.",
+          "description": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo Go app.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -62,7 +62,7 @@
             "contentTypeHuman": ".png image",
             "square": true
           },
-          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo app."
+          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo Go app."
         },
         "adaptiveIcon": {
           "description": "Settings for an Adaptive Launcher Icon on Android. [Learn more](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)",
@@ -469,6 +469,11 @@
           },
           "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
+        "newArchEnabled": {
+          "description": "A Boolean value that indicates whether the Android app should use the new architecture.",
+          "type": "boolean",
+          "markdownDescription": "A Boolean value that indicates whether the Android app should use the new architecture."
+        },
         "runtimeVersion": {
           "description": "Property indicating compatibility between a Android build's native code and an OTA update for the Android platform. If provided, this will override the value of top level `runtimeVersion` key on Android.",
           "$ref": "#/definitions/RuntimeVersion",
@@ -526,6 +531,11 @@
         "standaloneOnly": true
       },
       "properties": {
+        "appleTeamId": {
+          "description": "The Apple development team ID to use for all native targets. You can find your team ID in [the Apple Developer Portal](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/).",
+          "type": "string",
+          "markdownDescription": "The Apple development team ID to use for all native targets. You can find your team ID in [the Apple Developer Portal](https://developer.apple.com/help/account/manage-your-team/locate-your-team-id/)."
+        },
         "bundleIdentifier": {
           "description": "The bundle identifier for your iOS standalone app. You make it up, but it needs to be unique on the App Store. See [this StackOverflow question](http://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project).\n\n**Bare workflow** - Set this value in `info.plist` under `CFBundleIdentifier`",
           "type": "string",
@@ -557,15 +567,22 @@
           "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "icon": {
-          "description": "Local path or remote URL to an image to use for your app's icon on iOS. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency. \n\n Expo will generate the other required sizes. This icon will appear on the home screen and within the Expo app.",
-          "type": "string",
-          "meta": {
-            "asset": true,
-            "contentTypePattern": "^image/png$",
-            "contentTypeHuman": ".png image",
-            "square": true
-          },
-          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on iOS. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency. \n\n Expo will generate the other required sizes. This icon will appear on the home screen and within the Expo app."
+          "description": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app.",
+          "oneOf": [
+            {
+              "type": "string",
+              "meta": {
+                "asset": true,
+                "contentTypePattern": "^image/png$",
+                "contentTypeHuman": ".png image",
+                "square": true
+              }
+            },
+            {
+              "$ref": "#/definitions/IOSIcons"
+            }
+          ],
+          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app."
         },
         "appStoreUrl": {
           "description": "URL to your app on the Apple App Store, if you have deployed it there. This is used to link to your store page from your Expo project page if your app is public.",
@@ -909,6 +926,11 @@
           },
           "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
         },
+        "newArchEnabled": {
+          "description": "A Boolean value that indicates whether the iOS app should use the new architecture.",
+          "type": "boolean",
+          "markdownDescription": "A Boolean value that indicates whether the iOS app should use the new architecture."
+        },
         "runtimeVersion": {
           "description": "Property indicating compatibility between an iOS build's native code and an OTA update for the iOS platform. If provided, this will override the value of the top level `runtimeVersion` key on iOS.",
           "$ref": "#/definitions/RuntimeVersion",
@@ -917,6 +939,47 @@
       },
       "additionalProperties": false,
       "markdownDescription": "Configuration that is specific to the iOS platform."
+    },
+    "IOSIcons": {
+      "description": "Configuration that is specific to the iOS platform icons.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "any": {
+          "description": "The icon that will appear when neither dark nor tinted icons are used, or if they are not provided.",
+          "type": "string",
+          "meta": {
+            "asset": true,
+            "contentTypePattern": "^image/png$",
+            "contentTypeHuman": ".png image",
+            "square": true
+          },
+          "markdownDescription": "The icon that will appear when neither dark nor tinted icons are used, or if they are not provided."
+        },
+        "dark": {
+          "description": "The icon that will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
+          "type": "string",
+          "meta": {
+            "asset": true,
+            "contentTypePattern": "^image/png$",
+            "contentTypeHuman": ".png image",
+            "square": true
+          },
+          "markdownDescription": "The icon that will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
+        },
+        "tinted": {
+          "description": "The icon that will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
+          "type": "string",
+          "meta": {
+            "asset": true,
+            "contentTypePattern": "^image/png$",
+            "contentTypeHuman": ".png image",
+            "square": true
+          },
+          "markdownDescription": "The icon that will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
+        }
+      },
+      "markdownDescription": "Configuration that is specific to the iOS platform icons."
     },
     "Splash": {
       "description": "Configuration for loading and splash screen for standalone apps.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>` (Android Studio can [generate the appropriate image files for you](https://developer.android.com/studio/write/image-asset-studio)). Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each required size.",
@@ -1300,17 +1363,6 @@
           "minLength": 1,
           "markdownDescription": "The name of the Expo account that owns the project. This is useful for teams collaborating on a project. If not provided, the owner defaults to the username of the current user."
         },
-        "privacy": {
-          "description": "Defaults to `unlisted`. `unlisted` hides the project from search results. `hidden` restricts access to the project page to only the owner and other users that have been granted access. Valid values: `public`, `unlisted`, `hidden`.",
-          "enum": [
-            "public",
-            "unlisted",
-            "hidden"
-          ],
-          "type": "string",
-          "fallback": "unlisted",
-          "markdownDescription": "Defaults to `unlisted`. `unlisted` hides the project from search results. `hidden` restricts access to the project page to only the owner and other users that have been granted access. Valid values: `public`, `unlisted`, `hidden`."
-        },
         "sdkVersion": {
           "description": "The Expo sdkVersion to run the project on. This should line up with the version specified in your package.json.",
           "type": "string",
@@ -1400,7 +1452,7 @@
           "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
         },
         "icon": {
-          "description": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size.",
+          "description": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo Go app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -1409,7 +1461,7 @@
             "square": true,
             "bareWorkflow": "To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
           },
-          "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
+          "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo Go app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
         },
         "notification": {
           "description": "Configuration for remote (push) notifications.",
@@ -1644,6 +1696,14 @@
               "type": "object",
               "additionalProperties": true,
               "markdownDescription": "Extra HTTP headers to include in HTTP requests made by `expo-updates` when fetching manifests or assets. These may override preset headers."
+            },
+            "assetPatternsToBeBundled": {
+              "description": "Array of glob patterns specifying which files should be included in updates. Glob patterns are relative to the project root. A value of `['**']` will match all asset files within the project root. When not supplied all asset files will be included. Example: Given a value of `['app/images/**/*.png', 'app/fonts/**/*.woff']` all `.png` files in all subdirectories of `app/images` and all `.woff` files in all subdirectories of `app/fonts` will be included in updates.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "markdownDescription": "Array of glob patterns specifying which files should be included in updates. Glob patterns are relative to the project root. A value of `['**']` will match all asset files within the project root. When not supplied all asset files will be included. Example: Given a value of `['app/images/**/*.png', 'app/fonts/**/*.woff']` all `.png` files in all subdirectories of `app/images` and all `.woff` files in all subdirectories of `app/fonts` will be included in updates."
             }
           },
           "additionalProperties": false,
@@ -1719,6 +1779,12 @@
           },
           "markdownDescription": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
         },
+        "newArchEnabled": {
+          "description": "A Boolean value that indicates whether the app should use the new architecture. Defaults to true.",
+          "type": "boolean",
+          "fallback": true,
+          "markdownDescription": "A Boolean value that indicates whether the app should use the new architecture. Defaults to true."
+        },
         "ios": {
           "$ref": "#/definitions/IOS"
         },
@@ -1774,6 +1840,12 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "Experimentally enable React Compiler."
+            },
+            "reactServerComponents": {
+              "description": "Experimentally enable React Server Components support in Expo CLI and Expo Router.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Experimentally enable React Server Components support in Expo CLI and Expo Router."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
@@ -1784,8 +1856,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v51.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v51.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v52.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v52.0.0/config/app/)"
     }
   },
   "oneOf": [
