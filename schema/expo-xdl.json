@@ -816,6 +816,12 @@
           "fallback": false,
           "markdownDescription": "A boolean indicating if the app uses Apple Sign-In. See `AppleAuthentication` docs for details."
         },
+        "usesBroadcastPushNotifications": {
+          "description": " A boolean indicating if the app uses Push Notifications Broadcast option for Push Notifications capability. If true, EAS CLI will use the value during capability syncing. If EAS CLI is not used, this configuration will not have any effect unless another tool is used to operate on it, so enable the capability manually on the Apple Developer Portal in that case.",
+          "type": "boolean",
+          "fallback": false,
+          "markdownDescription": " A boolean indicating if the app uses Push Notifications Broadcast option for Push Notifications capability. If true, EAS CLI will use the value during capability syncing. If EAS CLI is not used, this configuration will not have any effect unless another tool is used to operate on it, so enable the capability manually on the Apple Developer Portal in that case."
+        },
         "accessesContactNotes": {
           "description": "A Boolean value that indicates whether the app may access the notes stored in contacts. You must [receive permission from Apple](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_contacts_notes) before you can submit your app for review with this capability.",
           "type": "boolean",
@@ -945,8 +951,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "any": {
-          "description": "The icon that will appear when neither dark nor tinted icons are used, or if they are not provided.",
+        "light": {
+          "description": "The light icon. It will appear when neither dark nor tinted icons are used, or if they are not provided.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -954,10 +960,10 @@
             "contentTypeHuman": ".png image",
             "square": true
           },
-          "markdownDescription": "The icon that will appear when neither dark nor tinted icons are used, or if they are not provided."
+          "markdownDescription": "The light icon. It will appear when neither dark nor tinted icons are used, or if they are not provided."
         },
         "dark": {
-          "description": "The icon that will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
+          "description": "The dark icon. It will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -965,10 +971,10 @@
             "contentTypeHuman": ".png image",
             "square": true
           },
-          "markdownDescription": "The icon that will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
+          "markdownDescription": "The dark icon. It will appear for the app when the user's system appearance is dark. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
         },
         "tinted": {
-          "description": "The icon that will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
+          "description": "The tinted icon. It will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information.",
           "type": "string",
           "meta": {
             "asset": true,
@@ -976,7 +982,7 @@
             "contentTypeHuman": ".png image",
             "square": true
           },
-          "markdownDescription": "The icon that will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
+          "markdownDescription": "The tinted icon. It will appear for the app when the user's system appearance is tinted. See Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/app-icons#iOS-iPadOS) for more information."
         }
       },
       "markdownDescription": "Configuration that is specific to the iOS platform icons."
@@ -1841,11 +1847,17 @@
               "fallback": false,
               "markdownDescription": "Experimentally enable React Compiler."
             },
-            "reactServerComponents": {
-              "description": "Experimentally enable React Server Components support in Expo CLI and Expo Router.",
+            "reactServerComponentRoutes": {
+              "description": "Experimentally enable React Server Components by default in Expo Router and concurrent routing for transitions.",
               "type": "boolean",
               "fallback": false,
-              "markdownDescription": "Experimentally enable React Server Components support in Expo CLI and Expo Router."
+              "markdownDescription": "Experimentally enable React Server Components by default in Expo Router and concurrent routing for transitions."
+            },
+            "reactServerFunctions": {
+              "description": "Experimentally enable React Server Functions support in Expo CLI and Expo Router.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Experimentally enable React Server Functions support in Expo CLI and Expo Router."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
