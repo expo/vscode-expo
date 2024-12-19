@@ -1,3 +1,17 @@
+## [1.5.1](https://github.com/expo/vscode-expo/compare/1.5.0...1.5.1) (2024-12-19)
+
+
+### Bug fixes
+
+* **schemas:** avoid converting `schema-expo-xdl --sdk-version` to number ([89a2c99](https://github.com/expo/vscode-expo/commit/89a2c990d19d55328c0a04409250ab7d1036ae89))
+* update device filtering logic to select inspectable device for SDK 52 ([#266](https://github.com/expo/vscode-expo/issues/266)) ([486874a](https://github.com/expo/vscode-expo/commit/486874a1bec2094b0e197f9d43f3eabf5114b9c1))
+* use highest page number whenever multiple identical pages are connected ([#267](https://github.com/expo/vscode-expo/issues/267)) ([c7e66c7](https://github.com/expo/vscode-expo/commit/c7e66c76a9721d57d03c70debd6a8ca8593de4f1))
+
+
+### Other chores
+
+* update all packages to latest supported versions ([#264](https://github.com/expo/vscode-expo/issues/264)) ([6d44a3c](https://github.com/expo/vscode-expo/commit/6d44a3c29a695a94fce01e40dfc36026d5e690ae))
+
 ## [1.5.0](https://github.com/expo/vscode-expo/compare/1.4.3...1.5.0) (2024-03-13)
 
 
