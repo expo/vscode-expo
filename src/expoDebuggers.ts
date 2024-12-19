@@ -1,12 +1,7 @@
 import fs from 'fs';
 import vscode from 'vscode';
 
-import {
-  fetchDevicesToInspect,
-  askDeviceByName,
-  inferDevicePlatform,
-  fetchDevicesToInspectFromUnknownWorkflow,
-} from './expo/bundler';
+import { fetchDevicesToInspect, askDeviceByName, inferDevicePlatform } from './expo/bundler';
 import {
   ExpoProjectCache,
   ExpoProject,

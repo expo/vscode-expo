@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 
 import { mockDevice } from '../../__tests__/utils/debugging';
-import { stubFetch, withFetchError, withFetchResponse } from '../../__tests__/utils/fetch';
+import { stubFetch } from '../../__tests__/utils/fetch';
 import {
   type InspectableDevice,
   fetchDevicesToInspect,
-  fetchDevicesToInspectFromUnknownWorkflow,
   findDeviceByName,
   inferDevicePlatform,
 } from '../bundler';
@@ -56,54 +55,6 @@ describe('fetchDevicesToInspect', () => {
 
     expect(devices).to.have.length(1);
     expect(devices).to.deep.equal([mockDevice({ deviceName: 'iPhone 16 Pro', reactNative })]);
-  });
-});
-
-describe('fetchDevicesToInspectFromUnknownWorkflow', () => {
-  it('fetches devices from modern and classic bundler addresses', async () => {
-    using fetch = stubFetch();
-
-    await fetchDevicesToInspectFromUnknownWorkflow({ host });
-
-    expect(fetch).to.be.calledWith(`http://${host}:19000/json/list`);
-    expect(fetch).to.be.calledWith(`http://${host}:8081/json/list`);
-  });
-
-  it('returns devices from modern bundler address', async () => {
-    const device = mockDevice({ deviceName: 'iPhone 7 Pro' });
-    using fetch = stubFetch();
-
-    withFetchError(fetch.withArgs(`http://${host}:19000/json/list`));
-    withFetchResponse(fetch.withArgs(`http://${host}:8081/json/list`), [device]);
-
-    const devices = await fetchDevicesToInspectFromUnknownWorkflow({ host });
-
-    expect(devices).to.deep.equal([device]);
-  });
-
-  it('returns devices from classic bundler address', async () => {
-    const device = mockDevice({ deviceName: 'Pixel 7 Pro' });
-    using fetch = stubFetch();
-
-    withFetchResponse(fetch.withArgs(`http://${host}:19000/json/list`), [device]);
-    withFetchError(fetch.withArgs(`http://${host}:8081/json/list`));
-
-    const devices = await fetchDevicesToInspectFromUnknownWorkflow({ host });
-
-    expect(devices).to.deep.equal([device]);
-  });
-
-  it('prioritizes modern bundler address', async () => {
-    const iphone = mockDevice({ deviceName: 'iPhone 15 Pro' });
-    const android = mockDevice({ deviceName: 'Pixel 7 Pro' });
-    using fetch = stubFetch();
-
-    withFetchResponse(fetch.withArgs(`http://${host}:19000/json/list`), [iphone]);
-    withFetchResponse(fetch.withArgs(`http://${host}:8081/json/list`), [android]);
-
-    const devices = await fetchDevicesToInspectFromUnknownWorkflow({ host });
-
-    expect(devices).to.deep.equal([android]);
   });
 });
 
