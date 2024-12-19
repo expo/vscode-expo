@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import vscode from 'vscode';
 
-import { uniqueBy } from '../utils/array';
+import { truthy } from '../utils/array';
 
 const INSPECTABLE_DEVICE_TITLE = 'React Native Experimental (Improved Chrome Reloads)';
 
@@ -42,17 +42,33 @@ export async function fetchDevicesToInspect({
   host?: string;
   port?: string;
 }) {
-  return await fetch(`http://${host}:${port}/json/list`)
-    .then((response) => (response.ok ? response.json() : Promise.reject(response)))
-    .then((devices: InspectableDevice[]): InspectableDevice[] =>
-      devices
-        .filter(
-          (device) =>
-            device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
-            device.reactNative?.capabilities?.nativePageReloads === true // SDK 52+
-        )
-        .filter(uniqueBy((device) => device?.reactNative?.logicalDeviceId ?? device.deviceName))
-    );
+  const response = await fetch(`http://${host}:${port}/json/list`);
+  if (!response.ok) throw response;
+
+  const devices = (await response.json()) as InspectableDevice[];
+  const reloadable = devices.filter(
+    (device) =>
+      device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
+      device.reactNative?.capabilities?.nativePageReloads // SDK 52+
+  );
+
+  // Manual filter for Expo Go, we really need to fix this
+  const inspectable = reloadable.filter((device, index, list) => {
+    // Only apply this to SDK 52+
+    if (device.title !== 'React Native Bridgeless [C++ connection]') return true;
+    // If there are multiple inspectable pages, only use highest page number
+    const devicesByPageNumber = list
+      .filter((other) => device.title === other.title)
+      .sort((a, b) => getDevicePageNumber(b) - getDevicePageNumber(a));
+    // Only use the highest page number
+    return devicesByPageNumber[0] === device;
+  });
+
+  return inspectable.filter(truthy);
+}
+
+function getDevicePageNumber(device: InspectableDevice) {
+  return parseInt(new URL(device.webSocketDebuggerUrl).searchParams.get('page') ?? '0', 10);
 }
 
 export function findDeviceByName(devices: InspectableDevice[], deviceName: string) {
