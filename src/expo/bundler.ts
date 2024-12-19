@@ -34,28 +34,25 @@ function getDeviceNames(devices: InspectableDevice[]) {
     .filter((deviceName, index, self) => self.indexOf(deviceName) === index);
 }
 
-export async function fetchDevicesToInspect({ host, port }: { host: string; port: string }) {
+/** Fetch a list of all devices to inspect, filtered by known inspectable targets */
+export async function fetchDevicesToInspect({
+  host = '127.0.0.1',
+  port = '8081',
+}: {
+  host?: string;
+  port?: string;
+}) {
   return await fetch(`http://${host}:${port}/json/list`)
     .then((response) => (response.ok ? response.json() : Promise.reject(response)))
     .then((devices: InspectableDevice[]): InspectableDevice[] =>
       devices
-        .filter((device) => device.title === INSPECTABLE_DEVICE_TITLE)
+        .filter(
+          (device) =>
+            device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
+            device.reactNative?.capabilities?.nativePageReloads === true // SDK 52+
+        )
         .filter(uniqueBy((device) => device?.reactNative?.logicalDeviceId ?? device.deviceName))
     );
-}
-
-/** Attempt to fetch from both `19000` and `8081`, return the data when one of these works */
-export async function fetchDevicesToInspectFromUnknownWorkflow({ host }: { host: string }) {
-  const [classic, modern] = await Promise.allSettled([
-    fetchDevicesToInspect({ host, port: '19000' }),
-    fetchDevicesToInspect({ host, port: '8081' }),
-  ]);
-
-  // Prefer data from modern Expo (dev clients)
-  if (modern.status === 'fulfilled') return modern.value;
-  if (classic.status === 'fulfilled') return classic.value;
-
-  throw new Error(`No bundler found at ${host} on ports 19000 or 8081`);
 }
 
 export function findDeviceByName(devices: InspectableDevice[], deviceName: string) {

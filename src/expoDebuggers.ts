@@ -249,15 +249,14 @@ async function waitForDevice(config: ExpoDebugConfig) {
 
 async function pickDevice(config: ExpoDebugConfig) {
   const bundlerHost = config.bundlerHost ?? '127.0.0.1';
+  const bundlerPort = config.bundlerPort ?? '8081';
 
-  // Either fetch from user-specified port, or try both `19000` and `8081`.
-  const devices = config.bundlerPort
-    ? await fetchDevicesToInspect({ host: bundlerHost, port: config.bundlerPort }).catch(() => {
-        throw new Error(`waiting for bundler on ${config.bundlerHost}:${config.bundlerPort}...`);
-      })
-    : await fetchDevicesToInspectFromUnknownWorkflow({ host: bundlerHost }).catch(() => {
-        throw new Error(`waiting for bundler on ${config.bundlerHost}...`);
-      });
+  const devices = await fetchDevicesToInspect({
+    host: bundlerHost,
+    port: bundlerPort,
+  }).catch(() => {
+    throw new Error(`waiting for bundler on ${bundlerHost}:${bundlerPort}...`);
+  });
 
   if (devices.length === 1) {
     log('Picking only device available:', devices[0].deviceName);
