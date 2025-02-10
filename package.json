@@ -277,7 +277,10 @@
     ],
     "yamlValidation": [
       {
-        "fileMatch": ".eas/workflows/*.yml",
+        "fileMatch": [
+          ".eas/workflows/*.yml",
+          ".eas/workflows/*.yaml"
+        ],
         "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-workflow.json"
       }
     ],
