@@ -1,0 +1,79 @@
+name: schema-eas-workflow
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '.github/actions/**'
+      - .github/workflows/schema-eas-workflow.yml
+      - 'scripts/**'
+      - package.json
+  workflow_dispatch:
+    inputs:
+      storage:
+        description: Update the EAS Workflow schema in storage?
+        type: choice
+        default: skip
+        options:
+          - skip
+          - update-schema
+  schedule:
+    # daily at 07:00h UTC
+    - cron: 0 7 * * *
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: 👷 Generate latest schema
+        run: node ./scripts/schema-eas-workflow.js
+
+      - name: 📋 Upload schema
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: schema-eas-workflow
+          path: ./schema/eas-workflow.json
+
+  publish:
+    if: ${{ github.event_name == 'schedule' || github.event.inputs.storage == 'update-schema' }}
+    runs-on: ubuntu-latest
+    needs: generate
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v4
+        with:
+          ref: schemas
+          token: ${{ secrets.EXPOBOT_GITHUB_TOKEN }}
+
+      - name: 📋 Download schema
+        uses: actions/download-artifact@v4
+        with:
+          name: schema-eas-workflow
+          path: ./schema/
+
+      - name: 🕵️ Latest schema
+        id: diff
+        run: |
+          if [ "$(git diff | wc -l)" -gt "0" ]; then
+            echo "⚠️ Schema has changed, see changes below"
+            git diff
+            exit 1
+          else
+            echo "✅ Schema is up-to-date"
+          fi
+
+      - name: 🗂 Update schema
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+        run: |
+          git config --global user.name 'Expo CI'
+          git config --global user.email 'support+ci@expo.io'
+          git add ./schema
+          git commit -am "chore: generate eas workflow schema for $(date +"%Y-%m-%dT%H-%M-%S%z")"
+          git push
