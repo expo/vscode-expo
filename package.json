@@ -112,7 +112,8 @@
     "workspace"
   ],
   "extensionDependencies": [
-    "ms-vscode.js-debug"
+    "ms-vscode.js-debug",
+    "redhat.vscode-yaml"
   ],
   "activationEvents": [
     "onStartupFinished",
