@@ -1,3 +1,20 @@
+## [1.6.0](https://github.com/expo/vscode-expo/compare/1.5.1...1.6.0) (2025-02-10)
+
+
+### New features
+
+* add EAS Workflow intellisense ([#269](https://github.com/expo/vscode-expo/issues/269)) ([9f4a342](https://github.com/expo/vscode-expo/commit/9f4a3429e32c15ff96a7d9ea28f9dfd5c7525122))
+
+
+### Bug fixes
+
+* add missing `redhat.vscode-yaml` dependency for EAS Workflow intellisense ([161dbbc](https://github.com/expo/vscode-expo/commit/161dbbc140f5b8caa4ae30098f70fe33608e700c))
+
+
+### Code changes
+
+* open EAS Workflow file paths to both `.yml` and `.yaml` ([40ad886](https://github.com/expo/vscode-expo/commit/40ad886e10bd76841d271fb8d339b4b223166ab4))
+
 ## [1.5.1](https://github.com/expo/vscode-expo/compare/1.5.0...1.5.1) (2024-12-19)
 
 
