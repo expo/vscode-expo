@@ -20,16 +20,17 @@ describe('createVscodeSchema', () => {
     });
   });
 
-  it('returns schema wrapped in an expo object', () => {
+  it('returns schema wrapped with optional `expo` property', () => {
     const xdlSchema = { description: 'All properties' };
     const schema = createVscodeSchema('0.0.0', xdlSchema);
-    expect(schema.properties.expo).to.equal(xdlSchema);
-  });
-
-  it('returns schema allowing additional root properties', () => {
-    const xdlSchema = { description: 'All properties' };
-    const schema = createVscodeSchema('0.0.0', xdlSchema);
-    expect(schema.additionalProperties).to.equal(true);
+    expect(schema.oneOf).to.satisfy((items) =>
+      items.some((item) => item.$ref && typeof item.$ref === 'string')
+    );
+    expect(schema.oneOf).to.satisfy((items) =>
+      items.some(
+        (item) => item.type === 'object' && item.required && item.required.includes('expo')
+      )
+    );
   });
 
   it('moves xdl definitions to root definitions', () => {
@@ -37,15 +38,14 @@ describe('createVscodeSchema', () => {
     const xdlSchema = { description: 'All properties', definitions };
     const schema = createVscodeSchema('0.0.0', xdlSchema);
     expect(schema.definitions).to.equal(definitions);
-    expect(schema.properties.expo).not.to.have.property('definitions');
+    expect(schema.definitions.VscodeExpoXdl).not.to.have.property('definitions');
   });
 
   it('adds bare workflow description to markdownDescription', () => {
-    const xdlSchema = { description: 'All properties', meta: { bareWorkflow: 'rich description' } };
+    const xdlSchema = { description: 'All properties' };
     const schema = createVscodeSchema('0.0.0', xdlSchema);
-    expect(schema.properties.expo).to.have.property('markdownDescription');
-    expect(schema.properties.expo.markdownDescription).to.contain(xdlSchema.description);
-    expect(schema.properties.expo.markdownDescription).to.contain(xdlSchema.meta.bareWorkflow);
+    expect(schema.definitions.VscodeExpoXdl).to.have.property('description');
+    expect(schema.definitions.VscodeExpoXdl).to.have.property('markdownDescription');
   });
 
   it('does not add auto-generated nested properties', () => {
@@ -57,8 +57,8 @@ describe('createVscodeSchema', () => {
       },
     };
     const schema = createVscodeSchema('0.0.0', xdlSchema);
-    expect(schema.properties.expo.properties).to.have.property('normal');
-    expect(schema.properties.expo.properties).not.to.have.property('hidden');
+    expect(schema.definitions.VscodeExpoXdl.properties).to.have.property('normal');
+    expect(schema.definitions.VscodeExpoXdl.properties).not.to.have.property('hidden');
   });
 });
 

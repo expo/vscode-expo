@@ -3,7 +3,6 @@
 exports[`createVscodeSchema creates expected SDK 39 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": true,
   "definitions": Object {
     "AndroidIntentFiltersData": Object {
       "additionalProperties": false,
@@ -46,11 +45,10 @@ Object {
       },
       "type": "object",
     },
-  },
-  "description": "The Expo manifest (app.json) validation and documentation.",
-  "properties": Object {
-    "expo": Object {
+    "VscodeExpoXdl": Object {
       "additionalProperties": false,
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v39.0.0.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v39.0.0.0.0/config/app/)",
       "properties": Object {
         "android": Object {
           "additionalProperties": false,
@@ -1801,7 +1799,24 @@ The runtime version associated with this manifest for bare workflow projects. If
       "type": "object",
     },
   },
-  "type": "object",
+  "description": "The Expo manifest (app.json) validation and documentation.",
+  "oneOf": Array [
+    Object {
+      "additionalProperties": true,
+      "properties": Object {
+        "expo": Object {
+          "$ref": "#/definitions/VscodeExpoXdl",
+        },
+      },
+      "required": Array [
+        "expo",
+      ],
+      "type": "object",
+    },
+    Object {
+      "$ref": "#/definitions/VscodeExpoXdl",
+    },
+  ],
   "version": "39.0.0.0.0",
 }
 `;
@@ -1809,7 +1824,6 @@ The runtime version associated with this manifest for bare workflow projects. If
 exports[`createVscodeSchema creates expected SDK 41 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": true,
   "definitions": Object {
     "Android": Object {
       "additionalProperties": false,
@@ -2741,253 +2755,10 @@ Object {
       },
       "type": "object",
     },
-    "Web": Object {
-      "additionalProperties": true,
-      "description": "Configuration that is specific to the web platform.",
-      "markdownDescription": "Configuration that is specific to the web platform.",
-      "properties": Object {
-        "backgroundColor": Object {
-          "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
-          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
-          "meta": Object {
-            "pwa": "background_color",
-            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-          },
-          "pattern": "^#|(&#x23;)\\\\d{6}$",
-          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-          "type": "string",
-        },
-        "barStyle": Object {
-          "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
-          "enum": Array [
-            "default",
-            "black",
-            "black-translucent",
-          ],
-          "fallback": "black-translucent",
-          "markdownDescription": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
-          "meta": Object {
-            "html": "apple-mobile-web-app-status-bar-style",
-            "pwa": "name",
-          },
-          "type": "string",
-        },
-        "config": Object {
-          "description": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
-          "markdownDescription": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
-          "properties": Object {
-            "firebase": Object {
-              "properties": Object {
-                "apiKey": Object {
-                  "type": "string",
-                },
-                "appId": Object {
-                  "type": "string",
-                },
-                "authDomain": Object {
-                  "type": "string",
-                },
-                "databaseURL": Object {
-                  "type": "string",
-                },
-                "measurementId": Object {
-                  "type": "string",
-                },
-                "messagingSenderId": Object {
-                  "type": "string",
-                },
-                "projectId": Object {
-                  "type": "string",
-                },
-                "storageBucket": Object {
-                  "type": "string",
-                },
-              },
-              "type": "object",
-            },
-          },
-          "type": "object",
-        },
-        "dangerous": Object {
-          "additionalProperties": true,
-          "description": "Experimental features. These will break without deprecation notice.",
-          "markdownDescription": "Experimental features. These will break without deprecation notice.",
-          "properties": Object {},
-          "type": "object",
-        },
-        "description": Object {
-          "description": "Provides a general description of what the pinned website does.",
-          "markdownDescription": "Provides a general description of what the pinned website does.",
-          "meta": Object {
-            "html": "description",
-            "pwa": "description",
-          },
-          "type": "string",
-        },
-        "dir": Object {
-          "description": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
-          "enum": Array [
-            "auto",
-            "ltr",
-            "rtl",
-          ],
-          "markdownDescription": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
-          "meta": Object {
-            "pwa": "dir",
-          },
-          "type": "string",
-        },
-        "display": Object {
-          "description": "Defines the developers’ preferred display mode for the website.",
-          "enum": Array [
-            "fullscreen",
-            "standalone",
-            "minimal-ui",
-            "browser",
-          ],
-          "markdownDescription": "Defines the developers’ preferred display mode for the website.",
-          "meta": Object {
-            "pwa": "display",
-          },
-          "type": "string",
-        },
-        "favicon": Object {
-          "description": "Relative path of an image to use for your app's favicon.",
-          "markdownDescription": "Relative path of an image to use for your app's favicon.",
-          "type": "string",
-        },
-        "lang": Object {
-          "description": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
-          "fallback": "en",
-          "markdownDescription": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
-          "meta": Object {
-            "pwa": "lang",
-          },
-          "type": "string",
-        },
-        "name": Object {
-          "description": "Defines the title of the document, defaults to the outer level name",
-          "markdownDescription": "Defines the title of the document, defaults to the outer level name",
-          "meta": Object {
-            "pwa": "name",
-          },
-          "type": "string",
-        },
-        "orientation": Object {
-          "description": "Defines the default orientation for all the website's top level browsing contexts.",
-          "enum": Array [
-            "any",
-            "natural",
-            "landscape",
-            "landscape-primary",
-            "landscape-secondary",
-            "portrait",
-            "portrait-primary",
-            "portrait-secondary",
-          ],
-          "markdownDescription": "Defines the default orientation for all the website's top level browsing contexts.",
-          "meta": Object {
-            "pwa": "orientation",
-          },
-          "type": "string",
-        },
-        "preferRelatedApplications": Object {
-          "description": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
-          "fallback": true,
-          "markdownDescription": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
-          "meta": Object {
-            "pwa": "prefer_related_applications",
-          },
-          "type": "boolean",
-        },
-        "scope": Object {
-          "description": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
-          "markdownDescription": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
-          "meta": Object {
-            "pwa": "scope",
-          },
-          "type": "string",
-        },
-        "shortName": Object {
-          "description": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
-          "markdownDescription": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
-          "meta": Object {
-            "pwa": "short_name",
-            "regexHuman": "Maximum 12 characters long",
-          },
-          "type": "string",
-        },
-        "splash": Object {
-          "description": "Configuration for PWA splash screens.
-
-**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          "markdownDescription": "Configuration for PWA splash screens.
-
-**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          "meta": Object {
-            "bareWorkflow": "Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          },
-          "properties": Object {
-            "backgroundColor": Object {
-              "description": "Color to fill the loading screen background",
-              "markdownDescription": "Color to fill the loading screen background",
-              "meta": Object {
-                "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-              },
-              "pattern": "^#|(&#x23;)\\\\d{6}$",
-              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-              "type": "string",
-            },
-            "image": Object {
-              "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
-              "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
-              "meta": Object {
-                "asset": true,
-                "contentTypeHuman": ".png image",
-                "contentTypePattern": "^image/png$",
-              },
-              "type": "string",
-            },
-            "resizeMode": Object {
-              "description": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
-              "enum": Array [
-                "cover",
-                "contain",
-              ],
-              "markdownDescription": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
-              "type": "string",
-            },
-          },
-          "type": "object",
-        },
-        "startUrl": Object {
-          "description": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
-          "markdownDescription": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
-          "meta": Object {
-            "pwa": "start_url",
-          },
-          "type": "string",
-        },
-        "themeColor": Object {
-          "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
-          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
-          "meta": Object {
-            "html": "theme-color",
-            "pwa": "theme_color",
-            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-          },
-          "pattern": "^#|(&#x23;)\\\\d{6}$",
-          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-          "type": "string",
-        },
-      },
-      "type": "object",
-    },
-  },
-  "description": "The Expo manifest (app.json) validation and documentation.",
-  "properties": Object {
-    "expo": Object {
+    "VscodeExpoXdl": Object {
       "additionalProperties": false,
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v41.0.0.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v41.0.0.0.0/config/app/)",
       "properties": Object {
         "_internal": Object {
           "additionalProperties": true,
@@ -3574,8 +3345,267 @@ The runtime version associated with this manifest for bare workflow projects. If
       ],
       "type": "object",
     },
+    "Web": Object {
+      "additionalProperties": true,
+      "description": "Configuration that is specific to the web platform.",
+      "markdownDescription": "Configuration that is specific to the web platform.",
+      "properties": Object {
+        "backgroundColor": Object {
+          "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
+          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
+          "meta": Object {
+            "pwa": "background_color",
+            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+          },
+          "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+          "type": "string",
+        },
+        "barStyle": Object {
+          "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
+          "enum": Array [
+            "default",
+            "black",
+            "black-translucent",
+          ],
+          "fallback": "black-translucent",
+          "markdownDescription": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
+          "meta": Object {
+            "html": "apple-mobile-web-app-status-bar-style",
+            "pwa": "name",
+          },
+          "type": "string",
+        },
+        "config": Object {
+          "description": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
+          "markdownDescription": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
+          "properties": Object {
+            "firebase": Object {
+              "properties": Object {
+                "apiKey": Object {
+                  "type": "string",
+                },
+                "appId": Object {
+                  "type": "string",
+                },
+                "authDomain": Object {
+                  "type": "string",
+                },
+                "databaseURL": Object {
+                  "type": "string",
+                },
+                "measurementId": Object {
+                  "type": "string",
+                },
+                "messagingSenderId": Object {
+                  "type": "string",
+                },
+                "projectId": Object {
+                  "type": "string",
+                },
+                "storageBucket": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+          },
+          "type": "object",
+        },
+        "dangerous": Object {
+          "additionalProperties": true,
+          "description": "Experimental features. These will break without deprecation notice.",
+          "markdownDescription": "Experimental features. These will break without deprecation notice.",
+          "properties": Object {},
+          "type": "object",
+        },
+        "description": Object {
+          "description": "Provides a general description of what the pinned website does.",
+          "markdownDescription": "Provides a general description of what the pinned website does.",
+          "meta": Object {
+            "html": "description",
+            "pwa": "description",
+          },
+          "type": "string",
+        },
+        "dir": Object {
+          "description": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
+          "enum": Array [
+            "auto",
+            "ltr",
+            "rtl",
+          ],
+          "markdownDescription": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
+          "meta": Object {
+            "pwa": "dir",
+          },
+          "type": "string",
+        },
+        "display": Object {
+          "description": "Defines the developers’ preferred display mode for the website.",
+          "enum": Array [
+            "fullscreen",
+            "standalone",
+            "minimal-ui",
+            "browser",
+          ],
+          "markdownDescription": "Defines the developers’ preferred display mode for the website.",
+          "meta": Object {
+            "pwa": "display",
+          },
+          "type": "string",
+        },
+        "favicon": Object {
+          "description": "Relative path of an image to use for your app's favicon.",
+          "markdownDescription": "Relative path of an image to use for your app's favicon.",
+          "type": "string",
+        },
+        "lang": Object {
+          "description": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
+          "fallback": "en",
+          "markdownDescription": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
+          "meta": Object {
+            "pwa": "lang",
+          },
+          "type": "string",
+        },
+        "name": Object {
+          "description": "Defines the title of the document, defaults to the outer level name",
+          "markdownDescription": "Defines the title of the document, defaults to the outer level name",
+          "meta": Object {
+            "pwa": "name",
+          },
+          "type": "string",
+        },
+        "orientation": Object {
+          "description": "Defines the default orientation for all the website's top level browsing contexts.",
+          "enum": Array [
+            "any",
+            "natural",
+            "landscape",
+            "landscape-primary",
+            "landscape-secondary",
+            "portrait",
+            "portrait-primary",
+            "portrait-secondary",
+          ],
+          "markdownDescription": "Defines the default orientation for all the website's top level browsing contexts.",
+          "meta": Object {
+            "pwa": "orientation",
+          },
+          "type": "string",
+        },
+        "preferRelatedApplications": Object {
+          "description": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
+          "fallback": true,
+          "markdownDescription": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
+          "meta": Object {
+            "pwa": "prefer_related_applications",
+          },
+          "type": "boolean",
+        },
+        "scope": Object {
+          "description": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
+          "markdownDescription": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
+          "meta": Object {
+            "pwa": "scope",
+          },
+          "type": "string",
+        },
+        "shortName": Object {
+          "description": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
+          "markdownDescription": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
+          "meta": Object {
+            "pwa": "short_name",
+            "regexHuman": "Maximum 12 characters long",
+          },
+          "type": "string",
+        },
+        "splash": Object {
+          "description": "Configuration for PWA splash screens.
+
+**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          "markdownDescription": "Configuration for PWA splash screens.
+
+**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          "meta": Object {
+            "bareWorkflow": "Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          },
+          "properties": Object {
+            "backgroundColor": Object {
+              "description": "Color to fill the loading screen background",
+              "markdownDescription": "Color to fill the loading screen background",
+              "meta": Object {
+                "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+              },
+              "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+              "type": "string",
+            },
+            "image": Object {
+              "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+              "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+              "meta": Object {
+                "asset": true,
+                "contentTypeHuman": ".png image",
+                "contentTypePattern": "^image/png$",
+              },
+              "type": "string",
+            },
+            "resizeMode": Object {
+              "description": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
+              "enum": Array [
+                "cover",
+                "contain",
+              ],
+              "markdownDescription": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "startUrl": Object {
+          "description": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
+          "markdownDescription": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
+          "meta": Object {
+            "pwa": "start_url",
+          },
+          "type": "string",
+        },
+        "themeColor": Object {
+          "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
+          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
+          "meta": Object {
+            "html": "theme-color",
+            "pwa": "theme_color",
+            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+          },
+          "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
   },
-  "type": "object",
+  "description": "The Expo manifest (app.json) validation and documentation.",
+  "oneOf": Array [
+    Object {
+      "additionalProperties": true,
+      "properties": Object {
+        "expo": Object {
+          "$ref": "#/definitions/VscodeExpoXdl",
+        },
+      },
+      "required": Array [
+        "expo",
+      ],
+      "type": "object",
+    },
+    Object {
+      "$ref": "#/definitions/VscodeExpoXdl",
+    },
+  ],
   "version": "41.0.0.0.0",
 }
 `;
@@ -3583,7 +3613,6 @@ The runtime version associated with this manifest for bare workflow projects. If
 exports[`createVscodeSchema creates expected SDK 45 schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": true,
   "definitions": Object {
     "Android": Object {
       "additionalProperties": false,
@@ -4640,253 +4669,10 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
       },
       "type": "object",
     },
-    "Web": Object {
-      "additionalProperties": true,
-      "description": "Configuration that is specific to the web platform.",
-      "markdownDescription": "Configuration that is specific to the web platform.",
-      "properties": Object {
-        "backgroundColor": Object {
-          "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
-          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
-          "meta": Object {
-            "pwa": "background_color",
-            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-          },
-          "pattern": "^#|(&#x23;)\\\\d{6}$",
-          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-          "type": "string",
-        },
-        "barStyle": Object {
-          "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
-          "enum": Array [
-            "default",
-            "black",
-            "black-translucent",
-          ],
-          "fallback": "black-translucent",
-          "markdownDescription": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
-          "meta": Object {
-            "html": "apple-mobile-web-app-status-bar-style",
-            "pwa": "name",
-          },
-          "type": "string",
-        },
-        "config": Object {
-          "description": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
-          "markdownDescription": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
-          "properties": Object {
-            "firebase": Object {
-              "properties": Object {
-                "apiKey": Object {
-                  "type": "string",
-                },
-                "appId": Object {
-                  "type": "string",
-                },
-                "authDomain": Object {
-                  "type": "string",
-                },
-                "databaseURL": Object {
-                  "type": "string",
-                },
-                "measurementId": Object {
-                  "type": "string",
-                },
-                "messagingSenderId": Object {
-                  "type": "string",
-                },
-                "projectId": Object {
-                  "type": "string",
-                },
-                "storageBucket": Object {
-                  "type": "string",
-                },
-              },
-              "type": "object",
-            },
-          },
-          "type": "object",
-        },
-        "dangerous": Object {
-          "additionalProperties": true,
-          "description": "Experimental features. These will break without deprecation notice.",
-          "markdownDescription": "Experimental features. These will break without deprecation notice.",
-          "properties": Object {},
-          "type": "object",
-        },
-        "description": Object {
-          "description": "Provides a general description of what the pinned website does.",
-          "markdownDescription": "Provides a general description of what the pinned website does.",
-          "meta": Object {
-            "html": "description",
-            "pwa": "description",
-          },
-          "type": "string",
-        },
-        "dir": Object {
-          "description": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
-          "enum": Array [
-            "auto",
-            "ltr",
-            "rtl",
-          ],
-          "markdownDescription": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
-          "meta": Object {
-            "pwa": "dir",
-          },
-          "type": "string",
-        },
-        "display": Object {
-          "description": "Defines the developers’ preferred display mode for the website.",
-          "enum": Array [
-            "fullscreen",
-            "standalone",
-            "minimal-ui",
-            "browser",
-          ],
-          "markdownDescription": "Defines the developers’ preferred display mode for the website.",
-          "meta": Object {
-            "pwa": "display",
-          },
-          "type": "string",
-        },
-        "favicon": Object {
-          "description": "Relative path of an image to use for your app's favicon.",
-          "markdownDescription": "Relative path of an image to use for your app's favicon.",
-          "type": "string",
-        },
-        "lang": Object {
-          "description": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
-          "fallback": "en",
-          "markdownDescription": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
-          "meta": Object {
-            "pwa": "lang",
-          },
-          "type": "string",
-        },
-        "name": Object {
-          "description": "Defines the title of the document, defaults to the outer level name",
-          "markdownDescription": "Defines the title of the document, defaults to the outer level name",
-          "meta": Object {
-            "pwa": "name",
-          },
-          "type": "string",
-        },
-        "orientation": Object {
-          "description": "Defines the default orientation for all the website's top level browsing contexts.",
-          "enum": Array [
-            "any",
-            "natural",
-            "landscape",
-            "landscape-primary",
-            "landscape-secondary",
-            "portrait",
-            "portrait-primary",
-            "portrait-secondary",
-          ],
-          "markdownDescription": "Defines the default orientation for all the website's top level browsing contexts.",
-          "meta": Object {
-            "pwa": "orientation",
-          },
-          "type": "string",
-        },
-        "preferRelatedApplications": Object {
-          "description": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
-          "fallback": true,
-          "markdownDescription": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
-          "meta": Object {
-            "pwa": "prefer_related_applications",
-          },
-          "type": "boolean",
-        },
-        "scope": Object {
-          "description": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
-          "markdownDescription": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
-          "meta": Object {
-            "pwa": "scope",
-          },
-          "type": "string",
-        },
-        "shortName": Object {
-          "description": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
-          "markdownDescription": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
-          "meta": Object {
-            "pwa": "short_name",
-            "regexHuman": "Maximum 12 characters long",
-          },
-          "type": "string",
-        },
-        "splash": Object {
-          "description": "Configuration for PWA splash screens.
-
-**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          "markdownDescription": "Configuration for PWA splash screens.
-
-**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          "meta": Object {
-            "bareWorkflow": "Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
-          },
-          "properties": Object {
-            "backgroundColor": Object {
-              "description": "Color to fill the loading screen background",
-              "markdownDescription": "Color to fill the loading screen background",
-              "meta": Object {
-                "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-              },
-              "pattern": "^#|(&#x23;)\\\\d{6}$",
-              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-              "type": "string",
-            },
-            "image": Object {
-              "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
-              "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
-              "meta": Object {
-                "asset": true,
-                "contentTypeHuman": ".png image",
-                "contentTypePattern": "^image/png$",
-              },
-              "type": "string",
-            },
-            "resizeMode": Object {
-              "description": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
-              "enum": Array [
-                "cover",
-                "contain",
-              ],
-              "markdownDescription": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
-              "type": "string",
-            },
-          },
-          "type": "object",
-        },
-        "startUrl": Object {
-          "description": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
-          "markdownDescription": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
-          "meta": Object {
-            "pwa": "start_url",
-          },
-          "type": "string",
-        },
-        "themeColor": Object {
-          "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
-          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
-          "meta": Object {
-            "html": "theme-color",
-            "pwa": "theme_color",
-            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
-          },
-          "pattern": "^#|(&#x23;)\\\\d{6}$",
-          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
-          "type": "string",
-        },
-      },
-      "type": "object",
-    },
-  },
-  "description": "The Expo manifest (app.json) validation and documentation.",
-  "properties": Object {
-    "expo": Object {
+    "VscodeExpoXdl": Object {
       "additionalProperties": false,
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v45.0.0.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v45.0.0.0.0/config/app/)",
       "properties": Object {
         "android": Object {
           "$ref": "#/definitions/Android",
@@ -5483,8 +5269,267 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
       ],
       "type": "object",
     },
+    "Web": Object {
+      "additionalProperties": true,
+      "description": "Configuration that is specific to the web platform.",
+      "markdownDescription": "Configuration that is specific to the web platform.",
+      "properties": Object {
+        "backgroundColor": Object {
+          "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
+          "markdownDescription": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
+          "meta": Object {
+            "pwa": "background_color",
+            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+          },
+          "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+          "type": "string",
+        },
+        "barStyle": Object {
+          "description": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
+          "enum": Array [
+            "default",
+            "black",
+            "black-translucent",
+          ],
+          "fallback": "black-translucent",
+          "markdownDescription": "If content is set to default, the status bar appears normal. If set to black, the status bar has a black background. If set to black-translucent, the status bar is black and translucent. If set to default or black, the web content is displayed below the status bar. If set to black-translucent, the web content is displayed on the entire screen, partially obscured by the status bar.",
+          "meta": Object {
+            "html": "apple-mobile-web-app-status-bar-style",
+            "pwa": "name",
+          },
+          "type": "string",
+        },
+        "config": Object {
+          "description": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
+          "markdownDescription": "Firebase web configuration. Used by the expo-firebase packages on both web and native. [Learn more](https://firebase.google.com/docs/reference/js/firebase.html#initializeapp)",
+          "properties": Object {
+            "firebase": Object {
+              "properties": Object {
+                "apiKey": Object {
+                  "type": "string",
+                },
+                "appId": Object {
+                  "type": "string",
+                },
+                "authDomain": Object {
+                  "type": "string",
+                },
+                "databaseURL": Object {
+                  "type": "string",
+                },
+                "measurementId": Object {
+                  "type": "string",
+                },
+                "messagingSenderId": Object {
+                  "type": "string",
+                },
+                "projectId": Object {
+                  "type": "string",
+                },
+                "storageBucket": Object {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+          },
+          "type": "object",
+        },
+        "dangerous": Object {
+          "additionalProperties": true,
+          "description": "Experimental features. These will break without deprecation notice.",
+          "markdownDescription": "Experimental features. These will break without deprecation notice.",
+          "properties": Object {},
+          "type": "object",
+        },
+        "description": Object {
+          "description": "Provides a general description of what the pinned website does.",
+          "markdownDescription": "Provides a general description of what the pinned website does.",
+          "meta": Object {
+            "html": "description",
+            "pwa": "description",
+          },
+          "type": "string",
+        },
+        "dir": Object {
+          "description": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
+          "enum": Array [
+            "auto",
+            "ltr",
+            "rtl",
+          ],
+          "markdownDescription": "Specifies the primary text direction for the name, short_name, and description members. Together with the lang member, it helps the correct display of right-to-left languages.",
+          "meta": Object {
+            "pwa": "dir",
+          },
+          "type": "string",
+        },
+        "display": Object {
+          "description": "Defines the developers’ preferred display mode for the website.",
+          "enum": Array [
+            "fullscreen",
+            "standalone",
+            "minimal-ui",
+            "browser",
+          ],
+          "markdownDescription": "Defines the developers’ preferred display mode for the website.",
+          "meta": Object {
+            "pwa": "display",
+          },
+          "type": "string",
+        },
+        "favicon": Object {
+          "description": "Relative path of an image to use for your app's favicon.",
+          "markdownDescription": "Relative path of an image to use for your app's favicon.",
+          "type": "string",
+        },
+        "lang": Object {
+          "description": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
+          "fallback": "en",
+          "markdownDescription": "Specifies the primary language for the values in the name and short_name members. This value is a string containing a single language tag.",
+          "meta": Object {
+            "pwa": "lang",
+          },
+          "type": "string",
+        },
+        "name": Object {
+          "description": "Defines the title of the document, defaults to the outer level name",
+          "markdownDescription": "Defines the title of the document, defaults to the outer level name",
+          "meta": Object {
+            "pwa": "name",
+          },
+          "type": "string",
+        },
+        "orientation": Object {
+          "description": "Defines the default orientation for all the website's top level browsing contexts.",
+          "enum": Array [
+            "any",
+            "natural",
+            "landscape",
+            "landscape-primary",
+            "landscape-secondary",
+            "portrait",
+            "portrait-primary",
+            "portrait-secondary",
+          ],
+          "markdownDescription": "Defines the default orientation for all the website's top level browsing contexts.",
+          "meta": Object {
+            "pwa": "orientation",
+          },
+          "type": "string",
+        },
+        "preferRelatedApplications": Object {
+          "description": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
+          "fallback": true,
+          "markdownDescription": "Hints for the user agent to indicate to the user that the specified native applications (defined in expo.ios and expo.android) are recommended over the website.",
+          "meta": Object {
+            "pwa": "prefer_related_applications",
+          },
+          "type": "boolean",
+        },
+        "scope": Object {
+          "description": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
+          "markdownDescription": "Defines the navigation scope of this website's context. This restricts what web pages can be viewed while the manifest is applied. If the user navigates outside the scope, it returns to a normal web page inside a browser tab/window. If the scope is a relative URL, the base URL will be the URL of the manifest.",
+          "meta": Object {
+            "pwa": "scope",
+          },
+          "type": "string",
+        },
+        "shortName": Object {
+          "description": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
+          "markdownDescription": "A short version of the app's name, 12 characters or fewer. Used in app launcher and new tab pages. Maps to \`short_name\` in the PWA manifest.json. Defaults to the \`name\` property.",
+          "meta": Object {
+            "pwa": "short_name",
+            "regexHuman": "Maximum 12 characters long",
+          },
+          "type": "string",
+        },
+        "splash": Object {
+          "description": "Configuration for PWA splash screens.
+
+**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          "markdownDescription": "Configuration for PWA splash screens.
+
+**Bare workflow** - Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          "meta": Object {
+            "bareWorkflow": "Use [expo-splash-screen](https://github.com/expo/expo/tree/main/packages/expo-splash-screen#expo-splash-screen)",
+          },
+          "properties": Object {
+            "backgroundColor": Object {
+              "description": "Color to fill the loading screen background",
+              "markdownDescription": "Color to fill the loading screen background",
+              "meta": Object {
+                "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+              },
+              "pattern": "^#|(&#x23;)\\\\d{6}$",
+              "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+              "type": "string",
+            },
+            "image": Object {
+              "description": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+              "markdownDescription": "Local path or remote URL to an image to fill the background of the loading screen. Image size and aspect ratio are up to you. Must be a .png.",
+              "meta": Object {
+                "asset": true,
+                "contentTypeHuman": ".png image",
+                "contentTypePattern": "^image/png$",
+              },
+              "type": "string",
+            },
+            "resizeMode": Object {
+              "description": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
+              "enum": Array [
+                "cover",
+                "contain",
+              ],
+              "markdownDescription": "Determines how the \`image\` will be displayed in the splash loading screen. Must be one of \`cover\` or \`contain\`, defaults to \`contain\`.",
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "startUrl": Object {
+          "description": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
+          "markdownDescription": "The URL that loads when a user launches the application (e.g., when added to home screen), typically the index. Note: This has to be a relative URL, relative to the manifest URL.",
+          "meta": Object {
+            "pwa": "start_url",
+          },
+          "type": "string",
+        },
+        "themeColor": Object {
+          "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
+          "markdownDescription": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
+          "meta": Object {
+            "html": "theme-color",
+            "pwa": "theme_color",
+            "regexHuman": "6 character long hex color string, for example, \`'#000000'\`",
+          },
+          "pattern": "^#|(&#x23;)\\\\d{6}$",
+          "patternErrorMessage": "6 character long hex color string, for example, \`'#000000'\`",
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
   },
-  "type": "object",
+  "description": "The Expo manifest (app.json) validation and documentation.",
+  "oneOf": Array [
+    Object {
+      "additionalProperties": true,
+      "properties": Object {
+        "expo": Object {
+          "$ref": "#/definitions/VscodeExpoXdl",
+        },
+      },
+      "required": Array [
+        "expo",
+      ],
+      "type": "object",
+    },
+    Object {
+      "$ref": "#/definitions/VscodeExpoXdl",
+    },
+  ],
   "version": "45.0.0.0.0",
 }
 `;
