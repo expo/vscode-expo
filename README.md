@@ -42,8 +42,9 @@ Expo Tools adds suggestions and docs for all Expo config. It also shows live pre
 
 Get suggestions and docs where you need them the most.
 
-- EAS Build / Submit / Update → [`eas.json`](https://docs.expo.dev/build-reference/eas-json/)
-- EAS Metadata → [`store.config.json`](https://docs.expo.dev/eas-metadata/introduction/)
+- EAS Build / Submit / Update → [`eas.json`](https://docs.expo.dev/eas/json/)
+- EAS Metadata → [`store.config.json`](https://docs.expo.dev/eas/metadata/)
+- EAS Workflow → [`.eas/workflows/*.yml`](https://docs.expo.dev/eas/workflows/get-started/)
 - Expo Manifest → [`app.json`](https://docs.expo.dev/versions/latest/config/app/)
 - Expo Modules → [`expo-module.config.json`](https://docs.expo.dev/modules/overview/)
 

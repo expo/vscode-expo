@@ -274,6 +274,12 @@
         "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas.json"
       }
     ],
+    "yamlValidation": [
+      {
+        "fileMatch": ".eas/workflows/*.yml",
+        "url": "https://raw.githubusercontent.com/expo/vscode-expo/schemas/schema/eas-workflow.json"
+      }
+    ],
     "languages": [
       {
         "id": "jsonc",
