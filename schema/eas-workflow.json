@@ -1,0 +1,2721 @@
+{
+  "type": "object",
+  "properties": {
+    "on": {
+      "type": "object",
+      "properties": {
+        "push": {
+          "type": "object",
+          "properties": {
+            "branches": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "default": [
+                "*"
+              ],
+              "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
+              "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
+            }
+          },
+          "additionalProperties": false,
+          "description": "If provided, the workflow will be triggered on pushes to the specified branches.",
+          "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches."
+        },
+        "pull_request": {
+          "type": "object",
+          "properties": {
+            "branches": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "default": [
+                "*"
+              ],
+              "description": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't.",
+              "markdownDescription": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't."
+            },
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "opened",
+                  "reopened",
+                  "synchronize",
+                  "labeled"
+                ]
+              },
+              "default": [
+                "opened",
+                "reopened",
+                "synchronize"
+              ],
+              "description": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events.",
+              "markdownDescription": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events."
+            }
+          },
+          "additionalProperties": false,
+          "description": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches.",
+          "markdownDescription": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches."
+        },
+        "pull_request_labeled": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of labels that, assigned to a pull request, will trigger this workflow.",
+              "markdownDescription": "List of labels that, assigned to a pull request, will trigger this workflow."
+            },
+            {
+              "type": "object",
+              "properties": {
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "default": [],
+                  "description": "If a given pull request is labeled with a label matching any of the entries here, a new workflow will be started. Example: if you specify \"preview\" here, adding a \"preview\" label to the pull request will start a workflow, but adding other labels will not.",
+                  "markdownDescription": "If a given pull request is labeled with a label matching any of the entries here, a new workflow will be started. Example: if you specify \"preview\" here, adding a \"preview\" label to the pull request will start a workflow, but adding other labels will not."
+                }
+              },
+              "additionalProperties": false
+            }
+          ],
+          "description": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels.",
+          "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Configuration for GitHub events that trigger the workflow.",
+      "markdownDescription": "Configuration for GitHub events that trigger the workflow."
+    },
+    "jobs": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "build"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "platform": {
+                    "type": "string",
+                    "description": "Platform to build for.",
+                    "markdownDescription": "Platform to build for."
+                  },
+                  "profile": {
+                    "type": "string",
+                    "default": "production",
+                    "description": "Build profile name to use.",
+                    "markdownDescription": "Build profile name to use."
+                  }
+                },
+                "required": [
+                  "platform"
+                ],
+                "additionalProperties": false
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                          "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                        },
+                        "if": {
+                          "type": "string",
+                          "description": "Expression that determines whether the step should run.",
+                          "markdownDescription": "Expression that determines whether the step should run."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the step.",
+                          "markdownDescription": "Name of the step."
+                        },
+                        "working_directory": {
+                          "type": "string",
+                          "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                          "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                        },
+                        "env": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "description": "Additional environment variables to set for the step.",
+                          "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "run": {
+                          "type": "string",
+                          "description": "Shell script to run in the step.",
+                          "markdownDescription": "Shell script to run in the step."
+                        },
+                        "shell": {
+                          "type": "string",
+                          "description": "Shell to run the \"run\" command with.",
+                          "markdownDescription": "Shell to run the \"run\" command with."
+                        },
+                        "outputs": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "required": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "name"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "uses": {
+                          "not": {}
+                        },
+                        "with": {
+                          "not": {}
+                        }
+                      },
+                      "required": [
+                        "run"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                          "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                        },
+                        "if": {
+                          "type": "string",
+                          "description": "Expression that determines whether the step should run.",
+                          "markdownDescription": "Expression that determines whether the step should run."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the step.",
+                          "markdownDescription": "Name of the step."
+                        },
+                        "working_directory": {
+                          "type": "string",
+                          "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                          "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                        },
+                        "env": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "description": "Additional environment variables to set for the step.",
+                          "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "uses": {
+                          "type": "string",
+                          "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                          "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                        },
+                        "with": {
+                          "type": "object",
+                          "additionalProperties": {},
+                          "description": "Inputs to the function.",
+                          "markdownDescription": "Inputs to the function."
+                        },
+                        "run": {
+                          "not": {}
+                        },
+                        "shell": {
+                          "not": {}
+                        },
+                        "outputs": {
+                          "not": {}
+                        }
+                      },
+                      "required": [
+                        "uses"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "description": "Custom build steps to run. If specified, they override custom build YAML config provided through eas.json.",
+                "markdownDescription": "Custom build steps to run. If specified, they override custom build YAML config provided through eas.json."
+              },
+              "outputs": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Mapping from steps outputs to job outputs.",
+                "markdownDescription": "Mapping from steps outputs to job outputs."
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "custom"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "image": {
+                "type": "string",
+                "default": "auto",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
+              "runs_on": {
+                "type": "string",
+                "enum": [
+                  "linux-medium",
+                  "linux-large",
+                  "macos-medium",
+                  "macos-large",
+                  "linux-medium-nested-virtualization",
+                  "linux-large-nested-virtualization"
+                ],
+                "default": "linux-medium",
+                "description": "Runner to use for the job.",
+                "markdownDescription": "Runner to use for the job."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in.",
+                "default": "production"
+              },
+              "defaults": {
+                "type": "object",
+                "properties": {
+                  "run": {
+                    "type": "object",
+                    "properties": {
+                      "working_directory": {
+                        "type": "string",
+                        "description": "Working directory to run the script in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                        "markdownDescription": "Working directory to run the script in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                          "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                        },
+                        "if": {
+                          "type": "string",
+                          "description": "Expression that determines whether the step should run.",
+                          "markdownDescription": "Expression that determines whether the step should run."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the step.",
+                          "markdownDescription": "Name of the step."
+                        },
+                        "working_directory": {
+                          "type": "string",
+                          "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                          "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                        },
+                        "env": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "description": "Additional environment variables to set for the step.",
+                          "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "run": {
+                          "type": "string",
+                          "description": "Shell script to run in the step.",
+                          "markdownDescription": "Shell script to run in the step."
+                        },
+                        "shell": {
+                          "type": "string",
+                          "description": "Shell to run the \"run\" command with.",
+                          "markdownDescription": "Shell to run the \"run\" command with."
+                        },
+                        "outputs": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "required": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "name"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "uses": {
+                          "not": {}
+                        },
+                        "with": {
+                          "not": {}
+                        }
+                      },
+                      "required": [
+                        "run"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                          "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                        },
+                        "if": {
+                          "type": "string",
+                          "description": "Expression that determines whether the step should run.",
+                          "markdownDescription": "Expression that determines whether the step should run."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the step.",
+                          "markdownDescription": "Name of the step."
+                        },
+                        "working_directory": {
+                          "type": "string",
+                          "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                          "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                        },
+                        "env": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "description": "Additional environment variables to set for the step.",
+                          "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "uses": {
+                          "type": "string",
+                          "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                          "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                        },
+                        "with": {
+                          "type": "object",
+                          "additionalProperties": {},
+                          "description": "Inputs to the function.",
+                          "markdownDescription": "Inputs to the function."
+                        },
+                        "run": {
+                          "not": {}
+                        },
+                        "shell": {
+                          "not": {}
+                        },
+                        "outputs": {
+                          "not": {}
+                        }
+                      },
+                      "required": [
+                        "uses"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "description": "List of steps to run in the job.",
+                "markdownDescription": "List of steps to run in the job."
+              },
+              "outputs": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Mapping from steps outputs to job outputs.",
+                "markdownDescription": "Mapping from steps outputs to job outputs."
+              }
+            },
+            "required": [
+              "steps"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "deploy"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in.",
+                "default": "production"
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "alias": {
+                    "type": "string",
+                    "description": "Custom alias to assign to the new deployment.",
+                    "markdownDescription": "Custom alias to assign to the new deployment."
+                  },
+                  "prod": {
+                    "type": "boolean",
+                    "description": "Create a new production deployment.",
+                    "markdownDescription": "Create a new production deployment."
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "get-build"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "app_build_version": {
+                    "type": "string"
+                  },
+                  "app_identifier": {
+                    "type": "string"
+                  },
+                  "app_version": {
+                    "type": "string"
+                  },
+                  "channel": {
+                    "type": "string"
+                  },
+                  "distribution": {
+                    "type": "string"
+                  },
+                  "fingerprint_hash": {
+                    "type": "string"
+                  },
+                  "git_commit_hash": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string"
+                  },
+                  "profile": {
+                    "type": "string"
+                  },
+                  "runtime_version": {
+                    "type": "string"
+                  },
+                  "sdk_version": {
+                    "type": "string"
+                  },
+                  "simulator": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false,
+                "description": "Filters to find the build by.",
+                "markdownDescription": "Filters to find the build by."
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "maestro"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in.",
+                "default": "preview"
+              },
+              "image": {
+                "type": "string",
+                "default": "default",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "build_id": {
+                    "type": "string",
+                    "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  },
+                  "flow_path": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "description": "Path (or a list of paths)to the Maestro test file(s).",
+                    "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                  }
+                },
+                "required": [
+                  "build_id",
+                  "flow_path"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "require-approval"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "submit"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "profile": {
+                    "type": "string",
+                    "default": "production",
+                    "description": "Name of the submit profile to use.",
+                    "markdownDescription": "Name of the submit profile to use."
+                  },
+                  "build_id": {
+                    "type": "string",
+                    "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  }
+                },
+                "required": [
+                  "build_id"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "update"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Message to use for the update. If not provided, the commit message will be used.",
+                    "markdownDescription": "Message to use for the update. If not provided, the commit message will be used."
+                  },
+                  "platform": {
+                    "type": "string",
+                    "description": "Platform to use for the update (\"android\", \"ios\" or \"all\").",
+                    "markdownDescription": "Platform to use for the update (\"android\", \"ios\" or \"all\")."
+                  },
+                  "branch": {
+                    "type": "string",
+                    "description": "Branch to use for the update. If not provided, the branch from the workflow run will be used. For manually run workflows you need to provide a value. Example: \"${{ github.ref_name || 'testing-new-workflow' }}\". Provide *either* a branch or a channel, not both.",
+                    "markdownDescription": "Branch to use for the update. If not provided, the branch from the workflow run will be used. For manually run workflows you need to provide a value. Example: \"${{ github.ref_name || 'testing-new-workflow' }}\". Provide *either* a branch or a channel, not both."
+                  },
+                  "channel": {
+                    "type": "string",
+                    "description": "Channel to use for the update. Provide *either* a branch or a channel, not both.",
+                    "markdownDescription": "Channel to use for the update. Provide *either* a branch or a channel, not both."
+                  }
+                },
+                "additionalProperties": false,
+                "default": {}
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in.",
+                "default": "production"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "description": "Configuration of jobs to run in the workflow.",
+      "markdownDescription": "Configuration of jobs to run in the workflow."
+    },
+    "name": {
+      "allOf": [
+        {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "The name of the workflow. Displayed on the workflow page.",
+      "markdownDescription": "The name of the workflow. Displayed on the workflow page."
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "run": {
+          "type": "object",
+          "properties": {
+            "working_directory": {
+              "type": "string",
+              "description": "Default working directory to run the scripts in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+              "markdownDescription": "Default working directory to run the scripts in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "jobs"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "workflow": {
+      "type": "object",
+      "properties": {
+        "on": {
+          "type": "object",
+          "properties": {
+            "push": {
+              "type": "object",
+              "properties": {
+                "branches": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "default": [
+                    "*"
+                  ],
+                  "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
+                  "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
+                }
+              },
+              "additionalProperties": false,
+              "description": "If provided, the workflow will be triggered on pushes to the specified branches.",
+              "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches."
+            },
+            "pull_request": {
+              "type": "object",
+              "properties": {
+                "branches": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "default": [
+                    "*"
+                  ],
+                  "description": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't.",
+                  "markdownDescription": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't."
+                },
+                "types": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "opened",
+                      "reopened",
+                      "synchronize",
+                      "labeled"
+                    ]
+                  },
+                  "default": [
+                    "opened",
+                    "reopened",
+                    "synchronize"
+                  ],
+                  "description": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events.",
+                  "markdownDescription": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events."
+                }
+              },
+              "additionalProperties": false,
+              "description": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches.",
+              "markdownDescription": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches."
+            },
+            "pull_request_labeled": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "List of labels that, assigned to a pull request, will trigger this workflow.",
+                  "markdownDescription": "List of labels that, assigned to a pull request, will trigger this workflow."
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "labels": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "default": [],
+                      "description": "If a given pull request is labeled with a label matching any of the entries here, a new workflow will be started. Example: if you specify \"preview\" here, adding a \"preview\" label to the pull request will start a workflow, but adding other labels will not.",
+                      "markdownDescription": "If a given pull request is labeled with a label matching any of the entries here, a new workflow will be started. Example: if you specify \"preview\" here, adding a \"preview\" label to the pull request will start a workflow, but adding other labels will not."
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ],
+              "description": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels.",
+              "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Configuration for GitHub events that trigger the workflow.",
+          "markdownDescription": "Configuration for GitHub events that trigger the workflow."
+        },
+        "jobs": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "build"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "platform": {
+                        "type": "string",
+                        "description": "Platform to build for.",
+                        "markdownDescription": "Platform to build for."
+                      },
+                      "profile": {
+                        "type": "string",
+                        "default": "production",
+                        "description": "Build profile name to use.",
+                        "markdownDescription": "Build profile name to use."
+                      }
+                    },
+                    "required": [
+                      "platform"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "type": "string",
+                              "description": "Expression that determines whether the step should run.",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the step.",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "type": "string",
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "Additional environment variables to set for the step.",
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "type": "string",
+                              "description": "Shell to run the \"run\" command with.",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "type": "string",
+                              "description": "Expression that determines whether the step should run.",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the step.",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "type": "string",
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "Additional environment variables to set for the step.",
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "type": "object",
+                              "additionalProperties": {},
+                              "description": "Inputs to the function.",
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    "description": "Custom build steps to run. If specified, they override custom build YAML config provided through eas.json.",
+                    "markdownDescription": "Custom build steps to run. If specified, they override custom build YAML config provided through eas.json."
+                  },
+                  "outputs": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Mapping from steps outputs to job outputs.",
+                    "markdownDescription": "Mapping from steps outputs to job outputs."
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "custom"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "image": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
+                  "runs_on": {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ],
+                    "default": "linux-medium",
+                    "description": "Runner to use for the job.",
+                    "markdownDescription": "Runner to use for the job."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in.",
+                    "default": "production"
+                  },
+                  "defaults": {
+                    "type": "object",
+                    "properties": {
+                      "run": {
+                        "type": "object",
+                        "properties": {
+                          "working_directory": {
+                            "type": "string",
+                            "description": "Working directory to run the script in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                            "markdownDescription": "Working directory to run the script in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "type": "string",
+                              "description": "Expression that determines whether the step should run.",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the step.",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "type": "string",
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "Additional environment variables to set for the step.",
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "type": "string",
+                              "description": "Shell to run the \"run\" command with.",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "type": "string",
+                              "description": "Expression that determines whether the step should run.",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the step.",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "type": "string",
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "Additional environment variables to set for the step.",
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "type": "object",
+                              "additionalProperties": {},
+                              "description": "Inputs to the function.",
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ],
+                          "additionalProperties": false
+                        }
+                      ]
+                    },
+                    "description": "List of steps to run in the job.",
+                    "markdownDescription": "List of steps to run in the job."
+                  },
+                  "outputs": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Mapping from steps outputs to job outputs.",
+                    "markdownDescription": "Mapping from steps outputs to job outputs."
+                  }
+                },
+                "required": [
+                  "steps"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "deploy"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in.",
+                    "default": "production"
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "alias": {
+                        "type": "string",
+                        "description": "Custom alias to assign to the new deployment.",
+                        "markdownDescription": "Custom alias to assign to the new deployment."
+                      },
+                      "prod": {
+                        "type": "boolean",
+                        "description": "Create a new production deployment.",
+                        "markdownDescription": "Create a new production deployment."
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "get-build"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "app_build_version": {
+                        "type": "string"
+                      },
+                      "app_identifier": {
+                        "type": "string"
+                      },
+                      "app_version": {
+                        "type": "string"
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "distribution": {
+                        "type": "string"
+                      },
+                      "fingerprint_hash": {
+                        "type": "string"
+                      },
+                      "git_commit_hash": {
+                        "type": "string"
+                      },
+                      "platform": {
+                        "type": "string"
+                      },
+                      "profile": {
+                        "type": "string"
+                      },
+                      "runtime_version": {
+                        "type": "string"
+                      },
+                      "sdk_version": {
+                        "type": "string"
+                      },
+                      "simulator": {
+                        "type": "boolean"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "description": "Filters to find the build by.",
+                    "markdownDescription": "Filters to find the build by."
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "maestro"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in.",
+                    "default": "preview"
+                  },
+                  "image": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "build_id": {
+                        "type": "string",
+                        "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "flow_path": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "description": "Path (or a list of paths)to the Maestro test file(s).",
+                        "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                      }
+                    },
+                    "required": [
+                      "build_id",
+                      "flow_path"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "require-approval"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "submit"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "type": "string",
+                        "default": "production",
+                        "description": "Name of the submit profile to use.",
+                        "markdownDescription": "Name of the submit profile to use."
+                      },
+                      "build_id": {
+                        "type": "string",
+                        "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      }
+                    },
+                    "required": [
+                      "build_id"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "update"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Message to use for the update. If not provided, the commit message will be used.",
+                        "markdownDescription": "Message to use for the update. If not provided, the commit message will be used."
+                      },
+                      "platform": {
+                        "type": "string",
+                        "description": "Platform to use for the update (\"android\", \"ios\" or \"all\").",
+                        "markdownDescription": "Platform to use for the update (\"android\", \"ios\" or \"all\")."
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "Branch to use for the update. If not provided, the branch from the workflow run will be used. For manually run workflows you need to provide a value. Example: \"${{ github.ref_name || 'testing-new-workflow' }}\". Provide *either* a branch or a channel, not both.",
+                        "markdownDescription": "Branch to use for the update. If not provided, the branch from the workflow run will be used. For manually run workflows you need to provide a value. Example: \"${{ github.ref_name || 'testing-new-workflow' }}\". Provide *either* a branch or a channel, not both."
+                      },
+                      "channel": {
+                        "type": "string",
+                        "description": "Channel to use for the update. Provide *either* a branch or a channel, not both.",
+                        "markdownDescription": "Channel to use for the update. Provide *either* a branch or a channel, not both."
+                      }
+                    },
+                    "additionalProperties": false,
+                    "default": {}
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in.",
+                    "default": "production"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "description": "Configuration of jobs to run in the workflow.",
+          "markdownDescription": "Configuration of jobs to run in the workflow."
+        },
+        "name": {
+          "allOf": [
+            {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "The name of the workflow. Displayed on the workflow page.",
+          "markdownDescription": "The name of the workflow. Displayed on the workflow page."
+        },
+        "defaults": {
+          "type": "object",
+          "properties": {
+            "run": {
+              "type": "object",
+              "properties": {
+                "working_directory": {
+                  "type": "string",
+                  "description": "Default working directory to run the scripts in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                  "markdownDescription": "Default working directory to run the scripts in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "jobs"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "All configurable EAS Workflow properties. Learn more: https://docs.expo.dev/eas/workflows/syntax/",
+  "markdownDescription": "All configurable EAS Workflow properties. [Learn more](https://docs.expo.dev/eas/workflows/syntax/)"
+}
