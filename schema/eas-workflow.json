@@ -22,16 +22,31 @@
                   }
                 ]
               },
-              "default": [
-                "*"
-              ],
               "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
               "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "description": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow.",
+              "markdownDescription": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow."
             }
           },
           "additionalProperties": false,
-          "description": "If provided, the workflow will be triggered on pushes to the specified branches.",
-          "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches."
+          "description": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags.",
+          "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags."
         },
         "pull_request": {
           "type": "object",
@@ -1380,16 +1395,31 @@
                       }
                     ]
                   },
-                  "default": [
-                    "*"
-                  ],
                   "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
                   "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "description": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow.",
+                  "markdownDescription": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow."
                 }
               },
               "additionalProperties": false,
-              "description": "If provided, the workflow will be triggered on pushes to the specified branches.",
-              "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches."
+              "description": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags.",
+              "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags."
             },
             "pull_request": {
               "type": "object",
