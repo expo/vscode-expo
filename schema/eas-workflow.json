@@ -237,6 +237,25 @@
                 ],
                 "additionalProperties": false
               },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
+              },
               "steps": {
                 "type": "array",
                 "items": {
@@ -500,6 +519,25 @@
                 "markdownDescription": "The environment to run the job in.",
                 "default": "production"
               },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
+              },
               "defaults": {
                 "type": "object",
                 "properties": {
@@ -758,6 +796,25 @@
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in.",
                 "default": "production"
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
               },
               "params": {
                 "type": "object",
@@ -1024,6 +1081,25 @@
                   "flow_path"
                 ],
                 "additionalProperties": false
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
               }
             },
             "required": [
@@ -1203,6 +1279,25 @@
                   "build_id"
                 ],
                 "additionalProperties": false
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
               }
             },
             "required": [
@@ -1321,6 +1416,25 @@
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in.",
                 "default": "production"
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
               }
             },
             "required": [
@@ -1610,6 +1724,25 @@
                     ],
                     "additionalProperties": false
                   },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
+                  },
                   "steps": {
                     "type": "array",
                     "items": {
@@ -1873,6 +2006,25 @@
                     "markdownDescription": "The environment to run the job in.",
                     "default": "production"
                   },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
+                  },
                   "defaults": {
                     "type": "object",
                     "properties": {
@@ -2131,6 +2283,25 @@
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in.",
                     "default": "production"
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
                   },
                   "params": {
                     "type": "object",
@@ -2397,6 +2568,25 @@
                       "flow_path"
                     ],
                     "additionalProperties": false
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
                   }
                 },
                 "required": [
@@ -2576,6 +2766,25 @@
                       "build_id"
                     ],
                     "additionalProperties": false
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
                   }
                 },
                 "required": [
@@ -2694,6 +2903,25 @@
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in.",
                     "default": "production"
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
                   }
                 },
                 "required": [
