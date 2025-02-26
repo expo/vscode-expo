@@ -1475,6 +1475,54 @@
             }
           },
           "additionalProperties": false
+        },
+        "tools": {
+          "type": "object",
+          "properties": {
+            "node": {
+              "type": "string",
+              "description": "Version of Node.js.",
+              "markdownDescription": "Version of Node.js."
+            },
+            "yarn": {
+              "type": "string",
+              "description": "Version of Yarn.",
+              "markdownDescription": "Version of Yarn."
+            },
+            "pnpm": {
+              "type": "string",
+              "description": "Version of pnpm.",
+              "markdownDescription": "Version of pnpm."
+            },
+            "bun": {
+              "type": "string",
+              "description": "Version of Bun.",
+              "markdownDescription": "Version of Bun."
+            },
+            "ndk": {
+              "type": "string",
+              "description": "Version of Android NDK.",
+              "markdownDescription": "Version of Android NDK."
+            },
+            "bundler": {
+              "type": "string",
+              "description": "Version of Bundler.",
+              "markdownDescription": "Version of Bundler."
+            },
+            "fastlane": {
+              "type": "string",
+              "description": "Version of fastlane.",
+              "markdownDescription": "Version of fastlane."
+            },
+            "cocoapods": {
+              "type": "string",
+              "description": "Version of CocoaPods.",
+              "markdownDescription": "Version of CocoaPods."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values.",
+          "markdownDescription": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values."
         }
       },
       "additionalProperties": false
@@ -2962,6 +3010,54 @@
                 }
               },
               "additionalProperties": false
+            },
+            "tools": {
+              "type": "object",
+              "properties": {
+                "node": {
+                  "type": "string",
+                  "description": "Version of Node.js.",
+                  "markdownDescription": "Version of Node.js."
+                },
+                "yarn": {
+                  "type": "string",
+                  "description": "Version of Yarn.",
+                  "markdownDescription": "Version of Yarn."
+                },
+                "pnpm": {
+                  "type": "string",
+                  "description": "Version of pnpm.",
+                  "markdownDescription": "Version of pnpm."
+                },
+                "bun": {
+                  "type": "string",
+                  "description": "Version of Bun.",
+                  "markdownDescription": "Version of Bun."
+                },
+                "ndk": {
+                  "type": "string",
+                  "description": "Version of Android NDK.",
+                  "markdownDescription": "Version of Android NDK."
+                },
+                "bundler": {
+                  "type": "string",
+                  "description": "Version of Bundler.",
+                  "markdownDescription": "Version of Bundler."
+                },
+                "fastlane": {
+                  "type": "string",
+                  "description": "Version of fastlane.",
+                  "markdownDescription": "Version of fastlane."
+                },
+                "cocoapods": {
+                  "type": "string",
+                  "description": "Version of CocoaPods.",
+                  "markdownDescription": "Version of CocoaPods."
+                }
+              },
+              "additionalProperties": false,
+              "description": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values.",
+              "markdownDescription": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values."
             }
           },
           "additionalProperties": false
