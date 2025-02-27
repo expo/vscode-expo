@@ -1480,42 +1480,122 @@
           "type": "object",
           "properties": {
             "node": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of Node.js.",
               "markdownDescription": "Version of Node.js."
             },
             "yarn": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of Yarn.",
               "markdownDescription": "Version of Yarn."
             },
             "pnpm": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of pnpm.",
               "markdownDescription": "Version of pnpm."
             },
             "bun": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of Bun.",
               "markdownDescription": "Version of Bun."
             },
             "ndk": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of Android NDK.",
               "markdownDescription": "Version of Android NDK."
             },
             "bundler": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of Bundler.",
               "markdownDescription": "Version of Bundler."
             },
             "fastlane": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of fastlane.",
               "markdownDescription": "Version of fastlane."
             },
             "cocoapods": {
-              "type": "string",
+              "allOf": [
+                {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "description": "Version of CocoaPods.",
               "markdownDescription": "Version of CocoaPods."
             }
@@ -3015,42 +3095,122 @@
               "type": "object",
               "properties": {
                 "node": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of Node.js.",
                   "markdownDescription": "Version of Node.js."
                 },
                 "yarn": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of Yarn.",
                   "markdownDescription": "Version of Yarn."
                 },
                 "pnpm": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of pnpm.",
                   "markdownDescription": "Version of pnpm."
                 },
                 "bun": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of Bun.",
                   "markdownDescription": "Version of Bun."
                 },
                 "ndk": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of Android NDK.",
                   "markdownDescription": "Version of Android NDK."
                 },
                 "bundler": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of Bundler.",
                   "markdownDescription": "Version of Bundler."
                 },
                 "fastlane": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of fastlane.",
                   "markdownDescription": "Version of fastlane."
                 },
                 "cocoapods": {
-                  "type": "string",
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
                   "description": "Version of CocoaPods.",
                   "markdownDescription": "Version of CocoaPods."
                 }
