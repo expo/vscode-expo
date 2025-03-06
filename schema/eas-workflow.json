@@ -1715,6 +1715,30 @@
         }
       },
       "additionalProperties": false
+    },
+    "concurrency": {
+      "type": "object",
+      "properties": {
+        "cancel_in_progress": {
+          "type": "boolean",
+          "const": true,
+          "description": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch.",
+          "markdownDescription": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch."
+        },
+        "group": {
+          "type": "string",
+          "const": "${{ workflow.filename }}-${{ github.ref }}",
+          "description": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible.",
+          "markdownDescription": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible."
+        }
+      },
+      "required": [
+        "cancel_in_progress",
+        "group"
+      ],
+      "additionalProperties": false,
+      "description": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows.",
+      "markdownDescription": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows."
     }
   },
   "required": [
@@ -3439,6 +3463,30 @@
             }
           },
           "additionalProperties": false
+        },
+        "concurrency": {
+          "type": "object",
+          "properties": {
+            "cancel_in_progress": {
+              "type": "boolean",
+              "const": true,
+              "description": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch.",
+              "markdownDescription": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch."
+            },
+            "group": {
+              "type": "string",
+              "const": "${{ workflow.filename }}-${{ github.ref }}",
+              "description": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible.",
+              "markdownDescription": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible."
+            }
+          },
+          "required": [
+            "cancel_in_progress",
+            "group"
+          ],
+          "additionalProperties": false,
+          "description": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows.",
+          "markdownDescription": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows."
         }
       },
       "required": [
