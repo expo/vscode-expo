@@ -1618,6 +1618,11 @@
               "description": "Version of Yarn.",
               "markdownDescription": "Version of Yarn."
             },
+            "corepack": {
+              "type": "boolean",
+              "description": "Whether to enable corepack.",
+              "markdownDescription": "Whether to enable corepack."
+            },
             "pnpm": {
               "allOf": [
                 {
@@ -3365,6 +3370,11 @@
                   ],
                   "description": "Version of Yarn.",
                   "markdownDescription": "Version of Yarn."
+                },
+                "corepack": {
+                  "type": "boolean",
+                  "description": "Whether to enable corepack.",
+                  "markdownDescription": "Whether to enable corepack."
                 },
                 "pnpm": {
                   "allOf": [
