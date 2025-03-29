@@ -504,9 +504,9 @@
                   "linux-medium-nested-virtualization",
                   "linux-large-nested-virtualization"
                 ],
-                "default": "linux-medium",
                 "description": "Runner to use for the job.",
-                "markdownDescription": "Runner to use for the job."
+                "markdownDescription": "Runner to use for the job.",
+                "default": "linux-medium"
               },
               "environment": {
                 "type": "string",
@@ -1157,7 +1157,7 @@
               },
               "image": {
                 "type": "string",
-                "default": "default",
+                "default": "auto",
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
@@ -1183,6 +1183,13 @@
                     ],
                     "description": "Path (or a list of paths)to the Maestro test file(s).",
                     "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                  },
+                  "retries": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "default": 1,
+                    "description": "Number of times to retry the tests if they fail.",
+                    "markdownDescription": "Number of times to retry the tests if they fail."
                   }
                 },
                 "required": [
@@ -1209,6 +1216,19 @@
                 "default": {},
                 "description": "Environment variables to provide to the job.",
                 "markdownDescription": "Environment variables to provide to the job."
+              },
+              "runs_on": {
+                "type": "string",
+                "enum": [
+                  "linux-medium",
+                  "linux-large",
+                  "macos-medium",
+                  "macos-large",
+                  "linux-medium-nested-virtualization",
+                  "linux-large-nested-virtualization"
+                ],
+                "description": "Runner to use for the job.",
+                "markdownDescription": "Runner to use for the job."
               }
             },
             "required": [
@@ -2257,9 +2277,9 @@
                       "linux-medium-nested-virtualization",
                       "linux-large-nested-virtualization"
                     ],
-                    "default": "linux-medium",
                     "description": "Runner to use for the job.",
-                    "markdownDescription": "Runner to use for the job."
+                    "markdownDescription": "Runner to use for the job.",
+                    "default": "linux-medium"
                   },
                   "environment": {
                     "type": "string",
@@ -2910,7 +2930,7 @@
                   },
                   "image": {
                     "type": "string",
-                    "default": "default",
+                    "default": "auto",
                     "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                     "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   },
@@ -2936,6 +2956,13 @@
                         ],
                         "description": "Path (or a list of paths)to the Maestro test file(s).",
                         "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                      },
+                      "retries": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "default": 1,
+                        "description": "Number of times to retry the tests if they fail.",
+                        "markdownDescription": "Number of times to retry the tests if they fail."
                       }
                     },
                     "required": [
@@ -2962,6 +2989,19 @@
                     "default": {},
                     "description": "Environment variables to provide to the job.",
                     "markdownDescription": "Environment variables to provide to the job."
+                  },
+                  "runs_on": {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ],
+                    "description": "Runner to use for the job.",
+                    "markdownDescription": "Runner to use for the job."
                   }
                 },
                 "required": [
