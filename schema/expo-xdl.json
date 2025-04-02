@@ -34,7 +34,7 @@
         "backgroundColor": {
           "description": "The background color for your Android app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present.\n\n**Bare workflow** - This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`",
             "bareWorkflow": "This is set in `android/app/src/main/AndroidManifest.xml` under `android:windowBackground`"
@@ -104,7 +104,7 @@
             "backgroundColor": {
               "description": "Color to use as the background for your app's Adaptive Icon on Android. Defaults to white, `#FFFFFF`. Has no effect if `foregroundImage` is not specified.",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
@@ -203,7 +203,7 @@
             "backgroundColor": {
               "description": "Color to fill the loading screen background",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
@@ -287,7 +287,7 @@
                 "backgroundColor": {
                   "description": "Color to fill the loading screen background",
                   "type": "string",
-                  "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+                  "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
                   "meta": {
                     "regexHuman": "6 character long hex color string, for example, `'#000000'`"
                   },
@@ -567,7 +567,7 @@
         "backgroundColor": {
           "description": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present. Requires `expo-system-ui` be installed in your project to work on iOS.",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
@@ -843,7 +843,7 @@
             "backgroundColor": {
               "description": "Color to fill the loading screen background",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
@@ -886,7 +886,7 @@
                 "backgroundColor": {
                   "description": "Color to fill the loading screen background",
                   "type": "string",
-                  "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+                  "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
                   "meta": {
                     "regexHuman": "6 character long hex color string, for example, `'#000000'`"
                   },
@@ -1010,7 +1010,7 @@
         "backgroundColor": {
           "description": "Color to fill the loading screen background\n\n**Bare workflow** - For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`",
             "bareWorkflow": "For Android, edit the `colorPrimary` item in `android/app/src/main/res/values/colors.xml`"
@@ -1114,7 +1114,7 @@
         "themeColor": {
           "description": "Defines the color of the Android tool bar, and may be reflected in the app's preview in task switchers.",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "pwa": "theme_color",
             "html": "theme-color",
@@ -1188,7 +1188,7 @@
         "backgroundColor": {
           "description": "Defines the expected “background color” for the website. This value repeats what is already available in the site’s CSS, but can be used by browsers to draw the background color of a shortcut when the manifest is available before the stylesheet has loaded. This creates a smooth transition between launching the web application and loading the site's content.",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "pwa": "background_color",
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
@@ -1234,7 +1234,7 @@
             "backgroundColor": {
               "description": "Color to fill the loading screen background",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
@@ -1456,7 +1456,7 @@
         "backgroundColor": {
           "description": "The background color for your app, behind any of your React views. This is also known as the root view background color. Requires `expo-system-ui` be installed in your project to work on iOS.",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`. Default is white: `'#ffffff'`"
           },
@@ -1466,7 +1466,7 @@
         "primaryColor": {
           "description": "On Android, this will determine the color of your app in the multitasker. Currently this is not used on iOS, but it may be used for other purposes in the future.",
           "type": "string",
-          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+          "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
           "meta": {
             "regexHuman": "6 character long hex color string, for example, `'#000000'`"
           },
@@ -1503,7 +1503,7 @@
             "color": {
               "description": "(Android only) Tint color for the push notification image when it appears in the notification tray. Defaults to `#ffffff`",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
@@ -1549,7 +1549,7 @@
             "backgroundColor": {
               "description": "Specifies the background color of the status bar. Defaults to `#00000000` (transparent) for `dark-content` bar style and `#00000088` (semi-transparent black) for `light-content` bar style",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string `'#RRGGBB'`, for example, `'#000000'` for black. Or 8 character long hex color string `'#RRGGBBAA'`, for example, `'#00000088'` for semi-transparent black."
               },
@@ -1596,7 +1596,7 @@
             "backgroundColor": {
               "description": "Specifies the background color of the navigation bar.",
               "type": "string",
-              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6}$",
+              "pattern": "^(#|&#x23;)[0-9a-fA-F]{6,8}$",
               "meta": {
                 "regexHuman": "6 character long hex color string, for example, `'#000000'`"
               },
