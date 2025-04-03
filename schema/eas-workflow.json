@@ -1184,6 +1184,13 @@
                     "description": "Path (or a list of paths)to the Maestro test file(s).",
                     "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
                   },
+                  "shards": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "default": 1,
+                    "description": "Number of shards to split the tests into.",
+                    "markdownDescription": "Number of shards to split the tests into."
+                  },
                   "retries": {
                     "type": "integer",
                     "exclusiveMinimum": 0,
@@ -2956,6 +2963,13 @@
                         ],
                         "description": "Path (or a list of paths)to the Maestro test file(s).",
                         "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                      },
+                      "shards": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "default": 1,
+                        "description": "Number of shards to split the tests into.",
+                        "markdownDescription": "Number of shards to split the tests into."
                       },
                       "retries": {
                         "type": "integer",
