@@ -134,6 +134,33 @@
           ],
           "description": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels.",
           "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
+        },
+        "schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cron": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "cron"
+            ],
+            "additionalProperties": false
+          },
+          "description": "List of cron expressions to trigger the workflow.",
+          "markdownDescription": "List of cron expressions to trigger the workflow."
         }
       },
       "additionalProperties": false,
@@ -2040,6 +2067,33 @@
               ],
               "description": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels.",
               "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
+            },
+            "schedule": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cron": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "cron"
+                ],
+                "additionalProperties": false
+              },
+              "description": "List of cron expressions to trigger the workflow.",
+              "markdownDescription": "List of cron expressions to trigger the workflow."
             }
           },
           "additionalProperties": false,
