@@ -1214,7 +1214,6 @@
                   "shards": {
                     "type": "integer",
                     "exclusiveMinimum": 0,
-                    "default": 1,
                     "description": "Number of shards to split the tests into.",
                     "markdownDescription": "Number of shards to split the tests into."
                   },
@@ -1224,6 +1223,36 @@
                     "default": 1,
                     "description": "Number of times to retry the tests if they fail.",
                     "markdownDescription": "Number of times to retry the tests if they fail."
+                  },
+                  "include_tags": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "description": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`.",
+                    "markdownDescription": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`."
+                  },
+                  "exclude_tags": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
+                    "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
                   }
                 },
                 "required": [
@@ -3147,7 +3176,6 @@
                       "shards": {
                         "type": "integer",
                         "exclusiveMinimum": 0,
-                        "default": 1,
                         "description": "Number of shards to split the tests into.",
                         "markdownDescription": "Number of shards to split the tests into."
                       },
@@ -3157,6 +3185,36 @@
                         "default": 1,
                         "description": "Number of times to retry the tests if they fail.",
                         "markdownDescription": "Number of times to retry the tests if they fail."
+                      },
+                      "include_tags": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "description": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`.",
+                        "markdownDescription": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`."
+                      },
+                      "exclude_tags": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
+                        "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
                       }
                     },
                     "required": [
