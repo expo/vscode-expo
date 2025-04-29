@@ -1253,6 +1253,11 @@
                     ],
                     "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
                     "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
+                  },
+                  "maestro_version": {
+                    "type": "string",
+                    "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
+                    "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
                   }
                 },
                 "required": [
@@ -3215,6 +3220,11 @@
                         ],
                         "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
                         "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
+                      },
+                      "maestro_version": {
+                        "type": "string",
+                        "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
+                        "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
                       }
                     },
                     "required": [
