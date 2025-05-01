@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "52.0.0",
+  "version": "53.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -52,6 +52,11 @@
             "automatic"
           ],
           "markdownDescription": "Configuration to force the app to always use the light or dark user-interface appearance, such as \"dark mode\", or make it automatically adapt to the system preferences. If not provided, defaults to `light`. Requires `expo-system-ui` be installed in your project to work on Android."
+        },
+        "scheme": {
+          "description": "URL scheme(s) to link into your Android app. Schemes added to this field will be merged with the schemes in the `scheme` key at the top level of the config.",
+          "$ref": "#/definitions/Scheme",
+          "markdownDescription": "URL scheme(s) to link into your Android app. Schemes added to this field will be merged with the schemes in the `scheme` key at the top level of the config."
         },
         "icon": {
           "description": "Local path or remote URL to an image to use for your app's icon on Android. If specified, this overrides the top-level `icon` key. We recommend that you use a 1024x1024 png file (transparency is recommended for the Google Play Store). This icon will appear on the home screen and within the Expo Go app.",
@@ -458,7 +463,7 @@
           "markdownDescription": "Determines how the software keyboard will impact the layout of your application. This maps to the `android:windowSoftInputMode` property. Defaults to `resize`. Valid values: `resize`, `pan`."
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`",
+          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`",
           "type": "string",
           "enum": [
             "hermes",
@@ -467,7 +472,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for Android apps. Supported only on EAS Build and in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
+          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
         "newArchEnabled": {
           "description": "A Boolean value that indicates whether the Android app should use the new architecture.",
@@ -486,6 +491,15 @@
             "bareWorkflow": "To change your app version, edit the `versionName` string in `android/app/build.gradle`"
           },
           "markdownDescription": "Your android app version. Takes precedence over the root `version` field. In addition to this field, you'll also use `android.versionCode` — read more about how to version your app [here](https://docs.expo.dev/distribution/app-stores/#versioning-your-app). This corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the `versionName` string in `android/app/build.gradle`"
+        },
+        "edgeToEdgeEnabled": {
+          "description": "Enable your app to run in [edge-to-edge](https://developer.android.com/develop/ui/views/layout/edge-to-edge) mode. Default to false.\n\n**Bare workflow** - To change the setting, update the `expo.edgeToEdgeEnabled` value in `android/gradle.properties` and update the `AppTheme`'s `parent` attribute to one of the [Theme.EdgeToEdge values](https://github.com/zoontek/react-native-edge-to-edge#pick-a-parent-theme) in `styles.xml`",
+          "type": "boolean",
+          "fallback": false,
+          "meta": {
+            "bareWorkflow": "To change the setting, update the `expo.edgeToEdgeEnabled` value in `android/gradle.properties` and update the `AppTheme`'s `parent` attribute to one of the [Theme.EdgeToEdge values](https://github.com/zoontek/react-native-edge-to-edge#pick-a-parent-theme) in `styles.xml`"
+          },
+          "markdownDescription": "Enable your app to run in [edge-to-edge](https://developer.android.com/develop/ui/views/layout/edge-to-edge) mode. Default to false.\n\n**Bare workflow** - To change the setting, update the `expo.edgeToEdgeEnabled` value in `android/gradle.properties` and update the `AppTheme`'s `parent` attribute to one of the [Theme.EdgeToEdge values](https://github.com/zoontek/react-native-edge-to-edge#pick-a-parent-theme) in `styles.xml`"
         }
       },
       "additionalProperties": false,
@@ -573,6 +587,11 @@
           },
           "markdownDescription": "The background color for your iOS app, behind any of your React views. Overrides the top-level `backgroundColor` key if it is present. Requires `expo-system-ui` be installed in your project to work on iOS.",
           "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
+        },
+        "scheme": {
+          "description": "URL scheme(s) to link into your iOS app. Schemes added to this field will be merged with the schemes in the `scheme` key at the top level of the config.",
+          "$ref": "#/definitions/Scheme",
+          "markdownDescription": "URL scheme(s) to link into your iOS app. Schemes added to this field will be merged with the schemes in the `scheme` key at the top level of the config."
         },
         "icon": {
           "description": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app.",
@@ -929,7 +948,7 @@
           "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps."
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`",
+          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for iOS apps. Not supported in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`",
           "type": "string",
           "enum": [
             "hermes",
@@ -938,7 +957,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for iOS apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
+          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for iOS apps. Not supported in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
         },
         "newArchEnabled": {
           "description": "A Boolean value that indicates whether the iOS app should use the new architecture.",
@@ -1056,6 +1075,28 @@
           "properties": {}
         }
       }
+    },
+    "Scheme": {
+      "description": "URL scheme(s)\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9+.-]*$"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9+.-]*$"
+          }
+        }
+      ],
+      "meta": {
+        "regexHuman": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \"+\", \".\" or \"-\"",
+        "standaloneOnly": true,
+        "bareWorkflow": "To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
+      },
+      "markdownDescription": "URL scheme(s)\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
     },
     "Web": {
       "description": "Configuration that is specific to the web platform.",
@@ -1622,26 +1663,9 @@
           "markdownDescription": "Settings that apply specifically to running this app in a development client"
         },
         "scheme": {
-          "description": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`",
-          "oneOf": [
-            {
-              "type": "string",
-              "pattern": "^[a-z][a-z0-9+.-]*$"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "pattern": "^[a-z][a-z0-9+.-]*$"
-              }
-            }
-          ],
-          "meta": {
-            "regexHuman": "String beginning with a **lowercase** letter followed by any combination of **lowercase** letters, digits, \"+\", \".\" or \"-\"",
-            "standaloneOnly": true,
-            "bareWorkflow": "To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
-          },
-          "markdownDescription": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go.\n\n**Bare workflow** - To change your app's scheme, replace all occurrences of the old scheme in `Info.plist` and `AndroidManifest.xml`"
+          "description": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go.",
+          "$ref": "#/definitions/Scheme",
+          "markdownDescription": "URL scheme(s) to link into your app. For example, if we set this to `'demo'`, then demo:// URLs would open your app when tapped. This is a build-time configuration, it has no effect in Expo Go."
         },
         "extra": {
           "description": "Any extra fields you want to pass to your experience. Values are accessible via `Constants.expoConfig.extra` ([Learn more](https://docs.expo.dev/versions/latest/sdk/constants/#constantsmanifest))",
@@ -1726,6 +1750,16 @@
                 "type": "string"
               },
               "markdownDescription": "Array of glob patterns specifying which files should be included in updates. Glob patterns are relative to the project root. A value of `['**']` will match all asset files within the project root. When not supplied all asset files will be included. Example: Given a value of `['app/images/**/*.png', 'app/fonts/**/*.woff']` all `.png` files in all subdirectories of `app/images` and all `.woff` files in all subdirectories of `app/fonts` will be included in updates."
+            },
+            "disableAntiBrickingMeasures": {
+              "description": "Whether to disable the built-in expo-updates anti-bricking measures. Defaults to false. If set to true, this will allow overriding certain configuration options from the JS API, which is liable to leave an app in a bricked state if not done carefully. This should not be used in production.",
+              "type": "boolean",
+              "markdownDescription": "Whether to disable the built-in expo-updates anti-bricking measures. Defaults to false. If set to true, this will allow overriding certain configuration options from the JS API, which is liable to leave an app in a bricked state if not done carefully. This should not be used in production."
+            },
+            "useNativeDebug": {
+              "description": "Enable debugging of native code with updates enabled. Defaults to false. If set to true, the EX_UPDATES_NATIVE_DEBUG environment variable will be set in Podfile.properties.json and gradle.properties. This causes Xcode and Android Studio debug builds to be built with expo-updates enabled, and JS debugging (with dev client or packager) disabled. This should not be used in production.",
+              "type": "boolean",
+              "markdownDescription": "Enable debugging of native code with updates enabled. Defaults to false. If set to true, the EX_UPDATES_NATIVE_DEBUG environment variable will be set in Podfile.properties.json and gradle.properties. This causes Xcode and Android Studio debug builds to be built with expo-updates enabled, and JS debugging (with dev client or packager) disabled. This should not be used in production."
             }
           },
           "additionalProperties": false,
@@ -1790,7 +1824,7 @@
           "$ref": "#/definitions/Splash"
         },
         "jsEngine": {
-          "description": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
+          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
           "type": "string",
           "enum": [
             "hermes",
@@ -1799,7 +1833,7 @@
           "meta": {
             "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
           },
-          "markdownDescription": "Specifies the JavaScript engine for apps. Supported only on EAS Build. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
+          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
         },
         "newArchEnabled": {
           "description": "A Boolean value that indicates whether the app should use the new architecture. Defaults to true.",
@@ -1874,6 +1908,40 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "Experimentally enable React Server Functions support in Expo CLI and Expo Router."
+            },
+            "remoteBuildCache": {
+              "description": "Experimentally enable downloading cached builds from remote.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "provider": {
+                  "description": "Service provider for remote builds.",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "eas"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "plugin": {
+                          "type": "string"
+                        },
+                        "options": {
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "plugin"
+                      ]
+                    }
+                  ],
+                  "markdownDescription": "Service provider for remote builds."
+                }
+              },
+              "markdownDescription": "Experimentally enable downloading cached builds from remote."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
@@ -1884,8 +1952,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v52.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v52.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v53.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v53.0.0/config/app/)"
     }
   },
   "oneOf": [
