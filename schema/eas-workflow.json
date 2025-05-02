@@ -25,6 +25,24 @@
               "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
               "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
             },
+            "paths": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
+              "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
+            },
             "tags": {
               "type": "array",
               "items": {
@@ -1996,6 +2014,24 @@
                   },
                   "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
                   "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
+                },
+                "paths": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
+                  "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
                 },
                 "tags": {
                   "type": "array",
