@@ -90,6 +90,24 @@
               "description": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't.",
               "markdownDescription": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't."
             },
+            "paths": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
+              "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
+            },
             "types": {
               "type": "array",
               "items": {
@@ -2079,6 +2097,24 @@
                   ],
                   "description": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't.",
                   "markdownDescription": "If a given pull request's target branch matches any of entries here, updates of the pull request will start a new workflow. Example: if you specify \"main\" here, a pull request from \"feat/add-signup\" to \"main\" will start a workflow, but a pull request from \"main\" to \"release/1.0\" won't."
+                },
+                "paths": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
+                  "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
                 },
                 "types": {
                   "type": "array",
