@@ -1575,7 +1575,7 @@
           "markdownDescription": "Configuration for remote (push) notifications."
         },
         "androidStatusBar": {
-          "description": "Configuration for the status bar on Android. For more details please navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).",
+          "description": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).",
           "type": "object",
           "properties": {
             "barStyle": {
@@ -1609,7 +1609,7 @@
             }
           },
           "additionalProperties": false,
-          "markdownDescription": "Configuration for the status bar on Android. For more details please navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/)."
+          "markdownDescription": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/)."
         },
         "androidNavigationBar": {
           "description": "Configuration for the bottom navigation bar on Android. Can be used to configure the `expo-navigation-bar` module in EAS Build.",
