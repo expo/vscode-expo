@@ -1988,8 +1988,8 @@
         "group": {
           "type": "string",
           "const": "${{ workflow.filename }}-${{ github.ref }}",
-          "description": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible.",
-          "markdownDescription": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible."
+          "description": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available.",
+          "markdownDescription": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available."
         }
       },
       "required": [
@@ -3996,8 +3996,8 @@
             "group": {
               "type": "string",
               "const": "${{ workflow.filename }}-${{ github.ref }}",
-              "description": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible.",
-              "markdownDescription": "We do not support custom concurrency groups yet. Please set this placeholder value so when we do support custom groups your workflow remains compatible."
+              "description": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available.",
+              "markdownDescription": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available."
             }
           },
           "required": [
