@@ -1247,6 +1247,12 @@
                     "description": "Path (or a list of paths)to the Maestro test file(s).",
                     "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
                   },
+                  "record": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "(experimental) Upload a screen recording of the tests.",
+                    "markdownDescription": "(experimental) Upload a screen recording of the tests."
+                  },
                   "shards": {
                     "type": "integer",
                     "exclusiveMinimum": 0,
@@ -3254,6 +3260,12 @@
                         ],
                         "description": "Path (or a list of paths)to the Maestro test file(s).",
                         "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                      },
+                      "record": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "(experimental) Upload a screen recording of the tests.",
+                        "markdownDescription": "(experimental) Upload a screen recording of the tests."
                       },
                       "shards": {
                         "type": "integer",
