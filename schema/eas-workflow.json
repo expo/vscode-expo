@@ -883,12 +883,39 @@
                 "type": "object",
                 "properties": {
                   "alias": {
-                    "type": "string",
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "description": "Custom alias to assign to the new deployment.",
                     "markdownDescription": "Custom alias to assign to the new deployment."
                   },
                   "prod": {
-                    "type": "boolean",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
                     "description": "Create a new production deployment.",
                     "markdownDescription": "Create a new production deployment."
                   }
@@ -1087,40 +1114,147 @@
                 "type": "object",
                 "properties": {
                   "app_build_version": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "app_identifier": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "app_version": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "channel": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "distribution": {
                     "type": "string"
                   },
                   "fingerprint_hash": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "git_commit_hash": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "platform": {
                     "type": "string"
                   },
                   "profile": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "runtime_version": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "sdk_version": {
-                    "type": "string"
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "simulator": {
-                    "type": "boolean"
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
                   }
                 },
                 "additionalProperties": false,
@@ -1247,11 +1381,11 @@
                     "description": "Path (or a list of paths)to the Maestro test file(s).",
                     "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
                   },
-                  "record": {
+                  "record_screen": {
                     "type": "boolean",
                     "default": false,
-                    "description": "(experimental) Upload a screen recording of the tests.",
-                    "markdownDescription": "(experimental) Upload a screen recording of the tests."
+                    "description": "Upload a screen recording of the tests.",
+                    "markdownDescription": "Upload a screen recording of the tests."
                   },
                   "shards": {
                     "type": "integer",
@@ -2897,12 +3031,39 @@
                     "type": "object",
                     "properties": {
                       "alias": {
-                        "type": "string",
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "description": "Custom alias to assign to the new deployment.",
                         "markdownDescription": "Custom alias to assign to the new deployment."
                       },
                       "prod": {
-                        "type": "boolean",
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
                         "description": "Create a new production deployment.",
                         "markdownDescription": "Create a new production deployment."
                       }
@@ -3101,40 +3262,147 @@
                     "type": "object",
                     "properties": {
                       "app_build_version": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "app_identifier": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "app_version": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "channel": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "distribution": {
                         "type": "string"
                       },
                       "fingerprint_hash": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "git_commit_hash": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "platform": {
                         "type": "string"
                       },
                       "profile": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "runtime_version": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "sdk_version": {
-                        "type": "string"
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
                       },
                       "simulator": {
-                        "type": "boolean"
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
                       }
                     },
                     "additionalProperties": false,
@@ -3261,11 +3529,11 @@
                         "description": "Path (or a list of paths)to the Maestro test file(s).",
                         "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
                       },
-                      "record": {
+                      "record_screen": {
                         "type": "boolean",
                         "default": false,
-                        "description": "(experimental) Upload a screen recording of the tests.",
-                        "markdownDescription": "(experimental) Upload a screen recording of the tests."
+                        "description": "Upload a screen recording of the tests.",
+                        "markdownDescription": "Upload a screen recording of the tests."
                       },
                       "shards": {
                         "type": "integer",
