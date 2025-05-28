@@ -1288,6 +1288,237 @@
               },
               "type": {
                 "type": "string",
+                "const": "maestro-cloud"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in.",
+                "default": "preview"
+              },
+              "image": {
+                "type": "string",
+                "default": "auto",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "build_id": {
+                    "type": "string",
+                    "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  },
+                  "maestro_project_id": {
+                    "type": "string",
+                    "description": "ID of the Maestro project to use for the test. Go to \"Settings\" on https://app.maestro.dev/ to see the project ID.",
+                    "markdownDescription": "ID of the Maestro project to use for the test. Go to \"Settings\" on https://app.maestro.dev/ to see the project ID."
+                  },
+                  "maestro_api_key": {
+                    "type": "string",
+                    "default": "$MAESTRO_API_KEY",
+                    "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used.",
+                    "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used."
+                  },
+                  "flow_path": {
+                    "type": "string",
+                    "description": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`.",
+                    "markdownDescription": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`."
+                  },
+                  "include_tags": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "description": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`.",
+                    "markdownDescription": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`."
+                  },
+                  "exclude_tags": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
+                    "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
+                  },
+                  "maestro_version": {
+                    "type": "string",
+                    "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
+                    "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
+                  },
+                  "android_api_level": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`.",
+                    "markdownDescription": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`."
+                  },
+                  "maestro_config": {
+                    "type": "string",
+                    "description": "Optional path to a Maestro `config.yaml` file. Corresponds to the `--config` flag in `maestro cloud`.",
+                    "markdownDescription": "Optional path to a Maestro `config.yaml` file. Corresponds to the `--config` flag in `maestro cloud`."
+                  },
+                  "device_locale": {
+                    "type": "string",
+                    "description": "Locale to use for the tests. Corresponds to the `--device-locale` flag in `maestro cloud`.",
+                    "markdownDescription": "Locale to use for the tests. Corresponds to the `--device-locale` flag in `maestro cloud`."
+                  },
+                  "device_model": {
+                    "type": "string",
+                    "description": "Model of the device to use for the tests. Corresponds to the `--device-model` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
+                    "markdownDescription": "Model of the device to use for the tests. Corresponds to the `--device-model` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                  },
+                  "device_os": {
+                    "type": "string",
+                    "description": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
+                    "markdownDescription": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                  }
+                },
+                "required": [
+                  "build_id",
+                  "maestro_project_id",
+                  "flow_path"
+                ],
+                "additionalProperties": false
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
+              },
+              "runs_on": {
+                "type": "string",
+                "enum": [
+                  "linux-medium",
+                  "linux-large",
+                  "macos-medium",
+                  "macos-large",
+                  "linux-medium-nested-virtualization",
+                  "linux-large-nested-virtualization"
+                ],
+                "description": "Runner to use for the job.",
+                "markdownDescription": "Runner to use for the job."
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
                 "const": "maestro"
               },
               "if": {
@@ -3408,6 +3639,237 @@
                     "additionalProperties": false,
                     "description": "Filters to find the build by.",
                     "markdownDescription": "Filters to find the build by."
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "maestro-cloud"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in.",
+                    "default": "preview"
+                  },
+                  "image": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "build_id": {
+                        "type": "string",
+                        "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "maestro_project_id": {
+                        "type": "string",
+                        "description": "ID of the Maestro project to use for the test. Go to \"Settings\" on https://app.maestro.dev/ to see the project ID.",
+                        "markdownDescription": "ID of the Maestro project to use for the test. Go to \"Settings\" on https://app.maestro.dev/ to see the project ID."
+                      },
+                      "maestro_api_key": {
+                        "type": "string",
+                        "default": "$MAESTRO_API_KEY",
+                        "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used.",
+                        "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used."
+                      },
+                      "flow_path": {
+                        "type": "string",
+                        "description": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`.",
+                        "markdownDescription": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`."
+                      },
+                      "include_tags": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "description": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`.",
+                        "markdownDescription": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`."
+                      },
+                      "exclude_tags": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "description": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`.",
+                        "markdownDescription": "Tags to exclude from the tests. Will be passed to Maestro as `--exclude-tags`."
+                      },
+                      "maestro_version": {
+                        "type": "string",
+                        "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
+                        "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
+                      },
+                      "android_api_level": {
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "description": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`.",
+                        "markdownDescription": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`."
+                      },
+                      "maestro_config": {
+                        "type": "string",
+                        "description": "Optional path to a Maestro `config.yaml` file. Corresponds to the `--config` flag in `maestro cloud`.",
+                        "markdownDescription": "Optional path to a Maestro `config.yaml` file. Corresponds to the `--config` flag in `maestro cloud`."
+                      },
+                      "device_locale": {
+                        "type": "string",
+                        "description": "Locale to use for the tests. Corresponds to the `--device-locale` flag in `maestro cloud`.",
+                        "markdownDescription": "Locale to use for the tests. Corresponds to the `--device-locale` flag in `maestro cloud`."
+                      },
+                      "device_model": {
+                        "type": "string",
+                        "description": "Model of the device to use for the tests. Corresponds to the `--device-model` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
+                        "markdownDescription": "Model of the device to use for the tests. Corresponds to the `--device-model` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                      },
+                      "device_os": {
+                        "type": "string",
+                        "description": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
+                        "markdownDescription": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                      }
+                    },
+                    "required": [
+                      "build_id",
+                      "maestro_project_id",
+                      "flow_path"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
+                  },
+                  "runs_on": {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ],
+                    "description": "Runner to use for the job.",
+                    "markdownDescription": "Runner to use for the job."
                   }
                 },
                 "required": [
