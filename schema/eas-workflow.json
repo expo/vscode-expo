@@ -1373,11 +1373,11 @@
                   },
                   "maestro_api_key": {
                     "type": "string",
-                    "default": "$MAESTRO_API_KEY",
-                    "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used.",
-                    "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used."
+                    "default": "$MAESTRO_CLOUD_API_KEY",
+                    "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_CLOUD_API_KEY environment variable will be used.",
+                    "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_CLOUD_API_KEY environment variable will be used."
                   },
-                  "flow_path": {
+                  "flows": {
                     "type": "string",
                     "description": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`.",
                     "markdownDescription": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`."
@@ -1456,7 +1456,7 @@
                 "required": [
                   "build_id",
                   "maestro_project_id",
-                  "flow_path"
+                  "flows"
                 ],
                 "additionalProperties": false
               },
@@ -3752,11 +3752,11 @@
                       },
                       "maestro_api_key": {
                         "type": "string",
-                        "default": "$MAESTRO_API_KEY",
-                        "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used.",
-                        "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_API_KEY environment variable will be used."
+                        "default": "$MAESTRO_CLOUD_API_KEY",
+                        "description": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_CLOUD_API_KEY environment variable will be used.",
+                        "markdownDescription": "API key to use for the Maestro project. Go to \"Settings\" on https://app.maestro.dev/ to generate an API key. When not specified, MAESTRO_CLOUD_API_KEY environment variable will be used."
                       },
-                      "flow_path": {
+                      "flows": {
                         "type": "string",
                         "description": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`.",
                         "markdownDescription": "Path to a Maestro test file or a directory containing the files. Corresponds to the `--flows` flag in `maestro cloud`."
@@ -3835,7 +3835,7 @@
                     "required": [
                       "build_id",
                       "maestro_project_id",
-                      "flow_path"
+                      "flows"
                     ],
                     "additionalProperties": false
                   },
