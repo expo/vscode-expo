@@ -1670,6 +1670,40 @@
                     "type": "string",
                     "description": "Android emulator system image package to use. Run `sdkmanager --list` on your machine to list available packages. Choose an `x86_64` variant. Examples: `system-images;android-36;google_apis;x86_64`, `system-images;android-35-ext15;google_apis_playstore;x86_64`.",
                     "markdownDescription": "Android emulator system image package to use. Run `sdkmanager --list` on your machine to list available packages. Choose an `x86_64` variant. Examples: `system-images;android-36;google_apis;x86_64`, `system-images;android-35-ext15;google_apis_playstore;x86_64`."
+                  },
+                  "device_identifier": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "android": {
+                            "type": "string",
+                            "description": "Android emulator device identifier. E.g. \"pixel_6\".",
+                            "markdownDescription": "Android emulator device identifier. E.g. \"pixel_6\"."
+                          },
+                          "ios": {
+                            "type": "string",
+                            "description": "iOS Simulator device identifier. E.g. \"iPhone 16\"",
+                            "markdownDescription": "iOS Simulator device identifier. E.g. \"iPhone 16\""
+                          }
+                        },
+                        "additionalProperties": false
+                      },
+                      {
+                        "anyOf": [
+                          {
+                            "not": {}
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "description": "Device identifier to emulate / simulate. Make sure to use value appropriate for the runtime platform. E.g. \"iPhone 16\" for iOS, \"pixel_6\" for Android.",
+                        "markdownDescription": "Device identifier to emulate / simulate. Make sure to use value appropriate for the runtime platform. E.g. \"iPhone 16\" for iOS, \"pixel_6\" for Android."
+                      }
+                    ],
+                    "description": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices.",
+                    "markdownDescription": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices."
                   }
                 },
                 "required": [
@@ -4143,6 +4177,40 @@
                         "type": "string",
                         "description": "Android emulator system image package to use. Run `sdkmanager --list` on your machine to list available packages. Choose an `x86_64` variant. Examples: `system-images;android-36;google_apis;x86_64`, `system-images;android-35-ext15;google_apis_playstore;x86_64`.",
                         "markdownDescription": "Android emulator system image package to use. Run `sdkmanager --list` on your machine to list available packages. Choose an `x86_64` variant. Examples: `system-images;android-36;google_apis;x86_64`, `system-images;android-35-ext15;google_apis_playstore;x86_64`."
+                      },
+                      "device_identifier": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "android": {
+                                "type": "string",
+                                "description": "Android emulator device identifier. E.g. \"pixel_6\".",
+                                "markdownDescription": "Android emulator device identifier. E.g. \"pixel_6\"."
+                              },
+                              "ios": {
+                                "type": "string",
+                                "description": "iOS Simulator device identifier. E.g. \"iPhone 16\"",
+                                "markdownDescription": "iOS Simulator device identifier. E.g. \"iPhone 16\""
+                              }
+                            },
+                            "additionalProperties": false
+                          },
+                          {
+                            "anyOf": [
+                              {
+                                "not": {}
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Device identifier to emulate / simulate. Make sure to use value appropriate for the runtime platform. E.g. \"iPhone 16\" for iOS, \"pixel_6\" for Android.",
+                            "markdownDescription": "Device identifier to emulate / simulate. Make sure to use value appropriate for the runtime platform. E.g. \"iPhone 16\" for iOS, \"pixel_6\" for Android."
+                          }
+                        ],
+                        "description": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices.",
+                        "markdownDescription": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices."
                       }
                     },
                     "required": [
