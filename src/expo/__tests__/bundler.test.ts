@@ -15,18 +15,6 @@ describe('fetchDevicesToInspect', () => {
   });
 
   it('filters by page id', async () => {
-    const mockDeviceWithNativePageReloads = (device) =>
-      mockDevice({
-        ...device,
-        reactNative: {
-          ...device.reactNative,
-          capabilities: {
-            nativePageReloads: true,
-            ...device.reactNative?.capabilities,
-          },
-        },
-      });
-
     using _fetch = stubFetch([
       // SDK 52
       mockDeviceWithNativePageReloads({
@@ -71,6 +59,36 @@ describe('fetchDevicesToInspect', () => {
       }),
     ]);
   });
+
+  it('filters reanimated ui', async () => {
+    using _fetch = stubFetch([
+      // SDK 53+
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'React Native Bridgeless [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=1',
+      }),
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'Reanimated UI runtime [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=2',
+      }),
+    ]);
+
+    const devices = await fetchDevicesToInspect({ host, port });
+
+    expect(devices).to.have.length(1);
+    expect(devices).to.deep.equal([
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'React Native Bridgeless [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=1',
+      }),
+    ]);
+  });
 });
 
 describe('findDeviceByName', () => {
@@ -111,3 +129,15 @@ describe('inferDevicePlatform', () => {
     expect(inferDevicePlatform({ deviceName: 'Cedric’s MacBook Pro' })).to.equal('macos');
   });
 });
+
+const mockDeviceWithNativePageReloads = (device) =>
+  mockDevice({
+    ...device,
+    reactNative: {
+      ...device.reactNative,
+      capabilities: {
+        nativePageReloads: true,
+        ...device.reactNative?.capabilities,
+      },
+    },
+  });

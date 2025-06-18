@@ -50,9 +50,9 @@ export async function fetchDevicesToInspect({
   const devices = (await response.json()) as InspectableDevice[];
   const reloadable = devices.filter(
     (device) =>
-      device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
-      device.reactNative?.capabilities?.nativePageReloads || // SDK 52+
-      device.description !== REANIMATED_UI_CDP_RUNTIME // SDK 53+
+      device.description !== REANIMATED_UI_CDP_RUNTIME && // SDK 53+
+      (device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
+        device.reactNative?.capabilities?.nativePageReloads) // SDK 52+
   );
 
   // Manual filter for Expo Go, we really need to fix this
