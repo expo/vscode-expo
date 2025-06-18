@@ -14,7 +14,6 @@ describe('fetchDevicesToInspect', () => {
     expect(fetch).to.have.been.calledWith(`http://${host}:${port}/json/list`);
   });
 
-  // TODO: find out why the stubbing isnt working for this fetch
   it('filters by page id', async () => {
     const mockDeviceWithNativePageReloads = (device) =>
       mockDevice({
