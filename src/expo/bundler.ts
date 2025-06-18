@@ -5,6 +5,7 @@ import { truthy } from '../utils/array';
 
 const INSPECTABLE_DEVICE_TITLE = 'React Native Experimental (Improved Chrome Reloads)';
 const REACT_NATIVE_BRIDGELESS_CDP_RUNTIME = 'React Native Bridgeless [C++ connection]';
+const REANIMATED_UI_CDP_RUNTIME = 'Reanimated UI runtime [C++ connection]';
 
 export interface InspectableDevice {
   id: string;
@@ -50,7 +51,8 @@ export async function fetchDevicesToInspect({
   const reloadable = devices.filter(
     (device) =>
       device.title === INSPECTABLE_DEVICE_TITLE || // SDK <51
-      device.reactNative?.capabilities?.nativePageReloads // SDK 52+
+      device.reactNative?.capabilities?.nativePageReloads || // SDK 52+
+      device.description !== REANIMATED_UI_CDP_RUNTIME // SDK 53+
   );
 
   // Manual filter for Expo Go, we really need to fix this
