@@ -4,6 +4,7 @@ import vscode from 'vscode';
 import { truthy } from '../utils/array';
 
 const INSPECTABLE_DEVICE_TITLE = 'React Native Experimental (Improved Chrome Reloads)';
+const REACT_NATIVE_BRIDGELESS_CDP_RUNTIME = 'React Native Bridgeless [C++ connection]';
 
 export interface InspectableDevice {
   id: string;
@@ -55,7 +56,16 @@ export async function fetchDevicesToInspect({
   // Manual filter for Expo Go, we really need to fix this
   const inspectable = reloadable.filter((device, index, list) => {
     // Only apply this to SDK 52+
-    if (device.title !== 'React Native Bridgeless [C++ connection]') return true;
+    if (
+      ![
+        // SDK 52
+        device.title,
+        // SDK 53+ (https://github.com/expo/expo/commit/f545f30fe1df3dd0d346b12aa65a2feb7cb27439)
+        device.description,
+      ].includes(REACT_NATIVE_BRIDGELESS_CDP_RUNTIME)
+    )
+      return true;
+
     // If there are multiple inspectable pages, only use highest page number
     const devicesByPageNumber = list
       .filter((other) => device.title === other.title)

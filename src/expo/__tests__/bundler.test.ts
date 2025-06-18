@@ -15,27 +15,60 @@ describe('fetchDevicesToInspect', () => {
   });
 
   // TODO: find out why the stubbing isnt working for this fetch
-  xit('filters by page id', async () => {
-    using _fetch = stubFetch([
+  it('filters by page id', async () => {
+    const mockDeviceWithNativePageReloads = (device) =>
       mockDevice({
+        ...device,
+        reactNative: {
+          ...device.reactNative,
+          capabilities: {
+            nativePageReloads: true,
+            ...device.reactNative?.capabilities,
+          },
+        },
+      });
+
+    using _fetch = stubFetch([
+      // SDK 52
+      mockDeviceWithNativePageReloads({
         title: 'React Native Bridgeless [C++ connection]',
         deviceName: 'iPhone 15 Pro',
         webSocketDebuggerUrl: 'ws://localhost:8081/inspector/device?page=1',
       }),
-      mockDevice({
+      mockDeviceWithNativePageReloads({
         title: 'React Native Bridgeless [C++ connection]',
         deviceName: 'iPhone 15 Pro',
         webSocketDebuggerUrl: 'ws://localhost:8081/inspector/device?page=2',
+      }),
+      // SDK 53+
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'React Native Bridgeless [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=1',
+      }),
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'React Native Bridgeless [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=2',
       }),
     ]);
 
     const devices = await fetchDevicesToInspect({ host, port });
 
-    expect(devices).to.have.length(1);
+    expect(devices).to.have.length(2);
     expect(devices).to.deep.equal([
-      mockDevice({
+      mockDeviceWithNativePageReloads({
+        title: 'React Native Bridgeless [C++ connection]',
         deviceName: 'iPhone 15 Pro',
         webSocketDebuggerUrl: 'ws://localhost:8081/inspector/device?page=2',
+      }),
+      mockDeviceWithNativePageReloads({
+        title: 'com.expo.app (iPhone 16 Pro)',
+        description: 'React Native Bridgeless [C++ connection]',
+        deviceName: 'iPhone 16 Pro',
+        webSocketDebuggerUrl: 'ws://localhost:8082/inspector/device?page=2',
       }),
     ]);
   });
