@@ -2304,6 +2304,137 @@
               "params"
             ],
             "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "repack"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "build_id": {
+                    "type": "string",
+                    "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  },
+                  "profile": {
+                    "type": "string",
+                    "description": "Build profile name to use. By default uses the same profile as the source build.",
+                    "markdownDescription": "Build profile name to use. By default uses the same profile as the source build."
+                  },
+                  "embed_bundle_assets": {
+                    "type": "boolean",
+                    "description": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app.",
+                    "markdownDescription": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app."
+                  }
+                },
+                "required": [
+                  "build_id"
+                ],
+                "additionalProperties": false
+              },
+              "outputs": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Job outputs.",
+                "markdownDescription": "Job outputs."
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
           }
         ]
       },
@@ -4804,6 +4935,137 @@
                       "md"
                     ],
                     "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "repack"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "build_id": {
+                        "type": "string",
+                        "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "profile": {
+                        "type": "string",
+                        "description": "Build profile name to use. By default uses the same profile as the source build.",
+                        "markdownDescription": "Build profile name to use. By default uses the same profile as the source build."
+                      },
+                      "embed_bundle_assets": {
+                        "type": "boolean",
+                        "description": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app.",
+                        "markdownDescription": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app."
+                      }
+                    },
+                    "required": [
+                      "build_id"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "outputs": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "description": "Job outputs.",
+                    "markdownDescription": "Job outputs."
                   }
                 },
                 "required": [
