@@ -1916,6 +1916,14 @@
                     "type": "string",
                     "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
                     "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  },
+                  "groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "TestFlight internal group names to add the build to.",
+                    "markdownDescription": "TestFlight internal group names to add the build to."
                   }
                 },
                 "required": [
@@ -4554,6 +4562,14 @@
                         "type": "string",
                         "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
                         "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "groups": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "TestFlight internal group names to add the build to.",
+                        "markdownDescription": "TestFlight internal group names to add the build to."
                       }
                     },
                     "required": [
