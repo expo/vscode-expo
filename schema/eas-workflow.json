@@ -1451,6 +1451,28 @@
                     "type": "string",
                     "description": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
                     "markdownDescription": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                  },
+                  "skip_build_check": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "description": "Skip validation of the build (whether an iOS build is a simulator build).",
+                    "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
                   }
                 },
                 "required": [
@@ -1704,6 +1726,28 @@
                     ],
                     "description": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices.",
                     "markdownDescription": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices."
+                  },
+                  "skip_build_check": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "description": "Skip validation of the build (whether an iOS build is a simulator build).",
+                    "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
                   }
                 },
                 "required": [
@@ -4097,6 +4141,28 @@
                         "type": "string",
                         "description": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values.",
                         "markdownDescription": "OS of the device to use for the tests. Corresponds to the `--device-os` flag in `maestro cloud`. Run `maestro cloud --help` for an up-to-date list of supported values."
+                      },
+                      "skip_build_check": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "description": "Skip validation of the build (whether an iOS build is a simulator build).",
+                        "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
                       }
                     },
                     "required": [
@@ -4350,6 +4416,28 @@
                         ],
                         "description": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices.",
                         "markdownDescription": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices."
+                      },
+                      "skip_build_check": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "description": "Skip validation of the build (whether an iOS build is a simulator build).",
+                        "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
                       }
                     },
                     "required": [
