@@ -1688,6 +1688,14 @@
                     "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
                     "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
                   },
+                  "output_format": {
+                    "type": "string",
+                    "enum": [
+                      "junit"
+                    ],
+                    "description": "Maestro test report format. Will be passed to Maestro as `--format`.",
+                    "markdownDescription": "Maestro test report format. Will be passed to Maestro as `--format`."
+                  },
                   "android_system_image_package": {
                     "type": "string",
                     "description": "Android emulator system image package to use. Run `sdkmanager --list` on your machine to list available packages. Choose an `x86_64` variant. Examples: `system-images;android-36;google_apis;x86_64`, `system-images;android-35-ext15;google_apis_playstore;x86_64`.",
@@ -4377,6 +4385,14 @@
                         "type": "string",
                         "description": "Version of Maestro to use for the tests. If not provided, the latest version will be used.",
                         "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
+                      },
+                      "output_format": {
+                        "type": "string",
+                        "enum": [
+                          "junit"
+                        ],
+                        "description": "Maestro test report format. Will be passed to Maestro as `--format`.",
+                        "markdownDescription": "Maestro test report format. Will be passed to Maestro as `--format`."
                       },
                       "android_system_image_package": {
                         "type": "string",
