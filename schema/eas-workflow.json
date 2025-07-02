@@ -1473,6 +1473,38 @@
                     ],
                     "description": "Skip validation of the build (whether an iOS build is a simulator build).",
                     "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name for the Maestro Cloud upload. Corresponds to the `--name` flag in `maestro cloud`.",
+                    "markdownDescription": "Name for the Maestro Cloud upload. Corresponds to the `--name` flag in `maestro cloud`."
+                  },
+                  "branch": {
+                    "type": "string",
+                    "description": "Override for the branch the Maestro Cloud upload originated from. By default, if the workflow run has been triggered from GitHub, the branch of the workflow run will be used. Corresponds to the `--branch` flag in `maestro cloud`.",
+                    "markdownDescription": "Override for the branch the Maestro Cloud upload originated from. By default, if the workflow run has been triggered from GitHub, the branch of the workflow run will be used. Corresponds to the `--branch` flag in `maestro cloud`."
+                  },
+                  "async": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "description": "Run the Maestro Cloud tests asynchronously. If true, the status of the job will only denote whether the upload was successful, *not* whether the tests succeeded. Corresponds to the `--async` flag in `maestro cloud`.",
+                    "markdownDescription": "Run the Maestro Cloud tests asynchronously. If true, the status of the job will only denote whether the upload was successful, *not* whether the tests succeeded. Corresponds to the `--async` flag in `maestro cloud`."
                   }
                 },
                 "required": [
@@ -4171,6 +4203,38 @@
                         ],
                         "description": "Skip validation of the build (whether an iOS build is a simulator build).",
                         "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name for the Maestro Cloud upload. Corresponds to the `--name` flag in `maestro cloud`.",
+                        "markdownDescription": "Name for the Maestro Cloud upload. Corresponds to the `--name` flag in `maestro cloud`."
+                      },
+                      "branch": {
+                        "type": "string",
+                        "description": "Override for the branch the Maestro Cloud upload originated from. By default, if the workflow run has been triggered from GitHub, the branch of the workflow run will be used. Corresponds to the `--branch` flag in `maestro cloud`.",
+                        "markdownDescription": "Override for the branch the Maestro Cloud upload originated from. By default, if the workflow run has been triggered from GitHub, the branch of the workflow run will be used. Corresponds to the `--branch` flag in `maestro cloud`."
+                      },
+                      "async": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "description": "Run the Maestro Cloud tests asynchronously. If true, the status of the job will only denote whether the upload was successful, *not* whether the tests succeeded. Corresponds to the `--async` flag in `maestro cloud`.",
+                        "markdownDescription": "Run the Maestro Cloud tests asynchronously. If true, the status of the job will only denote whether the upload was successful, *not* whether the tests succeeded. Corresponds to the `--async` flag in `maestro cloud`."
                       }
                     },
                     "required": [
