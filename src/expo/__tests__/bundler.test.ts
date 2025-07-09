@@ -130,7 +130,7 @@ describe('inferDevicePlatform', () => {
   });
 });
 
-const mockDeviceWithNativePageReloads = (device) =>
+const mockDeviceWithNativePageReloads = (device: Record<string, any>) =>
   mockDevice({
     ...device,
     reactNative: {
