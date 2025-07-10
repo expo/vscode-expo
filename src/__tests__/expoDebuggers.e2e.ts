@@ -3,8 +3,9 @@ import { match } from 'sinon';
 import vscode from 'vscode';
 
 import { mockDevice, stubInspectorProxy } from './utils/debugging';
-import { disposedSpy, disposedStub } from './utils/sinon';
+import { disposedStub } from './utils/sinon';
 import { getWorkspaceUri } from './utils/vscode';
+import { waitForTrue } from './utils/wait';
 
 describe('ExpoDebuggersProvider', () => {
   describe('command', () => {
@@ -67,15 +68,14 @@ describe('ExpoDebuggersProvider', () => {
     });
 
     it('starts debug session with device url', async () => {
-      await using proxy = await stubInspectorProxy();
-      using upgrade = disposedSpy(proxy.sockets, 'handleUpgrade');
+      await using proxy = await stubInspectorProxy(9000);
       const device = mockDevice({ deviceName: 'Fake target' }, proxy);
 
       // Return the devices when requested, without stubbing fetch.
       // Note, stubbing fetch doesn't work when testing production build as `node-fetch` gets bundled.
       proxy.app.callsFake((req, res) => {
         if (req.url === '/json/list') return res.end(JSON.stringify([device]));
-        throw new Error('Invalid request: ' + req.url);
+        throw new Error('Unexpected request: ' + req.url);
       });
 
       await vscode.debug.startDebugging(undefined, {
@@ -87,23 +87,27 @@ describe('ExpoDebuggersProvider', () => {
         projectRoot: getWorkspaceUri('debugging').fsPath,
       });
 
+      await waitForTrue(() => proxy.websockets.length > 0);
       await vscode.commands.executeCommand('workbench.action.debug.stop');
 
+      // Ensure `/json/list` was called
       expect(proxy.app).to.be.called;
-      expect(upgrade).to.be.called;
 
+      // Find the created websocket to `/inspector/debug`
+      const instance = proxy.websockets.find(({ request }) => {
+        console.log(request.url);
+        return request.url?.startsWith('/inspector/debug');
+      });
       // Ensure the debug URL is correct, it should look like:
       //   /inspector/debug?device=DEVICE_ID&page=PAGE_ID&userAgent=USER_AGENT
-      const request = upgrade.getCall(1).args[0];
-      expect(request.url).to.include('/inspector/debug');
-      expect(request.url).to.include(`?device=${device.id}`);
-      expect(request.url).to.include(`&page=`);
-      expect(request.url).to.include(`&userAgent=vscode`);
+      expect(instance).not.to.be.undefined;
+      expect(instance?.request.url).to.include(`?device=${device.id}`);
+      expect(instance?.request.url).to.include(`&page=`);
+      expect(instance?.request.url).to.include(`&userAgent=vscode`);
     });
 
     it('starts debug session with user-picked device url', async () => {
-      await using proxy = await stubInspectorProxy();
-      using upgrade = disposedSpy(proxy.sockets, 'handleUpgrade');
+      await using proxy = await stubInspectorProxy(9100);
       using quickPick = disposedStub(vscode.window, 'showQuickPick');
       const devices = [
         mockDevice({ deviceName: 'Another target' }, proxy),
@@ -115,7 +119,7 @@ describe('ExpoDebuggersProvider', () => {
       // Note, stubbing fetch doesn't work when testing production build as `node-fetch` gets bundled.
       proxy.app.callsFake((req, res) => {
         if (req.url === '/json/list') return res.end(JSON.stringify(devices));
-        throw new Error('Invalid request: ' + req.url);
+        throw new Error('Unexpected request: ' + req.url);
       });
 
       // @ts-expect-error - We are using string return values, not quickpick items
@@ -130,10 +134,12 @@ describe('ExpoDebuggersProvider', () => {
         projectRoot: getWorkspaceUri('debugging').fsPath,
       });
 
+      await waitForTrue(() => proxy.websockets.length > 0);
       await vscode.commands.executeCommand('workbench.action.debug.stop');
 
+      // Ensure `/json/list` was called
       expect(proxy.app).to.be.called;
-      expect(upgrade).to.be.called;
+      // Ensure quick pick was shown
       expect(quickPick).to.be.calledWith(
         match.array.deepEquals(['Another target', 'Fake target', 'Yet another target']),
         match({
@@ -141,10 +147,13 @@ describe('ExpoDebuggersProvider', () => {
         })
       );
 
+      // Find the created websocket to `/inspector/debug`
+      const instance = proxy.websockets.find(({ request }) =>
+        request.url?.startsWith('/inspector/debug')
+      );
       // Ensure the debug URL is correct, it should use the "Fake target" device ID
-      const request = upgrade.getCall(1).args[0];
-      expect(request.url).to.include('/inspector/debug');
-      expect(request.url).to.include(`?device=the-one`);
+      expect(instance).not.to.be.undefined;
+      expect(instance?.request.url).to.include(`?device=the-one`);
     });
   });
 });

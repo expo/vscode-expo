@@ -8,11 +8,11 @@ inputs:
 
   with-fixture:
     description: If the setup should install the test/fixture files
-    type: boolean
+    default: "false"
 
   without-cache:
     description: If the Node package cache should not be used
-    type: boolean
+    default: "false"
 
 runs:
   using: composite

@@ -12,7 +12,7 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "${workspaceFolder}/test/fixture",
-        "--extensionDevelopmentPath=${workspaceFolder}"
+        "--extensionDevelopmentPath=${workspaceFolder}",
       ],
       "env": {
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
@@ -21,7 +21,7 @@
       "outFiles": [
         "${workspaceFolder}/out/**/*.js"
       ],
-      "preLaunchTask": "launch-start-development"
+      "preLaunchTask": "launch-start-development",
     },
     {
       "name": "Start (production)",
@@ -30,16 +30,16 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "${workspaceFolder}/test/fixture",
-        "--extensionDevelopmentPath=${workspaceFolder}"
+        "--extensionDevelopmentPath=${workspaceFolder}",
       ],
       "env": {
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
-        "VSCODE_EXPO_TELEMETRY_KEY": null
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-start-production"
+      "preLaunchTask": "launch-start-production",
     },
     {
       "name": "Test (development)",
@@ -50,18 +50,17 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": "true", // Force snapshots into "no update" mode
         "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
-        "VSCODE_EXPO_TELEMETRY_KEY": null
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-test-development"
+      "preLaunchTask": "launch-test-development",
     },
     {
       "name": "Test: current file (development)",
@@ -72,19 +71,18 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": "true", // Force snapshots into "no update" mode
         "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
-        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}"
+        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}",
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-test-development"
+      "preLaunchTask": "launch-test-development",
     },
     {
       "name": "Test (production)",
@@ -95,18 +93,17 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": "true", // Force snapshots into "no update" mode
         "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
-        "VSCODE_EXPO_TELEMETRY_KEY": null
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-test-production"
+      "preLaunchTask": "launch-test-production",
     },
     {
       "name": "Test: current file (production)",
@@ -117,19 +114,18 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": "true", // Force snapshots into "no update" mode
         "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
         "VSCODE_EXPO_TELEMETRY_KEY": null,
-        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}"
+        "VSCODE_EXPO_TEST_PATTERN": "${fileBasenameNoExtension}",
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-test-production"
+      "preLaunchTask": "launch-test-production",
     },
     {
       "name": "Test (no-build)",
@@ -140,17 +136,16 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": "true", // Force snapshots into "no update" mode
         "UPDATE_SNAPSHOT": null, // Force snapshots into "no update" mode
         "VSCODE_EXPO_DEBUG": "vscode-expo*",
-        "VSCODE_EXPO_TELEMETRY_KEY": null
+        "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
-      ]
+        "${workspaceFolder}/out/**/*.js",
+      ],
     },
     {
       "name": "Test (snapshots)",
@@ -161,7 +156,6 @@
         "${workspaceFolder}/test/fixture",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test/mocha/vscode-runner",
-        "--disable-extensions"
       ],
       "env": {
         "CI": null, // Force snapshots into "update" mode
@@ -170,9 +164,9 @@
         "VSCODE_EXPO_TELEMETRY_KEY": null,
       },
       "outFiles": [
-        "${workspaceFolder}/out/**/*.js"
+        "${workspaceFolder}/out/**/*.js",
       ],
-      "preLaunchTask": "launch-test-development"
+      "preLaunchTask": "launch-test-development",
     }
   ]
 }
