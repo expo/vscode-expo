@@ -6,6 +6,9 @@ tsconfig.*tsbuildinfo
 # schema files
 /schema
 
+# env files
+.env*
+
 # dependencies
 node_modules
 npm-debug.log*
