@@ -34,7 +34,6 @@ async function prepareAndRunTests() {
   }
 
   try {
-    // Run the extension test
     await runTests({
       vscodeExecutablePath,
       extensionDevelopmentPath,
