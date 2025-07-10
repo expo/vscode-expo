@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/expo/vscode-expo/compare/1.6.0...1.6.1) (2025-07-10)
+
+
+### Bug fixes
+
+* **bundler:** Device filtering in SDK 53 ([#272](https://github.com/expo/vscode-expo/issues/272)) ([ebdc98a](https://github.com/expo/vscode-expo/commit/ebdc98af7150f41dbb6806e9147a4207919e9a8b))
+
 ## [1.6.0](https://github.com/expo/vscode-expo/compare/1.5.1...1.6.0) (2025-02-10)
 
 
