@@ -494,6 +494,16 @@
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -765,6 +775,16 @@
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
               "image": {
                 "type": "string",
                 "default": "auto",
@@ -784,17 +804,6 @@
                 "description": "Runner to use for the job.",
                 "markdownDescription": "Runner to use for the job.",
                 "default": "linux-medium"
-              },
-              "environment": {
-                "type": "string",
-                "enum": [
-                  "production",
-                  "preview",
-                  "development"
-                ],
-                "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "production"
               },
               "env": {
                 "type": "object",
@@ -1071,8 +1080,7 @@
                   "development"
                 ],
                 "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "production"
+                "markdownDescription": "The environment to run the job in."
               },
               "env": {
                 "type": "object",
@@ -1223,8 +1231,7 @@
                   "development"
                 ],
                 "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "production"
+                "markdownDescription": "The environment to run the job in."
               },
               "env": {
                 "type": "object",
@@ -1323,6 +1330,16 @@
                 "default": [],
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
               },
               "params": {
                 "type": "object",
@@ -1563,8 +1580,7 @@
                   "development"
                 ],
                 "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "preview"
+                "markdownDescription": "The environment to run the job in."
               },
               "image": {
                 "type": "string",
@@ -1848,8 +1864,7 @@
                   "development"
                 ],
                 "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "preview"
+                "markdownDescription": "The environment to run the job in."
               },
               "image": {
                 "type": "string",
@@ -2121,6 +2136,16 @@
                 "default": [],
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
               }
             },
             "required": [
@@ -2200,6 +2225,16 @@
                 "default": [],
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
               },
               "params": {
                 "type": "object",
@@ -2328,6 +2363,16 @@
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -2354,17 +2399,6 @@
                 },
                 "additionalProperties": false,
                 "default": {}
-              },
-              "environment": {
-                "type": "string",
-                "enum": [
-                  "production",
-                  "preview",
-                  "development"
-                ],
-                "description": "The environment to run the job in.",
-                "markdownDescription": "The environment to run the job in.",
-                "default": "production"
               },
               "env": {
                 "type": "object",
@@ -2463,6 +2497,16 @@
                 "default": [],
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
               },
               "params": {
                 "allOf": [
@@ -2590,6 +2634,16 @@
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -2683,6 +2737,16 @@
                 "default": [],
                 "description": "List of keys of jobs that are required to complete before this job can run.",
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
               },
               "env": {
                 "type": "object",
@@ -3438,6 +3502,16 @@
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
                   },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -3709,6 +3783,16 @@
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
                   },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
                   "image": {
                     "type": "string",
                     "default": "auto",
@@ -3728,17 +3812,6 @@
                     "description": "Runner to use for the job.",
                     "markdownDescription": "Runner to use for the job.",
                     "default": "linux-medium"
-                  },
-                  "environment": {
-                    "type": "string",
-                    "enum": [
-                      "production",
-                      "preview",
-                      "development"
-                    ],
-                    "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "production"
                   },
                   "env": {
                     "type": "object",
@@ -4015,8 +4088,7 @@
                       "development"
                     ],
                     "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "production"
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "env": {
                     "type": "object",
@@ -4167,8 +4239,7 @@
                       "development"
                     ],
                     "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "production"
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "env": {
                     "type": "object",
@@ -4267,6 +4338,16 @@
                     "default": [],
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "params": {
                     "type": "object",
@@ -4507,8 +4588,7 @@
                       "development"
                     ],
                     "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "preview"
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "image": {
                     "type": "string",
@@ -4792,8 +4872,7 @@
                       "development"
                     ],
                     "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "preview"
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "image": {
                     "type": "string",
@@ -5065,6 +5144,16 @@
                     "default": [],
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
                   }
                 },
                 "required": [
@@ -5144,6 +5233,16 @@
                     "default": [],
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "params": {
                     "type": "object",
@@ -5272,6 +5371,16 @@
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
                   },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -5298,17 +5407,6 @@
                     },
                     "additionalProperties": false,
                     "default": {}
-                  },
-                  "environment": {
-                    "type": "string",
-                    "enum": [
-                      "production",
-                      "preview",
-                      "development"
-                    ],
-                    "description": "The environment to run the job in.",
-                    "markdownDescription": "The environment to run the job in.",
-                    "default": "production"
                   },
                   "env": {
                     "type": "object",
@@ -5407,6 +5505,16 @@
                     "default": [],
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "params": {
                     "allOf": [
@@ -5534,6 +5642,16 @@
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
                   },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -5627,6 +5745,16 @@
                     "default": [],
                     "description": "List of keys of jobs that are required to complete before this job can run.",
                     "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
                   },
                   "env": {
                     "type": "object",
