@@ -2017,6 +2017,29 @@
                     ],
                     "description": "Skip validation of the build (whether an iOS build is a simulator build).",
                     "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
+                  },
+                  "reuse_devices": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "allOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "default": true,
+                    "description": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work.",
+                    "markdownDescription": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work."
                   }
                 },
                 "required": [
@@ -5025,6 +5048,29 @@
                         ],
                         "description": "Skip validation of the build (whether an iOS build is a simulator build).",
                         "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
+                      },
+                      "reuse_devices": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "default": true,
+                        "description": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work.",
+                        "markdownDescription": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work."
                       }
                     },
                     "required": [
