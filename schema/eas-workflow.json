@@ -2333,6 +2333,161 @@
               },
               "type": {
                 "type": "string",
+                "const": "testflight"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "profile": {
+                    "type": "string",
+                    "default": "production",
+                    "description": "Name of the submit profile to use.",
+                    "markdownDescription": "Name of the submit profile to use."
+                  },
+                  "build_id": {
+                    "type": "string",
+                    "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                  },
+                  "internal_groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "TestFlight internal group names to add the build to.",
+                    "markdownDescription": "TestFlight internal group names to add the build to."
+                  },
+                  "external_groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "TestFlight external group names to add the build to.",
+                    "markdownDescription": "TestFlight external group names to add the build to."
+                  },
+                  "changelog": {
+                    "type": "string",
+                    "description": "What to test notes for TestFlight",
+                    "markdownDescription": "What to test notes for TestFlight"
+                  },
+                  "submit_beta_review": {
+                    "type": "boolean",
+                    "description": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided.",
+                    "markdownDescription": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided."
+                  }
+                },
+                "required": [
+                  "build_id"
+                ],
+                "additionalProperties": false
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": {},
+                "description": "Environment variables to provide to the job.",
+                "markdownDescription": "Environment variables to provide to the job."
+              }
+            },
+            "required": [
+              "type",
+              "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
                 "const": "update"
               },
               "if": {
@@ -5311,6 +5466,161 @@
                         },
                         "description": "TestFlight internal group names to add the build to.",
                         "markdownDescription": "TestFlight internal group names to add the build to."
+                      }
+                    },
+                    "required": [
+                      "build_id"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "env": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": {},
+                    "description": "Environment variables to provide to the job.",
+                    "markdownDescription": "Environment variables to provide to the job."
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "testflight"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
+                  "params": {
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "type": "string",
+                        "default": "production",
+                        "description": "Name of the submit profile to use.",
+                        "markdownDescription": "Name of the submit profile to use."
+                      },
+                      "build_id": {
+                        "type": "string",
+                        "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "internal_groups": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "TestFlight internal group names to add the build to.",
+                        "markdownDescription": "TestFlight internal group names to add the build to."
+                      },
+                      "external_groups": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "TestFlight external group names to add the build to.",
+                        "markdownDescription": "TestFlight external group names to add the build to."
+                      },
+                      "changelog": {
+                        "type": "string",
+                        "description": "What to test notes for TestFlight",
+                        "markdownDescription": "What to test notes for TestFlight"
+                      },
+                      "submit_beta_review": {
+                        "type": "boolean",
+                        "description": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided.",
+                        "markdownDescription": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided."
                       }
                     },
                     "required": [
