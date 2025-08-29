@@ -504,6 +504,11 @@
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in."
               },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -787,7 +792,6 @@
               },
               "image": {
                 "type": "string",
-                "default": "auto",
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
@@ -1101,6 +1105,11 @@
                 "description": "Environment variables to provide to the job.",
                 "markdownDescription": "Environment variables to provide to the job."
               },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -1251,6 +1260,11 @@
                 "default": {},
                 "description": "Environment variables to provide to the job.",
                 "markdownDescription": "Environment variables to provide to the job."
+              },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               }
             },
             "required": [
@@ -1584,7 +1598,6 @@
               },
               "image": {
                 "type": "string",
-                "default": "auto",
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
@@ -1868,7 +1881,6 @@
               },
               "image": {
                 "type": "string",
-                "default": "auto",
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
@@ -2259,6 +2271,11 @@
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in."
               },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -2395,6 +2412,11 @@
                 ],
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in."
+              },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
                 "type": "object",
@@ -2551,6 +2573,11 @@
                 "description": "The environment to run the job in.",
                 "markdownDescription": "The environment to run the job in."
               },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -2573,6 +2600,11 @@
                     "type": "string",
                     "description": "Channel to use for the update. Provide *either* a branch or a channel, not both.",
                     "markdownDescription": "Channel to use for the update. Provide *either* a branch or a channel, not both."
+                  },
+                  "private_key_path": {
+                    "type": "string",
+                    "description": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file).",
+                    "markdownDescription": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file)."
                   }
                 },
                 "additionalProperties": false,
@@ -2945,6 +2977,11 @@
                 "description": "Environment variables to provide to the job.",
                 "markdownDescription": "Environment variables to provide to the job."
               },
+              "image": {
+                "type": "string",
+                "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -3007,6 +3044,11 @@
     "defaults": {
       "type": "object",
       "properties": {
+        "image": {
+          "type": "string",
+          "description": "Default VM image to use for the jobs. Note: it is recommended to use \"sdk-XX\" image tags here. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+          "markdownDescription": "Default VM image to use for the jobs. Note: it is recommended to use \"sdk-XX\" image tags here. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+        },
         "run": {
           "type": "object",
           "properties": {
@@ -3690,6 +3732,11 @@
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in."
                   },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -3973,7 +4020,6 @@
                   },
                   "image": {
                     "type": "string",
-                    "default": "auto",
                     "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                     "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   },
@@ -4287,6 +4333,11 @@
                     "description": "Environment variables to provide to the job.",
                     "markdownDescription": "Environment variables to provide to the job."
                   },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -4437,6 +4488,11 @@
                     "default": {},
                     "description": "Environment variables to provide to the job.",
                     "markdownDescription": "Environment variables to provide to the job."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   }
                 },
                 "required": [
@@ -4770,7 +4826,6 @@
                   },
                   "image": {
                     "type": "string",
-                    "default": "auto",
                     "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                     "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   },
@@ -5054,7 +5109,6 @@
                   },
                   "image": {
                     "type": "string",
-                    "default": "auto",
                     "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                     "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   },
@@ -5445,6 +5499,11 @@
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in."
                   },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -5581,6 +5640,11 @@
                     ],
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
                   },
                   "params": {
                     "type": "object",
@@ -5737,6 +5801,11 @@
                     "description": "The environment to run the job in.",
                     "markdownDescription": "The environment to run the job in."
                   },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -5759,6 +5828,11 @@
                         "type": "string",
                         "description": "Channel to use for the update. Provide *either* a branch or a channel, not both.",
                         "markdownDescription": "Channel to use for the update. Provide *either* a branch or a channel, not both."
+                      },
+                      "private_key_path": {
+                        "type": "string",
+                        "description": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file).",
+                        "markdownDescription": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file)."
                       }
                     },
                     "additionalProperties": false,
@@ -6131,6 +6205,11 @@
                     "description": "Environment variables to provide to the job.",
                     "markdownDescription": "Environment variables to provide to the job."
                   },
+                  "image": {
+                    "type": "string",
+                    "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+                    "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+                  },
                   "params": {
                     "type": "object",
                     "properties": {
@@ -6193,6 +6272,11 @@
         "defaults": {
           "type": "object",
           "properties": {
+            "image": {
+              "type": "string",
+              "description": "Default VM image to use for the jobs. Note: it is recommended to use \"sdk-XX\" image tags here. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
+              "markdownDescription": "Default VM image to use for the jobs. Note: it is recommended to use \"sdk-XX\" image tags here. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+            },
             "run": {
               "type": "object",
               "properties": {
