@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "53.0.0",
+  "version": "54.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -500,6 +500,15 @@
             "bareWorkflow": "To change the setting, update the `expo.edgeToEdgeEnabled` value in `android/gradle.properties` and update the `AppTheme`'s `parent` attribute to one of the [Theme.EdgeToEdge values](https://github.com/zoontek/react-native-edge-to-edge#pick-a-parent-theme) in `styles.xml`"
           },
           "markdownDescription": "Enable your app to run in [edge-to-edge](https://developer.android.com/develop/ui/views/layout/edge-to-edge) mode. Default to false.\n\n**Bare workflow** - To change the setting, update the `expo.edgeToEdgeEnabled` value in `android/gradle.properties` and update the `AppTheme`'s `parent` attribute to one of the [Theme.EdgeToEdge values](https://github.com/zoontek/react-native-edge-to-edge#pick-a-parent-theme) in `styles.xml`"
+        },
+        "predictiveBackGestureEnabled": {
+          "description": "Enable your app to use the [predictive back gesture](https://developer.android.com/guide/navigation/custom-back/predictive-back-gesture) on Android 13 (API level 33) and later. Default to false.\n\n**Bare workflow** - To change the setting, update the `android:enableOnBackInvokedCallback` value in `AndroidManifest.xml`.",
+          "type": "boolean",
+          "fallback": false,
+          "meta": {
+            "bareWorkflow": "To change the setting, update the `android:enableOnBackInvokedCallback` value in `AndroidManifest.xml`."
+          },
+          "markdownDescription": "Enable your app to use the [predictive back gesture](https://developer.android.com/guide/navigation/custom-back/predictive-back-gesture) on Android 13 (API level 33) and later. Default to false.\n\n**Bare workflow** - To change the setting, update the `android:enableOnBackInvokedCallback` value in `AndroidManifest.xml`."
         }
       },
       "additionalProperties": false,
@@ -594,10 +603,22 @@
           "markdownDescription": "URL scheme(s) to link into your iOS app. Schemes added to this field will be merged with the schemes in the `scheme` key at the top level of the config."
         },
         "icon": {
-          "description": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app.",
+          "description": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. You can also provide a path to a .icon directory. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app.",
           "oneOf": [
             {
               "type": "string",
+              "pattern": "\\.icon$",
+              "meta": {
+                "asset": true,
+                "contentTypePattern": "directory",
+                "contentTypeHuman": "a .icon directory"
+              }
+            },
+            {
+              "type": "string",
+              "not": {
+                "pattern": "\\.icon$"
+              },
               "meta": {
                 "asset": true,
                 "contentTypePattern": "^image/png$",
@@ -609,7 +630,7 @@
               "$ref": "#/definitions/IOSIcons"
             }
           ],
-          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app."
+          "markdownDescription": "Local path or remote URL to an image to use for your app's icon on iOS. Alternatively, an object specifying different icons for various system appearances (e.g., dark, tinted) can be provided. You can also provide a path to a .icon directory. If specified, this overrides the top-level `icon` key. Use a 1024x1024 icon which follows Apple's interface guidelines for icons, including color profile and transparency.\n\nExpo will generate the other required sizes. This icon will appear on the home screen and within the Expo Go app."
         },
         "appStoreUrl": {
           "description": "URL to your app on the Apple App Store, if you have deployed it there. This is used to link to your store page from your Expo project page if your app is public.",
@@ -1527,7 +1548,7 @@
           "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo Go app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
         },
         "notification": {
-          "description": "Configuration for remote (push) notifications.",
+          "description": "@deprecated in favor of the expo-notifications config plugin. This field will be removed in SDK 55. Configuration for remote (push) notifications.",
           "type": "object",
           "properties": {
             "icon": {
@@ -1572,7 +1593,7 @@
             }
           },
           "additionalProperties": false,
-          "markdownDescription": "Configuration for remote (push) notifications."
+          "markdownDescription": "@deprecated in favor of the expo-notifications config plugin. This field will be removed in SDK 55. Configuration for remote (push) notifications."
         },
         "androidStatusBar": {
           "description": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).",
@@ -1841,6 +1862,34 @@
           "fallback": true,
           "markdownDescription": "A Boolean value that indicates whether the app should use the new architecture. Defaults to true."
         },
+        "buildCacheProvider": {
+          "description": "Enable downloading cached builds from remote.",
+          "additionalProperties": false,
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "eas"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "plugin": {
+                  "type": "string"
+                },
+                "options": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "plugin"
+              ]
+            }
+          ],
+          "markdownDescription": "Enable downloading cached builds from remote."
+        },
         "ios": {
           "$ref": "#/definitions/IOS"
         },
@@ -1862,8 +1911,11 @@
               "markdownDescription": "Export a website relative to a subpath of a domain. The path will be prepended as-is to links to all bundled resources. Prefix the path with a `/` (recommended) to load all resources relative to the server root. If the path **does not** start with a `/` then resources will be loaded relative to the code that requests them, this could lead to unexpected behavior. Example '/subpath'. Defaults to '' (empty string)."
             },
             "buildCacheProvider": {
-              "description": "Experimentally enable downloading cached builds from remote.",
+              "description": "@deprecated This field is not longer marked as experimental and will be removed in a future release, use the `buildCacheProvider` field instead.",
               "additionalProperties": false,
+              "meta": {
+                "deprecated": true
+              },
               "anyOf": [
                 {
                   "type": "string",
@@ -1887,7 +1939,7 @@
                   ]
                 }
               ],
-              "markdownDescription": "Experimentally enable downloading cached builds from remote."
+              "markdownDescription": "@deprecated This field is not longer marked as experimental and will be removed in a future release, use the `buildCacheProvider` field instead."
             },
             "supportsTVOnly": {
               "description": "If true, indicates that this project does not support tablets or handsets, and only supports Apple TV and Android TV",
@@ -1936,43 +1988,6 @@
               "type": "boolean",
               "fallback": false,
               "markdownDescription": "Experimentally enable React Server Functions support in Expo CLI and Expo Router."
-            },
-            "remoteBuildCache": {
-              "description": "@deprecated Experimentally enable downloading cached builds from remote.",
-              "type": "object",
-              "additionalProperties": false,
-              "meta": {
-                "deprecated": true
-              },
-              "properties": {
-                "provider": {
-                  "description": "Service provider for remote builds.",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "eas"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "plugin": {
-                          "type": "string"
-                        },
-                        "options": {
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "plugin"
-                      ]
-                    }
-                  ],
-                  "markdownDescription": "Service provider for remote builds."
-                }
-              },
-              "markdownDescription": "@deprecated Experimentally enable downloading cached builds from remote."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
@@ -1983,8 +1998,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v53.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v53.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v54.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v54.0.0/config/app/)"
     }
   },
   "oneOf": [
