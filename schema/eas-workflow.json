@@ -3020,6 +3020,195 @@
               "params"
             ],
             "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "allOf": [
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "type": {
+                "type": "string",
+                "const": "github-comment"
+              },
+              "if": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                },
+                "default": [],
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "production",
+                  "preview",
+                  "development"
+                ],
+                "description": "The environment to run the job in.",
+                "markdownDescription": "The environment to run the job in."
+              },
+              "params": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "payload": {
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "description": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed.",
+                        "markdownDescription": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed."
+                      },
+                      "message": {
+                        "not": {}
+                      },
+                      "build_ids": {
+                        "not": {}
+                      },
+                      "update_group_ids": {
+                        "not": {}
+                      }
+                    },
+                    "required": [
+                      "payload"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "payload": {
+                        "not": {}
+                      },
+                      "message": {
+                        "allOf": [
+                          {
+                            "type": [
+                              "number",
+                              "string"
+                            ]
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "description": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing.",
+                        "markdownDescription": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing."
+                      },
+                      "build_ids": {
+                        "type": "array",
+                        "items": {
+                          "allOf": [
+                            {
+                              "type": [
+                                "number",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "description": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section.",
+                        "markdownDescription": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section."
+                      },
+                      "update_group_ids": {
+                        "type": "array",
+                        "items": {
+                          "allOf": [
+                            {
+                              "type": [
+                                "number",
+                                "string"
+                              ]
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "description": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section.",
+                        "markdownDescription": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section."
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ],
+                "default": {},
+                "description": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates.",
+                "markdownDescription": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates."
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
           }
         ]
       },
@@ -6246,6 +6435,195 @@
                 "required": [
                   "type",
                   "params"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "allOf": [
+                      {
+                        "type": [
+                          "number",
+                          "string"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "description": "The name of the job. Displayed on the workflow run page.",
+                    "markdownDescription": "The name of the job. Displayed on the workflow run page."
+                  },
+                  "type": {
+                    "type": "string",
+                    "const": "github-comment"
+                  },
+                  "if": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string",
+                        "maxLength": 250
+                      }
+                    ],
+                    "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                    "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+                  },
+                  "needs": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                    "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+                  },
+                  "after": {
+                    "type": "array",
+                    "items": {
+                      "allOf": [
+                        {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "default": [],
+                    "description": "List of keys of jobs that are required to complete before this job can run.",
+                    "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+                  },
+                  "environment": {
+                    "type": "string",
+                    "enum": [
+                      "production",
+                      "preview",
+                      "development"
+                    ],
+                    "description": "The environment to run the job in.",
+                    "markdownDescription": "The environment to run the job in."
+                  },
+                  "params": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "payload": {
+                            "allOf": [
+                              {
+                                "type": [
+                                  "number",
+                                  "string"
+                                ]
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed.",
+                            "markdownDescription": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed."
+                          },
+                          "message": {
+                            "not": {}
+                          },
+                          "build_ids": {
+                            "not": {}
+                          },
+                          "update_group_ids": {
+                            "not": {}
+                          }
+                        },
+                        "required": [
+                          "payload"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "payload": {
+                            "not": {}
+                          },
+                          "message": {
+                            "allOf": [
+                              {
+                                "type": [
+                                  "number",
+                                  "string"
+                                ]
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "description": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing.",
+                            "markdownDescription": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing."
+                          },
+                          "build_ids": {
+                            "type": "array",
+                            "items": {
+                              "allOf": [
+                                {
+                                  "type": [
+                                    "number",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "description": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section.",
+                            "markdownDescription": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section."
+                          },
+                          "update_group_ids": {
+                            "type": "array",
+                            "items": {
+                              "allOf": [
+                                {
+                                  "type": [
+                                    "number",
+                                    "string"
+                                  ]
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "description": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section.",
+                            "markdownDescription": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section."
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    ],
+                    "default": {},
+                    "description": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates.",
+                    "markdownDescription": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates."
+                  }
+                },
+                "required": [
+                  "type"
                 ],
                 "additionalProperties": false
               }
