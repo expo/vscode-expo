@@ -16,7 +16,7 @@
                 "type": "string"
               },
               "additionalProperties": {
-                "allOf": [
+                "anyOf": [
                   {
                     "type": "object",
                     "properties": {
@@ -40,126 +40,200 @@
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "default": "string",
+                        "type": "string",
+                        "const": "string"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": "string",
+                        "markdownDescription": "Default value for the input"
                       }
                     },
                     "additionalProperties": false
                   },
                   {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "default": "string",
-                            "type": "string",
-                            "const": "string"
-                          },
-                          "default": {
-                            "description": "Default value for the input",
-                            "type": "string",
-                            "markdownDescription": "Default value for the input"
-                          }
-                        },
-                        "additionalProperties": false
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": "string",
+                        "markdownDescription": "Description of the input"
                       },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "boolean"
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "default": false,
+                        "anyOf": [
+                          {
+                            "type": "boolean"
                           },
-                          "default": {
-                            "description": "Default value for the input",
-                            "anyOf": [
-                              {
-                                "type": "boolean"
-                              },
-                              {
-                                "type": "boolean"
-                              },
-                              {
-                                "type": "boolean"
-                              }
-                            ],
-                            "markdownDescription": "Default value for the input"
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
                           }
-                        },
-                        "required": [
-                          "type"
                         ],
-                        "additionalProperties": false
+                        "markdownDescription": "Whether the input is required."
                       },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "number"
-                          },
-                          "default": {
-                            "description": "Default value for the input",
-                            "type": "number",
-                            "markdownDescription": "Default value for the input"
-                          }
-                        },
-                        "required": [
-                          "type"
-                        ],
-                        "additionalProperties": false
+                      "type": {
+                        "type": "string",
+                        "const": "boolean"
                       },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "choice"
+                      "default": {
+                        "description": "Default value for the input",
+                        "anyOf": [
+                          {
+                            "type": "boolean"
                           },
-                          "default": {
-                            "description": "Default value for the input",
-                            "type": "string",
-                            "markdownDescription": "Default value for the input"
+                          {
+                            "type": "boolean"
                           },
-                          "options": {
-                            "description": "Options for choice type inputs",
-                            "minItems": 1,
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            },
-                            "markdownDescription": "Options for choice type inputs"
+                          {
+                            "type": "boolean"
                           }
-                        },
-                        "required": [
-                          "type",
-                          "options"
                         ],
-                        "additionalProperties": false
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "string",
-                            "const": "environment"
-                          },
-                          "default": {
-                            "description": "Default value for the input",
-                            "type": "string",
-                            "enum": [
-                              "production",
-                              "preview",
-                              "development"
-                            ],
-                            "markdownDescription": "Default value for the input"
-                          }
-                        },
-                        "required": [
-                          "type"
-                        ],
-                        "additionalProperties": false
+                        "markdownDescription": "Default value for the input"
                       }
-                    ]
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": "string",
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "default": false,
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "number"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": "number",
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": "string",
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "default": false,
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "choice"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": "string",
+                        "markdownDescription": "Default value for the input"
+                      },
+                      "options": {
+                        "description": "Options for choice type inputs",
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "markdownDescription": "Options for choice type inputs"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "options"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": "string",
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "default": false,
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "environment"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": "string",
+                        "enum": [
+                          "production",
+                          "preview",
+                          "development"
+                        ],
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -655,14 +729,21 @@
               "runs_on": {
                 "default": "linux-medium",
                 "description": "Runner to use for the job.",
-                "type": "string",
-                "enum": [
-                  "linux-medium",
-                  "linux-large",
-                  "macos-medium",
-                  "macos-large",
-                  "linux-medium-nested-virtualization",
-                  "linux-large-nested-virtualization"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
                 ],
                 "markdownDescription": "Runner to use for the job."
               },
@@ -966,7 +1047,19 @@
                     "type": "string"
                   },
                   "distribution": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "store",
+                          "internal",
+                          "simulator"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "fingerprint_hash": {
                     "type": "string"
@@ -975,7 +1068,18 @@
                     "type": "string"
                   },
                   "platform": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "ios",
+                          "android"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "profile": {
                     "type": "string"
@@ -1214,14 +1318,21 @@
               },
               "runs_on": {
                 "description": "Runner to use for the job.",
-                "type": "string",
-                "enum": [
-                  "linux-medium",
-                  "linux-large",
-                  "macos-medium",
-                  "macos-large",
-                  "linux-medium-nested-virtualization",
-                  "linux-large-nested-virtualization"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
                 ],
                 "markdownDescription": "Runner to use for the job."
               }
@@ -1371,9 +1482,16 @@
                   },
                   "output_format": {
                     "description": "Maestro test report format. Will be passed to Maestro as `--format`.",
-                    "type": "string",
-                    "enum": [
-                      "junit"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "junit"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
                     ],
                     "markdownDescription": "Maestro test report format. Will be passed to Maestro as `--format`."
                   },
@@ -1461,14 +1579,21 @@
               },
               "runs_on": {
                 "description": "Runner to use for the job.",
-                "type": "string",
-                "enum": [
-                  "linux-medium",
-                  "linux-large",
-                  "macos-medium",
-                  "macos-large",
-                  "linux-medium-nested-virtualization",
-                  "linux-large-nested-virtualization"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
                 ],
                 "markdownDescription": "Runner to use for the job."
               }
