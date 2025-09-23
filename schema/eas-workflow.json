@@ -436,6 +436,26 @@
                 ],
                 "markdownDescription": "The environment to run the job in."
               },
+              "runs_on": {
+                "description": "Runner to use for the job.",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "markdownDescription": "Runner to use for the job."
+              },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "type": "string",
@@ -2232,6 +2252,26 @@
                   "development"
                 ],
                 "markdownDescription": "The environment to run the job in."
+              },
+              "runs_on": {
+                "description": "Runner to use for the job.",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "linux-medium",
+                      "linux-large",
+                      "macos-medium",
+                      "macos-large",
+                      "linux-medium-nested-virtualization",
+                      "linux-large-nested-virtualization"
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "markdownDescription": "Runner to use for the job."
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
