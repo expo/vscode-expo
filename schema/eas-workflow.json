@@ -485,6 +485,11 @@
                     "default": "production",
                     "type": "string",
                     "markdownDescription": "Build profile name to use."
+                  },
+                  "message": {
+                    "description": "Message attached to the build.",
+                    "type": "string",
+                    "markdownDescription": "Message attached to the build."
                   }
                 },
                 "required": [
@@ -2307,6 +2312,11 @@
                     "description": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app.",
                     "type": "boolean",
                     "markdownDescription": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app."
+                  },
+                  "message": {
+                    "description": "Message attached to the build.",
+                    "type": "string",
+                    "markdownDescription": "Message attached to the build."
                   }
                 },
                 "required": [
