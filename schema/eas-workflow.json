@@ -1464,7 +1464,7 @@
                   },
                   "retries": {
                     "description": "Number of times to retry the tests if they fail.",
-                    "default": 1,
+                    "default": 0,
                     "type": "integer",
                     "exclusiveMinimum": 0,
                     "maximum": 9007199254740991,
