@@ -537,6 +537,11 @@
           "type": "string",
           "markdownDescription": "Exact path for URLs that should be matched by the filter, e.g. `/records`"
         },
+        "pathAdvancedPattern": {
+          "description": "Advanced pattern for paths, available in API 31+ (Android 12 and later), supports regular expressions. Example: `/records/[0-9]+`",
+          "type": "string",
+          "markdownDescription": "Advanced pattern for paths, available in API 31+ (Android 12 and later), supports regular expressions. Example: `/records/[0-9]+`"
+        },
         "pathPattern": {
           "description": "Pattern for paths that should be matched by the filter, e.g. `.*`. Must begin with `/`",
           "type": "string",
