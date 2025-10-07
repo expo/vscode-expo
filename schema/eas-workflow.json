@@ -222,11 +222,6 @@
                       "default": {
                         "description": "Default value for the input",
                         "type": "string",
-                        "enum": [
-                          "production",
-                          "preview",
-                          "development"
-                        ],
                         "markdownDescription": "Default value for the input"
                       }
                     },
@@ -427,14 +422,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "runs_on": {
                 "description": "Runner to use for the job.",
@@ -737,14 +732,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -868,14 +863,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -970,14 +965,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -1046,14 +1041,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
                 "description": "Filters to find the build by.",
@@ -1183,14 +1178,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -1412,14 +1407,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -1673,14 +1668,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               }
             },
             "required": [
@@ -1732,14 +1727,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -1837,14 +1832,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -1960,14 +1955,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -2068,14 +2063,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
                 "allOf": [
@@ -2175,14 +2170,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
                 "type": "object",
@@ -2249,14 +2244,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "runs_on": {
                 "description": "Runner to use for the job.",
@@ -2386,14 +2381,14 @@
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
               "environment": {
-                "description": "The environment to run the job in.",
-                "type": "string",
-                "enum": [
-                  "production",
+                "description": "The environment variable environment for the job.",
+                "examples": [
+                  "development",
                   "preview",
-                  "development"
+                  "production"
                 ],
-                "markdownDescription": "The environment to run the job in."
+                "type": "string",
+                "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
                 "description": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates.",
