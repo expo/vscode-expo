@@ -1122,6 +1122,20 @@
                         "type": "boolean"
                       }
                     ]
+                  },
+                  "wait_for_in_progress": {
+                    "default": false,
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
                   }
                 },
                 "additionalProperties": false,
