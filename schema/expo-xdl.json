@@ -1669,6 +1669,12 @@
               },
               "markdownDescription": "Specifies the background color of the navigation bar.",
               "patternErrorMessage": "6 character long hex color string, for example, `'#000000'`"
+            },
+            "enforceContrast": {
+              "description": "Determines whether the operating system should keep the navigation bar translucent to provide contrast between the navigation buttons and app content. Defaults to true.",
+              "type": "boolean",
+              "fallback": true,
+              "markdownDescription": "Determines whether the operating system should keep the navigation bar translucent to provide contrast between the navigation buttons and app content. Defaults to true."
             }
           },
           "additionalProperties": false,
