@@ -2011,6 +2011,21 @@
                     "description": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file).",
                     "type": "string",
                     "markdownDescription": "Path to the file containing the PEM-encoded private key corresponding to the certificate in eas-updates' configuration. See https://docs.expo.dev/eas-update/code-signing/#publish-a-signed-update-for-your-app for more info. You can reference file type EAS Environment Variables with \"$VARIABLE_NAME\" syntax (which in the VM becomes path to the secret file)."
+                  },
+                  "upload_sentry_sourcemaps": {
+                    "description": "Whether to upload sourcemaps to Sentry. If not provided, the value will be inferred based on whether \"@sentry/react-native\" is installed.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "markdownDescription": "Whether to upload sourcemaps to Sentry. If not provided, the value will be inferred based on whether \"@sentry/react-native\" is installed."
                   }
                 },
                 "additionalProperties": false
@@ -2326,6 +2341,11 @@
                     "description": "Message attached to the build.",
                     "type": "string",
                     "markdownDescription": "Message attached to the build."
+                  },
+                  "repack_version": {
+                    "description": "Version of the repack tool to use.",
+                    "type": "string",
+                    "markdownDescription": "Version of the repack tool to use."
                   }
                 },
                 "required": [
