@@ -1792,6 +1792,11 @@
               "description": "Enable debugging of native code with updates enabled. Defaults to false. If set to true, the EX_UPDATES_NATIVE_DEBUG environment variable will be set in Podfile.properties.json and gradle.properties. This causes Xcode and Android Studio debug builds to be built with expo-updates enabled, and JS debugging (with dev client or packager) disabled. This should not be used in production.",
               "type": "boolean",
               "markdownDescription": "Enable debugging of native code with updates enabled. Defaults to false. If set to true, the EX_UPDATES_NATIVE_DEBUG environment variable will be set in Podfile.properties.json and gradle.properties. This causes Xcode and Android Studio debug builds to be built with expo-updates enabled, and JS debugging (with dev client or packager) disabled. This should not be used in production."
+            },
+            "enableBsdiffPatchSupport": {
+              "description": "Whether to enable support for downloading and applying bundle diffs using bsdiff. Defaults to false.",
+              "type": "boolean",
+              "markdownDescription": "Whether to enable support for downloading and applying bundle diffs using bsdiff. Defaults to false."
             }
           },
           "additionalProperties": false,
