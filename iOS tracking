@@ -1,0 +1,184 @@
+# iOS Privacy and Tracking Configuration
+
+## App Transport Security (NSAppTransportSecurity)
+
+Configure network security requirements in `Info.plist`:
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <false/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>example.com</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+    </dict>
+</dict>
+```
+
+## Advertising and Tracking Identifiers
+
+### ASIdentifierManager
+
+Access advertising identifiers for tracking purposes:
+
+**Properties:**
+- `advertisingIdentifier` - Unique advertising ID (IDFA) for cross-app tracking
+- `isAdvertisingTrackingEnabled` - Boolean indicating if user allows ad tracking
+
+### UIDevice
+
+Access vendor-specific identifier:
+
+**Properties:**
+- `identifierForVendor` (IDFV) - Unique ID for apps from the same vendor
+
+## Required Info.plist Keys
+
+```xml
+<!-- App Tracking Transparency -->
+<key>NSUserTrackingUsageDescription</key>
+<string>We use tracking to provide personalized ads and improve your experience</string>
+
+<!-- HomeKit (if needed) -->
+<key>NSHomeKitUsageDescription</key>
+<string>Access HomeKit to control your smart home devices</string>
+```
+
+## Privacy Requirements (iOS 14.5+)
+
+### App Tracking Transparency Framework
+
+Must request permission before accessing IDFA:
+
+```swift
+import AdSupport
+import AppTrackingTransparency
+
+// Request tracking permission
+func requestTrackingPermission() {
+    ATTrackingManager.requestTrackingAuthorization { status in
+        switch status {
+        case .authorized:
+            // User granted permission
+            let idfa = ASIdentifierManager.shared().advertisingIdentifier
+            print("IDFA: \(idfa.uuidString)")
+            
+        case .denied:
+            // User denied permission
+            print("Tracking denied")
+            
+        case .restricted:
+            // Tracking restricted by device management
+            print("Tracking restricted")
+            
+        case .notDetermined:
+            // Permission not yet requested
+            print("Tracking not determined")
+            
+        @unknown default:
+            break
+        }
+    }
+}
+
+// Check current authorization status
+func checkTrackingStatus() -> ATTrackingManager.AuthorizationStatus {
+    return ATTrackingManager.trackingAuthorizationStatus
+}
+```
+
+### Accessing Identifiers
+
+```swift
+// IDFA - Requires permission (iOS 14.5+)
+func getAdvertisingIdentifier() -> UUID? {
+    let status = ATTrackingManager.trackingAuthorizationStatus
+    
+    guard status == .authorized else {
+        print("Tracking not authorized")
+        return nil
+    }
+    
+    let idfa = ASIdentifierManager.shared().advertisingIdentifier
+    
+    // Check if identifier is valid (not all zeros)
+    if idfa.uuidString == "00000000-0000-0000-0000-000000000000" {
+        return nil
+    }
+    
+    return idfa
+}
+
+// IDFV - No permission required
+func getVendorIdentifier() -> UUID? {
+    return UIDevice.current.identifierForVendor
+}
+
+// Check if tracking is enabled
+func isTrackingEnabled() -> Bool {
+    return ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+}
+```
+
+## Best Practices
+
+1. **Request permission at appropriate time**: Don't request on app launch; wait until user understands the value
+2. **Provide clear explanation**: Use NSUserTrackingUsageDescription to explain benefits
+3. **Handle all authorization states**: Implement fallback for denied/restricted states
+4. **Respect user privacy**: Don't try to fingerprint users if tracking is denied
+5. **Use IDFV when possible**: For non-advertising analytics, use identifierForVendor instead
+6. **Test with Limited Ad Tracking**: Test app behavior when tracking is disabled
+7. **Stay compliant**: Follow Apple's App Store Review Guidelines for privacy
+
+## Common Use Cases
+
+### Analytics
+- Use IDFV for app-specific analytics
+- Use IDFA only for cross-app attribution
+
+### Advertising
+- Require IDFA for personalized ads
+- Fall back to contextual ads if tracking denied
+
+### Attribution
+- Use IDFA for measuring ad campaign effectiveness
+- Consider SKAdNetwork for privacy-preserving attribution
+
+## Privacy Manifest
+
+For iOS 17+, also add a Privacy Manifest (`PrivacyInfo.xcprivacy`):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPrivacyTracking</key>
+    <true/>
+    <key>NSPrivacyTrackingDomains</key>
+    <array>
+        <string>example.com</string>
+    </array>
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeDeviceID</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <true/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <string>NSPrivacyCollectedDataTypePurposeAdvertising</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
+```
