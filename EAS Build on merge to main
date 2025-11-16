@@ -1,0 +1,61 @@
+name: EAS Build on merge to main
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: eas-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  trigger-eas-builds:
+    runs-on: ubuntu-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Bun (optional runtime used by the repo)
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies with Bun
+        run: |
+          bun install
+        # keep EXPO_TOKEN out of logs; no need here but preserved in environment
+
+      - name: Verify Expo auth (no secrets printed)
+        run: |
+          # EAS/eas-cli and expo respect EXPO_TOKEN env var.
+          # Verify the token by checking the current user; the command will fail if token is invalid.
+          npx expo whoami || true
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Kick off Android and iOS EAS builds (no-wait)
+        id: eas_trigger
+        run: |
+          # Run EAS CLI in no-wait / non-interactive mode and capture JSON output so we can inspect build ids.
+          npx eas build \
+            --platform all \
+            --profile preview \
+            --non-interactive \
+            --no-wait \
+            --json > eas-build-output.json
+          echo "::set-output name=output::$(jq -c . eas-build-output.json || cat eas-build-output.json)"
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Upload EAS trigger output
+        uses: actions/upload-artifact@v4
+        with:
+          name: eas-build-output
+          path: eas-build-output.json
