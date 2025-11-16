@@ -55,6 +55,9 @@ function createVscodeSchema(xdlVersion, xdlSchema) {
     }
   );
 
+  // Enhance iOS infoPlist with known properties for better IntelliSense
+  traverseSchemaAddInfoPlistProperties(xdlSchema);
+
   // note: we need to move over definitions from the schema and put them into root
   const definitions = xdlSchema.definitions ?? {};
   if (xdlSchema.definitions) {
@@ -133,6 +136,34 @@ function traverseSchemaAddPatternErrorDescription(schema) {
   }
 }
 
+/**
+ * Add known Info.plist properties to ios.infoPlist for better IntelliSense.
+ * This enhances the ios.infoPlist schema with commonly used properties that have specific documentation.
+ */
+function traverseSchemaAddInfoPlistProperties(schema) {
+  // Find the IOS definition and its infoPlist property
+  const iosDefinition = schema.definitions?.IOS;
+  if (!iosDefinition || !iosDefinition.properties || !iosDefinition.properties.infoPlist) {
+    return;
+  }
+
+  const infoPlist = iosDefinition.properties.infoPlist;
+
+  // Ensure properties object exists
+  if (!infoPlist.properties) {
+    infoPlist.properties = {};
+  }
+
+  // Add NSUserTrackingUsageDescription for App Tracking Transparency
+  infoPlist.properties.NSUserTrackingUsageDescription = {
+    type: 'string',
+    description:
+      'A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.',
+    markdownDescription:
+      'A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.\n\n[Learn more](https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription)',
+  };
+}
+
 // Export all methods for testing
 module.exports = {
   generate,
@@ -143,4 +174,5 @@ module.exports = {
   traverseSchemaAddBareWorkflowDescription,
   traverseSchemaAddMarkdownDescription,
   traverseSchemaAddPatternErrorDescription,
+  traverseSchemaAddInfoPlistProperties,
 };
