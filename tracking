@@ -1,0 +1,133 @@
+import React, { useState, useEffect } from 'react';
+
+const TrackingPermissionModal = ({ onAccept, onDecline, onClose }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Check if user has already made a choice
+    const trackingPermission = localStorage.getItem('tracking-permission');
+    if (!trackingPermission) {
+      setIsVisible(true);
+    }
+  }, []);
+
+  const handleAccept = () => {
+    localStorage.setItem('tracking-permission', JSON.stringify({
+      allowed: true,
+      timestamp: new Date().toISOString(),
+    }));
+    setIsVisible(false);
+    onAccept?.();
+  };
+
+  const handleDecline = () => {
+    localStorage.setItem('tracking-permission', JSON.stringify({
+      allowed: false,
+      timestamp: new Date().toISOString(),
+    }));
+    setIsVisible(false);
+    onDecline?.();
+  };
+
+  const handleLearnMore = () => {
+    window.open('/data-privacy', '_blank');
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div className="tracking-modal-overlay" role="dialog" aria-labelledby="tracking-modal-title" aria-modal="true">
+      <div className="tracking-modal">
+        <div className="tracking-modal-header">
+          <h2 id="tracking-modal-title">App Tracking Request</h2>
+        </div>
+
+        <div className="tracking-modal-content">
+          <div className="tracking-modal-icon">
+            🔒
+          </div>
+
+          <p className="tracking-modal-description">
+            We value your privacy. This app would like to track your activity across other 
+            companies' apps and websites to provide you with personalized content and 
+            improve your experience.
+          </p>
+
+          <div className="tracking-modal-benefits">
+            <h3>How we use tracking:</h3>
+            <ul>
+              <li>
+                <span className="benefit-icon">📊</span>
+                <span>Personalized content recommendations</span>
+              </li>
+              <li>
+                <span className="benefit-icon">🎯</span>
+                <span>Relevant advertising tailored to your interests</span>
+              </li>
+              <li>
+                <span className="benefit-icon">📈</span>
+                <span>Analytics to improve app performance</span>
+              </li>
+              <li>
+                <span className="benefit-icon">🔍</span>
+                <span>Better understanding of how you use our services</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="tracking-modal-privacy">
+            <p className="privacy-note">
+              <strong>Your data, your choice:</strong> You can change your tracking 
+              preferences at any time in Settings. We respect your privacy and will 
+              never sell your personal information.
+            </p>
+          </div>
+        </div>
+
+        <div className="tracking-modal-actions">
+          <button 
+            className="btn btn-link"
+            onClick={handleLearnMore}
+            type="button"
+          >
+            Learn More
+          </button>
+          <div className="tracking-modal-buttons">
+            <button 
+              className="btn btn-secondary"
+              onClick={handleDecline}
+              type="button"
+            >
+              Ask App Not to Track
+            </button>
+            <button 
+              className="btn btn-primary"
+              onClick={handleAccept}
+              type="button"
+            >
+              Allow Tracking
+            </button>
+          </div>
+        </div>
+
+        {onClose && (
+          <button 
+            className="tracking-modal-close"
+            onClick={() => {
+              setIsVisible(false);
+              onClose();
+            }}
+            aria-label="Close modal"
+            type="button"
+          >
+            ×
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TrackingPermissionModal;
