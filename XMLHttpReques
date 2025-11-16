@@ -1,0 +1,11 @@
+const xhr = new XMLHttpRequest();
+xhr.open('POST', '/submit');
+xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+xhr.onload = () => {
+  if (xhr.status === 201) {
+    console.log('Created:', xhr.responseText);
+  } else {
+    console.error('Error:', xhr.status);
+  }
+};
+xhr.send(JSON.stringify({ name: 'Alice', age: 30 }));
