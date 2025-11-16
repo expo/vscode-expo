@@ -1,0 +1,160 @@
+import React, { useState } from 'react';
+import useProfileMutations from '../../hooks/useProfileMutations';
+
+const DangerZoneSection = () => {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [confirmText, setConfirmText] = useState('');
+  
+  const { deleteAccount } = useProfileMutations();
+
+  const handleDeleteClick = () => {
+    setShowDeleteConfirm(true);
+    setError('');
+    setPassword('');
+    setConfirmText('');
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setPassword('');
+    setError('');
+    setConfirmText('');
+  };
+
+  const handleConfirmDelete = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    // Validate password
+    if (!password) {
+      setError('Please enter your password to confirm');
+      return;
+    }
+
+    // Validate confirmation text
+    if (confirmText.toLowerCase() !== 'delete my account') {
+      setError('Please type "delete my account" to confirm');
+      return;
+    }
+
+    try {
+      await deleteAccount.mutateAsync(password);
+      // User will be redirected after successful deletion
+    } catch (err) {
+      setError(err.message || 'Failed to delete account. Please check your password and try again.');
+    }
+  };
+
+  return (
+    <div className="danger-zone-section">
+      <div className="section-header">
+        <h2>Danger Zone</h2>
+        <p className="section-description">
+          Irreversible and destructive actions
+        </p>
+      </div>
+
+      <div className="danger-zone-content">
+        {!showDeleteConfirm ? (
+          <div className="danger-zone-item">
+            <div className="danger-zone-info">
+              <h3>Delete Account</h3>
+              <p>
+                Permanently delete your account and all associated data. 
+                This action cannot be undone.
+              </p>
+            </div>
+            <button 
+              className="btn btn-danger"
+              onClick={handleDeleteClick}
+            >
+              Delete Account
+            </button>
+          </div>
+        ) : (
+          <div className="delete-confirmation">
+            <div className="confirmation-warning">
+              <div className="warning-icon">⚠️</div>
+              <h3>Are you absolutely sure?</h3>
+              <p>
+                This action <strong>cannot be undone</strong>. This will permanently 
+                delete your account and remove all of your data from our servers.
+              </p>
+            </div>
+
+            <form onSubmit={handleConfirmDelete} className="confirmation-form">
+              <div className="form-group">
+                <label htmlFor="confirm-text">
+                  Please type <strong>delete my account</strong> to confirm:
+                </label>
+                <input
+                  type="text"
+                  id="confirm-text"
+                  value={confirmText}
+                  onChange={(e) => setConfirmText(e.target.value)}
+                  placeholder="delete my account"
+                  className="form-control"
+                  autoComplete="off"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password-confirm">
+                  Enter your password to confirm:
+                </label>
+                <input
+                  type="password"
+                  id="password-confirm"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="form-control"
+                  autoComplete="current-password"
+                />
+              </div>
+
+              {error && (
+                <div className="error-message" role="alert">
+                  {error}
+                </div>
+              )}
+
+              <div className="consequences-list">
+                <h4>What will be deleted:</h4>
+                <ul>
+                  <li>Your profile and personal information</li>
+                  <li>All your messages and conversations</li>
+                  <li>Your preferences and settings</li>
+                  <li>Any uploaded content</li>
+                  <li>Your activity history</li>
+                </ul>
+              </div>
+
+              <div className="confirmation-actions">
+                <button 
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleCancelDelete}
+                  disabled={deleteAccount.isPending}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  className="btn btn-danger"
+                  disabled={deleteAccount.isPending || !password || confirmText.toLowerCase() !== 'delete my account'}
+                >
+                  {deleteAccount.isPending ? 'Deleting...' : 'Delete My Account'}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default DangerZoneSection;
