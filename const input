@@ -1,0 +1,24 @@
+const input = document.querySelector('input[type="file"]');
+const file = input.files[0];
+const fd = new FormData();
+fd.append('file', file, file.name);
+fd.append('user', 'chelsey');
+
+const xhr = new XMLHttpRequest();
+xhr.open('POST', '/upload', true);
+
+// Do NOT set Content-Type here — the browser will include the boundary.
+xhr.upload.onprogress = (evt) => {
+  if (evt.lengthComputable) {
+    console.log(`Uploaded ${evt.loaded}/${evt.total} (${(evt.loaded/evt.total*100).toFixed(1)}%)`);
+  }
+};
+xhr.onload = () => {
+  if (xhr.status >= 200 && xhr.status < 300) {
+    console.log('Uploaded:', xhr.responseText);
+  } else {
+    console.error('Upload failed:', xhr.status);
+  }
+};
+xhr.onerror = () => console.error('Network error');
+xhr.send(fd);
