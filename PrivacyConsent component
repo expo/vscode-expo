@@ -1,0 +1,242 @@
+import React, { useEffect, useState, useCallback } from "react";
+
+/**
+ * PrivacyConsent component
+ *
+ * - Cross-platform-friendly: prefers window.localStorage (web) and falls back to AsyncStorage if available (React Native).
+ * - Persists user's choice under a configurable storage key.
+ * - Exposes callbacks for accept/decline.
+ *
+ * Props:
+ *  - storageKey (string) default: "privacy_consent"
+ *  - message (string|node) default short message
+ *  - learnMoreUrl (string) optional URL shown as "Learn more"
+ *  - acceptLabel (string) default "Accept"
+ *  - declineLabel (string) default "Decline"
+ *  - onAccept (fn) optional
+ *  - onDecline (fn) optional
+ *  - dismissible (bool) allow closing the banner without choosing (stores "dismissed")
+ *  - autoHideAfterMs (number) optional: hide banner automatically after this many milliseconds
+ *
+ * Returned statuses saved in storage:
+ *  - "granted"
+ *  - "denied"
+ *  - "dismissed"
+ *  - null / undefined = undetermined
+ */
+
+const DEFAULT_KEY = "privacy_consent";
+
+let AsyncStorage;
+try {
+  // Attempt to require AsyncStorage if running within React Native environment.
+  // This is done lazily at module-eval time; bundlers that don't include it generally ignore the require.
+  // If not available, we'll fall back to localStorage below.
+  // eslint-disable-next-line global-require
+  AsyncStorage = require("@react-native-async-storage/async-storage").default;
+} catch (e) {
+  AsyncStorage = null;
+}
+
+const storageAvailable = () => {
+  try {
+    if (typeof window !== "undefined" && window.localStorage) return "localStorage";
+  } catch (e) {}
+  if (AsyncStorage) return "asyncStorage";
+  return null;
+};
+
+async function readStored(key) {
+  const which = storageAvailable();
+  if (which === "localStorage") {
+    try {
+      const raw = window.localStorage.getItem(key);
+      return raw === null ? null : raw;
+    } catch (e) {
+      return null;
+    }
+  }
+  if (which === "asyncStorage") {
+    try {
+      const raw = await AsyncStorage.getItem(key);
+      return raw === null ? null : raw;
+    } catch (e) {
+      return null;
+    }
+  }
+  return null;
+}
+
+async function writeStored(key, value) {
+  const which = storageAvailable();
+  if (which === "localStorage") {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (e) {
+      // ignore
+    }
+    return;
+  }
+  if (which === "asyncStorage") {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      // ignore
+    }
+  }
+}
+
+export default function PrivacyConsent({
+  storageKey = DEFAULT_KEY,
+  message = "We value your privacy. This app uses analytics and crash reporting to improve the experience.",
+  learnMoreUrl,
+  acceptLabel = "Accept",
+  declineLabel = "Decline",
+  onAccept,
+  onDecline,
+  dismissible = true,
+  autoHideAfterMs = 0,
+}) {
+  const [status, setStatus] = useState(null); // null = undetermined, 'granted'|'denied'|'dismissed'
+
+  const load = useCallback(async () => {
+    const s = await readStored(storageKey);
+    setStatus(s);
+  }, [storageKey]);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      if (!mounted) return;
+      await load();
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, [load]);
+
+  useEffect(() => {
+    if (autoHideAfterMs > 0 && (status === null || status === "dismissed")) {
+      const t = setTimeout(() => {
+        // only auto-hide (dismiss) if still undetermined/dismissed
+        if (status === null || status === "dismissed") {
+          setStatus("dismissed");
+          writeStored(storageKey, "dismissed");
+        }
+      }, autoHideAfterMs);
+      return () => clearTimeout(t);
+    }
+    return undefined;
+  }, [autoHideAfterMs, status, storageKey]);
+
+  const accept = useCallback(async () => {
+    await writeStored(storageKey, "granted");
+    setStatus("granted");
+    if (typeof onAccept === "function") onAccept();
+  }, [onAccept, storageKey]);
+
+  const decline = useCallback(async () => {
+    await writeStored(storageKey, "denied");
+    setStatus("denied");
+    if (typeof onDecline === "function") onDecline();
+  }, [onDecline, storageKey]);
+
+  const dismiss = useCallback(async () => {
+    await writeStored(storageKey, "dismissed");
+    setStatus("dismissed");
+  }, [storageKey]);
+
+  // Render nothing if user already accepted or declined.
+  if (status === "granted" || status === "denied") return null;
+
+  // Show banner for undetermined or dismissed (you might prefer not to show when dismissed; adjust as needed)
+  const containerStyle = {
+    position: "fixed",
+    left: 12,
+    right: 12,
+    bottom: 12,
+    zIndex: 9999,
+    background: "#0f172a",
+    color: "#fff",
+    padding: 16,
+    borderRadius: 8,
+    boxShadow: "0 6px 18px rgba(2,6,23,0.6)",
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    flexWrap: "wrap",
+    maxWidth: 980,
+    margin: "0 auto",
+  };
+
+  const textStyle = { flex: 1, fontSize: 14, lineHeight: "20px" };
+
+  const buttonStyle = {
+    background: "#06b6d4",
+    color: "#06202a",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: 6,
+    cursor: "pointer",
+    fontWeight: 600,
+    marginLeft: 8,
+  };
+
+  const altButtonStyle = {
+    background: "transparent",
+    color: "#cbd5e1",
+    border: "1px solid rgba(255,255,255,0.06)",
+    padding: "8px 12px",
+    borderRadius: 6,
+    cursor: "pointer",
+    fontWeight: 600,
+  };
+
+  return (
+    <div role="region" aria-label="Privacy consent" style={containerStyle}>
+      <div style={textStyle}>
+        <div>{message}</div>
+        {learnMoreUrl ? (
+          <div style={{ marginTop: 6 }}>
+            <a
+              href={learnMoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#7dd3fc", textDecoration: "underline", fontSize: 13 }}
+            >
+              Learn more
+            </a>
+          </div>
+        ) : null}
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <button type="button" onClick={decline} style={altButtonStyle}>
+          {declineLabel}
+        </button>
+        <button type="button" onClick={accept} style={buttonStyle}>
+          {acceptLabel}
+        </button>
+        {dismissible ? (
+          <button
+            type="button"
+            onClick={dismiss}
+            aria-label="Dismiss"
+            title="Dismiss"
+            style={{
+              background: "transparent",
+              color: "#94a3b8",
+              border: "none",
+              marginLeft: 8,
+              cursor: "pointer",
+              fontSize: 18,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        ) : null}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,12 @@
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://api.example.com/data');
+xhr.responseType = 'json'; // modern browsers populate xhr.response as parsed JSON
+xhr.onload = () => {
+  if (xhr.status >= 200 && xhr.status < 300) {
+    console.log('Response:', xhr.response);
+  } else {
+    console.error('HTTP error', xhr.status, xhr.statusText);
+  }
+};
+xhr.onerror = () => console.error('Network error');
+xhr.send();

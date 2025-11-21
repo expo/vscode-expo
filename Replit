@@ -1,0 +1,307 @@
+# Backend API Template
+
+A robust Express.js backend template for the Haikus for Codespaces application with analytics tracking, user management, and messaging features.
+
+## Features
+
+- 🚀 Express.js REST API
+- 📊 Analytics tracking endpoints
+- 👤 User authentication and profile management
+- 💬 Messaging system
+- 🔒 Security middleware (Helmet, CORS, Rate Limiting)
+- 📝 Request logging with Morgan
+- ⚡ Performance optimization with compression
+- 🔄 Hot reload with Nodemon (development)
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js >= 18.0.0
+- npm >= 9.0.0
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env
+
+# Edit .env with your configuration
+nano .env
+```
+
+### Development
+
+```bash
+# Start development server with hot reload
+npm run dev
+
+# Server runs on http://localhost:3000
+```
+
+### Production
+
+```bash
+# Start production server
+npm start
+```
+
+## API Endpoints
+
+### Analytics
+
+#### Track Event
+```http
+POST /api/analytics/event
+Content-Type: application/json
+
+{
+  "eventName": "button_click",
+  "properties": {
+    "button_id": "signup",
+    "page": "home"
+  },
+  "userId": "user123",
+  "timestamp": "2025-11-21T10:00:00Z"
+}
+```
+
+#### Track Pageview
+```http
+POST /api/analytics/pageview
+Content-Type: application/json
+
+{
+  "path": "/home",
+  "title": "Home Page",
+  "referrer": "https://google.com",
+  "userId": "user123",
+  "timestamp": "2025-11-21T10:00:00Z"
+}
+```
+
+#### Identify User
+```http
+POST /api/analytics/identify
+Content-Type: application/json
+
+{
+  "userId": "user123",
+  "traits": {
+    "email": "user@example.com",
+    "name": "John Doe",
+    "plan": "premium"
+  },
+  "timestamp": "2025-11-21T10:00:00Z"
+}
+```
+
+#### Check Status
+```http
+GET /api/analytics/status
+```
+
+Response:
+```json
+{
+  "status": "operational",
+  "version": "1.0.0",
+  "endpoints": [
+    "POST /api/analytics/event",
+    "POST /api/analytics/pageview",
+    "POST /api/analytics/identify",
+    "GET /api/analytics/status"
+  ]
+}
+```
+
+### Authentication (Placeholder)
+
+```http
+POST /api/auth/signup
+POST /api/auth/login
+POST /api/auth/logout
+```
+
+### Profile Management (Placeholder)
+
+```http
+GET /api/profile
+PUT /api/profile
+DELETE /api/profile
+POST /api/profile/avatar
+PUT /api/profile/password
+PUT /api/profile/email
+PUT /api/profile/preferences
+PUT /api/profile/notifications
+PUT /api/profile/privacy
+```
+
+### Messages (Placeholder)
+
+```http
+GET /api/messages?filter=all
+POST /api/messages/:id/read
+DELETE /api/messages/:id
+```
+
+## Environment Variables
+
+See `.env.example` for all available configuration options.
+
+Required variables:
+```env
+PORT=3000
+NODE_ENV=development
+```
+
+Optional variables:
+```env
+CORS_ORIGIN=http://localhost:3000
+FRONTEND_URL=http://localhost:3000
+```
+
+## Project Structure
+
+```
+backend-template/
+├── index.js              # Main application entry point
+├── package.json          # Dependencies and scripts
+├── .env.example          # Environment variables template
+├── .env                  # Your local environment (gitignored)
+├── README.md            # This file
+├── routes/              # API route handlers (future)
+├── controllers/         # Business logic (future)
+├── middleware/          # Custom middleware (future)
+├── models/              # Data models (future)
+└── utils/               # Helper functions (future)
+```
+
+## Security Features
+
+- **Helmet.js** - Sets secure HTTP headers
+- **CORS** - Cross-Origin Resource Sharing configuration
+- **Rate Limiting** - Prevents abuse and DDoS attacks
+- **Input Validation** - Basic request validation
+- **Environment Variables** - Sensitive data protection
+
+## Deployment
+
+### Railway
+
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login
+railway login
+
+# Deploy
+railway up
+```
+
+See [DEPLOYMENT.md](../DEPLOYMENT.md) for detailed deployment instructions.
+
+### Other Platforms
+
+- **Vercel**: `vercel`
+- **Render**: Connect via dashboard
+- **Fly.io**: `fly launch && fly deploy`
+- **Azure**: `az webapp up`
+
+## Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+## Linting
+
+```bash
+# Check for errors
+npm run lint
+
+# Fix errors automatically
+npm run lint:fix
+```
+
+## Performance
+
+- **Compression** - Gzip compression for responses
+- **Logging** - Morgan for request logging
+- **Caching** - Ready for Redis integration
+- **Database** - Ready for PostgreSQL/MongoDB integration
+
+## Adding New Endpoints
+
+1. Create route handler in `index.js` or separate routes file
+2. Add validation middleware
+3. Implement business logic
+4. Add tests
+5. Update this README
+
+Example:
+```javascript
+app.post('/api/your-endpoint', (req, res) => {
+  // Your logic here
+  res.json({ success: true });
+});
+```
+
+## Troubleshooting
+
+### Port Already in Use
+```bash
+# Kill process on port 3000
+lsof -ti:3000 | xargs kill -9
+```
+
+### Module Not Found
+```bash
+# Reinstall dependencies
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Environment Variables Not Loading
+- Ensure `.env` file exists in root directory
+- Check `.env` file format (no quotes needed)
+- Restart the server after changes
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+MIT License - see [LICENSE](../LICENSE) file for details
+
+## Support
+
+- Documentation: See [DEPLOYMENT.md](../DEPLOYMENT.md)
+- Issues: Create an issue in the repository
+- Questions: Open a discussion
+
+## Roadmap
+
+- [ ] Add database integration (PostgreSQL/MongoDB)
+- [ ] Implement JWT authentication
+- [ ] Add comprehensive test coverage
+- [ ] Implement WebSocket support
+- [ ] Add API documentation (Swagger/OpenAPI)
+- [ ] Implement caching with Redis
+- [ ] Add background job processing
+- [ ] Implement email notifications
+- [ ] Add file upload support
+- [ ] Implement search functionality

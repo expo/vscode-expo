@@ -1,0 +1,207 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+/**
+ * Custom hook for profile-related mutations
+ * Handles updating, deleting, and managing user profile data
+ */
+const useProfileMutations = () => {
+  const queryClient = useQueryClient();
+
+  // Update profile mutation
+  const updateProfile = useMutation({
+    mutationFn: async (profileData) => {
+      const response = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      // Invalidate and refetch profile queries
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.setQueryData(['profile'], data);
+    },
+    onError: (error) => {
+      console.error('Error updating profile:', error);
+    },
+  });
+
+  // Update avatar mutation
+  const updateAvatar = useMutation({
+    mutationFn: async (file) => {
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      const response = await fetch('/api/profile/avatar', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload avatar');
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.setQueryData(['profile', 'avatar'], data.avatarUrl);
+    },
+  });
+
+  // Update password mutation
+  const updatePassword = useMutation({
+    mutationFn: async ({ currentPassword, newPassword }) => {
+      const response = await fetch('/api/profile/password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update password');
+      }
+
+      return response.json();
+    },
+  });
+
+  // Update email mutation
+  const updateEmail = useMutation({
+    mutationFn: async ({ email, password }) => {
+      const response = await fetch('/api/profile/email', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to update email');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+    },
+  });
+
+  // Update preferences mutation
+  const updatePreferences = useMutation({
+    mutationFn: async (preferences) => {
+      const response = await fetch('/api/profile/preferences', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(preferences),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update preferences');
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(['profile', 'preferences'], data);
+    },
+  });
+
+  // Delete account mutation
+  const deleteAccount = useMutation({
+    mutationFn: async (password) => {
+      const response = await fetch('/api/profile', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to delete account');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      // Clear all cached data
+      queryClient.clear();
+      // Redirect to login or home page
+      window.location.href = '/';
+    },
+  });
+
+  // Update notification settings mutation
+  const updateNotificationSettings = useMutation({
+    mutationFn: async (settings) => {
+      const response = await fetch('/api/profile/notifications', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settings),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update notification settings');
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(['profile', 'notifications'], data);
+    },
+  });
+
+  // Update privacy settings mutation
+  const updatePrivacySettings = useMutation({
+    mutationFn: async (settings) => {
+      const response = await fetch('/api/profile/privacy', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settings),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update privacy settings');
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(['profile', 'privacy'], data);
+    },
+  });
+
+  return {
+    updateProfile,
+    updateAvatar,
+    updatePassword,
+    updateEmail,
+    updatePreferences,
+    deleteAccount,
+    updateNotificationSettings,
+    updatePrivacySettings,
+  };
+};
+
+export default useProfileMutations;

@@ -1,0 +1,22 @@
+const form = document.querySelector('form');
+const fileInput = form.querySelector('input[type="file"]');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/upload');
+
+  xhr.upload.onprogress = (evt) => {
+    if (evt.lengthComputable) {
+      const percent = (evt.loaded / evt.total) * 100;
+      console.log(`Upload: ${percent.toFixed(2)}%`);
+    }
+  };
+
+  xhr.onload = () => {
+    if (xhr.status === 200) console.log('Upload complete');
+  };
+
+  xhr.send(formData);
+});

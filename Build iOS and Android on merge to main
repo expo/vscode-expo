@@ -1,0 +1,125 @@
+name: Build iOS and Android on merge to main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    name: Android Release Build
+    runs-on: ubuntu-latest
+
+    env:
+      # Signing secrets (configure in repo Settings > Secrets and variables > Actions)
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Decode Android keystore
+        run: |
+          mkdir -p android
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/release.keystore
+
+      - name: Write signing config gradle.properties
+        run: |
+          cat > android/gradle.properties <<EOF
+MYAPP_UPLOAD_STORE_FILE=release.keystore
+MYAPP_UPLOAD_KEY_ALIAS=${ANDROID_KEY_ALIAS}
+MYAPP_UPLOAD_STORE_PASSWORD=${ANDROID_KEYSTORE_PASSWORD}
+MYAPP_UPLOAD_KEY_PASSWORD=${ANDROID_KEY_PASSWORD}
+EOF
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Assemble Release AAB
+        working-directory: android
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :app:bundleRelease --stacktrace
+
+      - name: Upload Android artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab
+
+  build-ios:
+    name: iOS Release Build
+    runs-on: macos-latest
+    needs: build-android
+
+    env:
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Setup Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Install Ruby / iOS dependencies
+        working-directory: ios
+        run: |
+          bundle install --jobs 4 --retry 3 || gem install bundler && bundle install
+          # Ensure CocoaPods repo is up-to-date and install pods
+          bundle exec pod install --repo-update
+
+      - name: Decode App Store Connect API key (optional)
+        if: env.APP_STORE_CONNECT_API_KEY_BASE64 != ''
+        run: |
+          mkdir -p ios/fastlane
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > ios/fastlane/AppStoreConnectApiKey.json
+        shell: bash
+
+      - name: Fetch signing assets with fastlane match
+        working-directory: ios
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+        run: |
+          bundle exec fastlane match appstore --readonly
+
+      - name: Build iOS archive / ipa
+        working-directory: ios
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        run: |
+          bundle exec fastlane ios build
+
+      - name: Upload iOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release-ipa
+          path: ios/build/*.ipa

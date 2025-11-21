@@ -1,0 +1,309 @@
+import React, { useEffect, useState, useCallback } from 'react';
+import {
+  Modal,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+  ActivityIndicator,
+  StyleSheet,
+  Platform,
+  AccessibilityInfo,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const STORAGE_KEY = 'privacyConsent:v1';
+
+/**
+ * PrivacyConsent
+ *
+ * Props:
+ * - visible?: boolean         // show modal regardless of persisted consent (useful for forcing re-consent)
+ * - privacyUrl?: string       // remote URL to open for full policy (optional)
+ * - defaultText?: string      // fallback text shown inside the modal when privacyUrl is not provided or fetch fails
+ * - required?: boolean        // when true, user must accept before continuing
+ * - onAccept?: () => void
+ * - onDecline?: () => void
+ *
+ * Behavior:
+ * - Persists acceptance to AsyncStorage so the modal is not shown again.
+ * - If visible prop is provided, it overrides the persisted value (modal will show while visible === true).
+ * - Attempts to load policy text from privacyUrl (plain text or HTML will be shown as text).
+ */
+export default function PrivacyConsent({
+  visible: visibleProp,
+  privacyUrl,
+  defaultText = 'We use cookies and similar technologies to improve your experience. By continuing, you agree to our Privacy Policy.',
+  required = false,
+  onAccept,
+  onDecline,
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [loadingPolicy, setLoadingPolicy] = useState(false);
+  const [policyText, setPolicyText] = useState('');
+  const [checkedStored, setCheckedStored] = useState(false);
+
+  const readStored = useCallback(async () => {
+    try {
+      const v = await AsyncStorage.getItem(STORAGE_KEY);
+      // stored as "accepted" or JSON stringified object
+      const accepted = v === 'accepted' || (v && JSON.parse(v)?.accepted);
+      setCheckedStored(true);
+      // If parent forced visible, honor that; otherwise show only when not accepted
+      if (typeof visibleProp === 'boolean') {
+        setIsVisible(visibleProp);
+      } else {
+        setIsVisible(!accepted);
+      }
+    } catch (err) {
+      // if reading storage fails, fall back to showing modal (safer)
+      setCheckedStored(true);
+      setIsVisible(typeof visibleProp === 'boolean' ? visibleProp : true);
+      // eslint-disable-next-line no-console
+      console.warn('PrivacyConsent: could not read stored consent', err);
+    }
+  }, [visibleProp]);
+
+  useEffect(() => {
+    readStored();
+  }, [readStored]);
+
+  useEffect(() => {
+    // If parent toggles visible prop explicitly, update internal visibility
+    if (typeof visibleProp === 'boolean') {
+      setIsVisible(visibleProp);
+    }
+  }, [visibleProp]);
+
+  useEffect(() => {
+    if (!privacyUrl) return;
+    let cancelled = false;
+    setLoadingPolicy(true);
+    fetch(privacyUrl, { method: 'GET' })
+      .then(async (res) => {
+        if (cancelled) return;
+        if (!res.ok) throw new Error(`Failed to fetch policy: ${res.status}`);
+        // try to show as text
+        const text = await res.text();
+        setPolicyText(text);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.warn('PrivacyConsent: could not fetch privacyUrl', err);
+        setPolicyText('');
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingPolicy(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [privacyUrl]);
+
+  const accept = async () => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ accepted: true, ts: Date.now() }));
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('PrivacyConsent: failed to persist acceptance', err);
+    }
+    setIsVisible(false);
+    if (typeof onAccept === 'function') onAccept();
+  };
+
+  const decline = async () => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ accepted: false, ts: Date.now() }));
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('PrivacyConsent: failed to persist decline', err);
+    }
+    setIsVisible(false);
+    if (typeof onDecline === 'function') onDecline();
+    // If consent is required, consider keeping modal visible — but here we simply call onDecline.
+  };
+
+  const openPolicy = async () => {
+    if (!privacyUrl) return;
+    try {
+      const supported = await Linking.canOpenURL(privacyUrl);
+      if (supported) {
+        Linking.openURL(privacyUrl);
+      } else {
+        // fallback: do nothing or show a message
+        // eslint-disable-next-line no-console
+        console.warn('PrivacyConsent: cannot open URL', privacyUrl);
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('PrivacyConsent: failed to open URL', err);
+    }
+  };
+
+  // Don't render until we've checked stored consent unless parent explicitly requested visibility
+  if (!checkedStored && typeof visibleProp !== 'boolean') return null;
+
+  return (
+    <Modal
+      visible={isVisible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => {
+        // For Android back button
+        if (!required) {
+          setIsVisible(false);
+        } else {
+          // announce that acceptance is required
+          if (Platform.OS === 'android' || Platform.OS === 'ios') {
+            AccessibilityInfo.announceForAccessibility('Privacy consent is required to continue.');
+          }
+        }
+      }}
+      accessible={true}
+      accessibilityViewIsModal={true}
+    >
+      <View style={styles.backdrop}>
+        <View style={styles.container} accessibilityRole="dialog" accessibilityLabel="Privacy consent dialog">
+          <Text style={styles.title}>Privacy & Cookies</Text>
+
+          <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
+            {loadingPolicy ? (
+              <View style={styles.loadingRow}>
+                <ActivityIndicator size="small" />
+                <Text style={styles.loadingText}>Loading privacy policy…</Text>
+              </View>
+            ) : policyText ? (
+              <Text selectable style={styles.policyText}>
+                {policyText}
+              </Text>
+            ) : (
+              <Text style={styles.policyText}>{defaultText}</Text>
+            )}
+          </ScrollView>
+
+          <View style={styles.actions}>
+            {privacyUrl ? (
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel="Open full privacy policy"
+                onPress={openPolicy}
+                style={[styles.actionButton, styles.linkButton]}
+              >
+                <Text style={[styles.actionText, styles.linkText]}>View full policy</Text>
+              </TouchableOpacity>
+            ) : null}
+
+            <View style={styles.row}>
+              {!required && (
+                <TouchableOpacity
+                  accessibilityRole="button"
+                  accessibilityLabel="Decline privacy policy"
+                  onPress={decline}
+                  style={[styles.actionButton, styles.secondaryButton]}
+                >
+                  <Text style={styles.secondaryText}>Decline</Text>
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel="Accept privacy policy"
+                onPress={accept}
+                style={[styles.actionButton, styles.primaryButton]}
+              >
+                <Text style={styles.primaryText}>Accept</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+const styles = StyleSheet.create({
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    maxHeight: '80%',
+    minHeight: 220,
+    padding: 16,
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  body: {
+    flexGrow: 1,
+    marginBottom: 12,
+  },
+  bodyContent: {
+    paddingBottom: 8,
+  },
+  policyText: {
+    fontSize: 14,
+    color: '#111',
+  },
+  loadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  loadingText: {
+    marginLeft: 8,
+    fontSize: 14,
+  },
+  actions: {
+    marginTop: 6,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+  },
+  actionButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    minWidth: 88,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  primaryButton: {
+    backgroundColor: '#0066ff',
+  },
+  primaryText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  secondaryButton: {
+    backgroundColor: '#eee',
+  },
+  secondaryText: {
+    color: '#111',
+    fontWeight: '600',
+  },
+  linkButton: {
+    alignSelf: 'flex-start',
+    marginBottom: 8,
+    backgroundColor: 'transparent',
+    paddingHorizontal: 0,
+    paddingVertical: 6,
+  },
+  linkText: {
+    color: '#0066ff',
+    fontWeight: '500',
+  },
+});

@@ -163,3 +163,73 @@ describe('traverseSchemaAddPatternErrorDescription', () => {
     expect(schema.patternErrorMessage).to.equal(schema.meta.regexHuman);
   });
 });
+
+describe('traverseSchemaAddInfoPlistProperties', () => {
+  const { traverseSchemaAddInfoPlistProperties } = require('../schema-expo-xdl');
+
+  it('skips when IOS definition does not exist', () => {
+    const schema = { definitions: {} };
+    traverseSchemaAddInfoPlistProperties(schema);
+    expect(schema.definitions).to.deep.equal({});
+  });
+
+  it('skips when infoPlist property does not exist', () => {
+    const schema = { definitions: { IOS: { properties: {} } } };
+    traverseSchemaAddInfoPlistProperties(schema);
+    expect(schema.definitions.IOS.properties).to.deep.equal({});
+  });
+
+  it('adds NSUserTrackingUsageDescription to infoPlist properties', () => {
+    const schema = {
+      definitions: {
+        IOS: {
+          properties: {
+            infoPlist: {
+              type: 'object',
+              properties: {},
+              additionalProperties: true,
+            },
+          },
+        },
+      },
+    };
+    traverseSchemaAddInfoPlistProperties(schema);
+    expect(schema.definitions.IOS.properties.infoPlist.properties).to.have.property(
+      'NSUserTrackingUsageDescription'
+    );
+    expect(
+      schema.definitions.IOS.properties.infoPlist.properties.NSUserTrackingUsageDescription
+    ).to.have.property('type', 'string');
+    expect(
+      schema.definitions.IOS.properties.infoPlist.properties.NSUserTrackingUsageDescription
+    ).to.have.property('description');
+    expect(
+      schema.definitions.IOS.properties.infoPlist.properties.NSUserTrackingUsageDescription
+    ).to.have.property('markdownDescription');
+  });
+
+  it('preserves existing infoPlist properties', () => {
+    const schema = {
+      definitions: {
+        IOS: {
+          properties: {
+            infoPlist: {
+              type: 'object',
+              properties: {
+                CustomProperty: { type: 'string' },
+              },
+              additionalProperties: true,
+            },
+          },
+        },
+      },
+    };
+    traverseSchemaAddInfoPlistProperties(schema);
+    expect(schema.definitions.IOS.properties.infoPlist.properties).to.have.property(
+      'CustomProperty'
+    );
+    expect(schema.definitions.IOS.properties.infoPlist.properties).to.have.property(
+      'NSUserTrackingUsageDescription'
+    );
+  });
+});

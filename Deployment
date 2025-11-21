@@ -1,0 +1,240 @@
+# Deployment Guide
+
+## Backend Deployment
+
+Your backend is deployed on Railway at:
+**https://tonys-mowers-api.up.railway.app**
+
+### Railway Deployment Steps
+
+#### Option 1: Deploy via Railway Dashboard (Recommended)
+
+1. **Visit Railway Dashboard**
+   - Go to https://railway.app/dashboard
+   - Sign in with your GitHub account
+
+2. **Create or Access Project**
+   - Find your project "tonys-mowers-api"
+   - Or click "New Project" to create one
+
+3. **Connect GitHub Repository**
+   - Click "New" → "GitHub Repo"
+   - Select `haikus-for-codespaces` repository
+   - Railway will auto-detect your Node.js app
+
+4. **Configure Build Settings** (Auto-detected)
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+   - Port: `3000` (from `process.env.PORT`)
+
+5. **Deploy**
+   - Click "Deploy"
+   - Watch the build logs
+   - Once complete, your API will be live
+
+6. **Get Your URL**
+   - Railway provides a URL like: `https://your-app.up.railway.app`
+   - Update `.env` file with this URL
+
+#### Option 2: Deploy via Railway CLI
+
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login to Railway
+railway login
+
+# Link to your project (or create new one)
+railway link
+
+# Deploy
+railway up
+
+# Open in browser
+railway open
+```
+
+### Environment Variables
+
+Set these in Railway Dashboard → Your Project → Variables:
+
+```
+PORT=3000
+NODE_ENV=production
+```
+
+### Verify Deployment
+
+Test your deployed backend:
+
+```bash
+# Check API status
+curl https://tonys-mowers-api.up.railway.app/api/analytics/status
+
+# Expected response:
+{
+  "status": "operational",
+  "version": "1.0.0",
+  "endpoints": [...]
+}
+```
+
+## Frontend Configuration
+
+Your frontend is already configured to use the Railway backend.
+
+### API Configuration File
+
+Location: `src/config/api.js`
+
+```javascript
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 
+  'https://tonys-mowers-api.up.railway.app';
+```
+
+### Environment Variables
+
+Update `.env` with your actual backend URL:
+
+```
+REACT_APP_API_URL=https://tonys-mowers-api.up.railway.app
+```
+
+## Alternative Deployment Platforms
+
+### Vercel
+
+```bash
+npm install -g vercel
+vercel login
+vercel
+```
+
+### Render
+
+1. Go to https://render.com
+2. Click "New +" → "Web Service"
+3. Connect GitHub repository
+4. Use settings:
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+
+### Fly.io
+
+```bash
+# Install Fly CLI
+curl -L https://fly.io/install.sh | sh
+
+# Login
+fly auth login
+
+# Launch app
+fly launch
+
+# Deploy
+fly deploy
+```
+
+### Azure App Service
+
+```bash
+# Install Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+# Login
+az login
+
+# Deploy
+az webapp up --name your-app-name --resource-group your-rg --runtime "NODE|18-lts"
+```
+
+## API Endpoints
+
+Your backend exposes these analytics endpoints:
+
+- `POST /api/analytics/event` - Track custom events
+- `POST /api/analytics/pageview` - Track page views
+- `POST /api/analytics/identify` - Identify users
+- `GET /api/analytics/status` - Check API status
+
+## Monitoring
+
+### Railway Logs
+
+View logs in Railway Dashboard:
+1. Go to your project
+2. Click on your service
+3. View "Deployments" tab
+4. Click on a deployment to see logs
+
+### Health Check
+
+Set up a health check endpoint (already available):
+```
+GET /api/analytics/status
+```
+
+## Troubleshooting
+
+### App Not Responding
+
+1. Check Railway deployment logs
+2. Verify environment variables are set
+3. Ensure `PORT` environment variable is configured
+4. Check build succeeded without errors
+
+### CORS Issues
+
+If you get CORS errors, add to `index.js`:
+
+```javascript
+const cors = require('cors');
+app.use(cors({
+  origin: ['https://your-frontend-domain.com'],
+  credentials: true
+}));
+```
+
+### Connection Refused
+
+1. Verify backend is deployed and running
+2. Check the URL in `.env` file
+3. Test endpoint with curl
+4. Check Railway service status
+
+## Updating Deployment
+
+### Railway Auto-Deploy
+
+Railway automatically deploys when you push to your connected branch:
+
+```bash
+git add .
+git commit -m "Update backend"
+git push origin main
+```
+
+### Manual Redeploy
+
+In Railway Dashboard:
+1. Go to your service
+2. Click "Deploy" → "Redeploy"
+
+## Production Checklist
+
+- [ ] Backend deployed on Railway
+- [ ] Environment variables configured
+- [ ] Frontend `.env` updated with backend URL
+- [ ] API endpoints tested
+- [ ] CORS configured if needed
+- [ ] Health check endpoint working
+- [ ] Error logging enabled
+- [ ] Rate limiting configured (if needed)
+- [ ] SSL/HTTPS enabled (automatic on Railway)
+
+## Support
+
+- Railway Docs: https://docs.railway.app
+- Railway Discord: https://discord.gg/railway
+- GitHub Issues: Create an issue in your repository
