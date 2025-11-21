@@ -2544,7 +2544,15 @@ Object {
           "additionalProperties": true,
           "description": "Dictionary of arbitrary configuration to add to your standalone app's native Info.plist. Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store.",
           "markdownDescription": "Dictionary of arbitrary configuration to add to your standalone app's native Info.plist. Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store.",
-          "properties": Object {},
+          "properties": Object {
+            "NSUserTrackingUsageDescription": Object {
+              "description": "A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.",
+              "markdownDescription": "A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.
+
+[Learn more](https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription)",
+              "type": "string",
+            },
+          },
           "type": "object",
         },
         "isRemoteJSEnabled": Object {
@@ -4399,7 +4407,15 @@ Set this to \`{\\"policy\\": \\"nativeVersion\\"}\` to generate it automatically
           "additionalProperties": true,
           "description": "Dictionary of arbitrary configuration to add to your standalone app's native Info.plist. Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store.",
           "markdownDescription": "Dictionary of arbitrary configuration to add to your standalone app's native Info.plist. Applied prior to all other Expo-specific configuration. No other validation is performed, so use this at your own risk of rejection from the App Store.",
-          "properties": Object {},
+          "properties": Object {
+            "NSUserTrackingUsageDescription": Object {
+              "description": "A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.",
+              "markdownDescription": "A message that informs the user why an app is requesting permission to use data for tracking the user or the device. This message is displayed when the app requests permission to track the user across apps and websites owned by other companies.
+
+[Learn more](https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription)",
+              "type": "string",
+            },
+          },
           "type": "object",
         },
         "isTabletOnly": Object {
