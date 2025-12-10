@@ -1,3 +1,15 @@
+## [1.6.2](https://github.com/expo/vscode-expo/compare/1.6.1...1.6.2) (2025-12-10)
+
+
+### Bug fixes
+
+* set `remoteHostHeader` to `host: <bundler>:<port>` to avoid debug middleware rewriting `Debugger.scriptParsed` URLs to `http://localhost/..` ([#285](https://github.com/expo/vscode-expo/issues/285)) ([30bb9cf](https://github.com/expo/vscode-expo/commit/30bb9cf9e2e0507fd13545f9af5f7ccdc6a58a73))
+
+
+### Other chores
+
+* add `.env` files to the gitignore list ([77076da](https://github.com/expo/vscode-expo/commit/77076da344f18fefaf74dc985096060c6f0964e1))
+
 ## [1.6.1](https://github.com/expo/vscode-expo/compare/1.6.0...1.6.1) (2025-07-10)
 
 
