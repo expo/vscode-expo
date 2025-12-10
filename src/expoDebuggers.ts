@@ -151,6 +151,8 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       restart: config.restart ?? false,
       // Speed up the sourcemap loading, it's kind of experimental in `vscode-js-debug`, but does work fine eiher way
       enableTurboSourcemaps: config.enableTurboSourcemaps ?? true,
+      // Allow mocking the `host: <url>` when connecting as debugger
+      remoteHostHeader: config.remoteHostHeader ?? undefined,
     };
   }
 
@@ -173,8 +175,18 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
     config.cwd = config.projectRoot;
 
     // Infer the bundler address from project workflow
-    config.bundlerHost = config.bundlerHost ?? '127.0.0.1';
-    config.bundlerPort = config.bundlerPort ?? undefined;
+    config.bundlerHost ??= '127.0.0.1';
+    config.bundlerPort ??= undefined;
+
+    // `vscode.js-debug` adds a `host: <url>` header when connecting through CDP, which is set to `localhost` by default.
+    // Right now, we still have an inspector proxy, meaning that the URLs for devices are slightly different compared to debuggers.
+    // React Native tries to ease the pain here by automatically converting certain URLs to be "debugger-relative".
+    // Unfortunately, this translation mechanism isn't correct with the default `vscode.js-debug` value `localhost`.
+    // Using `localhost` instead of `<host>:<port>` causes `Debugger.scriptParsed` event URLs to be converted to `http://localhost/...`.
+    // Which in turn causes `vscode.js-debug` to fail with "source map could not be loaded".
+    // See: https://github.com/facebook/react-native/blame/dd1f83e61656f21769bd66b28a4c389d6ec31a72/packages/dev-middleware/src/utils/getBaseUrlFromRequest.js#L25
+    // See: https://github.com/microsoft/vscode-js-debug/commit/7c1e48388190e99a275c81be3c25c3a3a9c3b562
+    config.remoteHostHeader ??= `${config.bundlerHost}:${config.bundlerPort}`;
 
     // Workaround for Window's drive letter case mismatch with source maps
     if (process.platform === 'win32') {
