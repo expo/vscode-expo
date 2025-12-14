@@ -2443,49 +2443,42 @@
                 "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
-                "allOf": [
+                "anyOf": [
                   {
                     "type": "object",
                     "properties": {
                       "webhook_url": {
                         "type": "string",
                         "format": "uri"
+                      },
+                      "message": {
+                        "type": "string"
                       }
                     },
                     "required": [
-                      "webhook_url"
+                      "webhook_url",
+                      "message"
                     ],
                     "additionalProperties": false
                   },
                   {
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "message"
-                        ],
-                        "additionalProperties": false
+                    "type": "object",
+                    "properties": {
+                      "webhook_url": {
+                        "type": "string",
+                        "format": "uri"
                       },
-                      {
+                      "payload": {
                         "type": "object",
-                        "properties": {
-                          "payload": {
-                            "type": "object",
-                            "properties": {},
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "payload"
-                        ],
-                        "additionalProperties": false
+                        "properties": {},
+                        "additionalProperties": {}
                       }
-                    ]
+                    },
+                    "required": [
+                      "webhook_url",
+                      "payload"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }
