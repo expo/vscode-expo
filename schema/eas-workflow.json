@@ -3,10 +3,12 @@
   "type": "object",
   "properties": {
     "on": {
+      "description": "Configuration for GitHub events that trigger the workflow.",
       "type": "object",
       "properties": {
         "workflow_dispatch": {
           "description": "Configuration for manual workflow triggers",
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "inputs": {
@@ -18,11 +20,19 @@
               "additionalProperties": {
                 "oneOf": [
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "description": {
                         "description": "Description of the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Description of the input"
                       },
                       "required": {
@@ -33,10 +43,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
@@ -48,18 +58,32 @@
                       },
                       "default": {
                         "description": "Default value for the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Default value for the input"
                       }
-                    },
-                    "additionalProperties": false
+                    }
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "description": {
                         "description": "Description of the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Description of the input"
                       },
                       "required": {
@@ -70,10 +94,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
@@ -89,10 +113,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Default value for the input"
@@ -100,15 +124,22 @@
                     },
                     "required": [
                       "type"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "description": {
                         "description": "Description of the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Description of the input"
                       },
                       "required": {
@@ -119,10 +150,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
@@ -139,15 +170,22 @@
                     },
                     "required": [
                       "type"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "description": {
                         "description": "Description of the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Description of the input"
                       },
                       "required": {
@@ -158,10 +196,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
@@ -172,7 +210,14 @@
                       },
                       "default": {
                         "description": "Default value for the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Default value for the input"
                       },
                       "options": {
@@ -180,7 +225,14 @@
                         "minItems": 1,
                         "type": "array",
                         "items": {
-                          "type": "string"
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
                         },
                         "markdownDescription": "Options for choice type inputs"
                       }
@@ -188,15 +240,22 @@
                     "required": [
                       "type",
                       "options"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "description": {
                         "description": "Description of the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Description of the input"
                       },
                       "required": {
@@ -207,10 +266,10 @@
                             "type": "boolean"
                           },
                           {
-                            "type": "boolean"
+                            "type": "string"
                           },
                           {
-                            "type": "boolean"
+                            "type": "number"
                           }
                         ],
                         "markdownDescription": "Whether the input is required."
@@ -221,31 +280,45 @@
                       },
                       "default": {
                         "description": "Default value for the input",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Default value for the input"
                       }
                     },
                     "required": [
                       "type"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
               "markdownDescription": "Configuration for inputs to the workflow."
             }
           },
-          "additionalProperties": false,
           "markdownDescription": "Configuration for manual workflow triggers"
         },
         "push": {
+          "description": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags.",
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "branches": {
               "description": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow.",
               "type": "array",
               "items": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               },
               "markdownDescription": "List of branches that pushing to will trigger the workflow. You can use basic regular expressions to match multiple branches, e.g. `feat/**`. By default pushes to any branch will trigger the workflow."
             },
@@ -253,7 +326,14 @@
               "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
               "type": "array",
               "items": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               },
               "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
             },
@@ -261,15 +341,23 @@
               "description": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow.",
               "type": "array",
               "items": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               },
               "markdownDescription": "List of tags that pushing to will trigger the workflow. You can use basic regular expressions to match multiple tags, e.g. `feat/**`. By default pushes to any tag will not trigger the workflow."
             }
           },
-          "additionalProperties": false
+          "markdownDescription": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags."
         },
         "pull_request": {
           "description": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches.",
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "branches": {
@@ -278,14 +366,28 @@
               ],
               "type": "array",
               "items": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               }
             },
             "paths": {
               "description": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow.",
               "type": "array",
               "items": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               },
               "markdownDescription": "List of file paths that changing will trigger the workflow. You can use basic regular expressions to match multiple paths, e.g. `apps/mobile/**`. By default changes to any path will trigger the workflow."
             },
@@ -309,7 +411,6 @@
               "markdownDescription": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events."
             }
           },
-          "additionalProperties": false,
           "markdownDescription": "If provided, the workflow will be triggered on updates to GitHub pull request events pointing as target to the specified branches."
         },
         "pull_request_labeled": {
@@ -317,22 +418,14 @@
           "anyOf": [
             {
               "description": "List of labels that, assigned to a pull request, will trigger this workflow.",
-              "type": "object",
-              "properties": {
-                "labels": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
+              "type": "array",
+              "items": {
+                "type": "string"
               },
-              "required": [
-                "labels"
-              ],
-              "additionalProperties": false,
               "markdownDescription": "List of labels that, assigned to a pull request, will trigger this workflow."
             },
             {
+              "additionalProperties": false,
               "type": "object",
               "properties": {
                 "labels": {
@@ -340,12 +433,18 @@
                   "default": [],
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "markdownDescription": "If a given pull request is labeled with a label matching any of the entries here, a new workflow will be started. Example: if you specify \"preview\" here, adding a \"preview\" label to the pull request will start a workflow, but adding other labels will not."
                 }
-              },
-              "additionalProperties": false
+              }
             }
           ],
           "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
@@ -354,21 +453,29 @@
           "description": "List of cron expressions to trigger the workflow.",
           "type": "array",
           "items": {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "cron": {
-                "type": "string"
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
               }
             },
             "required": [
               "cron"
-            ],
-            "additionalProperties": false
+            ]
           },
           "markdownDescription": "List of cron expressions to trigger the workflow."
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "markdownDescription": "Configuration for GitHub events that trigger the workflow."
     },
     "jobs": {
       "description": "Configuration of jobs to run in the workflow.",
@@ -379,11 +486,19 @@
       "additionalProperties": {
         "anyOf": [
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -408,7 +523,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -417,7 +539,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -428,7 +557,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "runs_on": {
@@ -457,6 +593,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "platform": {
@@ -483,14 +620,20 @@
                   },
                   "message": {
                     "description": "Message attached to the build.",
-                    "type": "string",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "Message attached to the build."
                   }
                 },
                 "required": [
                   "platform"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -500,7 +643,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -558,20 +708,7 @@
                           "items": {
                             "anyOf": [
                               {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "required": {
-                                    "default": false,
-                                    "type": "boolean"
-                                  }
-                                },
-                                "required": [
-                                  "name"
-                                ],
-                                "additionalProperties": false
+                                "type": "string"
                               },
                               {
                                 "type": "object",
@@ -585,8 +722,7 @@
                                 },
                                 "required": [
                                   "name"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           }
@@ -600,8 +736,7 @@
                       },
                       "required": [
                         "run"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -663,8 +798,7 @@
                       },
                       "required": [
                         "uses"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -685,15 +819,21 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -718,7 +858,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -727,7 +874,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -738,7 +892,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -775,14 +936,23 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
               "defaults": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "run": {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "working_directory": {
@@ -790,11 +960,9 @@
                         "type": "string",
                         "markdownDescription": "Working directory to run the script in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
                       }
-                    },
-                    "additionalProperties": false
+                    }
                   }
-                },
-                "additionalProperties": false
+                }
               },
               "outputs": {
                 "description": "Mapping from steps outputs to job outputs.",
@@ -816,15 +984,22 @@
             },
             "required": [
               "steps"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -849,7 +1024,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -858,7 +1040,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -869,7 +1058,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "env": {
@@ -880,7 +1076,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -890,11 +1093,19 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "alias": {
                     "description": "Custom alias to assign to the new deployment.",
-                    "type": "string",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "Custom alias to assign to the new deployment."
                   },
                   "prod": {
@@ -904,29 +1115,35 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Create a new production deployment."
                   }
-                },
-                "additionalProperties": false
+                }
               }
             },
             "required": [
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -951,7 +1168,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -960,7 +1184,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -971,7 +1202,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "env": {
@@ -982,7 +1220,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -994,15 +1239,22 @@
             },
             "required": [
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -1027,7 +1279,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -1036,7 +1295,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -1047,24 +1313,60 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
+                "additionalProperties": false,
                 "description": "Filters to find the build by.",
                 "type": "object",
                 "properties": {
                   "app_build_version": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "app_identifier": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "app_version": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "channel": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "distribution": {
                     "anyOf": [
@@ -1082,10 +1384,24 @@
                     ]
                   },
                   "fingerprint_hash": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "git_commit_hash": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "platform": {
                     "anyOf": [
@@ -1102,13 +1418,34 @@
                     ]
                   },
                   "profile": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "runtime_version": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "sdk_version": {
-                    "type": "string"
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
                   },
                   "simulator": {
                     "anyOf": [
@@ -1116,10 +1453,10 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ]
                   },
@@ -1130,30 +1467,36 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ]
                   }
                 },
-                "additionalProperties": false,
                 "markdownDescription": "Filters to find the build by."
               }
             },
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -1178,7 +1521,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -1187,7 +1537,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -1198,7 +1555,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -1207,6 +1571,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "build_id": {
@@ -1267,7 +1632,14 @@
                   },
                   "android_api_level": {
                     "description": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`.",
-                    "type": "string",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`."
                   },
                   "maestro_config": {
@@ -1297,10 +1669,10 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
@@ -1322,10 +1694,10 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Run the Maestro Cloud tests asynchronously. If true, the status of the job will only denote whether the upload was successful, *not* whether the tests succeeded. Corresponds to the `--async` flag in `maestro cloud`."
@@ -1335,8 +1707,7 @@
                   "build_id",
                   "maestro_project_id",
                   "flows"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -1346,7 +1717,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -1374,15 +1752,22 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -1407,7 +1792,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -1416,7 +1808,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -1427,7 +1826,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -1436,6 +1842,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "build_id": {
@@ -1461,7 +1868,17 @@
                   "record_screen": {
                     "description": "Upload a screen recording of the tests.",
                     "default": false,
-                    "type": "boolean",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
                     "markdownDescription": "Upload a screen recording of the tests."
                   },
                   "shards": {
@@ -1538,6 +1955,7 @@
                     "description": "Device identifier to emulate / simulate. Run `adb devices` on your machine to list available devices.",
                     "anyOf": [
                       {
+                        "additionalProperties": false,
                         "type": "object",
                         "properties": {
                           "android": {
@@ -1550,8 +1968,7 @@
                             "type": "string",
                             "markdownDescription": "iOS Simulator device identifier. E.g. \"iPhone 16\""
                           }
-                        },
-                        "additionalProperties": false
+                        }
                       },
                       {
                         "description": "Device identifier to emulate / simulate. Make sure to use value appropriate for the runtime platform. E.g. \"iPhone 16\" for iOS, \"pixel_6\" for Android.",
@@ -1568,10 +1985,10 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
@@ -1584,10 +2001,10 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work."
@@ -1596,8 +2013,7 @@
                 "required": [
                   "build_id",
                   "flow_path"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -1607,7 +2023,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -1632,6 +2055,7 @@
                 "markdownDescription": "Runner to use for the job."
               },
               "hooks": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "before_maestro_tests": {
@@ -1687,20 +2111,7 @@
                               "items": {
                                 "anyOf": [
                                   {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "required": {
-                                        "default": false,
-                                        "type": "boolean"
-                                      }
-                                    },
-                                    "required": [
-                                      "name"
-                                    ],
-                                    "additionalProperties": false
+                                    "type": "string"
                                   },
                                   {
                                     "type": "object",
@@ -1714,8 +2125,7 @@
                                     },
                                     "required": [
                                       "name"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 ]
                               }
@@ -1729,8 +2139,7 @@
                           },
                           "required": [
                             "run"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -1792,8 +2201,7 @@
                           },
                           "required": [
                             "uses"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -1851,20 +2259,7 @@
                               "items": {
                                 "anyOf": [
                                   {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "required": {
-                                        "default": false,
-                                        "type": "boolean"
-                                      }
-                                    },
-                                    "required": [
-                                      "name"
-                                    ],
-                                    "additionalProperties": false
+                                    "type": "string"
                                   },
                                   {
                                     "type": "object",
@@ -1878,8 +2273,7 @@
                                     },
                                     "required": [
                                       "name"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 ]
                               }
@@ -1893,8 +2287,7 @@
                           },
                           "required": [
                             "run"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -1956,28 +2349,33 @@
                           },
                           "required": [
                             "uses"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
                   }
-                },
-                "additionalProperties": false
+                }
               }
             },
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2002,7 +2400,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2011,7 +2416,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2022,21 +2434,35 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               }
             },
             "required": [
               "type"
-            ],
-            "additionalProperties": {}
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2061,7 +2487,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2070,7 +2503,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2081,7 +2521,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -2090,6 +2537,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "profile": {
@@ -2114,8 +2562,7 @@
                 },
                 "required": [
                   "build_id"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -2125,7 +2572,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               }
@@ -2133,15 +2587,22 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2166,7 +2627,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2175,7 +2643,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2186,7 +2661,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -2195,6 +2677,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "profile": {
@@ -2210,18 +2693,32 @@
                   },
                   "internal_groups": {
                     "description": "TestFlight internal group names to add the build to.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
                     "markdownDescription": "TestFlight internal group names to add the build to."
                   },
                   "external_groups": {
                     "description": "TestFlight external group names to add the build to.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
                     "markdownDescription": "TestFlight external group names to add the build to."
                   },
                   "changelog": {
@@ -2231,7 +2728,17 @@
                   },
                   "submit_beta_review": {
                     "description": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided.",
-                    "type": "boolean",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
                     "markdownDescription": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided."
                   },
                   "wait_processing_timeout_seconds": {
@@ -2244,8 +2751,7 @@
                 },
                 "required": [
                   "build_id"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -2255,7 +2761,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               }
@@ -2263,15 +2776,22 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2296,7 +2816,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2305,7 +2832,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2316,7 +2850,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "image": {
@@ -2326,6 +2867,7 @@
               },
               "params": {
                 "default": {},
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "message": {
@@ -2360,16 +2902,15 @@
                         "type": "boolean"
                       },
                       {
-                        "type": "boolean"
+                        "type": "string"
                       },
                       {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     ],
                     "markdownDescription": "Whether to upload sourcemaps to Sentry. If not provided, the value will be inferred based on whether \"@sentry/react-native\" is installed."
                   }
-                },
-                "additionalProperties": false
+                }
               },
               "env": {
                 "description": "Environment variables to provide to the job.",
@@ -2379,22 +2920,36 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               }
             },
             "required": [
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2419,7 +2974,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2428,7 +2990,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2439,12 +3008,20 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
                 "anyOf": [
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "webhook_url": {
@@ -2458,10 +3035,10 @@
                     "required": [
                       "webhook_url",
                       "message"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "webhook_url": {
@@ -2477,8 +3054,7 @@
                     "required": [
                       "webhook_url",
                       "payload"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -2486,15 +3062,22 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2519,7 +3102,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2528,7 +3118,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2539,10 +3136,18 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "md": {
@@ -2553,22 +3158,28 @@
                 },
                 "required": [
                   "md"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2593,7 +3204,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2602,7 +3220,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2613,7 +3238,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "runs_on": {
@@ -2644,7 +3276,14 @@
                   "type": "string"
                 },
                 "additionalProperties": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
@@ -2654,6 +3293,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "additionalProperties": false,
                 "type": "object",
                 "properties": {
                   "build_id": {
@@ -2668,12 +3308,29 @@
                   },
                   "embed_bundle_assets": {
                     "description": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app.",
-                    "type": "boolean",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
                     "markdownDescription": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app."
                   },
                   "message": {
                     "description": "Message attached to the build.",
-                    "type": "string",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "Message attached to the build."
                   },
                   "repack_version": {
@@ -2684,8 +3341,7 @@
                 },
                 "required": [
                   "build_id"
-                ],
-                "additionalProperties": false
+                ]
               },
               "outputs": {
                 "description": "Job outputs.",
@@ -2702,15 +3358,22 @@
             "required": [
               "type",
               "params"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
+            "additionalProperties": false,
             "type": "object",
             "properties": {
               "name": {
                 "description": "The name of the job. Displayed on the workflow run page.",
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The name of the job. Displayed on the workflow run page."
               },
               "type": {
@@ -2735,7 +3398,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
               },
@@ -2744,7 +3414,14 @@
                 "default": [],
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
               },
@@ -2755,7 +3432,14 @@
                   "preview",
                   "production"
                 ],
-                "type": "string",
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
                 "markdownDescription": "The environment variable environment for the job."
               },
               "params": {
@@ -2763,11 +3447,19 @@
                 "default": {},
                 "anyOf": [
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "payload": {
                         "description": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed.",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Custom HTML/Markdown content for the comment. Supports interpolation. When provided, no other parameters are allowed."
                       },
                       "message": {
@@ -2782,10 +3474,10 @@
                     },
                     "required": [
                       "payload"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
+                    "additionalProperties": false,
                     "type": "object",
                     "properties": {
                       "payload": {
@@ -2793,14 +3485,28 @@
                       },
                       "message": {
                         "description": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing.",
-                        "type": "string",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
                         "markdownDescription": "Custom message to display in the comment. Defaults to a friendly message about builds and updates being ready for testing."
                       },
                       "build_ids": {
                         "description": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section.",
                         "type": "array",
                         "items": {
-                          "type": "string"
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
                         },
                         "markdownDescription": "List of build IDs to include. If not specified, auto-discovers all builds related to a workflow run. Use empty array (`[]`) to omit builds section."
                       },
@@ -2808,12 +3514,18 @@
                         "description": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section.",
                         "type": "array",
                         "items": {
-                          "type": "string"
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
                         },
                         "markdownDescription": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section."
                       }
-                    },
-                    "additionalProperties": false
+                    }
                   }
                 ],
                 "markdownDescription": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates."
@@ -2821,8 +3533,7 @@
             },
             "required": [
               "type"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },
@@ -2830,10 +3541,18 @@
     },
     "name": {
       "description": "The name of the workflow. Displayed on the workflow page.",
-      "type": "string",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
       "markdownDescription": "The name of the workflow. Displayed on the workflow page."
     },
     "defaults": {
+      "additionalProperties": false,
       "type": "object",
       "properties": {
         "image": {
@@ -2842,6 +3561,7 @@
           "markdownDescription": "Default VM image to use for the jobs. Note: it is recommended to use \"sdk-XX\" image tags here. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
         },
         "run": {
+          "additionalProperties": false,
           "type": "object",
           "properties": {
             "working_directory": {
@@ -2849,8 +3569,7 @@
               "type": "string",
               "markdownDescription": "Default working directory to run the scripts in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
             }
-          },
-          "additionalProperties": false
+          }
         },
         "tools": {
           "description": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values.",
@@ -2858,12 +3577,26 @@
           "properties": {
             "node": {
               "description": "Version of Node.js.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of Node.js."
             },
             "yarn": {
               "description": "Version of Yarn.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of Yarn."
             },
             "corepack": {
@@ -2873,43 +3606,84 @@
             },
             "pnpm": {
               "description": "Version of pnpm.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of pnpm."
             },
             "bun": {
               "description": "Version of Bun.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of Bun."
             },
             "ndk": {
               "description": "Version of Android NDK.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of Android NDK."
             },
             "bundler": {
               "description": "Version of Bundler.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of Bundler."
             },
             "fastlane": {
               "description": "Version of fastlane.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of fastlane."
             },
             "cocoapods": {
               "description": "Version of CocoaPods.",
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
               "markdownDescription": "Version of CocoaPods."
             }
           },
-          "additionalProperties": false,
           "markdownDescription": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values."
         }
-      },
-      "additionalProperties": false
+      }
     },
     "concurrency": {
       "description": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows.",
+      "additionalProperties": false,
       "type": "object",
       "properties": {
         "cancel_in_progress": {
@@ -2929,14 +3703,12 @@
         "cancel_in_progress",
         "group"
       ],
-      "additionalProperties": false,
       "markdownDescription": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows."
     }
   },
   "required": [
     "jobs"
   ],
-  "additionalProperties": false,
   "description": "All configurable EAS Workflow properties. Learn more: https://docs.expo.dev/eas/workflows/syntax/",
   "markdownDescription": "All configurable EAS Workflow properties. [Learn more](https://docs.expo.dev/eas/workflows/syntax/)"
 }
