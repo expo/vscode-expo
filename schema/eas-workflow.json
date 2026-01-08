@@ -18,7 +18,7 @@
                 "type": "string"
               },
               "additionalProperties": {
-                "oneOf": [
+                "anyOf": [
                   {
                     "additionalProperties": false,
                     "type": "object",
