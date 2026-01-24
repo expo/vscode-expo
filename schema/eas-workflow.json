@@ -4101,6 +4101,9 @@
                       },
                       "update_group_ids": {
                         "not": {}
+                      },
+                      "deployment_ids": {
+                        "not": {}
                       }
                     },
                     "required": [
@@ -4155,6 +4158,21 @@
                           ]
                         },
                         "markdownDescription": "List of update group IDs to include. If not specified, auto-discovers all updates related to a workflow run. Use empty array (`[]`) to omit updates section."
+                      },
+                      "deployment_ids": {
+                        "description": "List of deployment identifiers to include. If not specified, auto-discovers all deployments related to a workflow run. Use empty array (`[]`) to omit deployments section.",
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "markdownDescription": "List of deployment identifiers to include. If not specified, auto-discovers all deployments related to a workflow run. Use empty array (`[]`) to omit deployments section."
                       }
                     },
                     "additionalProperties": false
