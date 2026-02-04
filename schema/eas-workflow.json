@@ -3968,6 +3968,11 @@
                     "description": "Version of the repack tool to use.",
                     "type": "string",
                     "markdownDescription": "Version of the repack tool to use."
+                  },
+                  "repack_package": {
+                    "description": "Repack package to use.",
+                    "type": "string",
+                    "markdownDescription": "Repack package to use."
                   }
                 },
                 "required": [
