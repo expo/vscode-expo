@@ -654,6 +654,160 @@
                 },
                 "markdownDescription": "Environment variables to provide to the job."
               },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
               "steps": {
                 "type": "array",
                 "items": {
@@ -965,6 +1119,160 @@
                 },
                 "additionalProperties": false
               },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
               "outputs": {
                 "description": "Mapping from steps outputs to job outputs.",
                 "type": "object",
@@ -1124,6 +1432,160 @@
                   }
                 },
                 "additionalProperties": false
+              },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
@@ -1235,6 +1697,160 @@
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "type": "string",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
+              },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
@@ -2916,6 +3532,154 @@
               "hooks": {
                 "type": "object",
                 "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  },
                   "before_submit": {
                     "type": "array",
                     "items": {
@@ -3403,6 +4167,160 @@
                   ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
+              },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
@@ -3562,6 +4480,160 @@
                   ]
                 },
                 "markdownDescription": "Environment variables to provide to the job."
+              },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
@@ -3990,6 +5062,160 @@
                   "type": "string"
                 },
                 "markdownDescription": "Job outputs."
+              },
+              "hooks": {
+                "type": "object",
+                "properties": {
+                  "before_install_node_modules": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "run": {
+                              "type": "string",
+                              "description": "Shell script to run in the step.",
+                              "markdownDescription": "Shell script to run in the step."
+                            },
+                            "shell": {
+                              "description": "Shell to run the \"run\" command with.",
+                              "type": "string",
+                              "markdownDescription": "Shell to run the \"run\" command with."
+                            },
+                            "outputs": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "required": {
+                                        "type": "boolean"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "uses": {
+                              "not": {}
+                            },
+                            "with": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "run"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                              "type": "string",
+                              "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                            },
+                            "if": {
+                              "description": "Expression that determines whether the step should run.",
+                              "type": "string",
+                              "markdownDescription": "Expression that determines whether the step should run."
+                            },
+                            "name": {
+                              "description": "Name of the step.",
+                              "type": "string",
+                              "markdownDescription": "Name of the step."
+                            },
+                            "working_directory": {
+                              "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                              "type": "string",
+                              "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                            },
+                            "env": {
+                              "description": "Additional environment variables to set for the step.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "uses": {
+                              "type": "string",
+                              "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                              "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                            },
+                            "with": {
+                              "description": "Inputs to the function.",
+                              "type": "object",
+                              "propertyNames": {
+                                "type": "string"
+                              },
+                              "additionalProperties": {},
+                              "markdownDescription": "Inputs to the function."
+                            },
+                            "run": {
+                              "not": {}
+                            },
+                            "shell": {
+                              "not": {}
+                            },
+                            "outputs": {
+                              "not": {}
+                            }
+                          },
+                          "required": [
+                            "uses"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
@@ -4334,6 +5560,160 @@
             }
           },
           "markdownDescription": "Specific versions of tools that should be used for jobs defined in this workflow configuration. Follow each tool's documentation for available values."
+        },
+        "hooks": {
+          "type": "object",
+          "properties": {
+            "before_install_node_modules": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                        "type": "string",
+                        "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                      },
+                      "if": {
+                        "description": "Expression that determines whether the step should run.",
+                        "type": "string",
+                        "markdownDescription": "Expression that determines whether the step should run."
+                      },
+                      "name": {
+                        "description": "Name of the step.",
+                        "type": "string",
+                        "markdownDescription": "Name of the step."
+                      },
+                      "working_directory": {
+                        "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                        "type": "string",
+                        "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                      },
+                      "env": {
+                        "description": "Additional environment variables to set for the step.",
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "markdownDescription": "Additional environment variables to set for the step."
+                      },
+                      "run": {
+                        "type": "string",
+                        "description": "Shell script to run in the step.",
+                        "markdownDescription": "Shell script to run in the step."
+                      },
+                      "shell": {
+                        "description": "Shell to run the \"run\" command with.",
+                        "type": "string",
+                        "markdownDescription": "Shell to run the \"run\" command with."
+                      },
+                      "outputs": {
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "uses": {
+                        "not": {}
+                      },
+                      "with": {
+                        "not": {}
+                      }
+                    },
+                    "required": [
+                      "run"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\".",
+                        "type": "string",
+                        "markdownDescription": "ID of the step. Useful for later referencing the job's outputs. Example: step with id \"setup\" and an output \"platform\" will expose its value under \"steps.setup.outputs.platform\"."
+                      },
+                      "if": {
+                        "description": "Expression that determines whether the step should run.",
+                        "type": "string",
+                        "markdownDescription": "Expression that determines whether the step should run."
+                      },
+                      "name": {
+                        "description": "Name of the step.",
+                        "type": "string",
+                        "markdownDescription": "Name of the step."
+                      },
+                      "working_directory": {
+                        "description": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root.",
+                        "type": "string",
+                        "markdownDescription": "Working directory to run the step in. Relative paths like \"./assets\" or \"assets\" are resolved from the app's base directory. Absolute paths like \"/apps/mobile\" are resolved from the repository root."
+                      },
+                      "env": {
+                        "description": "Additional environment variables to set for the step.",
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "markdownDescription": "Additional environment variables to set for the step."
+                      },
+                      "uses": {
+                        "type": "string",
+                        "description": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions.",
+                        "markdownDescription": "Name of the function to use for this step. See https://docs.expo.dev/custom-builds/schema/#built-in-eas-functions for available functions."
+                      },
+                      "with": {
+                        "description": "Inputs to the function.",
+                        "type": "object",
+                        "propertyNames": {
+                          "type": "string"
+                        },
+                        "additionalProperties": {},
+                        "markdownDescription": "Inputs to the function."
+                      },
+                      "run": {
+                        "not": {}
+                      },
+                      "shell": {
+                        "not": {}
+                      },
+                      "outputs": {
+                        "not": {}
+                      }
+                    },
+                    "required": [
+                      "uses"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
