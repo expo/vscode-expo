@@ -406,7 +406,8 @@
                   "opened",
                   "reopened",
                   "synchronize",
-                  "labeled"
+                  "labeled",
+                  "ready_for_review"
                 ]
               },
               "markdownDescription": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events."
