@@ -696,6 +696,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -774,6 +777,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -844,6 +850,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -922,6 +931,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -994,6 +1006,9 @@
                             "type": "string"
                           },
                           "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "__metrics_id": {
+                          "type": "string"
                         },
                         "run": {
                           "type": "string",
@@ -1073,6 +1088,9 @@
                             "type": "string"
                           },
                           "markdownDescription": "Additional environment variables to set for the step."
+                        },
+                        "__metrics_id": {
+                          "type": "string"
                         },
                         "uses": {
                           "type": "string",
@@ -1309,6 +1327,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -1387,6 +1408,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -1457,6 +1481,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -1535,6 +1562,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -1771,6 +1801,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -1849,6 +1882,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -1919,6 +1955,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -1997,6 +2036,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -2184,6 +2226,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -2262,6 +2307,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -2332,6 +2380,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -2410,6 +2461,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -2998,6 +3052,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -3076,6 +3133,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -3146,6 +3206,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -3224,6 +3287,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -3634,6 +3700,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -3712,6 +3781,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -3782,6 +3854,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -3860,6 +3935,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -3930,6 +4008,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -4008,6 +4089,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -4311,6 +4395,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -4389,6 +4476,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -4459,6 +4549,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -4537,6 +4630,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -4607,6 +4703,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -4685,6 +4784,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -4755,6 +4857,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -4833,6 +4938,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -5098,6 +5206,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -5176,6 +5287,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -5246,6 +5360,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -5324,6 +5441,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -5559,6 +5679,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -5637,6 +5760,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -5707,6 +5833,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -5785,6 +5914,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -6289,6 +6421,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -6367,6 +6502,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -6437,6 +6575,9 @@
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
                             },
+                            "__metrics_id": {
+                              "type": "string"
+                            },
                             "run": {
                               "type": "string",
                               "description": "Shell script to run in the step.",
@@ -6515,6 +6656,9 @@
                                 "type": "string"
                               },
                               "markdownDescription": "Additional environment variables to set for the step."
+                            },
+                            "__metrics_id": {
+                              "type": "string"
                             },
                             "uses": {
                               "type": "string",
@@ -6935,6 +7079,9 @@
                         },
                         "markdownDescription": "Additional environment variables to set for the step."
                       },
+                      "__metrics_id": {
+                        "type": "string"
+                      },
                       "run": {
                         "type": "string",
                         "description": "Shell script to run in the step.",
@@ -7013,6 +7160,9 @@
                           "type": "string"
                         },
                         "markdownDescription": "Additional environment variables to set for the step."
+                      },
+                      "__metrics_id": {
+                        "type": "string"
                       },
                       "uses": {
                         "type": "string",
@@ -7083,6 +7233,9 @@
                         },
                         "markdownDescription": "Additional environment variables to set for the step."
                       },
+                      "__metrics_id": {
+                        "type": "string"
+                      },
                       "run": {
                         "type": "string",
                         "description": "Shell script to run in the step.",
@@ -7161,6 +7314,9 @@
                           "type": "string"
                         },
                         "markdownDescription": "Additional environment variables to set for the step."
+                      },
+                      "__metrics_id": {
+                        "type": "string"
                       },
                       "uses": {
                         "type": "string",
