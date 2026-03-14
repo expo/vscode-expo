@@ -187,22 +187,31 @@
               "markdownDescription": "[Google Maps Android SDK](https://developers.google.com/maps/documentation/android-api/signup) configuration for your standalone app."
             },
             "googleMobileAdsAppId": {
-              "description": "[Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID. ",
+              "description": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. [Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID.",
               "type": "string",
-              "markdownDescription": "[Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID. "
+              "meta": {
+                "deprecated": true
+              },
+              "markdownDescription": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. [Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID."
             },
             "googleMobileAdsAutoInit": {
-              "description": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Client and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)",
+              "description": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Client and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)",
               "type": "boolean",
               "fallback": false,
-              "markdownDescription": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Client and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
+              "meta": {
+                "deprecated": true
+              },
+              "markdownDescription": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Client and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
             }
           },
           "additionalProperties": false,
           "markdownDescription": "Note: This property key is not included in the production manifest and will evaluate to `undefined`. It is used internally only in the build process, because it contains API keys that some may want to keep private."
         },
         "splash": {
-          "description": "Configuration for loading and splash screen for managed and standalone Android apps.",
+          "description": "@deprecated Use the `expo-splash-screen` config plugin instead. Configuration for loading and splash screen for managed and standalone Android apps.",
+          "meta": {
+            "deprecated": true
+          },
           "type": "object",
           "properties": {
             "backgroundColor": {
@@ -373,7 +382,7 @@
               "markdownDescription": "Configuration for loading and splash screen for managed and standalone Android apps in dark mode."
             }
           },
-          "markdownDescription": "Configuration for loading and splash screen for managed and standalone Android apps."
+          "markdownDescription": "@deprecated Use the `expo-splash-screen` config plugin instead. Configuration for loading and splash screen for managed and standalone Android apps."
         },
         "intentFilters": {
           "description": "Configuration for setting an array of custom intent filters in Android manifest. [Learn more](https://developer.android.com/guide/components/intents-filters)\n\n**Bare workflow** - This is set in `AndroidManifest.xml` directly. [Learn more.](https://developer.android.com/guide/components/intents-filters)",
@@ -461,18 +470,6 @@
           "type": "string",
           "fallback": "resize",
           "markdownDescription": "Determines how the software keyboard will impact the layout of your application. This maps to the `android:windowSoftInputMode` property. Defaults to `resize`. Valid values: `resize`, `pan`."
-        },
-        "jsEngine": {
-          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`",
-          "type": "string",
-          "enum": [
-            "hermes",
-            "jsc"
-          ],
-          "meta": {
-            "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
-          },
-          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `android/gradle.properties`"
         },
         "runtimeVersion": {
           "description": "Property indicating compatibility between a Android build's native code and an OTA update for the Android platform. If provided, this will override the value of top level `runtimeVersion` key on Android.",
@@ -671,15 +668,21 @@
               "markdownDescription": "[Google Maps iOS SDK](https://developers.google.com/maps/documentation/ios-sdk/start) key for your standalone app."
             },
             "googleMobileAdsAppId": {
-              "description": "[Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID. ",
+              "description": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. [Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID.",
               "type": "string",
-              "markdownDescription": "[Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID. "
+              "meta": {
+                "deprecated": true
+              },
+              "markdownDescription": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. [Google Mobile Ads App ID](https://support.google.com/admob/answer/6232340) Google AdMob App ID."
             },
             "googleMobileAdsAutoInit": {
-              "description": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Go and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`.](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)",
+              "description": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Go and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`.](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)",
               "type": "boolean",
               "fallback": false,
-              "markdownDescription": "A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Go and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`.](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
+              "meta": {
+                "deprecated": true
+              },
+              "markdownDescription": "@deprecated This field was used by the `expo-ads-admob` package, which has been deprecated and removed. A boolean indicating whether to initialize Google App Measurement and begin sending user-level event data to Google immediately when the app starts. The default in Expo (Go and in standalone apps) is `false`. [Sets the opposite of the given value to the following key in `Info.plist`.](https://developers.google.com/admob/ios/eu-consent#delay_app_measurement_optional)"
             }
           },
           "additionalProperties": false,
@@ -863,7 +866,10 @@
           "markdownDescription": "A Boolean value that indicates whether the app may access the notes stored in contacts. You must [receive permission from Apple](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_contacts_notes) before you can submit your app for review with this capability."
         },
         "splash": {
-          "description": "Configuration for loading and splash screen for standalone iOS apps.",
+          "description": "@deprecated Use the `expo-splash-screen` config plugin instead. Configuration for loading and splash screen for standalone iOS apps.",
+          "meta": {
+            "deprecated": true
+          },
           "type": "object",
           "properties": {
             "backgroundColor": {
@@ -952,19 +958,7 @@
               "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps in dark mode."
             }
           },
-          "markdownDescription": "Configuration for loading and splash screen for standalone iOS apps."
-        },
-        "jsEngine": {
-          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for iOS apps. Not supported in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`",
-          "type": "string",
-          "enum": [
-            "hermes",
-            "jsc"
-          ],
-          "meta": {
-            "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
-          },
-          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for iOS apps. Not supported in Expo Go. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json`"
+          "markdownDescription": "@deprecated Use the `expo-splash-screen` config plugin instead. Configuration for loading and splash screen for standalone iOS apps."
         },
         "runtimeVersion": {
           "description": "Property indicating compatibility between an iOS build's native code and an OTA update for the iOS platform. If provided, this will override the value of the top level `runtimeVersion` key on iOS.",
@@ -1566,8 +1560,11 @@
           "markdownDescription": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/)."
         },
         "androidNavigationBar": {
-          "description": "Configuration for the bottom navigation bar on Android. Can be used to configure the `expo-navigation-bar` module in EAS Build.",
+          "description": "@deprecated Use the `expo-navigation-bar` config plugin instead. Configuration for the bottom navigation bar on Android.",
           "type": "object",
+          "meta": {
+            "deprecated": true
+          },
           "properties": {
             "visible": {
               "description": "Determines how and when the navigation bar is shown. [Learn more](https://developer.android.com/training/system-ui/immersive). Requires `expo-navigation-bar` be installed in your project. Valid values: `leanback`, `immersive`, `sticky-immersive` \n\n `leanback` results in the navigation bar being hidden until the first touch gesture is registered. \n\n `immersive` results in the navigation bar being hidden until the user swipes up from the edge where the navigation bar is hidden. \n\n `sticky-immersive` is identical to `'immersive'` except that the navigation bar will be semi-transparent and will be hidden again after a short period of time.",
@@ -1606,7 +1603,7 @@
             }
           },
           "additionalProperties": false,
-          "markdownDescription": "Configuration for the bottom navigation bar on Android. Can be used to configure the `expo-navigation-bar` module in EAS Build."
+          "markdownDescription": "@deprecated Use the `expo-navigation-bar` config plugin instead. Configuration for the bottom navigation bar on Android."
         },
         "developmentClient": {
           "description": "Settings that apply specifically to running this app in a development client",
@@ -1786,19 +1783,12 @@
           "markdownDescription": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/guides/config-plugins/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build"
         },
         "splash": {
-          "$ref": "#/definitions/Splash"
-        },
-        "jsEngine": {
-          "description": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`",
-          "type": "string",
-          "enum": [
-            "hermes",
-            "jsc"
-          ],
+          "description": "@deprecated Use the `expo-splash-screen` config plugin instead.",
           "meta": {
-            "bareWorkflow": "To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
+            "deprecated": true
           },
-          "markdownDescription": "@deprecated This field will be removed in a future release. When it is removed, you can continue using JavaScriptCore instead of Hermes by following the instructions in [@react-native-community/javascriptcore](https://github.com/react-native-community/javascriptcore). Specifies the JavaScript engine for Android apps. Defaults to `hermes`. Valid values: `hermes`, `jsc`.\n\n**Bare workflow** - To change the JavaScript engine, update the `expo.jsEngine` value in `ios/Podfile.properties.json` or `android/gradle.properties`"
+          "$ref": "#/definitions/Splash",
+          "markdownDescription": "@deprecated Use the `expo-splash-screen` config plugin instead."
         },
         "buildCacheProvider": {
           "description": "Enable downloading cached builds from remote.",
