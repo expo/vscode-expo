@@ -1,7 +1,12 @@
 import { findNodeAtLocation, Node } from 'jsonc-parser';
 import vscode from 'vscode';
 
-import { type FileReference, getFileReferences, manifestPattern } from './expo/manifest';
+import {
+  type FileReference,
+  getDynamicAssetReferences,
+  getDynamicPluginDefinitions,
+} from './expo/dynamicManifest';
+import { getFileReferences, isDynamicManifestDocument, manifestPattern } from './expo/manifest';
 import { getPluginDefinition, resolvePluginFunctionUnsafe } from './expo/plugin';
 import { ExpoProject, ExpoProjectCache } from './expo/project';
 import {
@@ -47,8 +52,26 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     if (!this.isEnabled) return issues;
 
     const project = await this.projects.fromManifest(document);
-    if (!project?.manifest) {
+    if (!project) {
       log('Could not resolve project from manifest "%s"', document.fileName);
+      return issues;
+    }
+
+    if (isDynamicManifestDocument(document)) {
+      for (const plugin of getDynamicPluginDefinitions(document)) {
+        const issue = diagnoseDynamicPlugin(document, project, plugin);
+        if (issue) issues.push(issue);
+      }
+
+      for (const reference of getDynamicAssetReferences(document)) {
+        const issue = await diagnoseAsset(document, project, reference);
+        if (issue) issues.push(issue);
+      }
+
+      return issues;
+    }
+
+    if (!project.manifest) {
       return issues;
     }
 
@@ -72,6 +95,46 @@ export class ManifestDiagnosticsProvider extends ExpoDiagnosticsProvider {
     }
 
     return issues;
+  }
+}
+
+function diagnoseDynamicPlugin(
+  document: vscode.TextDocument,
+  project: ExpoProject,
+  plugin: { nameRange: { offset: number; length: number }; nameValue?: string }
+) {
+  if (!plugin.nameValue) {
+    const issue = new vscode.Diagnostic(
+      getDocumentRange(document, plugin.nameRange),
+      `Plugin definition is empty, expected a file or dependency name`,
+      vscode.DiagnosticSeverity.Warning
+    );
+    issue.code = PluginIssueCode.definitionInvalid;
+    return issue;
+  }
+
+  try {
+    resetModuleFrom(project.root.fsPath, plugin.nameValue);
+    resolvePluginFunctionUnsafe(project.root.fsPath, plugin.nameValue);
+  } catch (error) {
+    const issue = new vscode.Diagnostic(
+      getDocumentRange(document, plugin.nameRange),
+      error.message,
+      vscode.DiagnosticSeverity.Warning
+    );
+
+    issue.code = error.code;
+
+    if (error.code === 'PLUGIN_NOT_FOUND') {
+      issue.message = `Plugin not found: ${plugin.nameValue}`;
+    }
+
+    if (error.name === 'TypeError' && error.message?.includes(`null (reading 'default')`)) {
+      issue.message = `Plugin exports null, expected a plugin function: ${plugin.nameValue}`;
+      issue.code = PluginIssueCode.functionInvalid;
+    }
+
+    return issue;
   }
 }
 

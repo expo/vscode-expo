@@ -1,7 +1,8 @@
 import { findNodeAtLocation } from 'jsonc-parser';
 import vscode from 'vscode';
 
-import { getFileReferences, manifestPattern } from './expo/manifest';
+import { getDynamicAssetReferences, getDynamicPluginDefinitions } from './expo/dynamicManifest';
+import { getFileReferences, isDynamicManifestDocument, manifestPattern } from './expo/manifest';
 import { getPluginDefinition, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import { changedManifestFileReferencesEnabled, isManifestFileReferencesEnabled } from './settings';
@@ -33,8 +34,44 @@ export class ManifestLinksProvider extends ExpoLinkProvider {
     if (!this.isEnabled) return links;
 
     const project = await this.projects.fromManifest(document);
-    if (!project?.manifest) {
+    if (!project) {
       log('Could not resolve project from manifest "%s"', document.fileName);
+      return links;
+    }
+
+    if (isDynamicManifestDocument(document)) {
+      for (const pluginDefinition of getDynamicPluginDefinitions(document)) {
+        if (token.isCancellationRequested) return links;
+        if (!pluginDefinition.nameValue) continue;
+
+        const plugin = resolvePluginInfo(project.root.fsPath, pluginDefinition.nameValue);
+        if (plugin) {
+          const link = new vscode.DocumentLink(
+            getDocumentRange(document, pluginDefinition.nameRange),
+            vscode.Uri.file(plugin.pluginFile)
+          );
+
+          link.tooltip = 'Go to plugin';
+          links.push(link);
+        }
+      }
+
+      for (const reference of getDynamicAssetReferences(document)) {
+        if (token.isCancellationRequested) return links;
+
+        const link = new vscode.DocumentLink(
+          getDocumentRange(document, reference.fileRange),
+          vscode.Uri.joinPath(project.root, reference.filePath)
+        );
+
+        link.tooltip = 'Go to asset';
+        links.push(link);
+      }
+
+      return links;
+    }
+
+    if (!project.manifest) {
       return links;
     }
 

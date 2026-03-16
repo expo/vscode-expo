@@ -2,19 +2,19 @@ import { expect } from 'chai';
 import picomatch from 'picomatch';
 
 import { type ExpoConfig } from '../../packages/config';
-import { manifestPattern, getFileReferences } from '../manifest';
+import { getFileReferences, jsonManifestPattern } from '../manifest';
 
 describe('manifestPattern', () => {
   it('scheme is set to files', () => {
-    expect(manifestPattern.scheme).to.equal('file');
+    expect(jsonManifestPattern.scheme).to.equal('file');
   });
 
   it('language is set to json with comments', () => {
-    expect(manifestPattern.language).to.equal('jsonc');
+    expect(jsonManifestPattern.language).to.equal('jsonc');
   });
 
   it('pattern includes all json variations of the Expo manifest', () => {
-    const pattern = manifestPattern.pattern as string;
+    const pattern = jsonManifestPattern.pattern as string;
     const matcher = picomatch(pattern);
 
     expect(matcher('my-app/app.json')).to.be.true;

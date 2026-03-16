@@ -47,7 +47,8 @@
     "find-up": "^5.0.0",
     "jsonc-parser": "^3.2.1",
     "node-fetch": "^2.6.7",
-    "picomatch": "^4.0.1"
+    "picomatch": "^4.0.1",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@expo/config-plugins": "^4.1.5",
@@ -94,7 +95,6 @@
     "sinon": "^18.0.0",
     "sinon-chai": "^3.7.0",
     "sucrase": "^3.35.0",
-    "typescript": "^5.4.5",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "ws": "^8.17.0"
@@ -167,15 +167,15 @@
           "type": "boolean",
           "default": true,
           "scope": "resource",
-          "description": "Validate the config plugins in app manifests, listed under \"expo.plugins\". This only applies to \"app.json\" and \"app.config.json\" files.",
-          "markdownDescription": "Validate the config plugins in app manifests, listed under `expo.plugins`. This only applies to `app.json` and `app.config.json` files."
+          "description": "Validate the config plugins in app manifests, listed under \"expo.plugins\". This applies to \"app.json\", \"app.config.json\", and object-literal \"app.config.js\" / \"app.config.ts\" files.",
+          "markdownDescription": "Validate the config plugins in app manifests, listed under `expo.plugins`. This applies to `app.json`, `app.config.json`, and object-literal `app.config.js` / `app.config.ts` files."
         },
         "expo.appManifest.fileReferences": {
           "type": "boolean",
           "default": true,
           "scope": "resource",
-          "description": "Enable suggestions for file references in app manifests, like the splash screen. This only applies to \"app.json\" and \"app.config.json\" files.",
-          "markdownDescription": "Enable suggestions for file references in app manifests, like the splash screen This only applies to `app.json` and `app.config.json` files."
+          "description": "Enable suggestions for file references in app manifests, like the splash screen. This applies to \"app.json\", \"app.config.json\", and object-literal \"app.config.js\" / \"app.config.ts\" files.",
+          "markdownDescription": "Enable suggestions for file references in app manifests, like the splash screen. This applies to `app.json`, `app.config.json`, and object-literal `app.config.js` / `app.config.ts` files."
         },
         "expo.appManifest.fileReferences.excludeGlobPatterns": {
           "type": "object",
