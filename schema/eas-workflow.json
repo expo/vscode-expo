@@ -3582,22 +3582,6 @@
                     ],
                     "markdownDescription": "Skip validation of the build (whether an iOS build is a simulator build)."
                   },
-                  "reuse_devices": {
-                    "default": true,
-                    "description": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work.",
-                    "anyOf": [
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ],
-                    "markdownDescription": "Reuse a single set of devices for all the tests. If false, each flow in `flow_path` will be run on a clean device. Disabling this is very experimental and some features may not work."
-                  },
                   "use_cuttlefish": {
                     "default": false,
                     "description": "Use Cuttlefish instead of the Android emulator. Only supported on the latest Android worker image. Does not support multiple shards. The device does not have Google APIs or Play Store, but it may have better performance. No-op on iOS.",
