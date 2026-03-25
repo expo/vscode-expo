@@ -2185,6 +2185,27 @@
                 "type": "string",
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "unstable_skip_cng_check": {
+                    "description": "Whether to skip the check for Continuous Native Generation (CNG) compatibility.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "Whether to skip the check for Continuous Native Generation (CNG) compatibility."
+                  }
+                },
+                "additionalProperties": false
+              },
               "hooks": {
                 "type": "object",
                 "properties": {
@@ -2501,7 +2522,8 @@
               }
             },
             "required": [
-              "type"
+              "type",
+              "params"
             ],
             "additionalProperties": false
           },
@@ -6325,6 +6347,21 @@
                       }
                     ],
                     "markdownDescription": "Whether to embed bundle assets into the repacked app. Defaults to the detected build type by the source app."
+                  },
+                  "js_bundle_only": {
+                    "description": "Whether to only repack the JavaScript bundle. Defaults to false, meaning the entire app metadata will be updated.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "Whether to only repack the JavaScript bundle. Defaults to false, meaning the entire app metadata will be updated."
                   },
                   "message": {
                     "description": "Message attached to the build.",
