@@ -452,6 +452,152 @@
           ],
           "markdownDescription": "If provided, the workflow will be triggered when the pull request is labeled with any label matching the specified labels."
         },
+        "app_store_connect": {
+          "description": "If provided, the workflow will be triggered by the specified App Store Connect events.",
+          "type": "object",
+          "properties": {
+            "app_version": {
+              "type": "object",
+              "properties": {
+                "states": {
+                  "default": [
+                    "accepted",
+                    "developer_rejected",
+                    "in_review",
+                    "invalid_binary",
+                    "metadata_rejected",
+                    "pending_apple_release",
+                    "pending_developer_release",
+                    "prepare_for_submission",
+                    "processing_for_distribution",
+                    "ready_for_distribution",
+                    "ready_for_review",
+                    "rejected",
+                    "replaced_with_new_version",
+                    "waiting_for_export_compliance",
+                    "waiting_for_review"
+                  ],
+                  "description": "App version states that trigger this workflow.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "accepted",
+                      "developer_rejected",
+                      "in_review",
+                      "invalid_binary",
+                      "metadata_rejected",
+                      "pending_apple_release",
+                      "pending_developer_release",
+                      "prepare_for_submission",
+                      "processing_for_distribution",
+                      "ready_for_distribution",
+                      "ready_for_review",
+                      "rejected",
+                      "replaced_with_new_version",
+                      "waiting_for_export_compliance",
+                      "waiting_for_review"
+                    ]
+                  },
+                  "markdownDescription": "App version states that trigger this workflow."
+                }
+              },
+              "additionalProperties": false
+            },
+            "build_upload": {
+              "type": "object",
+              "properties": {
+                "states": {
+                  "default": [
+                    "complete",
+                    "failed",
+                    "processing",
+                    "awaiting_upload"
+                  ],
+                  "description": "Build upload states that trigger this workflow.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "complete",
+                      "failed",
+                      "processing",
+                      "awaiting_upload"
+                    ]
+                  },
+                  "markdownDescription": "Build upload states that trigger this workflow."
+                }
+              },
+              "additionalProperties": false
+            },
+            "external_beta": {
+              "type": "object",
+              "properties": {
+                "states": {
+                  "default": [
+                    "processing",
+                    "processing_exception",
+                    "missing_export_compliance",
+                    "ready_for_beta_testing",
+                    "in_beta_testing",
+                    "expired",
+                    "ready_for_beta_submission",
+                    "in_export_compliance_review",
+                    "waiting_for_beta_review",
+                    "in_beta_review",
+                    "beta_rejected",
+                    "beta_approved"
+                  ],
+                  "description": "External beta states that trigger this workflow.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "processing",
+                      "processing_exception",
+                      "missing_export_compliance",
+                      "ready_for_beta_testing",
+                      "in_beta_testing",
+                      "expired",
+                      "ready_for_beta_submission",
+                      "in_export_compliance_review",
+                      "waiting_for_beta_review",
+                      "in_beta_review",
+                      "beta_rejected",
+                      "beta_approved"
+                    ]
+                  },
+                  "markdownDescription": "External beta states that trigger this workflow."
+                }
+              },
+              "additionalProperties": false
+            },
+            "beta_feedback": {
+              "type": "object",
+              "properties": {
+                "types": {
+                  "default": [
+                    "crash",
+                    "screenshot"
+                  ],
+                  "description": "Beta feedback event types that trigger this workflow.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "crash",
+                      "screenshot"
+                    ]
+                  },
+                  "markdownDescription": "Beta feedback event types that trigger this workflow."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "If provided, the workflow will be triggered by the specified App Store Connect events."
+        },
         "schedule": {
           "description": "List of cron expressions to trigger the workflow.",
           "type": "array",
@@ -2186,6 +2332,7 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
+                "default": {},
                 "type": "object",
                 "properties": {
                   "unstable_skip_cng_check": {
@@ -2522,8 +2669,7 @@
               }
             },
             "required": [
-              "type",
-              "params"
+              "type"
             ],
             "additionalProperties": false
           },
