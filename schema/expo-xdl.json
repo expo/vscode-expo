@@ -1442,7 +1442,7 @@
           "markdownDescription": "Your app version. In addition to this field, you'll also use `ios.buildNumber` and `android.versionCode` — read more about how to version your app [here](https://docs.expo.dev/distribution/app-stores/#versioning-your-app). On iOS this corresponds to `CFBundleShortVersionString`, and on Android, this corresponds to `versionName`. The required format can be found [here](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring).\n\n**Bare workflow** - To change your app version, edit the 'Version' field in Xcode and the `versionName` string in `android/app/build.gradle`"
         },
         "platforms": {
-          "description": "Platforms that your project explicitly supports. If not specified, it defaults to `[\"ios\", \"android\"]`.",
+          "description": "Platforms that your project explicitly supports. If not specified, it defaults to `[\"ios\", \"android\"]`. If `react-dom` is installed, `web` is also included by default.",
           "example": [
             "ios",
             "android",
@@ -1458,7 +1458,7 @@
               "web"
             ]
           },
-          "markdownDescription": "Platforms that your project explicitly supports. If not specified, it defaults to `[\"ios\", \"android\"]`."
+          "markdownDescription": "Platforms that your project explicitly supports. If not specified, it defaults to `[\"ios\", \"android\"]`. If `react-dom` is installed, `web` is also included by default."
         },
         "githubUrl": {
           "description": "If you would like to share the source code of your app on Github, enter the URL for the repository here and it will be linked to from your Expo project page.",
