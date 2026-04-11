@@ -1902,6 +1902,21 @@
                       }
                     ],
                     "markdownDescription": "Create a new production deployment."
+                  },
+                  "source_maps": {
+                    "description": "Upload source maps.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "Upload source maps."
                   }
                 },
                 "additionalProperties": false
