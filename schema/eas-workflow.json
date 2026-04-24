@@ -3020,8 +3020,15 @@
                 "type": "object",
                 "properties": {
                   "build_id": {
-                    "type": "string",
                     "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
                   },
                   "maestro_project_id": {
@@ -3616,8 +3623,15 @@
                 "type": "object",
                 "properties": {
                   "build_id": {
-                    "type": "string",
                     "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
                   },
                   "flow_path": {
@@ -4583,8 +4597,15 @@
                     "markdownDescription": "Name of the submit profile to use."
                   },
                   "build_id": {
-                    "type": "string",
                     "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
                   },
                   "groups": {
@@ -5345,8 +5366,15 @@
                     "markdownDescription": "Name of the submit profile to use."
                   },
                   "build_id": {
-                    "type": "string",
                     "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
                   },
                   "internal_groups": {
@@ -6583,8 +6611,15 @@
                 "type": "object",
                 "properties": {
                   "build_id": {
-                    "type": "string",
                     "description": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
                     "markdownDescription": "ID of the build to use for the job. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
                   },
                   "profile": {
