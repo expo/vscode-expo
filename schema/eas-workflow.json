@@ -3646,8 +3646,8 @@
                         }
                       }
                     ],
-                    "description": "Path (or a list of paths)to the Maestro test file(s).",
-                    "markdownDescription": "Path (or a list of paths)to the Maestro test file(s)."
+                    "description": "Path (or a list of paths) to the Maestro test file(s).",
+                    "markdownDescription": "Path (or a list of paths) to the Maestro test file(s)."
                   },
                   "record_screen": {
                     "default": false,
@@ -3676,7 +3676,7 @@
                     "default": 0,
                     "description": "Number of times to retry the tests if they fail.",
                     "type": "integer",
-                    "exclusiveMinimum": 0,
+                    "minimum": 0,
                     "maximum": 9007199254740991,
                     "markdownDescription": "Number of times to retry the tests if they fail."
                   },
@@ -3716,12 +3716,8 @@
                     "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
                   },
                   "output_format": {
-                    "default": "junit",
-                    "examples": [
-                      "junit",
-                      "html"
-                    ],
                     "description": "Maestro test report format. Defaults to junit. Will be passed to Maestro as `--format`.",
+                    "default": "junit",
                     "anyOf": [
                       {
                         "type": "number"
