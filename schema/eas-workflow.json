@@ -3083,7 +3083,8 @@
                     "markdownDescription": "Version of Maestro to use for the tests. If not provided, the latest version will be used."
                   },
                   "android_api_level": {
-                    "description": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`.",
+                    "description": "Deprecated. Use `device_os` instead.",
+                    "deprecated": true,
                     "anyOf": [
                       {
                         "type": "number"
@@ -3092,7 +3093,7 @@
                         "type": "string"
                       }
                     ],
-                    "markdownDescription": "Android API level to use for the tests. Corresponds to the `--android-api-level` flag in `maestro cloud`."
+                    "markdownDescription": "Deprecated. Use `device_os` instead."
                   },
                   "maestro_config": {
                     "description": "Optional path to a Maestro `config.yaml` file. Corresponds to the `--config` flag in `maestro cloud`.",
