@@ -3681,6 +3681,22 @@
                     "maximum": 9007199254740991,
                     "markdownDescription": "Number of times to retry the tests if they fail."
                   },
+                  "smart_retry": {
+                    "default": true,
+                    "description": "When true (default), only flows that failed on the previous attempt are re-run on each retry. Set to false to re-run every flow on each retry.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "When true (default), only flows that failed on the previous attempt are re-run on each retry. Set to false to re-run every flow on each retry."
+                  },
                   "include_tags": {
                     "description": "Tags to include in the tests. Will be passed to Maestro as `--include-tags`.",
                     "anyOf": [
