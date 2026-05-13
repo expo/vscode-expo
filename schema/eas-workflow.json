@@ -3681,7 +3681,7 @@
                     "maximum": 9007199254740991,
                     "markdownDescription": "Number of times to retry the tests if they fail."
                   },
-                  "smart_retry": {
+                  "retry_failed_only": {
                     "default": true,
                     "description": "When true (default), only flows that failed on the previous attempt are re-run on each retry. Set to false to re-run every flow on each retry.",
                     "anyOf": [
