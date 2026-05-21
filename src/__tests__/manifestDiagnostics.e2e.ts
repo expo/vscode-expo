@@ -77,7 +77,7 @@ describe('ManifestDiagnosticsProvider', () => {
         });
       });
 
-      it('does not diagnoses asset directory reference for Apple .icon folders', async () => {
+      it('does not diagnose asset directory reference for Apple .icon folders', async () => {
         const range = findContentRange(app, './assets/adaptive-icon.png');
         await app.edit((builder) => builder.replace(range, './assets/expo.icon'));
         await waitFor(1000);

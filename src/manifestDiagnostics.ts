@@ -122,7 +122,7 @@ async function diagnoseAsset(
     const uri = vscode.Uri.joinPath(project.root, reference.filePath);
     const asset = await vscode.workspace.fs.stat(uri);
 
-    if (asset.type === vscode.FileType.Directory) {
+    if (!reference.filePath.endsWith('.icon') && asset.type === vscode.FileType.Directory) {
       const issue = new vscode.Diagnostic(
         getDocumentRange(document, reference.fileRange),
         `File is a directory: ${reference.filePath}`,
