@@ -1,3 +1,4 @@
+import 'sinon-chai';
 import { expect } from 'chai';
 import vscode from 'vscode';
 
@@ -41,12 +42,13 @@ describe('ManifestAssetCompletionsProvider', () => {
         );
 
         // Make sure only these files are suggested, it might trigger false positives
-        expect(suggestions.items).to.have.length(4);
+        expect(suggestions.items).to.have.length(5);
         expect(suggestions.items).to.containSubset([
           { label: 'adaptive-icon.png' },
           { label: 'favicon.png' },
           { label: 'icon.png' },
           { label: 'splash.png' },
+          { label: 'expo.icon' },
         ]);
       });
 

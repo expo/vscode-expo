@@ -91,6 +91,11 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
           return null;
         }
 
+        // Apple icons are always folders, but we auto-complete it as file
+        if (entityType === vscode.FileType.Directory && entityName.endsWith('.icon')) {
+          return createFile(entityName);
+        }
+
         if (entityType === vscode.FileType.Directory) {
           return createFolder(entityName);
         }

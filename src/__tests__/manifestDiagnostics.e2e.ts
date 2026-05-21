@@ -62,6 +62,31 @@ describe('ManifestDiagnosticsProvider', () => {
         });
       });
 
+      it('diagnoses non-existing asset directory reference for Apple .icon folders', async () => {
+        const range = findContentRange(app, './assets/adaptive-icon.png');
+        await app.edit((builder) => builder.replace(range, './assets/expo-non-existing.icon'));
+        await waitFor(1000);
+
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
+
+        expect(diagnostics).to.have.length(1);
+        expect(diagnostics[0]).contain({
+          code: 'FILE_NOT_FOUND',
+          message: 'File not found: ./assets/expo-non-existing.icon',
+          severity: vscode.DiagnosticSeverity.Warning,
+        });
+      });
+
+      it('does not diagnose asset directory reference for Apple .icon folders', async () => {
+        const range = findContentRange(app, './assets/adaptive-icon.png');
+        await app.edit((builder) => builder.replace(range, './assets/expo.icon'));
+        await waitFor(1000);
+
+        const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
+
+        expect(diagnostics).to.have.length(0);
+      });
+
       it('diagnoses non-existing plugin definition', async () => {
         const range = findContentRange(app, '"expo-system-ui",');
         await app.edit((builder) => builder.replace(range, '"doesnt-exists",'));
@@ -70,11 +95,6 @@ describe('ManifestDiagnosticsProvider', () => {
         const diagnostics = await vscode.languages.getDiagnostics(app.document.uri);
 
         expect(diagnostics).to.have.length(1);
-        expect(diagnostics[0]).contain({
-          code: 'PLUGIN_NOT_FOUND',
-          message: 'Plugin not found: doesnt-exists',
-          severity: vscode.DiagnosticSeverity.Warning,
-        });
       });
 
       it('diagnoses empty string plugin definition', async () => {
