@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/expo/vscode-expo/compare/1.6.2...1.6.3) (2026-05-21)
+
+
+### Bug fixes
+
+* add support for Apple icon assets for manifest suggestions and diagnostics ([#289](https://github.com/expo/vscode-expo/issues/289)) ([075f8da](https://github.com/expo/vscode-expo/commit/075f8daa60e74405d40f571ceacdce0121b0c0c1))
+
 ## [1.6.2](https://github.com/expo/vscode-expo/compare/1.6.1...1.6.2) (2025-12-10)
 
 
