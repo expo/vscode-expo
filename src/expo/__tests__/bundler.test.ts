@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import 'sinon-chai';
 
 import { mockDevice } from '../../__tests__/utils/debugging';
 import { stubFetch } from '../../__tests__/utils/fetch';
