@@ -2,7 +2,12 @@ import { findNodeAtLocation, findNodeAtOffset, getNodeValue } from 'jsonc-parser
 import path from 'path';
 import vscode from 'vscode';
 
-import { manifestPattern } from './expo/manifest';
+import {
+  getDynamicReferenceDirectoryPath,
+  getDynamicStringReferenceContext,
+  isDynamicPluginFile,
+} from './expo/dynamicManifest';
+import { isDynamicManifestDocument, manifestPattern } from './expo/manifest';
 import { type PluginInfo, resolveInstalledPluginInfo, resolvePluginInfo } from './expo/plugin';
 import { ExpoProjectCache } from './expo/project';
 import {
@@ -53,8 +58,56 @@ export class ManifestPluginCompletionsProvider extends ExpoCompletionsProvider {
     if (!this.isEnabled) return null;
 
     const project = await this.projects.fromManifest(document);
-    if (!project?.manifest) {
+    if (!project) {
       log('Could not resolve project from manifest "%s"', document.fileName);
+      return [];
+    }
+
+    const dynamicContext = isDynamicManifestDocument(document)
+      ? getDynamicStringReferenceContext(document, position)
+      : undefined;
+    if (dynamicContext?.kind === 'plugin') {
+      const positionIsPath = dynamicContext.value.startsWith('./');
+
+      if (!positionIsPath && !token.isCancellationRequested) {
+        return createPossibleIncompleteList(
+          resolveInstalledPluginInfo(project, dynamicContext.value, MAX_RESULT).map((plugin) =>
+            createPluginModule(plugin)
+          )
+        );
+      }
+
+      if (positionIsPath && !token.isCancellationRequested) {
+        const positionDir = getDynamicReferenceDirectoryPath(dynamicContext.value);
+        const entities = await withCancelToken(token, () =>
+          vscode.workspace.fs.readDirectory(vscode.Uri.joinPath(project.root, positionDir))
+        );
+
+        return entities
+          ?.map(([entityName, entityType]) => {
+            if (fileIsHidden(entityName) || fileIsExcluded(entityName, this.excludedFiles)) {
+              return null;
+            }
+
+            if (entityType === vscode.FileType.Directory) {
+              return createFolder(entityName);
+            }
+
+            if (isDynamicPluginFile(entityName)) {
+              const pluginPath = './' + path.join(positionDir, entityName);
+              const plugin = resolvePluginInfo(project.root.fsPath, pluginPath);
+              if (plugin) {
+                return createPluginFile(plugin, entityName);
+              }
+            }
+
+            return null;
+          })
+          .filter(truthy);
+      }
+    }
+
+    if (!project.manifest) {
       return [];
     }
 

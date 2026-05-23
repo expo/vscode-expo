@@ -2,7 +2,11 @@ import { findNodeAtLocation, findNodeAtOffset, getNodeValue } from 'jsonc-parser
 import path from 'path';
 import vscode from 'vscode';
 
-import { manifestPattern } from './expo/manifest';
+import {
+  getDynamicReferenceDirectoryPath,
+  getDynamicStringReferenceContext,
+} from './expo/dynamicManifest';
+import { isDynamicManifestDocument, manifestPattern } from './expo/manifest';
 import { ExpoProjectCache } from './expo/project';
 import {
   changedManifestFileReferencesEnabled,
@@ -55,8 +59,43 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
     if (!this.isEnabled) return null;
 
     const project = await this.projects.fromManifest(document);
-    if (!project?.manifest) {
+    if (!project) {
       log('Could not resolve project from manifest "%s"', document.fileName);
+      return [];
+    }
+
+    const dynamicContext = isDynamicManifestDocument(document)
+      ? getDynamicStringReferenceContext(document, position)
+      : undefined;
+    if (dynamicContext?.kind === 'asset' && !token.isCancellationRequested) {
+      const positionDir = getDynamicReferenceDirectoryPath(dynamicContext.value);
+      const entities = await withCancelToken(token, () =>
+        vscode.workspace.fs.readDirectory(vscode.Uri.joinPath(project.root, positionDir))
+      );
+
+      return entities
+        ?.map(([entityName, entityType]) => {
+          if (fileIsHidden(entityName) || fileIsExcluded(entityName, this.excludedFiles)) {
+            return null;
+          }
+
+          if (entityType === vscode.FileType.Directory) {
+            return createFolder(entityName);
+          }
+
+          if (
+            entityType === vscode.FileType.File &&
+            ASSET_EXTENSIONS.includes(path.extname(entityName))
+          ) {
+            return createFile(entityName);
+          }
+
+          return null;
+        })
+        .filter(truthy);
+    }
+
+    if (!project.manifest) {
       return [];
     }
 
@@ -70,7 +109,11 @@ export class ManifestAssetCompletionsProvider extends ExpoCompletionsProvider {
 
     // Abort if the path is not relative, or if there is an extension already
     const positionValue = getNodeValue(positionNode);
-    if (!positionValue?.startsWith('.') || path.extname(positionValue)) {
+    if (
+      typeof positionValue !== 'string' ||
+      !positionValue.startsWith('.') ||
+      path.extname(positionValue)
+    ) {
       return null;
     }
 
