@@ -25,6 +25,7 @@ export interface ExpoDebugConfig extends vscode.DebugConfiguration {
   trace?: boolean;
   restart?: boolean;
   enableTurboSourcemaps?: boolean;
+  skipFiles?: string[];
 }
 
 export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider {
@@ -132,6 +133,8 @@ export class ExpoDebuggersProvider implements vscode.DebugConfigurationProvider 
       // Enable sourcemaps
       sourceMap: true,
       pauseForSourceMap: true,
+      // Pass-down skipped files,
+      skipFiles: config.skipFiles ?? undefined,
       // Enable source-loading for `node_modules`, when using `expo/AppEntry.js`
       outFiles: [],
       // But disable certain attempts to resolve non-existing source code
