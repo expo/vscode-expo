@@ -775,6 +775,21 @@
                       }
                     ],
                     "markdownDescription": "Message attached to the build."
+                  },
+                  "refresh_ad_hoc_provisioning_profile": {
+                    "description": "When true on an iOS internal ad-hoc build with remote credentials, refreshes the managed ad-hoc provisioning profile from App Store Connect on the worker before the build starts.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "When true on an iOS internal ad-hoc build with remote credentials, refreshes the managed ad-hoc provisioning profile from App Store Connect on the worker before the build starts."
                   }
                 },
                 "required": [
