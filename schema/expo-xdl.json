@@ -1424,6 +1424,12 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "outOfTreePlatforms": {
+              "description": "Enable experimental support for select out-of-tree platforms, if their support packages are installed.",
+              "type": "boolean",
+              "fallback": false,
+              "markdownDescription": "Enable experimental support for select out-of-tree platforms, if their support packages are installed."
+            },
             "onDemandFilesystem": {
               "description": "Enables Expo's On-Demand Filesystem allowing Metro bundling outside of the watchFolders and with package manager global virtual stores.",
               "type": "boolean",
