@@ -6685,6 +6685,33 @@
                     ],
                     "markdownDescription": "Whether to only repack the JavaScript bundle. Defaults to false, meaning the entire app metadata will be updated."
                   },
+                  "ios_signing_use_source_app_entitlements": {
+                    "description": "Whether to use fastlane resign `use_app_entitlements` behavior: extract app bundle code signing entitlements and combine them with entitlements from the new provisioning profile. Defaults to false.",
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "markdownDescription": "Whether to use fastlane resign `use_app_entitlements` behavior: extract app bundle code signing entitlements and combine them with entitlements from the new provisioning profile. Defaults to false."
+                  },
+                  "ios_signing_app_entitlements_path": {
+                    "description": "Path to the entitlements file to use, e.g. myApp/MyApp.entitlements. This is exclusive with `ios_signing_use_source_app_entitlements`.",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "markdownDescription": "Path to the entitlements file to use, e.g. myApp/MyApp.entitlements. This is exclusive with `ios_signing_use_source_app_entitlements`."
+                  },
                   "message": {
                     "description": "Message attached to the build.",
                     "anyOf": [
