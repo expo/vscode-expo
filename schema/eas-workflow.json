@@ -5423,88 +5423,133 @@
                 "markdownDescription": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images."
               },
               "params": {
-                "type": "object",
-                "properties": {
-                  "profile": {
-                    "default": "production",
-                    "description": "Name of the submit profile to use.",
-                    "type": "string",
-                    "markdownDescription": "Name of the submit profile to use."
-                  },
-                  "build_id": {
-                    "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
-                    "anyOf": [
-                      {
-                        "type": "number"
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "default": "production",
+                        "description": "Name of the submit profile to use.",
+                        "type": "string",
+                        "markdownDescription": "Name of the submit profile to use."
                       },
-                      {
-                        "type": "string"
+                      "build_id": {
+                        "description": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\"",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                      },
+                      "asc_build_id": {
+                        "not": {}
+                      },
+                      "internal_groups": {
+                        "description": "TestFlight internal group names to add the build to.",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "markdownDescription": "TestFlight internal group names to add the build to."
+                      },
+                      "external_groups": {
+                        "description": "TestFlight external group names to add the build to.",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "markdownDescription": "TestFlight external group names to add the build to."
+                      },
+                      "changelog": {
+                        "description": "What to test notes for TestFlight",
+                        "type": "string",
+                        "markdownDescription": "What to test notes for TestFlight"
+                      },
+                      "submit_beta_review": {
+                        "description": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided.",
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "markdownDescription": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided."
+                      },
+                      "wait_processing_timeout_seconds": {
+                        "default": 1800,
+                        "description": "Timeout in seconds for waiting for build processing. Defaults to 1800 (30 minutes). Only applies when distributing to groups or setting changelog.",
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "markdownDescription": "Timeout in seconds for waiting for build processing. Defaults to 1800 (30 minutes). Only applies when distributing to groups or setting changelog."
                       }
+                    },
+                    "required": [
+                      "build_id"
                     ],
-                    "markdownDescription": "ID of the build to submit. Most probably you want to reference another job's output, like \"${{ needs.some_job.outputs.build_id }}\""
+                    "additionalProperties": false
                   },
-                  "internal_groups": {
-                    "description": "TestFlight internal group names to add the build to.",
-                    "anyOf": [
-                      {
-                        "type": "string"
+                  {
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "not": {}
                       },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
+                      "build_id": {
+                        "not": {}
+                      },
+                      "asc_build_id": {
+                        "type": "string",
+                        "description": "ID of the App Store Connect build to submit for TestFlight review.",
+                        "markdownDescription": "ID of the App Store Connect build to submit for TestFlight review."
+                      },
+                      "internal_groups": {
+                        "not": {}
+                      },
+                      "external_groups": {
+                        "not": {}
+                      },
+                      "changelog": {
+                        "not": {}
+                      },
+                      "submit_beta_review": {
+                        "description": "Submits the build for Beta App Review. Must be true if specified.",
+                        "type": "boolean",
+                        "const": true,
+                        "markdownDescription": "Submits the build for Beta App Review. Must be true if specified."
+                      },
+                      "wait_processing_timeout_seconds": {
+                        "not": {}
                       }
+                    },
+                    "required": [
+                      "asc_build_id"
                     ],
-                    "markdownDescription": "TestFlight internal group names to add the build to."
-                  },
-                  "external_groups": {
-                    "description": "TestFlight external group names to add the build to.",
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    ],
-                    "markdownDescription": "TestFlight external group names to add the build to."
-                  },
-                  "changelog": {
-                    "description": "What to test notes for TestFlight",
-                    "type": "string",
-                    "markdownDescription": "What to test notes for TestFlight"
-                  },
-                  "submit_beta_review": {
-                    "description": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided.",
-                    "anyOf": [
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      }
-                    ],
-                    "markdownDescription": "Whether to submit for Beta App Review. If not specified, will be true when external_groups are provided."
-                  },
-                  "wait_processing_timeout_seconds": {
-                    "default": 1800,
-                    "description": "Timeout in seconds for waiting for build processing. Defaults to 1800 (30 minutes). Only applies when distributing to groups or setting changelog.",
-                    "type": "number",
-                    "exclusiveMinimum": 0,
-                    "markdownDescription": "Timeout in seconds for waiting for build processing. Defaults to 1800 (30 minutes). Only applies when distributing to groups or setting changelog."
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "build_id"
-                ],
-                "additionalProperties": false
+                ]
               },
               "env": {
                 "default": {},
