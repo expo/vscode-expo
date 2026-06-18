@@ -5532,7 +5532,10 @@
                         "not": {}
                       },
                       "changelog": {
-                        "not": {}
+                        "description": "What to test notes for TestFlight (max 4000 characters).",
+                        "type": "string",
+                        "maxLength": 4000,
+                        "markdownDescription": "What to test notes for TestFlight (max 4000 characters)."
                       },
                       "submit_beta_review": {
                         "description": "Submits the build for Beta App Review. Must be true if specified.",
