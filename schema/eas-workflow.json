@@ -445,7 +445,8 @@
                   "reopened",
                   "synchronize",
                   "labeled",
-                  "ready_for_review"
+                  "ready_for_review",
+                  "edited"
                 ]
               },
               "markdownDescription": "Describes the types of pull request events that will trigger the workflow. By default the workflow will be triggered by pull_request.opened, pull_request.reopened and pull_request.synchronize events."
@@ -5526,10 +5527,34 @@
                         "markdownDescription": "ID of the App Store Connect build to submit for TestFlight review."
                       },
                       "internal_groups": {
-                        "not": {}
+                        "description": "TestFlight internal group names to add the build to.",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "markdownDescription": "TestFlight internal group names to add the build to."
                       },
                       "external_groups": {
-                        "not": {}
+                        "description": "TestFlight external group names to add the build to.",
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        ],
+                        "markdownDescription": "TestFlight external group names to add the build to."
                       },
                       "changelog": {
                         "description": "What to test notes for TestFlight (max 4000 characters).",
@@ -5538,10 +5563,19 @@
                         "markdownDescription": "What to test notes for TestFlight (max 4000 characters)."
                       },
                       "submit_beta_review": {
-                        "description": "Submits the build for Beta App Review. Must be true if specified.",
-                        "type": "boolean",
-                        "const": true,
-                        "markdownDescription": "Submits the build for Beta App Review. Must be true if specified."
+                        "description": "Whether to submit for Beta App Review. Defaults to true when external_groups are provided, and false otherwise. Set to false to edit an already-submitted build (e.g. update changelog or add to groups) without re-submitting for review.",
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "markdownDescription": "Whether to submit for Beta App Review. Defaults to true when external_groups are provided, and false otherwise. Set to false to edit an already-submitted build (e.g. update changelog or add to groups) without re-submitting for review."
                       },
                       "wait_processing_timeout_seconds": {
                         "not": {}
