@@ -6058,6 +6058,13 @@
                       }
                     ],
                     "markdownDescription": "Whether to upload sourcemaps to Sentry. If not provided, the value will be inferred based on whether \"@sentry/react-native\" is installed."
+                  },
+                  "rollout_percentage": {
+                    "description": "Percentage of users this update should be immediately available to. When not specified, this defaults to 100.",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "markdownDescription": "Percentage of users this update should be immediately available to. When not specified, this defaults to 100."
                   }
                 },
                 "additionalProperties": false
