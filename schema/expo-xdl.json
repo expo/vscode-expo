@@ -1170,7 +1170,7 @@
           "markdownDescription": "Local path or remote URL to an image to use for your app's icon. We recommend that you use a 1024x1024 png file. This icon will appear on the home screen and within the Expo Go app.\n\n**Bare workflow** - To change your app's icon, edit or replace the files in `ios/<PROJECT-NAME>/Assets.xcassets/AppIcon.appiconset` (we recommend using Xcode), and `android/app/src/main/res/mipmap-<RESOLUTION>`. Be sure to follow the guidelines for each platform ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/), [Android 7.1 and below](https://material.io/design/iconography/#icon-treatments), and [Android 8+](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive)) and to provide your new icon in each existing size."
         },
         "androidStatusBar": {
-          "description": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).\n@deprecated Use the `expo-status-bar` plugin configuration instead",
+          "description": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/develop/user-interface/system-bars/).\n@deprecated Use the `expo-status-bar` plugin configuration instead",
           "type": "object",
           "properties": {
             "barStyle": {
@@ -1204,7 +1204,7 @@
             }
           },
           "additionalProperties": false,
-          "markdownDescription": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/guides/configuring-statusbar/).\n@deprecated Use the `expo-status-bar` plugin configuration instead"
+          "markdownDescription": "Configuration for the status bar on Android. For more details navigate to [Configuring StatusBar](https://docs.expo.dev/develop/user-interface/system-bars/).\n@deprecated Use the `expo-status-bar` plugin configuration instead"
         },
         "developmentClient": {
           "description": "Settings that apply specifically to running this app in a development client",
@@ -1355,7 +1355,7 @@
           "markdownDescription": "@deprecated Follow [the guide to select and exclude assets](https://docs.expo.dev/eas-update/asset-selection/) for EAS Update instead. An array of file glob strings which point to assets that will be bundled within your standalone app binary. Read more in the [Offline Support guide](https://docs.expo.dev/guides/offline-support/)"
         },
         "plugins": {
-          "description": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/guides/config-plugins/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build",
+          "description": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/config-plugins/introduction/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build",
           "meta": {
             "bareWorkflow": "Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build"
           },
@@ -1381,7 +1381,7 @@
               }
             ]
           },
-          "markdownDescription": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/guides/config-plugins/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build"
+          "markdownDescription": "Config plugins for adding extra functionality to your project. [Learn more](https://docs.expo.dev/config-plugins/introduction/).\n\n**Bare workflow** - Plugins that add modifications can only be used with [prebuilding](https://expo.fyi/prebuilding) and managed EAS Build"
         },
         "buildCacheProvider": {
           "description": "Enable downloading cached builds from remote.",
