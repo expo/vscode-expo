@@ -14135,14 +14135,22 @@
       "additionalProperties": false
     },
     "concurrency": {
-      "description": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows.",
+      "description": "Configuration for concurrency control. New workflow runs can cancel in-progress runs for the same workflow file and branch. Runs are never queued.",
       "type": "object",
       "properties": {
         "cancel_in_progress": {
-          "type": "boolean",
-          "const": true,
-          "description": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch.",
-          "markdownDescription": "If true, new workflow runs started from GitHub will cancel current in-progress runs for the same branch."
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string",
+              "maxLength": 250,
+              "pattern": "^\\$\\{\\{(?:(?!\\$\\{\\{)[\\s\\S])+\\}\\}$"
+            }
+          ],
+          "description": "Whether a new workflow run cancels in-progress runs for the same workflow file and branch. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel.",
+          "markdownDescription": "Whether a new workflow run cancels in-progress runs for the same workflow file and branch. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel."
         },
         "group": {
           "type": "string",
@@ -14156,7 +14164,7 @@
         "group"
       ],
       "additionalProperties": false,
-      "markdownDescription": "Configuration for concurrency control. Currently only allows setting cancel_in_progress for same-branch workflows."
+      "markdownDescription": "Configuration for concurrency control. New workflow runs can cancel in-progress runs for the same workflow file and branch. Runs are never queued."
     }
   },
   "required": [
