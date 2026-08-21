@@ -14135,7 +14135,7 @@
       "additionalProperties": false
     },
     "concurrency": {
-      "description": "Configuration for concurrency control. New workflow runs can cancel in-progress runs for the same workflow file and branch. Runs are never queued.",
+      "description": "Configuration for concurrency control. New workflow runs can cancel in-progress runs in the same concurrency group. Runs are never queued.",
       "type": "object",
       "properties": {
         "cancel_in_progress": {
@@ -14149,14 +14149,16 @@
               "pattern": "^\\$\\{\\{(?:(?!\\$\\{\\{)[\\s\\S])+\\}\\}$"
             }
           ],
-          "description": "Whether a new workflow run cancels in-progress runs for the same workflow file and branch. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel.",
-          "markdownDescription": "Whether a new workflow run cancels in-progress runs for the same workflow file and branch. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel."
+          "description": "Whether a new workflow run cancels in-progress runs in the same concurrency group. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel.",
+          "markdownDescription": "Whether a new workflow run cancels in-progress runs in the same concurrency group. Accepts a boolean or a single ${{ }} expression evaluated when the new run is created. A falsy result leaves in-progress runs running in parallel."
         },
         "group": {
           "type": "string",
-          "const": "${{ workflow.filename }}-${{ github.ref }}",
-          "description": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available.",
-          "markdownDescription": "Custom concurrency groups are not yet supported. Set this placeholder value to ensure that your workflow remains compatible when custom groups support is available."
+          "minLength": 1,
+          "maxLength": 250,
+          "pattern": "^(?:[^$]|\\$(?!\\{\\{)|\\$\\{\\{(?:[^}]|\\}(?!\\}))+\\}\\})+$",
+          "description": "The concurrency group key for runs of this workflow. Accepts literal text and ${{ }} expressions evaluated when the run is created, e.g. \"deploy-${{ github.ref }}\". Groups are shared across the workflow files of a project.",
+          "markdownDescription": "The concurrency group key for runs of this workflow. Accepts literal text and ${{ }} expressions evaluated when the run is created, e.g. \"deploy-${{ github.ref }}\". Groups are shared across the workflow files of a project."
         }
       },
       "required": [
@@ -14164,7 +14166,7 @@
         "group"
       ],
       "additionalProperties": false,
-      "markdownDescription": "Configuration for concurrency control. New workflow runs can cancel in-progress runs for the same workflow file and branch. Runs are never queued."
+      "markdownDescription": "Configuration for concurrency control. New workflow runs can cancel in-progress runs in the same concurrency group. Runs are never queued."
     }
   },
   "required": [
