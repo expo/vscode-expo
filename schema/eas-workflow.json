@@ -11199,6 +11199,18 @@
                     ],
                     "markdownDescription": "Whether to only repack the JavaScript bundle. Defaults to false, meaning the entire app metadata will be updated."
                   },
+                  "ios_signing_backend": {
+                    "description": "iOS signing backend. \"fastlane\" (the default) resigns with fastlane's resign action and requires a macOS worker. \"zsign\" (experimental) signs in-process without Xcode, so the job defaults to a Linux worker unless `runs_on` is set.",
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "markdownDescription": "iOS signing backend. \"fastlane\" (the default) resigns with fastlane's resign action and requires a macOS worker. \"zsign\" (experimental) signs in-process without Xcode, so the job defaults to a Linux worker unless `runs_on` is set."
+                  },
                   "ios_signing_use_source_app_entitlements": {
                     "description": "Whether to use fastlane resign `use_app_entitlements` behavior: extract app bundle code signing entitlements and combine them with entitlements from the new provisioning profile. Defaults to false.",
                     "anyOf": [
