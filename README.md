@@ -70,7 +70,7 @@ See how your changes in **app.json** or **app.config.js** would affect the nativ
 ### Supported Android files
 
 - [`AndroidManifest.xml`](https://developer.android.com/guide/topics/manifest/manifest-intro) → App manifest with settings for build tools, Android, and Google Play.
-- [`gradle.properties`](https://developer.android.com/studio/build#properties-files) → Configuration for the Grdle build toolkit itself.
+- [`gradle.properties`](https://developer.android.com/studio/build#properties-files) → Configuration for the Gradle build toolkit itself.
 - [`colors.xml`](https://developer.android.com/guide/topics/resources/more-resources#Color) → Color resources defining the color and opacity.
 - [`strings.xml`](https://developer.android.com/guide/topics/resources/string-resource) → String resources defining string content, styling, and formatting.
 - [`styles.xml`](https://developer.android.com/guide/topics/resources/style-resource) → Style resources defining the format and look for a UI element.
