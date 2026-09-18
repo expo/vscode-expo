@@ -9458,9 +9458,21 @@
                     "markdownDescription": "Message to use for the update. If not provided, the commit message will be used."
                   },
                   "platform": {
-                    "description": "Platform to use for the update (\"android\", \"ios\" or \"all\").",
-                    "type": "string",
-                    "markdownDescription": "Platform to use for the update (\"android\", \"ios\" or \"all\")."
+                    "description": "Platform to use for the update. One of \"android\", \"ios\" or \"all\".",
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "android",
+                          "ios",
+                          "all"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "markdownDescription": "Platform to use for the update. One of \"android\", \"ios\" or \"all\"."
                   },
                   "branch": {
                     "description": "Branch to use for the update. If not provided, the branch from the workflow run will be used. For manually run workflows you need to provide a value. Example: \"${{ github.ref_name || 'testing-new-workflow' }}\". Provide *either* a branch or a channel, not both.",
@@ -10649,9 +10661,17 @@
                   },
                   "ios_signing_backend": {
                     "description": "iOS signing backend. \"fastlane\" (the default) resigns with fastlane's resign action and requires a macOS worker. \"zsign\" (experimental) signs in-process without Xcode, so the job defaults to a Linux worker unless `runs_on` is set.",
-                    "type": [
-                      "number",
-                      "string"
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "fastlane",
+                          "zsign"
+                        ]
+                      },
+                      {
+                        "type": "string"
+                      }
                     ],
                     "markdownDescription": "iOS signing backend. \"fastlane\" (the default) resigns with fastlane's resign action and requires a macOS worker. \"zsign\" (experimental) signs in-process without Xcode, so the job defaults to a Linux worker unless `runs_on` is set."
                   },
