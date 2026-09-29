@@ -225,6 +225,256 @@
           "additionalProperties": false,
           "markdownDescription": "Configuration for manual workflow triggers"
         },
+        "workflow_call": {
+          "description": "Allows a `uses` job in another workflow file of this project to run this workflow. Not a trigger by itself: the calling workflow decides when a run starts, so this block accepts no `if`.",
+          "type": "object",
+          "properties": {
+            "inputs": {
+              "description": "Inputs the calling job passes through `with`. Same shape as `workflow_dispatch` inputs. Available in this workflow as `inputs.<name>`.",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "default": "string",
+                        "type": "string",
+                        "const": "string"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "boolean"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "number"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": "number",
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "choice"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Default value for the input"
+                      },
+                      "options": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "number",
+                            "string"
+                          ]
+                        },
+                        "description": "Options for choice type inputs",
+                        "markdownDescription": "Options for choice type inputs"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "options"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "description": "Description of the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Description of the input"
+                      },
+                      "required": {
+                        "description": "Whether the input is required.",
+                        "type": [
+                          "boolean",
+                          "string",
+                          "number"
+                        ],
+                        "markdownDescription": "Whether the input is required."
+                      },
+                      "type": {
+                        "type": "string",
+                        "const": "environment"
+                      },
+                      "default": {
+                        "description": "Default value for the input",
+                        "type": [
+                          "number",
+                          "string"
+                        ],
+                        "markdownDescription": "Default value for the input"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "markdownDescription": "Inputs the calling job passes through `with`. Same shape as `workflow_dispatch` inputs. Available in this workflow as `inputs.<name>`."
+            },
+            "outputs": {
+              "description": "Values returned to the calling job when this workflow run succeeds, available there as `needs.<job_id>.outputs.<name>`.",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "description": "Description of the output.",
+                    "type": [
+                      "number",
+                      "string"
+                    ],
+                    "markdownDescription": "Description of the output."
+                  },
+                  "value": {
+                    "type": "string",
+                    "maxLength": 250,
+                    "description": "Expression evaluated when the called workflow run succeeds. Reads the called run's jobs as `jobs.<job_id>.outputs.<name>` and its inputs as `inputs.<name>`. The calling job exposes the result as `needs.<job_id>.outputs.<output_name>`.",
+                    "markdownDescription": "Expression evaluated when the called workflow run succeeds. Reads the called run's jobs as `jobs.<job_id>.outputs.<name>` and its inputs as `inputs.<name>`. The calling job exposes the result as `needs.<job_id>.outputs.<output_name>`."
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "markdownDescription": "Values returned to the calling job when this workflow run succeeds, available there as `needs.<job_id>.outputs.<name>`."
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "Allows a `uses` job in another workflow file of this project to run this workflow. Not a trigger by itself: the calling workflow decides when a run starts, so this block accepts no `if`."
+        },
         "push": {
           "description": "If provided, the workflow will be triggered on pushes to the specified branches and/or tags.",
           "type": "object",
@@ -4723,6 +4973,9 @@
                   "type": "string"
                 },
                 "markdownDescription": "Mapping from steps outputs to job outputs."
+              },
+              "uses": {
+                "not": {}
               },
               "steps": {
                 "type": "array",
@@ -11553,6 +11806,80 @@
             "required": [
               "type",
               "params"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of the job. Displayed on the workflow run page.",
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "markdownDescription": "The name of the job. Displayed on the workflow run page."
+              },
+              "if": {
+                "description": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details.",
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "markdownDescription": "If provided and evaluates to a falsey value, job will not run. Instead, it will get created with \"skipped\" status. See https://docs.expo.dev/eas-workflows/control-flow/#if for more details."
+              },
+              "needs": {
+                "description": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed.",
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "markdownDescription": "List of keys of dependant jobs. The job will only run if all of the dependencies have successfully completed."
+              },
+              "after": {
+                "description": "List of keys of jobs that are required to complete before this job can run.",
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "markdownDescription": "List of keys of jobs that are required to complete before this job can run."
+              },
+              "uses": {
+                "type": "string",
+                "maxLength": 250,
+                "pattern": "^\\.\\/\\.eas\\/workflows\\/(?:(?!\\$\\{\\{)[^/\\\\])+\\.ya?ml$",
+                "description": "Path of the workflow file to call, relative to the app directory, e.g. \"./.eas/workflows/build.yml\". The called workflow must declare `on.workflow_call`. A job with `uses` has no `type`, `steps` or `params`. The called workflow defines its own jobs.",
+                "markdownDescription": "Path of the workflow file to call, relative to the app directory, e.g. \"./.eas/workflows/build.yml\". The called workflow must declare `on.workflow_call`. A job with `uses` has no `type`, `steps` or `params`. The called workflow defines its own jobs."
+              },
+              "with": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                },
+                "description": "Inputs for the called workflow. Every key must be declared under `on.workflow_call.inputs` of the called workflow. Values may use ${{ }} expressions over the calling run's context, including `needs` and `inputs`, but not `env`.",
+                "markdownDescription": "Inputs for the called workflow. Every key must be declared under `on.workflow_call.inputs` of the called workflow. Values may use ${{ }} expressions over the calling run's context, including `needs` and `inputs`, but not `env`."
+              }
+            },
+            "required": [
+              "uses"
             ],
             "additionalProperties": false
           }
