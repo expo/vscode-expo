@@ -916,6 +916,52 @@
           "additionalProperties": false,
           "markdownDescription": "If provided, the workflow will be triggered by the specified App Store Connect events."
         },
+        "sentry": {
+          "description": "If provided, the workflow will be triggered by the specified Sentry events.",
+          "type": "object",
+          "properties": {
+            "issue": {
+              "type": "object",
+              "properties": {
+                "actions": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "created",
+                      "resolved",
+                      "assigned",
+                      "archived",
+                      "unresolved"
+                    ]
+                  },
+                  "description": "List of Sentry issue actions that trigger this workflow.",
+                  "markdownDescription": "List of Sentry issue actions that trigger this workflow."
+                },
+                "if": {
+                  "description": "Condition evaluated when this trigger would start a workflow run. A falsy result means no run is created. Retries of an existing run bypass the condition. Accepts a boolean or an expression, with or without the ${{ }} wrapper, e.g. `${{ !github.event.pull_request.draft }}`. `workflow.id` and `workflow.url` are not yet available at this point and evaluate to undefined.",
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 250
+                    }
+                  ],
+                  "markdownDescription": "Condition evaluated when this trigger would start a workflow run. A falsy result means no run is created. Retries of an existing run bypass the condition. Accepts a boolean or an expression, with or without the ${{ }} wrapper, e.g. `${{ !github.event.pull_request.draft }}`. `workflow.id` and `workflow.url` are not yet available at this point and evaluate to undefined."
+                }
+              },
+              "required": [
+                "actions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "If provided, the workflow will be triggered by the specified Sentry events."
+        },
         "schedule": {
           "description": "List of cron expressions to trigger the workflow.",
           "type": "array",
