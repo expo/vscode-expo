@@ -119,7 +119,15 @@
                       },
                       "default": {
                         "description": "Default value for the input",
-                        "type": "number",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ],
                         "markdownDescription": "Default value for the input"
                       }
                     },
@@ -338,7 +346,15 @@
                       },
                       "default": {
                         "description": "Default value for the input",
-                        "type": "number",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ],
                         "markdownDescription": "Default value for the input"
                       }
                     },
