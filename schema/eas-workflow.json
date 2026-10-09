@@ -12032,9 +12032,15 @@
                   "max_duration_seconds": {
                     "default": 1800,
                     "description": "Seconds the agent may run before it is stopped. At most the account's job run time limit minus 300 seconds.",
-                    "type": "integer",
-                    "exclusiveMinimum": 0,
-                    "maximum": 9007199254740991,
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+(\\.\\d+)?$"
+                      }
+                    ],
                     "markdownDescription": "Seconds the agent may run before it is stopped. At most the account's job run time limit minus 300 seconds."
                   },
                   "limits": {
@@ -12044,10 +12050,29 @@
                     "properties": {
                       "builds": {
                         "description": "Builds the agent may start. Omit for no limit.",
-                        "type": "integer",
-                        "minimum": 0,
-                        "maximum": 9007199254740991,
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ],
                         "markdownDescription": "Builds the agent may start. Omit for no limit."
+                      },
+                      "simulator_minutes": {
+                        "description": "Total simulator minutes available to the agent. Omit for no limit.",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ],
+                        "markdownDescription": "Total simulator minutes available to the agent. Omit for no limit."
                       }
                     },
                     "additionalProperties": false,
