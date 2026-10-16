@@ -1,6 +1,6 @@
 {
   "description": "The Expo manifest (app.json) validation and documentation.",
-  "version": "57.0.0",
+  "version": "58.0.0",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Android": {
@@ -747,14 +747,14 @@
       "additionalProperties": true,
       "properties": {
         "output": {
-          "description": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` outputs static HTML, and API Routes for hosting with a custom Node.js server. Defaults to `single`.",
+          "description": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` renders HTML pages on each request and supports API routes, requiring deployment to a server. Defaults to `single`.",
           "enum": [
             "single",
             "static",
             "server"
           ],
           "type": "string",
-          "markdownDescription": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` outputs static HTML, and API Routes for hosting with a custom Node.js server. Defaults to `single`."
+          "markdownDescription": "Sets the export method for the web app for both `expo start` and `expo export`. `static` statically renders HTML files for every route in the `app/` directory, which is available only in Expo Router apps. `single` outputs a Single Page Application (SPA), with a single `index.html` in the output folder, and has no statically indexable HTML. `server` renders HTML pages on each request and supports API routes, requiring deployment to a server. Defaults to `single`."
         },
         "favicon": {
           "description": "Relative path of an image to use for your app's favicon.",
@@ -1323,6 +1323,18 @@
               "description": "Whether to enable support for downloading and applying bundle diffs using bsdiff. Defaults to true.",
               "type": "boolean",
               "markdownDescription": "Whether to enable support for downloading and applying bundle diffs using bsdiff. Defaults to true."
+            },
+            "excludeFromBackup": {
+              "description": "iOS only. Whether to exclude the expo-updates directory from device backups (iCloud). Defaults to false. When set to true, downloaded updates are not included in backups, which can significantly shrink backup size for apps with large updates. On restore the device has no cached update and runs the embedded update until the latest update is downloaded again.",
+              "type": "boolean",
+              "markdownDescription": "iOS only. Whether to exclude the expo-updates directory from device backups (iCloud). Defaults to false. When set to true, downloaded updates are not included in backups, which can significantly shrink backup size for apps with large updates. On restore the device has no cached update and runs the embedded update until the latest update is downloaded again."
+            },
+            "maxUpdatesToKeep": {
+              "description": "Number of updates to keep, including the one currently running. For example, 3 keeps the running update and up to two older updates. Updates that match the manifest filters take priority, with the newest updates kept first. Defaults to 2. This value controls how many older updates to keep alongside the running update. Cleanup leaves updates from other scopes and updates with the same or a newer commit time than the running update untouched, so the cache can contain more updates than this value.",
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 2147483647,
+              "markdownDescription": "Number of updates to keep, including the one currently running. For example, 3 keeps the running update and up to two older updates. Updates that match the manifest filters take priority, with the newest updates kept first. Defaults to 2. This value controls how many older updates to keep alongside the running update. Cleanup leaves updates from other scopes and updates with the same or a newer commit time than the running update untouched, so the cache can contain more updates than this value."
             }
           },
           "additionalProperties": false,
@@ -1552,6 +1564,26 @@
               ],
               "additionalProperties": false,
               "markdownDescription": "Configuration for inline modules. If defined it enables inline modules functionality in expo cli and expo-modules-autolinking."
+            },
+            "chunking": {
+              "description": "Configure how JavaScript is split for async routes in production web apps. Requires `asyncRoutes` to be enabled.",
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "description": "The strategy used to split JavaScript for async routes. Use `granular` to group shared dependencies by the async routes that need them. Defaults to `legacy` when `chunking` is omitted.",
+                  "type": "string",
+                  "enum": [
+                    "legacy",
+                    "granular"
+                  ],
+                  "markdownDescription": "The strategy used to split JavaScript for async routes. Use `granular` to group shared dependencies by the async routes that need them. Defaults to `legacy` when `chunking` is omitted."
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "markdownDescription": "Configure how JavaScript is split for async routes in production web apps. Requires `asyncRoutes` to be enabled."
             }
           },
           "markdownDescription": "Enable experimental features that may be unstable, unsupported, or removed without deprecation notices."
@@ -1562,8 +1594,8 @@
         "name",
         "slug"
       ],
-      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v57.0.0/config/app/",
-      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v57.0.0/config/app/)"
+      "description": "All configurable Expo manifest properties. Learn more: https://docs.expo.dev/versions/v58.0.0/config/app/",
+      "markdownDescription": "All configurable Expo manifest properties. [Learn more](https://docs.expo.dev/versions/v58.0.0/config/app/)"
     }
   },
   "oneOf": [
