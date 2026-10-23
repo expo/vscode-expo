@@ -12073,6 +12073,19 @@
                           }
                         ],
                         "markdownDescription": "Total simulator minutes available to the agent. Omit for no limit."
+                      },
+                      "sandbox_minutes": {
+                        "description": "Total sandbox minutes available to the agent. Omit for no limit.",
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ],
+                        "markdownDescription": "Total sandbox minutes available to the agent. Omit for no limit."
                       }
                     },
                     "additionalProperties": false,
