@@ -12074,6 +12074,17 @@
                         ],
                         "markdownDescription": "Total simulator minutes available to the agent. Omit for no limit."
                       },
+                      "concurrent_sandboxes": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          }
+                        ]
+                      },
                       "sandbox_minutes": {
                         "description": "Total sandbox minutes available to the agent. Omit for no limit.",
                         "anyOf": [
@@ -14045,6 +14056,38 @@
       ],
       "additionalProperties": false,
       "markdownDescription": "Configuration for concurrency control. New workflow runs can cancel in-progress runs in the same concurrency group. Runs are never queued."
+    },
+    "permissions": {
+      "description": "Permissions of the EXPO_TOKEN that each job of the workflow gets. Without this, the token has the Developer role.",
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "enum": [
+                "runner",
+                "developer",
+                "release_manager"
+              ],
+              "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+              "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+            }
+          },
+          "required": [
+            "role"
+          ],
+          "additionalProperties": false,
+          "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+          "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+        }
+      },
+      "required": [
+        "account"
+      ],
+      "additionalProperties": false,
+      "markdownDescription": "Permissions of the EXPO_TOKEN that each job of the workflow gets. Without this, the token has the Developer role."
     }
   },
   "required": [
