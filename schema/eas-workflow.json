@@ -1067,6 +1067,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "runs_on": {
                 "anyOf": [
                   {
@@ -3180,6 +3212,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "type": "string",
@@ -5108,6 +5172,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "env": {
                 "description": "Environment variables to provide to the job.",
                 "type": "object",
@@ -5715,6 +5811,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "env": {
                 "description": "Environment variables to provide to the job.",
                 "type": "object",
@@ -6305,6 +6433,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -6474,6 +6634,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -7208,6 +7400,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -7963,6 +8187,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               }
             },
             "required": [
@@ -8027,6 +8283,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "params": {
                 "type": "object",
@@ -8102,6 +8390,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -9034,6 +9354,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
                 "type": "string",
@@ -9758,6 +10110,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "image": {
                 "description": "VM image to use for the job. See https://docs.expo.dev/build-reference/infrastructure/ for available images.",
@@ -10717,6 +11101,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "params": {
                 "anyOf": [
                   {
@@ -10822,6 +11238,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -10900,6 +11348,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "runs_on": {
                 "anyOf": [
@@ -11599,6 +12079,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "params": {
                 "description": "Comment parameters. Either provide custom payload content, or use auto-discovery with optional overrides for builds and updates.",
                 "anyOf": [
@@ -11748,6 +12260,38 @@
                 ],
                 "markdownDescription": "The environment variable environment for the job."
               },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
+              },
               "params": {
                 "type": "object",
                 "properties": {
@@ -11838,6 +12382,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "params": {
                 "type": "object",
@@ -12002,6 +12578,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "params": {
                 "type": "object",
@@ -12173,6 +12781,38 @@
                   "string"
                 ],
                 "markdownDescription": "The environment variable environment for the job."
+              },
+              "permissions": {
+                "description": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow.",
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "object",
+                    "properties": {
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "runner",
+                          "developer",
+                          "release_manager"
+                        ],
+                        "description": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail.",
+                        "markdownDescription": "The role of the EXPO_TOKEN. The person or robot that starts the job must have at least this role on the account, or the job will fail."
+                      }
+                    },
+                    "required": [
+                      "role"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Permissions of the EXPO_TOKEN on the account that owns the project.",
+                    "markdownDescription": "Permissions of the EXPO_TOKEN on the account that owns the project."
+                  }
+                },
+                "required": [
+                  "account"
+                ],
+                "additionalProperties": false,
+                "markdownDescription": "Permissions of the EXPO_TOKEN that the job gets. Overrides \"permissions\" of the workflow."
               },
               "params": {
                 "type": "object",
@@ -14208,7 +14848,7 @@
       "markdownDescription": "Configuration for concurrency control. At most one run of a concurrency group executes at a time: a new run cancels in-progress runs in the group when cancel_in_progress is truthy, and otherwise waits for them to finish."
     },
     "permissions": {
-      "description": "Permissions of the EXPO_TOKEN that each job of the workflow gets. Without this, the token has the Developer role.",
+      "description": "Permissions of the EXPO_TOKEN that each job of the workflow gets. A job can override this with its own \"permissions\". Without either, the token has the Developer role.",
       "type": "object",
       "properties": {
         "account": {
@@ -14237,7 +14877,7 @@
         "account"
       ],
       "additionalProperties": false,
-      "markdownDescription": "Permissions of the EXPO_TOKEN that each job of the workflow gets. Without this, the token has the Developer role."
+      "markdownDescription": "Permissions of the EXPO_TOKEN that each job of the workflow gets. A job can override this with its own \"permissions\". Without either, the token has the Developer role."
     }
   },
   "required": [
