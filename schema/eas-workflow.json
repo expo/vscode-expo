@@ -978,6 +978,56 @@
           "additionalProperties": false,
           "markdownDescription": "If provided, the workflow will be triggered by the specified Sentry events."
         },
+        "observe": {
+          "description": "If provided, the workflow will be triggered by the specified Observe events.",
+          "type": "object",
+          "properties": {
+            "new_error": {
+              "type": "object",
+              "properties": {
+                "environments": {
+                  "description": "Environments in which a new error group triggers this workflow. Omit to match all environments.",
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "markdownDescription": "Environments in which a new error group triggers this workflow. Omit to match all environments."
+                },
+                "platforms": {
+                  "description": "Platforms on which a new error group triggers this workflow. Omit to match all platforms.",
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "ios",
+                      "android"
+                    ]
+                  },
+                  "markdownDescription": "Platforms on which a new error group triggers this workflow. Omit to match all platforms."
+                },
+                "if": {
+                  "description": "Condition evaluated when this trigger would start a workflow run. A falsy result means no run is created. Retries of an existing run bypass the condition. Accepts a boolean or an expression, with or without the ${{ }} wrapper, e.g. `${{ !github.event.pull_request.draft }}`. `workflow.id` and `workflow.url` are not yet available at this point and evaluate to undefined.",
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 250
+                    }
+                  ],
+                  "markdownDescription": "Condition evaluated when this trigger would start a workflow run. A falsy result means no run is created. Retries of an existing run bypass the condition. Accepts a boolean or an expression, with or without the ${{ }} wrapper, e.g. `${{ !github.event.pull_request.draft }}`. `workflow.id` and `workflow.url` are not yet available at this point and evaluate to undefined."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "If provided, the workflow will be triggered by the specified Observe events."
+        },
         "schedule": {
           "description": "List of cron expressions to trigger the workflow.",
           "type": "array",
