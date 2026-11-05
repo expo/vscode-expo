@@ -12707,54 +12707,88 @@
                     "type": "object",
                     "properties": {
                       "builds": {
-                        "description": "Builds the agent may start. Omit for no limit.",
+                        "default": 10,
+                        "description": "Builds the agent may start. Null for no limit.",
                         "anyOf": [
                           {
-                            "type": "number"
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^-?\\d+(\\.\\d+)?$"
+                              }
+                            ]
                           },
                           {
-                            "type": "string",
-                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                            "type": "null"
                           }
                         ],
-                        "markdownDescription": "Builds the agent may start. Omit for no limit."
+                        "markdownDescription": "Builds the agent may start. Null for no limit."
                       },
                       "simulator_minutes": {
-                        "description": "Total simulator minutes available to the agent. Omit for no limit.",
+                        "default": null,
+                        "description": "Total simulator minutes available to the agent. Null for no limit.",
                         "anyOf": [
                           {
-                            "type": "number"
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^-?\\d+(\\.\\d+)?$"
+                              }
+                            ]
                           },
                           {
-                            "type": "string",
-                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                            "type": "null"
                           }
                         ],
-                        "markdownDescription": "Total simulator minutes available to the agent. Omit for no limit."
+                        "markdownDescription": "Total simulator minutes available to the agent. Null for no limit."
                       },
                       "concurrent_sandboxes": {
+                        "default": 3,
+                        "description": "Sandboxes the agent may run at once. Null for no limit.",
                         "anyOf": [
                           {
-                            "type": "number"
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^-?\\d+(\\.\\d+)?$"
+                              }
+                            ]
                           },
                           {
-                            "type": "string",
-                            "pattern": "^-?\\d+(\\.\\d+)?$"
-                          }
-                        ]
-                      },
-                      "sandbox_minutes": {
-                        "description": "Total sandbox minutes available to the agent. Omit for no limit.",
-                        "anyOf": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "string",
-                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                            "type": "null"
                           }
                         ],
-                        "markdownDescription": "Total sandbox minutes available to the agent. Omit for no limit."
+                        "markdownDescription": "Sandboxes the agent may run at once. Null for no limit."
+                      },
+                      "sandbox_minutes": {
+                        "default": null,
+                        "description": "Total sandbox minutes available to the agent. Null for no limit.",
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^-?\\d+(\\.\\d+)?$"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "markdownDescription": "Total sandbox minutes available to the agent. Null for no limit."
                       }
                     },
                     "additionalProperties": false,
