@@ -12687,9 +12687,8 @@
                     "description": "What the agent is asked to do. At most 32768 characters.",
                     "markdownDescription": "What the agent is asked to do. At most 32768 characters."
                   },
-                  "max_duration_seconds": {
-                    "default": 1800,
-                    "description": "Seconds the agent may run before it is stopped. At most the account's job run time limit minus 300 seconds.",
+                  "max_duration_minutes": {
+                    "description": "Minutes the agent may run before it is stopped. At most the account's job run time limit minus 5 minutes, which is also the limit when omitted.",
                     "anyOf": [
                       {
                         "type": "number"
@@ -12699,7 +12698,12 @@
                         "pattern": "^-?\\d+(\\.\\d+)?$"
                       }
                     ],
-                    "markdownDescription": "Seconds the agent may run before it is stopped. At most the account's job run time limit minus 300 seconds."
+                    "markdownDescription": "Minutes the agent may run before it is stopped. At most the account's job run time limit minus 5 minutes, which is also the limit when omitted."
+                  },
+                  "max_duration_seconds": {
+                    "description": "Removed. Use `max_duration_minutes` instead.",
+                    "not": {},
+                    "markdownDescription": "Removed. Use `max_duration_minutes` instead."
                   },
                   "limits": {
                     "description": "What the agent may do on the account. The job token enforces these limits.",
