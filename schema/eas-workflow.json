@@ -12960,12 +12960,12 @@
       "markdownDescription": "The name of the workflow itself. Displayed on the workflow page and as the fallback run title. Distinct from `run_name`, which sets a title for each individual run."
     },
     "run_name": {
-      "description": "Display title for each workflow run, equivalent to GitHub Actions `run-name`. Supports ${{ }} expressions over the `github`, `inputs`, `workflow`, `app`, and `account` contexts, e.g. \"Deploy ${{ inputs.environment }} from ${{ github.ref_name }}\". Falls back to the workflow name when empty.",
+      "description": "Display title for each workflow run, equivalent to GitHub Actions `run-name`. Supports ${{ }} expressions over the `github`, `inputs`, `workflow`, `app`, `account`, `app_store_connect`, and `sentry` contexts, e.g. \"Deploy ${{ inputs.environment }} from ${{ github.ref_name }}\". Falls back to the workflow name when empty.",
       "type": [
         "number",
         "string"
       ],
-      "markdownDescription": "Display title for each workflow run, equivalent to GitHub Actions `run-name`. Supports ${{ }} expressions over the `github`, `inputs`, `workflow`, `app`, and `account` contexts, e.g. \"Deploy ${{ inputs.environment }} from ${{ github.ref_name }}\". Falls back to the workflow name when empty."
+      "markdownDescription": "Display title for each workflow run, equivalent to GitHub Actions `run-name`. Supports ${{ }} expressions over the `github`, `inputs`, `workflow`, `app`, `account`, `app_store_connect`, and `sentry` contexts, e.g. \"Deploy ${{ inputs.environment }} from ${{ github.ref_name }}\". Falls back to the workflow name when empty."
     },
     "defaults": {
       "type": "object",
