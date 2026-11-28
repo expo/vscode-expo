@@ -12687,6 +12687,16 @@
                     "description": "What the agent is asked to do. At most 32768 characters.",
                     "markdownDescription": "What the agent is asked to do. At most 32768 characters."
                   },
+                  "model": {
+                    "description": "The model the agent uses. The value is passed to the agent as is, so it must be a model name the agent accepts. The agent uses its default model when omitted or empty.",
+                    "type": "string",
+                    "markdownDescription": "The model the agent uses. The value is passed to the agent as is, so it must be a model name the agent accepts. The agent uses its default model when omitted or empty."
+                  },
+                  "effort": {
+                    "description": "The reasoning effort level the agent uses, for example \"high\". The value is passed to the agent as is, so it must be a level the agent and the model accept. The agent uses its default level when omitted or empty.",
+                    "type": "string",
+                    "markdownDescription": "The reasoning effort level the agent uses, for example \"high\". The value is passed to the agent as is, so it must be a level the agent and the model accept. The agent uses its default level when omitted or empty."
+                  },
                   "max_duration_minutes": {
                     "description": "Minutes the agent may run before it is stopped. At most the account's job run time limit minus 5 minutes, which is also the limit when omitted.",
                     "anyOf": [
